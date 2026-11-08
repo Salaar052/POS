@@ -1,0 +1,11 @@
+// Pak POS cloud database — business models land in Phase 4+.
+// Phase 1: validate tooling only; do not run migrations against production.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}

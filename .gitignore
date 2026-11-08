@@ -1,0 +1,61 @@
+# Secrets and environment
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# OS and editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.cursor/
+*.swp
+*.swo
+
+# Node / NestJS (server)
+node_modules/
+server/node_modules/
+server/dist/
+server/coverage/
+dist/
+coverage/
+*.tsbuildinfo
+
+# Prisma
+server/prisma/*.db
+server/prisma/*.db-journal
+
+# Flutter / Dart (mobile)
+mobile/.dart_tool/
+mobile/.packages
+mobile/.pub-cache/
+mobile/.pub/
+mobile/build/
+mobile/**/doc/api/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.metadata
+
+# Android
+mobile/**/local.properties
+mobile/**/*.iml
+mobile/.gradle/
+mobile/**/captures/
+mobile/**/.cxx/
+
+# iOS / macOS (future)
+mobile/**/Pods/
+mobile/**/DerivedData/
+mobile/**/xcuserdata/
+
+# Windows desktop build artifacts
+mobile/**/windows/flutter/ephemeral/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Test outputs
+mobile/coverage/
