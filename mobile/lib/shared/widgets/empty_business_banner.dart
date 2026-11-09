@@ -13,7 +13,9 @@ class EmptyBusinessBanner extends StatelessWidget {
     final bg = isDark
         ? AppColors.slate800.withValues(alpha: 0.9)
         : AppColors.warning.withValues(alpha: 0.12);
-    final border = isDark ? AppColors.borderDark : AppColors.warning.withValues(alpha: 0.35);
+    final border = isDark
+        ? AppColors.borderDark
+        : AppColors.warning.withValues(alpha: 0.35);
 
     return Material(
       color: bg,
@@ -24,9 +26,7 @@ class EmptyBusinessBanner extends StatelessWidget {
           vertical: AppSpacing.sm,
         ),
         decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(color: border),
-          ),
+          border: Border(bottom: BorderSide(color: border)),
         ),
         child: Row(
           children: [

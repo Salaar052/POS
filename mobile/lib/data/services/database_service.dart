@@ -11,6 +11,8 @@ class DatabaseService {
   /// Set when opening [openForBusiness]; null for bootstrap (pre-provision).
   final String? businessId;
 
+  bool get isBootstrap => businessId == null;
+
   AppDatabase get database => _database;
 
   /// In-memory service for widget/unit tests (no file I/O).

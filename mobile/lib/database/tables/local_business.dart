@@ -19,8 +19,7 @@ class LocalBusiness extends Table {
 
   TextColumn get currencyCode => text().withDefault(const Constant('PKR'))();
 
-  TextColumn get settingsJson =>
-      text().withDefault(const Constant('{}'))();
+  TextColumn get settingsJson => text().withDefault(const Constant('{}'))();
 
   IntColumn get createdAtMs => integer()();
 

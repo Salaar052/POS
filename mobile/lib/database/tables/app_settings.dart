@@ -5,8 +5,7 @@ import 'package:pos_mobile/database/tables/local_business.dart';
 class AppSettings extends Table {
   TextColumn get settingKey => text()();
 
-  TextColumn get businessId =>
-      text().references(LocalBusiness, #businessId)();
+  TextColumn get businessId => text().references(LocalBusiness, #businessId)();
 
   TextColumn get valueJson => text()();
 

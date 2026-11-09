@@ -12,15 +12,15 @@ void main() {
   test('transaction rollback on enqueue failure', () async {
     final db = openMemoryDatabase();
     final runner = DatabaseRunner(db);
-    await LocalBusinessRepository(runner).provisionBusiness(
-      businessId: 'biz-a',
-      name: 'Shop',
-    );
+    await LocalBusinessRepository(runner)
+        .provisionBusiness(businessId: 'biz-a', name: 'Shop');
     final sync = SyncQueueRepository(runner);
     await expectLater(
       () => runner.runInTransaction(() async {
         final now = DateTime.now().toUtc().millisecondsSinceEpoch;
-        await db.into(db.appSettings).insert(
+        await db
+            .into(db.appSettings)
+            .insert(
               AppSettingsCompanion.insert(
                 settingKey: 'tax',
                 businessId: 'biz-a',
@@ -40,8 +40,9 @@ void main() {
       }),
       throwsA(isA<Exception>()),
     );
-    final row =
-        await (db.select(db.appSettings)..where((t) => t.settingKey.equals('tax'))).getSingleOrNull();
+    final row = await (db.select(
+      db.appSettings,
+    )..where((t) => t.settingKey.equals('tax'))).getSingleOrNull();
     expect(row, isNull);
     final ops = await db.select(db.syncOperations).get();
     expect(ops, isEmpty);
@@ -52,14 +53,13 @@ void main() {
     final dir = await Directory.systemTemp.createTemp('pakpos_test');
     final path = p.join(dir.path, 'business_biz-a.sqlite');
     final openFirst = openFileDatabase(path);
-    await LocalBusinessRepository(DatabaseRunner(openFirst)).provisionBusiness(
-      businessId: 'biz-a',
-      name: 'Persistent Shop',
-    );
+    await LocalBusinessRepository(DatabaseRunner(openFirst))
+        .provisionBusiness(businessId: 'biz-a', name: 'Persistent Shop');
     await openFirst.close();
 
     final openSecond = openFileDatabase(path);
-    final business = await LocalBusinessRepository(DatabaseRunner(openSecond)).getBusiness();
+    final business = await LocalBusinessRepository(DatabaseRunner(openSecond))
+        .getBusiness();
     expect(business?.name, 'Persistent Shop');
     await openSecond.close();
     await dir.delete(recursive: true);

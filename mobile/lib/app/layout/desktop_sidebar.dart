@@ -5,10 +5,7 @@ import 'package:pos_mobile/app/theme/app_colors.dart';
 import 'package:pos_mobile/app/theme/app_spacing.dart';
 
 class DesktopSidebar extends StatelessWidget {
-  const DesktopSidebar({
-    super.key,
-    required this.selectedPath,
-  });
+  const DesktopSidebar({super.key, required this.selectedPath});
 
   final String selectedPath;
 
@@ -24,9 +21,7 @@ class DesktopSidebar extends StatelessWidget {
       child: Container(
         width: AppSpacing.sidebarWidth,
         decoration: BoxDecoration(
-          border: BorderDirectional(
-            end: BorderSide(color: border),
-          ),
+          border: BorderDirectional(end: BorderSide(color: border)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -74,10 +69,7 @@ class DesktopSidebar extends StatelessWidget {
 }
 
 class _SidebarTile extends StatelessWidget {
-  const _SidebarTile({
-    required this.destination,
-    required this.selected,
-  });
+  const _SidebarTile({required this.destination, required this.selected});
 
   final AppNavDestination destination;
   final bool selected;
@@ -102,7 +94,9 @@ class _SidebarTile extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         selectedTileColor: colorScheme.primary.withValues(alpha: 0.12),
         selectedColor: colorScheme.primary,
-        iconColor: selected ? colorScheme.primary : colorScheme.onSurfaceVariant,
+        iconColor: selected
+            ? colorScheme.primary
+            : colorScheme.onSurfaceVariant,
         onTap: () => context.go(destination.path),
       ),
     );

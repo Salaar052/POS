@@ -17,10 +17,8 @@ void main() {
   setUp(() async {
     harness = TestDatabaseHarness.memory();
     runner = harness.runner;
-    await LocalBusinessRepository(runner).provisionBusiness(
-      businessId: 'biz-a',
-      name: 'Shop',
-    );
+    await LocalBusinessRepository(runner)
+        .provisionBusiness(businessId: 'biz-a', name: 'Shop');
     await LocalDeviceRepository(runner).registerDevice(
       deviceId: 'dev-1',
       businessId: 'biz-a',
@@ -43,16 +41,18 @@ void main() {
       payload: {},
     );
     expect(
-      () => (harness.database.delete(harness.database.syncOperations)
-            ..where((t) => t.operationId.equals(opId)))
-          .go(),
+      () => (harness.database.delete(
+        harness.database.syncOperations,
+      )..where((t) => t.operationId.equals(opId))).go(),
       throwsA(anything),
     );
   });
 
   test('second local_device row insert is rejected by trigger', () async {
     expect(
-      () => harness.database.into(harness.database.localDevice).insert(
+      () => harness.database
+          .into(harness.database.localDevice)
+          .insert(
             LocalDeviceCompanion.insert(
               singletonId: const Value(2),
               deviceId: 'dev-2',

@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+
 import '../helpers/test_database.dart';
 
 void main() {
@@ -31,6 +32,8 @@ void main() {
         'sync_cursors',
         'sync_operations',
         'users_cache',
+        'installation_profile',
+        'known_businesses',
       ]),
     );
 

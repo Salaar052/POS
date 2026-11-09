@@ -50,8 +50,8 @@ void main() {
     final fk = await db.customSelect('PRAGMA foreign_keys').getSingle();
     expect(fk.data['foreign_keys'], 1);
 
-    final business =
-        await LocalBusinessRepository(DatabaseRunner(db)).getBusiness();
+    final business = await LocalBusinessRepository(DatabaseRunner(db))
+        .getBusiness();
     expect(business, isNull);
 
     await service.dispose();
@@ -74,8 +74,9 @@ void main() {
     final second = await DatabaseService.open(
       storageDirectoryOverride: tempRoot.path,
     );
-    final fk =
-        await second.database.customSelect('PRAGMA foreign_keys').getSingle();
+    final fk = await second.database
+        .customSelect('PRAGMA foreign_keys')
+        .getSingle();
     expect(fk.data['foreign_keys'], 1);
     await second.dispose();
   });

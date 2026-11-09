@@ -15,16 +15,17 @@ class BusinessProvisionStatus {
 }
 
 /// Loads provisioning state from [LocalBusinessRepository]; does not provision.
-final businessProvisionStatusProvider =
-    FutureProvider<BusinessProvisionStatus>((ref) async {
-  final repo = ref.watch(localBusinessRepositoryProvider);
-  final row = await repo.getBusiness();
-  if (row == null) {
-    return const BusinessProvisionStatus(isProvisioned: false);
-  }
-  return BusinessProvisionStatus(
-    isProvisioned: true,
-    businessName: row.name,
-    currencyCode: row.currencyCode,
-  );
-});
+final businessProvisionStatusProvider = FutureProvider<BusinessProvisionStatus>(
+  (ref) async {
+    final repo = ref.watch(localBusinessRepositoryProvider);
+    final row = await repo.getBusiness();
+    if (row == null) {
+      return const BusinessProvisionStatus(isProvisioned: false);
+    }
+    return BusinessProvisionStatus(
+      isProvisioned: true,
+      businessName: row.name,
+      currencyCode: row.currencyCode,
+    );
+  },
+);

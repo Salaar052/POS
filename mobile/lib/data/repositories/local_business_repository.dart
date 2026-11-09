@@ -5,7 +5,7 @@ import 'package:pos_mobile/data/repositories/database_runner.dart';
 
 class LocalBusinessRepository {
   LocalBusinessRepository(this._runner, {JsonValidator? jsonValidator})
-      : _json = jsonValidator ?? JsonValidator();
+    : _json = jsonValidator ?? JsonValidator();
 
   final DatabaseRunner _runner;
   final JsonValidator _json;
@@ -25,13 +25,15 @@ class LocalBusinessRepository {
     final now = DateTime.now().toUtc().millisecondsSinceEpoch;
     final settingsJson = _json.encodeObject(settings);
     await _runner.runInTransaction(() async {
-      final existing = await (_runner.database.select(_runner.database.localBusiness)
-            ..where((t) => t.singletonId.equals(singletonId)))
-          .getSingleOrNull();
+      final existing = await (_runner.database.select(
+        _runner.database.localBusiness,
+      )..where((t) => t.singletonId.equals(singletonId))).getSingleOrNull();
       if (existing != null) {
         throw BusinessProvisionException('Business already provisioned');
       }
-      await _runner.database.into(_runner.database.localBusiness).insert(
+      await _runner.database
+          .into(_runner.database.localBusiness)
+          .insert(
             LocalBusinessCompanion.insert(
               singletonId: Value(singletonId),
               businessId: businessId,
@@ -50,9 +52,9 @@ class LocalBusinessRepository {
   }
 
   Future<LocalBusinessRow?> getBusiness() {
-    return (_runner.database.select(_runner.database.localBusiness)
-          ..where((t) => t.singletonId.equals(singletonId)))
-        .getSingleOrNull();
+    return (_runner.database.select(
+      _runner.database.localBusiness,
+    )..where((t) => t.singletonId.equals(singletonId))).getSingleOrNull();
   }
 
   Future<String> requireBusinessId() async {

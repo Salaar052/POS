@@ -38,72 +38,62 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: AppRoutes.dashboard,
             name: AppRoutes.dashboardName,
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: DashboardPage(),
-            ),
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: DashboardPage()),
           ),
           GoRoute(
             path: AppRoutes.pos,
             name: AppRoutes.posName,
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: PosPage(),
-            ),
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: PosPage()),
           ),
           GoRoute(
             path: AppRoutes.products,
             name: AppRoutes.productsName,
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: ProductsPage(),
-            ),
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: ProductsPage()),
           ),
           GoRoute(
             path: AppRoutes.inventory,
             name: AppRoutes.inventoryName,
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: InventoryPage(),
-            ),
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: InventoryPage()),
           ),
           GoRoute(
             path: AppRoutes.customers,
             name: AppRoutes.customersName,
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: CustomersPage(),
-            ),
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: CustomersPage()),
           ),
           GoRoute(
             path: AppRoutes.suppliers,
             name: AppRoutes.suppliersName,
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: SuppliersPage(),
-            ),
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: SuppliersPage()),
           ),
           GoRoute(
             path: AppRoutes.purchases,
             name: AppRoutes.purchasesName,
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: PurchasesPage(),
-            ),
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: PurchasesPage()),
           ),
           GoRoute(
             path: AppRoutes.expenses,
             name: AppRoutes.expensesName,
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: ExpensesPage(),
-            ),
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: ExpensesPage()),
           ),
           GoRoute(
             path: AppRoutes.reports,
             name: AppRoutes.reportsName,
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: ReportsPage(),
-            ),
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: ReportsPage()),
           ),
           GoRoute(
             path: AppRoutes.settings,
             name: AppRoutes.settingsName,
-            pageBuilder: (context, state) => const NoTransitionPage(
-              child: SettingsPage(),
-            ),
+            pageBuilder: (context, state) =>
+                const NoTransitionPage(child: SettingsPage()),
           ),
         ],
       ),

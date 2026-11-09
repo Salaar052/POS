@@ -18,8 +18,7 @@ class LocalDeviceRepository {
     String? label,
     String activationStatus = ActivationStatus.unregistered,
   }) async {
-    final active =
-        await LocalBusinessRepository(_runner).getBusiness();
+    final active = await LocalBusinessRepository(_runner).getBusiness();
     if (active == null || active.businessId != businessId) {
       throw DeviceBusinessMismatchException(
         'Device business_id must match provisioned local_business',
@@ -29,7 +28,9 @@ class LocalDeviceRepository {
     if (!ActivationStatus.isValid(activationStatus)) {
       throw ArgumentError('Invalid activation_status');
     }
-    await _runner.database.into(_runner.database.localDevice).insertOnConflictUpdate(
+    await _runner.database
+        .into(_runner.database.localDevice)
+        .insertOnConflictUpdate(
           LocalDeviceCompanion.insert(
             singletonId: Value(singletonId),
             deviceId: deviceId,

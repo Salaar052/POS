@@ -18,10 +18,8 @@ void main() {
   setUp(() async {
     harness = TestDatabaseHarness.memory();
     sync = SyncQueueRepository(harness.runner);
-    await LocalBusinessRepository(harness.runner).provisionBusiness(
-      businessId: businessId,
-      name: 'Shop',
-    );
+    await LocalBusinessRepository(harness.runner)
+        .provisionBusiness(businessId: businessId, name: 'Shop');
   });
 
   tearDown(() async {
@@ -146,22 +144,20 @@ void main() {
       dependsOnOperationId: a,
     );
     expect(
-      () async => (harness.database.update(harness.database.syncOperations)
-            ..where((t) => t.operationId.equals(b)))
-          .write(
-        SyncOperationsCompanion(dependsOnOperationId: Value(a)),
-      ),
+      () async =>
+          (harness.database.update(harness.database.syncOperations)
+                ..where((t) => t.operationId.equals(b)))
+              .write(SyncOperationsCompanion(dependsOnOperationId: Value(a))),
       returnsNormally,
     );
     final rowB = await sync.getOperation(b);
     expect(
-      () async => (harness.database.update(harness.database.syncOperations)
-            ..where((t) => t.operationId.equals(a)))
-          .write(
-        const SyncOperationsCompanion(
-          dependsOnOperationId: Value('other'),
-        ),
-      ),
+      () async =>
+          (harness.database.update(
+            harness.database.syncOperations,
+          )..where((t) => t.operationId.equals(a))).write(
+            const SyncOperationsCompanion(dependsOnOperationId: Value('other')),
+          ),
       throwsA(anything),
     );
     expect(rowB!.dependsOnOperationId, a);

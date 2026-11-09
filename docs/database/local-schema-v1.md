@@ -37,3 +37,5 @@ All operational timestamps are **UTC Unix milliseconds** (`INTEGER`).
 ## Phase 4
 
 Offline credentials (password verifier, tokens) live in **platform secure storage**, not in `users_cache`.
+
+Installation registry (schema v2): see [local-schema-v2-installation.md](local-schema-v2-installation.md). Bootstrap `local.sqlite` must not be used as the business database.

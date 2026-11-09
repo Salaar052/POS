@@ -27,11 +27,19 @@ class _RootBootstrapAppState extends State<RootBootstrapApp> {
   @override
   void initState() {
     super.initState();
+    AppRuntime.containerRevision.addListener(_onRuntimeContainerChanged);
     _bootstrap();
+  }
+
+  void _onRuntimeContainerChanged() {
+    final next = AppRuntime.container;
+    if (!mounted || next == null) return;
+    setState(() => _container = next);
   }
 
   @override
   void dispose() {
+    AppRuntime.containerRevision.removeListener(_onRuntimeContainerChanged);
     unawaited(AppRuntime.shutdown());
     super.dispose();
   }
@@ -68,16 +76,12 @@ class _RootBootstrapAppState extends State<RootBootstrapApp> {
   Widget build(BuildContext context) {
     if (_bootstrapping) {
       return const MaterialApp(
-        home: Scaffold(
-          body: Center(child: CircularProgressIndicator()),
-        ),
+        home: Scaffold(body: Center(child: CircularProgressIndicator())),
       );
     }
 
     if (_failed || _container == null) {
-      return MaterialApp(
-        home: DatabaseErrorPage(onRetry: _bootstrap),
-      );
+      return MaterialApp(home: DatabaseErrorPage(onRetry: _bootstrap));
     }
 
     return UncontrolledProviderScope(

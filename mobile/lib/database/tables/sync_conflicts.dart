@@ -3,15 +3,11 @@ import 'package:pos_mobile/database/tables/local_business.dart';
 
 @DataClassName('SyncConflictRow')
 @TableIndex(name: 'sync_conflicts_status', columns: {#status, #createdAtMs})
-@TableIndex(
-  name: 'sync_conflicts_entity',
-  columns: {#entityType, #entityId},
-)
+@TableIndex(name: 'sync_conflicts_entity', columns: {#entityType, #entityId})
 class SyncConflicts extends Table {
   TextColumn get conflictId => text()();
 
-  TextColumn get businessId =>
-      text().references(LocalBusiness, #businessId)();
+  TextColumn get businessId => text().references(LocalBusiness, #businessId)();
 
   TextColumn get entityType => text()();
 

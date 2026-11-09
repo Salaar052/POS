@@ -14,10 +14,8 @@ void main() {
 
   setUp(() async {
     harness = TestDatabaseHarness.memory();
-    await LocalBusinessRepository(harness.runner).provisionBusiness(
-      businessId: 'biz-a',
-      name: 'Shop',
-    );
+    await LocalBusinessRepository(harness.runner)
+        .provisionBusiness(businessId: 'biz-a', name: 'Shop');
   });
 
   tearDown(() async {
@@ -35,13 +33,12 @@ void main() {
       payload: {'a': 1},
     );
     expect(
-      () async => (harness.database.update(harness.database.syncOperations)
-            ..where((t) => t.operationId.equals(id)))
-          .write(
-        const SyncOperationsCompanion(
-          payloadJson: Value('{"a":2}'),
-        ),
-      ),
+      () async =>
+          (harness.database.update(
+            harness.database.syncOperations,
+          )..where((t) => t.operationId.equals(id))).write(
+            const SyncOperationsCompanion(payloadJson: Value('{"a":2}')),
+          ),
       throwsA(anything),
     );
   });
@@ -49,21 +46,26 @@ void main() {
   test('audit events reject update and delete', () async {
     final audit = AuditRepository(harness.runner);
     await audit.recordEvent(deviceId: 'dev', eventType: 'test');
-    final row = await harness.database.select(harness.database.auditEvents).getSingle();
+    final row = await harness.database
+        .select(harness.database.auditEvents)
+        .getSingle();
     expect(
       () => harness.database.update(harness.database.auditEvents).replace(row),
       throwsA(anything),
     );
     expect(
-      () => (harness.database.delete(harness.database.auditEvents)
-            ..where((t) => t.eventId.equals(row.eventId)))
-          .go(),
+      () => (harness.database.delete(
+        harness.database.auditEvents,
+      )..where((t) => t.eventId.equals(row.eventId))).go(),
       throwsA(anything),
     );
   });
 
   test('json validator rejects invalid json', () {
     final validator = JsonValidator();
-    expect(() => validator.validateEncoded('{bad'), throwsA(isA<JsonValidationException>()));
+    expect(
+      () => validator.validateEncoded('{bad'),
+      throwsA(isA<JsonValidationException>()),
+    );
   });
 }

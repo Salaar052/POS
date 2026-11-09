@@ -11,8 +11,7 @@ import 'package:pos_mobile/database/tables/local_business.dart';
 class SyncOperations extends Table {
   TextColumn get operationId => text()();
 
-  TextColumn get businessId =>
-      text().references(LocalBusiness, #businessId)();
+  TextColumn get businessId => text().references(LocalBusiness, #businessId)();
 
   TextColumn get deviceId => text()();
 
@@ -29,8 +28,7 @@ class SyncOperations extends Table {
 
   TextColumn get status => text()();
 
-  IntColumn get retryCount =>
-      integer().withDefault(const Constant(0))();
+  IntColumn get retryCount => integer().withDefault(const Constant(0))();
 
   TextColumn get lastErrorCode => text().nullable()();
 

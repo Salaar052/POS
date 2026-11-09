@@ -21,19 +21,13 @@ void main() {
 
     final first = await AppRuntime.start(storageDirectoryOverride: storage);
     expect(AppRuntime.container, same(first));
-    expect(
-      first.read(databaseServiceProvider).businessId,
-      isNull,
-    );
+    expect(first.read(databaseServiceProvider).businessId, isNull);
 
     await AppRuntime.shutdown();
 
     final second = await AppRuntime.start(storageDirectoryOverride: storage);
     expect(second, isNot(same(first)));
-    expect(
-      second.read(databaseServiceProvider).database,
-      isNotNull,
-    );
+    expect(second.read(databaseServiceProvider).database, isNotNull);
 
     await AppRuntime.shutdown();
     expect(AppRuntime.container, isNull);

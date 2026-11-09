@@ -5,8 +5,7 @@ import 'package:pos_mobile/database/tables/local_business.dart';
 class SyncCursors extends Table {
   TextColumn get streamName => text()();
 
-  TextColumn get businessId =>
-      text().references(LocalBusiness, #businessId)();
+  TextColumn get businessId => text().references(LocalBusiness, #businessId)();
 
   TextColumn get cursorValue => text()();
 

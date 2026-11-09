@@ -2,10 +2,7 @@ import 'package:pos_mobile/database/enums/sync_operation_status.dart';
 
 /// Allowed sync queue status transitions (repository-enforced).
 class SyncTransitionRules {
-  static bool canTransition({
-    required String from,
-    required String to,
-  }) {
+  static bool canTransition({required String from, required String to}) {
     if (from == to) {
       return true;
     }

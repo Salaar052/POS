@@ -27,20 +27,16 @@ void main() {
   });
 
   test('provisionBusiness enforces singleton', () async {
-    await businessRepo.provisionBusiness(
-      businessId: 'biz-a',
-      name: 'Shop A',
-    );
+    await businessRepo.provisionBusiness(businessId: 'biz-a', name: 'Shop A');
     expect(await businessRepo.getBusiness(), isNotNull);
     expect(
-      () => businessRepo.provisionBusiness(
-        businessId: 'biz-b',
-        name: 'Shop B',
-      ),
+      () => businessRepo.provisionBusiness(businessId: 'biz-b', name: 'Shop B'),
       throwsA(isA<BusinessProvisionException>()),
     );
     expect(
-      () => harness.database.into(harness.database.localBusiness).insert(
+      () => harness.database
+          .into(harness.database.localBusiness)
+          .insert(
             LocalBusinessCompanion.insert(
               singletonId: const Value(2),
               businessId: 'biz-c',
@@ -54,33 +50,26 @@ void main() {
   });
 
   test('device rejects business_id FK mismatch', () async {
-    await businessRepo.provisionBusiness(
-      businessId: 'biz-a',
-      name: 'Shop A',
-    );
-    await expectLater(
-      () async {
-        await harness.database.into(harness.database.localDevice).insert(
-              LocalDeviceCompanion.insert(
-                singletonId: const Value(1),
-                deviceId: 'dev-1',
-                businessId: 'wrong-id',
-                platform: 'windows',
-                activationStatus: ActivationStatus.unregistered,
-                createdAtMs: 0,
-                updatedAtMs: 0,
-              ),
-            );
-      },
-      throwsA(isA<Exception>()),
-    );
+    await businessRepo.provisionBusiness(businessId: 'biz-a', name: 'Shop A');
+    await expectLater(() async {
+      await harness.database
+          .into(harness.database.localDevice)
+          .insert(
+            LocalDeviceCompanion.insert(
+              singletonId: const Value(1),
+              deviceId: 'dev-1',
+              businessId: 'wrong-id',
+              platform: 'windows',
+              activationStatus: ActivationStatus.unregistered,
+              createdAtMs: 0,
+              updatedAtMs: 0,
+            ),
+          );
+    }, throwsA(isA<Exception>()));
   });
 
   test('registerDevice rejects mismatch vs provisioned business', () async {
-    await businessRepo.provisionBusiness(
-      businessId: 'biz-a',
-      name: 'Shop A',
-    );
+    await businessRepo.provisionBusiness(businessId: 'biz-a', name: 'Shop A');
     expect(
       () => deviceRepo.registerDevice(
         deviceId: 'dev-1',

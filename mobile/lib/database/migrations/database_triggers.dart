@@ -1,7 +1,7 @@
 import 'package:drift/drift.dart';
 
-/// SQLite triggers for append-only audit and sync identity immutability.
-Future<void> applyDatabaseTriggers(GeneratedDatabase db) async {
+/// Phase 2 core triggers (schema v1).
+Future<void> applyPhase2CoreTriggers(GeneratedDatabase db) async {
   await db.customStatement('''
 CREATE TRIGGER IF NOT EXISTS local_business_singleton_insert
 BEFORE INSERT ON local_business
@@ -17,6 +17,25 @@ BEFORE INSERT ON local_device
 WHEN (SELECT COUNT(*) FROM local_device) >= 1
 BEGIN
   SELECT RAISE(ABORT, 'local_device allows only one row');
+END;
+''');
+
+}
+
+/// All triggers for a fresh schema-v2 database (v1 core + installation).
+Future<void> applyDatabaseTriggers(GeneratedDatabase db) async {
+  await applyPhase2CoreTriggers(db);
+  await applyInstallationProfileTriggers(db);
+}
+
+/// v2 installation tables only (used from [AppDatabase] v1→v2 upgrade).
+Future<void> applyInstallationProfileTriggers(GeneratedDatabase db) async {
+  await db.customStatement('''
+CREATE TRIGGER IF NOT EXISTS installation_profile_singleton_insert
+BEFORE INSERT ON installation_profile
+WHEN (SELECT COUNT(*) FROM installation_profile) >= 1
+BEGIN
+  SELECT RAISE(ABORT, 'installation_profile allows only one row');
 END;
 ''');
 

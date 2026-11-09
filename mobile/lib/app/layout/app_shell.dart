@@ -46,7 +46,9 @@ class _AppShellState extends ConsumerState<AppShell> {
                       if (showEmptyBanner) const EmptyBusinessBanner(),
                       Expanded(
                         child: Padding(
-                          padding: const EdgeInsetsDirectional.all(AppSpacing.lg),
+                          padding: const EdgeInsetsDirectional.all(
+                            AppSpacing.lg,
+                          ),
                           child: widget.child,
                         ),
                       ),

@@ -2,8 +2,9 @@
 
 ## Current version
 
-- **Drift `schemaVersion`:** `1`
-- **Created in:** Phase 2 (`onCreate` → `createAll` → triggers)
+- **Drift `schemaVersion`:** `2`
+- **v1:** Phase 2 (`onCreate` → eight tables → triggers)
+- **v2 (Phase 4.1):** `installation_profile`, `known_businesses` on bootstrap and business files; `onUpgrade` from 1→2 adds tables without dropping data
 
 ## Upgrades
 

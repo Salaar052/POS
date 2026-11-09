@@ -53,7 +53,5 @@ AppDatabase openMemoryDatabase() {
 
 /// File-backed database in a temp directory (reopen tests).
 AppDatabase openFileDatabase(String filePath) {
-  return AppDatabase(
-    LazyDatabase(() async => NativeDatabase(File(filePath))),
-  );
+  return AppDatabase(LazyDatabase(() async => NativeDatabase(File(filePath))));
 }

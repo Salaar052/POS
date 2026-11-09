@@ -3,10 +3,7 @@ import 'package:pos_mobile/app/theme/app_spacing.dart';
 
 /// Shown when bootstrap cannot open the local SQLite database.
 class DatabaseErrorPage extends StatelessWidget {
-  const DatabaseErrorPage({
-    super.key,
-    required this.onRetry,
-  });
+  const DatabaseErrorPage({super.key, required this.onRetry});
 
   final Future<void> Function() onRetry;
 

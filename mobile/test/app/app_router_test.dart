@@ -23,10 +23,7 @@ void main() {
     addTearDown(tester.view.resetPhysicalSize);
 
     await tester.pumpWidget(
-      UncontrolledProviderScope(
-        container: container,
-        child: const PakPosApp(),
-      ),
+      UncontrolledProviderScope(container: container, child: const PakPosApp()),
     );
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 100));

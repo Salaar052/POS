@@ -13,8 +13,8 @@ class SyncQueueRepository {
     JsonValidator? jsonValidator,
     UuidGenerator? uuid,
     this.maxDependencyDepth = 32,
-  })  : _json = jsonValidator ?? JsonValidator(),
-        _uuid = uuid ?? UuidGenerator();
+  }) : _json = jsonValidator ?? JsonValidator(),
+       _uuid = uuid ?? UuidGenerator();
 
   final DatabaseRunner _runner;
   final JsonValidator _json;
@@ -34,13 +34,11 @@ class SyncQueueRepository {
     if (!SyncOperationType.isValid(operationType)) {
       throw ArgumentError('Invalid operation_type');
     }
-    if (dependsOnOperationId != null &&
-        dependsOnOperationId == operationId) {
+    if (dependsOnOperationId != null && dependsOnOperationId == operationId) {
       throw SyncQueueException('Operation cannot depend on itself');
     }
     final opId = operationId ?? _uuid.v4();
-    if (dependsOnOperationId != null &&
-        dependsOnOperationId == opId) {
+    if (dependsOnOperationId != null && dependsOnOperationId == opId) {
       throw SyncQueueException('Operation cannot depend on itself');
     }
     if (dependsOnOperationId != null) {
@@ -52,7 +50,9 @@ class SyncQueueRepository {
     final status = await _initialStatusForDependency(dependsOnOperationId);
     final now = DateTime.now().toUtc().millisecondsSinceEpoch;
     final payloadJson = _json.encodeObject(payload);
-    await _runner.database.into(_runner.database.syncOperations).insert(
+    await _runner.database
+        .into(_runner.database.syncOperations)
+        .insert(
           SyncOperationsCompanion.insert(
             operationId: opId,
             businessId: businessId,
@@ -89,9 +89,9 @@ class SyncQueueRepository {
     final retryCount = toStatus == SyncOperationStatus.failedRetryable
         ? row.retryCount + 1
         : row.retryCount;
-    await (_runner.database.update(_runner.database.syncOperations)
-          ..where((t) => t.operationId.equals(operationId)))
-        .write(
+    await (_runner.database.update(
+      _runner.database.syncOperations,
+    )..where((t) => t.operationId.equals(operationId))).write(
       SyncOperationsCompanion(
         status: Value(toStatus),
         updatedAtMs: Value(now),
@@ -149,18 +149,18 @@ class SyncQueueRepository {
   }
 
   Future<void> promoteDependents(String acknowledgedOperationId) async {
-    final dependents = await (_runner.database.select(_runner.database.syncOperations)
-          ..where(
-            (t) =>
-                t.dependsOnOperationId.equals(acknowledgedOperationId) &
-                t.status.equals(SyncOperationStatus.blocked),
-          ))
-        .get();
+    final dependents =
+        await (_runner.database.select(_runner.database.syncOperations)..where(
+              (t) =>
+                  t.dependsOnOperationId.equals(acknowledgedOperationId) &
+                  t.status.equals(SyncOperationStatus.blocked),
+            ))
+            .get();
     final now = DateTime.now().toUtc().millisecondsSinceEpoch;
     for (final dep in dependents) {
-      await (_runner.database.update(_runner.database.syncOperations)
-            ..where((t) => t.operationId.equals(dep.operationId)))
-          .write(
+      await (_runner.database.update(
+        _runner.database.syncOperations,
+      )..where((t) => t.operationId.equals(dep.operationId))).write(
         SyncOperationsCompanion(
           status: const Value(SyncOperationStatus.pending),
           updatedAtMs: Value(now),
@@ -170,9 +170,9 @@ class SyncQueueRepository {
   }
 
   Future<SyncOperationRow?> getOperation(String operationId) {
-    return (_runner.database.select(_runner.database.syncOperations)
-          ..where((t) => t.operationId.equals(operationId)))
-        .getSingleOrNull();
+    return (_runner.database.select(
+      _runner.database.syncOperations,
+    )..where((t) => t.operationId.equals(operationId))).getSingleOrNull();
   }
 
   Future<List<SyncOperationRow>> listByStatus(String status) {
@@ -182,7 +182,9 @@ class SyncQueueRepository {
         .get();
   }
 
-  Future<String> _initialStatusForDependency(String? dependsOnOperationId) async {
+  Future<String> _initialStatusForDependency(
+    String? dependsOnOperationId,
+  ) async {
     if (dependsOnOperationId == null) {
       return SyncOperationStatus.pending;
     }

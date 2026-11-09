@@ -7,8 +7,7 @@ class LocalDevice extends Table {
 
   TextColumn get deviceId => text().unique()();
 
-  TextColumn get businessId =>
-      text().references(LocalBusiness, #businessId)();
+  TextColumn get businessId => text().references(LocalBusiness, #businessId)();
 
   TextColumn get platform => text()();
 

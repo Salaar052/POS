@@ -9,7 +9,8 @@ class PosPage extends StatelessWidget {
     return const PlaceholderFeatureBody(
       title: 'Point of Sale',
       description: 'Checkout, payments, and receipts for in-store sales.',
-      comingInPhase: 'Planned for a later phase — checkout and PKR tender types.',
+      comingInPhase:
+          'Planned for a later phase — checkout and PKR tender types.',
     );
   }
 }

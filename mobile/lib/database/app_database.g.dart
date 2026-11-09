@@ -4823,6 +4823,849 @@ class AuditEventsCompanion extends UpdateCompanion<AuditEventRow> {
   }
 }
 
+class $InstallationProfileTable extends InstallationProfile
+    with TableInfo<$InstallationProfileTable, InstallationProfileRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $InstallationProfileTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _singletonIdMeta = const VerificationMeta(
+    'singletonId',
+  );
+  @override
+  late final GeneratedColumn<int> singletonId = GeneratedColumn<int>(
+    'singleton_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _appInstallIdMeta = const VerificationMeta(
+    'appInstallId',
+  );
+  @override
+  late final GeneratedColumn<String> appInstallId = GeneratedColumn<String>(
+    'app_install_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _activeBusinessIdMeta = const VerificationMeta(
+    'activeBusinessId',
+  );
+  @override
+  late final GeneratedColumn<String> activeBusinessId = GeneratedColumn<String>(
+    'active_business_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMsMeta = const VerificationMeta(
+    'updatedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAtMs = GeneratedColumn<int>(
+    'updated_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    singletonId,
+    appInstallId,
+    activeBusinessId,
+    createdAtMs,
+    updatedAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'installation_profile';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<InstallationProfileRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('singleton_id')) {
+      context.handle(
+        _singletonIdMeta,
+        singletonId.isAcceptableOrUnknown(
+          data['singleton_id']!,
+          _singletonIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('app_install_id')) {
+      context.handle(
+        _appInstallIdMeta,
+        appInstallId.isAcceptableOrUnknown(
+          data['app_install_id']!,
+          _appInstallIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_appInstallIdMeta);
+    }
+    if (data.containsKey('active_business_id')) {
+      context.handle(
+        _activeBusinessIdMeta,
+        activeBusinessId.isAcceptableOrUnknown(
+          data['active_business_id']!,
+          _activeBusinessIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    if (data.containsKey('updated_at_ms')) {
+      context.handle(
+        _updatedAtMsMeta,
+        updatedAtMs.isAcceptableOrUnknown(
+          data['updated_at_ms']!,
+          _updatedAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {singletonId};
+  @override
+  InstallationProfileRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return InstallationProfileRow(
+      singletonId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}singleton_id'],
+      )!,
+      appInstallId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}app_install_id'],
+      )!,
+      activeBusinessId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}active_business_id'],
+      ),
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+      updatedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at_ms'],
+      )!,
+    );
+  }
+
+  @override
+  $InstallationProfileTable createAlias(String alias) {
+    return $InstallationProfileTable(attachedDatabase, alias);
+  }
+}
+
+class InstallationProfileRow extends DataClass
+    implements Insertable<InstallationProfileRow> {
+  final int singletonId;
+  final String appInstallId;
+  final String? activeBusinessId;
+  final int createdAtMs;
+  final int updatedAtMs;
+  const InstallationProfileRow({
+    required this.singletonId,
+    required this.appInstallId,
+    this.activeBusinessId,
+    required this.createdAtMs,
+    required this.updatedAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['singleton_id'] = Variable<int>(singletonId);
+    map['app_install_id'] = Variable<String>(appInstallId);
+    if (!nullToAbsent || activeBusinessId != null) {
+      map['active_business_id'] = Variable<String>(activeBusinessId);
+    }
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    map['updated_at_ms'] = Variable<int>(updatedAtMs);
+    return map;
+  }
+
+  InstallationProfileCompanion toCompanion(bool nullToAbsent) {
+    return InstallationProfileCompanion(
+      singletonId: Value(singletonId),
+      appInstallId: Value(appInstallId),
+      activeBusinessId: activeBusinessId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(activeBusinessId),
+      createdAtMs: Value(createdAtMs),
+      updatedAtMs: Value(updatedAtMs),
+    );
+  }
+
+  factory InstallationProfileRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return InstallationProfileRow(
+      singletonId: serializer.fromJson<int>(json['singletonId']),
+      appInstallId: serializer.fromJson<String>(json['appInstallId']),
+      activeBusinessId: serializer.fromJson<String?>(json['activeBusinessId']),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+      updatedAtMs: serializer.fromJson<int>(json['updatedAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'singletonId': serializer.toJson<int>(singletonId),
+      'appInstallId': serializer.toJson<String>(appInstallId),
+      'activeBusinessId': serializer.toJson<String?>(activeBusinessId),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+      'updatedAtMs': serializer.toJson<int>(updatedAtMs),
+    };
+  }
+
+  InstallationProfileRow copyWith({
+    int? singletonId,
+    String? appInstallId,
+    Value<String?> activeBusinessId = const Value.absent(),
+    int? createdAtMs,
+    int? updatedAtMs,
+  }) => InstallationProfileRow(
+    singletonId: singletonId ?? this.singletonId,
+    appInstallId: appInstallId ?? this.appInstallId,
+    activeBusinessId: activeBusinessId.present
+        ? activeBusinessId.value
+        : this.activeBusinessId,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+    updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+  );
+  InstallationProfileRow copyWithCompanion(InstallationProfileCompanion data) {
+    return InstallationProfileRow(
+      singletonId: data.singletonId.present
+          ? data.singletonId.value
+          : this.singletonId,
+      appInstallId: data.appInstallId.present
+          ? data.appInstallId.value
+          : this.appInstallId,
+      activeBusinessId: data.activeBusinessId.present
+          ? data.activeBusinessId.value
+          : this.activeBusinessId,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+      updatedAtMs: data.updatedAtMs.present
+          ? data.updatedAtMs.value
+          : this.updatedAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('InstallationProfileRow(')
+          ..write('singletonId: $singletonId, ')
+          ..write('appInstallId: $appInstallId, ')
+          ..write('activeBusinessId: $activeBusinessId, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('updatedAtMs: $updatedAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    singletonId,
+    appInstallId,
+    activeBusinessId,
+    createdAtMs,
+    updatedAtMs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is InstallationProfileRow &&
+          other.singletonId == this.singletonId &&
+          other.appInstallId == this.appInstallId &&
+          other.activeBusinessId == this.activeBusinessId &&
+          other.createdAtMs == this.createdAtMs &&
+          other.updatedAtMs == this.updatedAtMs);
+}
+
+class InstallationProfileCompanion
+    extends UpdateCompanion<InstallationProfileRow> {
+  final Value<int> singletonId;
+  final Value<String> appInstallId;
+  final Value<String?> activeBusinessId;
+  final Value<int> createdAtMs;
+  final Value<int> updatedAtMs;
+  const InstallationProfileCompanion({
+    this.singletonId = const Value.absent(),
+    this.appInstallId = const Value.absent(),
+    this.activeBusinessId = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.updatedAtMs = const Value.absent(),
+  });
+  InstallationProfileCompanion.insert({
+    this.singletonId = const Value.absent(),
+    required String appInstallId,
+    this.activeBusinessId = const Value.absent(),
+    required int createdAtMs,
+    required int updatedAtMs,
+  }) : appInstallId = Value(appInstallId),
+       createdAtMs = Value(createdAtMs),
+       updatedAtMs = Value(updatedAtMs);
+  static Insertable<InstallationProfileRow> custom({
+    Expression<int>? singletonId,
+    Expression<String>? appInstallId,
+    Expression<String>? activeBusinessId,
+    Expression<int>? createdAtMs,
+    Expression<int>? updatedAtMs,
+  }) {
+    return RawValuesInsertable({
+      if (singletonId != null) 'singleton_id': singletonId,
+      if (appInstallId != null) 'app_install_id': appInstallId,
+      if (activeBusinessId != null) 'active_business_id': activeBusinessId,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (updatedAtMs != null) 'updated_at_ms': updatedAtMs,
+    });
+  }
+
+  InstallationProfileCompanion copyWith({
+    Value<int>? singletonId,
+    Value<String>? appInstallId,
+    Value<String?>? activeBusinessId,
+    Value<int>? createdAtMs,
+    Value<int>? updatedAtMs,
+  }) {
+    return InstallationProfileCompanion(
+      singletonId: singletonId ?? this.singletonId,
+      appInstallId: appInstallId ?? this.appInstallId,
+      activeBusinessId: activeBusinessId ?? this.activeBusinessId,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (singletonId.present) {
+      map['singleton_id'] = Variable<int>(singletonId.value);
+    }
+    if (appInstallId.present) {
+      map['app_install_id'] = Variable<String>(appInstallId.value);
+    }
+    if (activeBusinessId.present) {
+      map['active_business_id'] = Variable<String>(activeBusinessId.value);
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (updatedAtMs.present) {
+      map['updated_at_ms'] = Variable<int>(updatedAtMs.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('InstallationProfileCompanion(')
+          ..write('singletonId: $singletonId, ')
+          ..write('appInstallId: $appInstallId, ')
+          ..write('activeBusinessId: $activeBusinessId, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('updatedAtMs: $updatedAtMs')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $KnownBusinessesTable extends KnownBusinesses
+    with TableInfo<$KnownBusinessesTable, KnownBusinessRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $KnownBusinessesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _businessIdMeta = const VerificationMeta(
+    'businessId',
+  );
+  @override
+  late final GeneratedColumn<String> businessId = GeneratedColumn<String>(
+    'business_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _displayNameMeta = const VerificationMeta(
+    'displayName',
+  );
+  @override
+  late final GeneratedColumn<String> displayName = GeneratedColumn<String>(
+    'display_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _databaseFileNameMeta = const VerificationMeta(
+    'databaseFileName',
+  );
+  @override
+  late final GeneratedColumn<String> databaseFileName = GeneratedColumn<String>(
+    'database_file_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _provisioningStatusMeta =
+      const VerificationMeta('provisioningStatus');
+  @override
+  late final GeneratedColumn<String> provisioningStatus =
+      GeneratedColumn<String>(
+        'provisioning_status',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _lastOpenedAtMsMeta = const VerificationMeta(
+    'lastOpenedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> lastOpenedAtMs = GeneratedColumn<int>(
+    'last_opened_at_ms',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    businessId,
+    displayName,
+    databaseFileName,
+    provisioningStatus,
+    createdAtMs,
+    lastOpenedAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'known_businesses';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<KnownBusinessRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('business_id')) {
+      context.handle(
+        _businessIdMeta,
+        businessId.isAcceptableOrUnknown(data['business_id']!, _businessIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_businessIdMeta);
+    }
+    if (data.containsKey('display_name')) {
+      context.handle(
+        _displayNameMeta,
+        displayName.isAcceptableOrUnknown(
+          data['display_name']!,
+          _displayNameMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_displayNameMeta);
+    }
+    if (data.containsKey('database_file_name')) {
+      context.handle(
+        _databaseFileNameMeta,
+        databaseFileName.isAcceptableOrUnknown(
+          data['database_file_name']!,
+          _databaseFileNameMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_databaseFileNameMeta);
+    }
+    if (data.containsKey('provisioning_status')) {
+      context.handle(
+        _provisioningStatusMeta,
+        provisioningStatus.isAcceptableOrUnknown(
+          data['provisioning_status']!,
+          _provisioningStatusMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_provisioningStatusMeta);
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    if (data.containsKey('last_opened_at_ms')) {
+      context.handle(
+        _lastOpenedAtMsMeta,
+        lastOpenedAtMs.isAcceptableOrUnknown(
+          data['last_opened_at_ms']!,
+          _lastOpenedAtMsMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {businessId};
+  @override
+  KnownBusinessRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return KnownBusinessRow(
+      businessId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}business_id'],
+      )!,
+      displayName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}display_name'],
+      )!,
+      databaseFileName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}database_file_name'],
+      )!,
+      provisioningStatus: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}provisioning_status'],
+      )!,
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+      lastOpenedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}last_opened_at_ms'],
+      ),
+    );
+  }
+
+  @override
+  $KnownBusinessesTable createAlias(String alias) {
+    return $KnownBusinessesTable(attachedDatabase, alias);
+  }
+}
+
+class KnownBusinessRow extends DataClass
+    implements Insertable<KnownBusinessRow> {
+  final String businessId;
+  final String displayName;
+  final String databaseFileName;
+  final String provisioningStatus;
+  final int createdAtMs;
+  final int? lastOpenedAtMs;
+  const KnownBusinessRow({
+    required this.businessId,
+    required this.displayName,
+    required this.databaseFileName,
+    required this.provisioningStatus,
+    required this.createdAtMs,
+    this.lastOpenedAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['business_id'] = Variable<String>(businessId);
+    map['display_name'] = Variable<String>(displayName);
+    map['database_file_name'] = Variable<String>(databaseFileName);
+    map['provisioning_status'] = Variable<String>(provisioningStatus);
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    if (!nullToAbsent || lastOpenedAtMs != null) {
+      map['last_opened_at_ms'] = Variable<int>(lastOpenedAtMs);
+    }
+    return map;
+  }
+
+  KnownBusinessesCompanion toCompanion(bool nullToAbsent) {
+    return KnownBusinessesCompanion(
+      businessId: Value(businessId),
+      displayName: Value(displayName),
+      databaseFileName: Value(databaseFileName),
+      provisioningStatus: Value(provisioningStatus),
+      createdAtMs: Value(createdAtMs),
+      lastOpenedAtMs: lastOpenedAtMs == null && nullToAbsent
+          ? const Value.absent()
+          : Value(lastOpenedAtMs),
+    );
+  }
+
+  factory KnownBusinessRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return KnownBusinessRow(
+      businessId: serializer.fromJson<String>(json['businessId']),
+      displayName: serializer.fromJson<String>(json['displayName']),
+      databaseFileName: serializer.fromJson<String>(json['databaseFileName']),
+      provisioningStatus: serializer.fromJson<String>(
+        json['provisioningStatus'],
+      ),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+      lastOpenedAtMs: serializer.fromJson<int?>(json['lastOpenedAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'businessId': serializer.toJson<String>(businessId),
+      'displayName': serializer.toJson<String>(displayName),
+      'databaseFileName': serializer.toJson<String>(databaseFileName),
+      'provisioningStatus': serializer.toJson<String>(provisioningStatus),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+      'lastOpenedAtMs': serializer.toJson<int?>(lastOpenedAtMs),
+    };
+  }
+
+  KnownBusinessRow copyWith({
+    String? businessId,
+    String? displayName,
+    String? databaseFileName,
+    String? provisioningStatus,
+    int? createdAtMs,
+    Value<int?> lastOpenedAtMs = const Value.absent(),
+  }) => KnownBusinessRow(
+    businessId: businessId ?? this.businessId,
+    displayName: displayName ?? this.displayName,
+    databaseFileName: databaseFileName ?? this.databaseFileName,
+    provisioningStatus: provisioningStatus ?? this.provisioningStatus,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+    lastOpenedAtMs: lastOpenedAtMs.present
+        ? lastOpenedAtMs.value
+        : this.lastOpenedAtMs,
+  );
+  KnownBusinessRow copyWithCompanion(KnownBusinessesCompanion data) {
+    return KnownBusinessRow(
+      businessId: data.businessId.present
+          ? data.businessId.value
+          : this.businessId,
+      displayName: data.displayName.present
+          ? data.displayName.value
+          : this.displayName,
+      databaseFileName: data.databaseFileName.present
+          ? data.databaseFileName.value
+          : this.databaseFileName,
+      provisioningStatus: data.provisioningStatus.present
+          ? data.provisioningStatus.value
+          : this.provisioningStatus,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+      lastOpenedAtMs: data.lastOpenedAtMs.present
+          ? data.lastOpenedAtMs.value
+          : this.lastOpenedAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('KnownBusinessRow(')
+          ..write('businessId: $businessId, ')
+          ..write('displayName: $displayName, ')
+          ..write('databaseFileName: $databaseFileName, ')
+          ..write('provisioningStatus: $provisioningStatus, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('lastOpenedAtMs: $lastOpenedAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    businessId,
+    displayName,
+    databaseFileName,
+    provisioningStatus,
+    createdAtMs,
+    lastOpenedAtMs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is KnownBusinessRow &&
+          other.businessId == this.businessId &&
+          other.displayName == this.displayName &&
+          other.databaseFileName == this.databaseFileName &&
+          other.provisioningStatus == this.provisioningStatus &&
+          other.createdAtMs == this.createdAtMs &&
+          other.lastOpenedAtMs == this.lastOpenedAtMs);
+}
+
+class KnownBusinessesCompanion extends UpdateCompanion<KnownBusinessRow> {
+  final Value<String> businessId;
+  final Value<String> displayName;
+  final Value<String> databaseFileName;
+  final Value<String> provisioningStatus;
+  final Value<int> createdAtMs;
+  final Value<int?> lastOpenedAtMs;
+  final Value<int> rowid;
+  const KnownBusinessesCompanion({
+    this.businessId = const Value.absent(),
+    this.displayName = const Value.absent(),
+    this.databaseFileName = const Value.absent(),
+    this.provisioningStatus = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.lastOpenedAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  KnownBusinessesCompanion.insert({
+    required String businessId,
+    required String displayName,
+    required String databaseFileName,
+    required String provisioningStatus,
+    required int createdAtMs,
+    this.lastOpenedAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : businessId = Value(businessId),
+       displayName = Value(displayName),
+       databaseFileName = Value(databaseFileName),
+       provisioningStatus = Value(provisioningStatus),
+       createdAtMs = Value(createdAtMs);
+  static Insertable<KnownBusinessRow> custom({
+    Expression<String>? businessId,
+    Expression<String>? displayName,
+    Expression<String>? databaseFileName,
+    Expression<String>? provisioningStatus,
+    Expression<int>? createdAtMs,
+    Expression<int>? lastOpenedAtMs,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (businessId != null) 'business_id': businessId,
+      if (displayName != null) 'display_name': displayName,
+      if (databaseFileName != null) 'database_file_name': databaseFileName,
+      if (provisioningStatus != null) 'provisioning_status': provisioningStatus,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (lastOpenedAtMs != null) 'last_opened_at_ms': lastOpenedAtMs,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  KnownBusinessesCompanion copyWith({
+    Value<String>? businessId,
+    Value<String>? displayName,
+    Value<String>? databaseFileName,
+    Value<String>? provisioningStatus,
+    Value<int>? createdAtMs,
+    Value<int?>? lastOpenedAtMs,
+    Value<int>? rowid,
+  }) {
+    return KnownBusinessesCompanion(
+      businessId: businessId ?? this.businessId,
+      displayName: displayName ?? this.displayName,
+      databaseFileName: databaseFileName ?? this.databaseFileName,
+      provisioningStatus: provisioningStatus ?? this.provisioningStatus,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      lastOpenedAtMs: lastOpenedAtMs ?? this.lastOpenedAtMs,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (businessId.present) {
+      map['business_id'] = Variable<String>(businessId.value);
+    }
+    if (displayName.present) {
+      map['display_name'] = Variable<String>(displayName.value);
+    }
+    if (databaseFileName.present) {
+      map['database_file_name'] = Variable<String>(databaseFileName.value);
+    }
+    if (provisioningStatus.present) {
+      map['provisioning_status'] = Variable<String>(provisioningStatus.value);
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (lastOpenedAtMs.present) {
+      map['last_opened_at_ms'] = Variable<int>(lastOpenedAtMs.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('KnownBusinessesCompanion(')
+          ..write('businessId: $businessId, ')
+          ..write('displayName: $displayName, ')
+          ..write('databaseFileName: $databaseFileName, ')
+          ..write('provisioningStatus: $provisioningStatus, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('lastOpenedAtMs: $lastOpenedAtMs, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -4834,6 +5677,11 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $SyncCursorsTable syncCursors = $SyncCursorsTable(this);
   late final $SyncConflictsTable syncConflicts = $SyncConflictsTable(this);
   late final $AuditEventsTable auditEvents = $AuditEventsTable(this);
+  late final $InstallationProfileTable installationProfile =
+      $InstallationProfileTable(this);
+  late final $KnownBusinessesTable knownBusinesses = $KnownBusinessesTable(
+    this,
+  );
   late final Index syncOpsStatusCreated = Index(
     'sync_ops_status_created',
     'CREATE INDEX sync_ops_status_created ON sync_operations (status, created_at_ms)',
@@ -4875,6 +5723,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     syncCursors,
     syncConflicts,
     auditEvents,
+    installationProfile,
+    knownBusinesses,
     syncOpsStatusCreated,
     syncOpsEntity,
     syncOpsDependsOn,
@@ -8783,6 +9633,484 @@ typedef $$AuditEventsTableProcessedTableManager =
       AuditEventRow,
       PrefetchHooks Function({bool businessId})
     >;
+typedef $$InstallationProfileTableCreateCompanionBuilder =
+    InstallationProfileCompanion Function({
+      Value<int> singletonId,
+      required String appInstallId,
+      Value<String?> activeBusinessId,
+      required int createdAtMs,
+      required int updatedAtMs,
+    });
+typedef $$InstallationProfileTableUpdateCompanionBuilder =
+    InstallationProfileCompanion Function({
+      Value<int> singletonId,
+      Value<String> appInstallId,
+      Value<String?> activeBusinessId,
+      Value<int> createdAtMs,
+      Value<int> updatedAtMs,
+    });
+
+class $$InstallationProfileTableFilterComposer
+    extends Composer<_$AppDatabase, $InstallationProfileTable> {
+  $$InstallationProfileTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get singletonId => $composableBuilder(
+    column: $table.singletonId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get appInstallId => $composableBuilder(
+    column: $table.appInstallId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get activeBusinessId => $composableBuilder(
+    column: $table.activeBusinessId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$InstallationProfileTableOrderingComposer
+    extends Composer<_$AppDatabase, $InstallationProfileTable> {
+  $$InstallationProfileTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get singletonId => $composableBuilder(
+    column: $table.singletonId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get appInstallId => $composableBuilder(
+    column: $table.appInstallId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get activeBusinessId => $composableBuilder(
+    column: $table.activeBusinessId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$InstallationProfileTableAnnotationComposer
+    extends Composer<_$AppDatabase, $InstallationProfileTable> {
+  $$InstallationProfileTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get singletonId => $composableBuilder(
+    column: $table.singletonId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get appInstallId => $composableBuilder(
+    column: $table.appInstallId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get activeBusinessId => $composableBuilder(
+    column: $table.activeBusinessId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => column,
+  );
+}
+
+class $$InstallationProfileTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $InstallationProfileTable,
+          InstallationProfileRow,
+          $$InstallationProfileTableFilterComposer,
+          $$InstallationProfileTableOrderingComposer,
+          $$InstallationProfileTableAnnotationComposer,
+          $$InstallationProfileTableCreateCompanionBuilder,
+          $$InstallationProfileTableUpdateCompanionBuilder,
+          (
+            InstallationProfileRow,
+            BaseReferences<
+              _$AppDatabase,
+              $InstallationProfileTable,
+              InstallationProfileRow
+            >,
+          ),
+          InstallationProfileRow,
+          PrefetchHooks Function()
+        > {
+  $$InstallationProfileTableTableManager(
+    _$AppDatabase db,
+    $InstallationProfileTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$InstallationProfileTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$InstallationProfileTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$InstallationProfileTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<int> singletonId = const Value.absent(),
+                Value<String> appInstallId = const Value.absent(),
+                Value<String?> activeBusinessId = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int> updatedAtMs = const Value.absent(),
+              }) => InstallationProfileCompanion(
+                singletonId: singletonId,
+                appInstallId: appInstallId,
+                activeBusinessId: activeBusinessId,
+                createdAtMs: createdAtMs,
+                updatedAtMs: updatedAtMs,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> singletonId = const Value.absent(),
+                required String appInstallId,
+                Value<String?> activeBusinessId = const Value.absent(),
+                required int createdAtMs,
+                required int updatedAtMs,
+              }) => InstallationProfileCompanion.insert(
+                singletonId: singletonId,
+                appInstallId: appInstallId,
+                activeBusinessId: activeBusinessId,
+                createdAtMs: createdAtMs,
+                updatedAtMs: updatedAtMs,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<
+                    $InstallationProfileTable,
+                    InstallationProfileRow
+                  >(table),
+                  BaseReferences<
+                    _$AppDatabase,
+                    $InstallationProfileTable,
+                    InstallationProfileRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$InstallationProfileTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $InstallationProfileTable,
+      InstallationProfileRow,
+      $$InstallationProfileTableFilterComposer,
+      $$InstallationProfileTableOrderingComposer,
+      $$InstallationProfileTableAnnotationComposer,
+      $$InstallationProfileTableCreateCompanionBuilder,
+      $$InstallationProfileTableUpdateCompanionBuilder,
+      (
+        InstallationProfileRow,
+        BaseReferences<
+          _$AppDatabase,
+          $InstallationProfileTable,
+          InstallationProfileRow
+        >,
+      ),
+      InstallationProfileRow,
+      PrefetchHooks Function()
+    >;
+typedef $$KnownBusinessesTableCreateCompanionBuilder =
+    KnownBusinessesCompanion Function({
+      required String businessId,
+      required String displayName,
+      required String databaseFileName,
+      required String provisioningStatus,
+      required int createdAtMs,
+      Value<int?> lastOpenedAtMs,
+      Value<int> rowid,
+    });
+typedef $$KnownBusinessesTableUpdateCompanionBuilder =
+    KnownBusinessesCompanion Function({
+      Value<String> businessId,
+      Value<String> displayName,
+      Value<String> databaseFileName,
+      Value<String> provisioningStatus,
+      Value<int> createdAtMs,
+      Value<int?> lastOpenedAtMs,
+      Value<int> rowid,
+    });
+
+class $$KnownBusinessesTableFilterComposer
+    extends Composer<_$AppDatabase, $KnownBusinessesTable> {
+  $$KnownBusinessesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get businessId => $composableBuilder(
+    column: $table.businessId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get displayName => $composableBuilder(
+    column: $table.displayName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get databaseFileName => $composableBuilder(
+    column: $table.databaseFileName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get provisioningStatus => $composableBuilder(
+    column: $table.provisioningStatus,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get lastOpenedAtMs => $composableBuilder(
+    column: $table.lastOpenedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$KnownBusinessesTableOrderingComposer
+    extends Composer<_$AppDatabase, $KnownBusinessesTable> {
+  $$KnownBusinessesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get businessId => $composableBuilder(
+    column: $table.businessId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get displayName => $composableBuilder(
+    column: $table.displayName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get databaseFileName => $composableBuilder(
+    column: $table.databaseFileName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get provisioningStatus => $composableBuilder(
+    column: $table.provisioningStatus,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get lastOpenedAtMs => $composableBuilder(
+    column: $table.lastOpenedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$KnownBusinessesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $KnownBusinessesTable> {
+  $$KnownBusinessesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get businessId => $composableBuilder(
+    column: $table.businessId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get displayName => $composableBuilder(
+    column: $table.displayName,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get databaseFileName => $composableBuilder(
+    column: $table.databaseFileName,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get provisioningStatus => $composableBuilder(
+    column: $table.provisioningStatus,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get lastOpenedAtMs => $composableBuilder(
+    column: $table.lastOpenedAtMs,
+    builder: (column) => column,
+  );
+}
+
+class $$KnownBusinessesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $KnownBusinessesTable,
+          KnownBusinessRow,
+          $$KnownBusinessesTableFilterComposer,
+          $$KnownBusinessesTableOrderingComposer,
+          $$KnownBusinessesTableAnnotationComposer,
+          $$KnownBusinessesTableCreateCompanionBuilder,
+          $$KnownBusinessesTableUpdateCompanionBuilder,
+          (
+            KnownBusinessRow,
+            BaseReferences<
+              _$AppDatabase,
+              $KnownBusinessesTable,
+              KnownBusinessRow
+            >,
+          ),
+          KnownBusinessRow,
+          PrefetchHooks Function()
+        > {
+  $$KnownBusinessesTableTableManager(
+    _$AppDatabase db,
+    $KnownBusinessesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$KnownBusinessesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$KnownBusinessesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$KnownBusinessesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> businessId = const Value.absent(),
+                Value<String> displayName = const Value.absent(),
+                Value<String> databaseFileName = const Value.absent(),
+                Value<String> provisioningStatus = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int?> lastOpenedAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => KnownBusinessesCompanion(
+                businessId: businessId,
+                displayName: displayName,
+                databaseFileName: databaseFileName,
+                provisioningStatus: provisioningStatus,
+                createdAtMs: createdAtMs,
+                lastOpenedAtMs: lastOpenedAtMs,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String businessId,
+                required String displayName,
+                required String databaseFileName,
+                required String provisioningStatus,
+                required int createdAtMs,
+                Value<int?> lastOpenedAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => KnownBusinessesCompanion.insert(
+                businessId: businessId,
+                displayName: displayName,
+                databaseFileName: databaseFileName,
+                provisioningStatus: provisioningStatus,
+                createdAtMs: createdAtMs,
+                lastOpenedAtMs: lastOpenedAtMs,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$KnownBusinessesTable, KnownBusinessRow>(table),
+                  BaseReferences<
+                    _$AppDatabase,
+                    $KnownBusinessesTable,
+                    KnownBusinessRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$KnownBusinessesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $KnownBusinessesTable,
+      KnownBusinessRow,
+      $$KnownBusinessesTableFilterComposer,
+      $$KnownBusinessesTableOrderingComposer,
+      $$KnownBusinessesTableAnnotationComposer,
+      $$KnownBusinessesTableCreateCompanionBuilder,
+      $$KnownBusinessesTableUpdateCompanionBuilder,
+      (
+        KnownBusinessRow,
+        BaseReferences<_$AppDatabase, $KnownBusinessesTable, KnownBusinessRow>,
+      ),
+      KnownBusinessRow,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -8803,4 +10131,8 @@ class $AppDatabaseManager {
       $$SyncConflictsTableTableManager(_db, _db.syncConflicts);
   $$AuditEventsTableTableManager get auditEvents =>
       $$AuditEventsTableTableManager(_db, _db.auditEvents);
+  $$InstallationProfileTableTableManager get installationProfile =>
+      $$InstallationProfileTableTableManager(_db, _db.installationProfile);
+  $$KnownBusinessesTableTableManager get knownBusinesses =>
+      $$KnownBusinessesTableTableManager(_db, _db.knownBusinesses);
 }

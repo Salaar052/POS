@@ -18,16 +18,13 @@ class SettingsPage extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              'Settings',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
+            Text('Settings', style: Theme.of(context).textTheme.headlineSmall),
             const SizedBox(height: AppSpacing.xs),
             Text(
               'Appearance and device preferences. Business and account settings are not available in this phase.',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurfaceVariant,
-                  ),
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
+              ),
             ),
             const SizedBox(height: AppSpacing.lg),
             Card(
@@ -38,7 +35,9 @@ class SettingsPage extends ConsumerWidget {
                 ),
                 child: SwitchListTile(
                   title: const Text('Dark theme'),
-                  subtitle: const Text('Switch between light and dark appearance'),
+                  subtitle: const Text(
+                    'Switch between light and dark appearance',
+                  ),
                   value: themeMode == ThemeMode.dark,
                   onChanged: (enabled) {
                     notifier.setThemeMode(

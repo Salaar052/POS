@@ -20,6 +20,8 @@ final databaseRunnerProvider = Provider<DatabaseRunner>((ref) {
   return DatabaseRunner(ref.watch(appDatabaseProvider));
 });
 
-final localBusinessRepositoryProvider = Provider<LocalBusinessRepository>((ref) {
+final localBusinessRepositoryProvider = Provider<LocalBusinessRepository>((
+  ref,
+) {
   return LocalBusinessRepository(ref.watch(databaseRunnerProvider));
 });

@@ -19,18 +19,17 @@ void main() {
     final columns = await harness.database
         .customSelect('PRAGMA table_info(users_cache)')
         .get();
-    final names =
-        columns.map((r) => (r.data['name'] as String).toLowerCase()).toList();
+    final names = columns
+        .map((r) => (r.data['name'] as String).toLowerCase())
+        .toList();
     expect(names, isNot(contains('password')));
     expect(names, isNot(contains('token')));
     expect(names, isNot(contains('verifier')));
   });
 
   test('rejects invalid role', () async {
-    await LocalBusinessRepository(harness.runner).provisionBusiness(
-      businessId: 'biz-a',
-      name: 'Shop',
-    );
+    await LocalBusinessRepository(harness.runner)
+        .provisionBusiness(businessId: 'biz-a', name: 'Shop');
     final users = UsersCacheRepository(harness.runner);
     expect(
       () => users.upsertUser(

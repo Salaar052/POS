@@ -16,13 +16,15 @@ class UsersCacheRepository {
     bool isActive = true,
     int? lastSyncedAtMs,
   }) async {
-    final businessId =
-        await LocalBusinessRepository(_runner).requireBusinessId();
+    final businessId = await LocalBusinessRepository(_runner)
+        .requireBusinessId();
     if (!UserRole.isValid(role)) {
       throw ArgumentError('Invalid role');
     }
     final now = DateTime.now().toUtc().millisecondsSinceEpoch;
-    await _runner.database.into(_runner.database.usersCache).insertOnConflictUpdate(
+    await _runner.database
+        .into(_runner.database.usersCache)
+        .insertOnConflictUpdate(
           UsersCacheCompanion.insert(
             userId: userId,
             businessId: businessId,

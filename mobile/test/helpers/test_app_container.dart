@@ -10,9 +10,7 @@ typedef TestContainerHandle = ({
 TestContainerHandle createInMemoryAppContainer() {
   final service = DatabaseService.inMemory();
   final container = ProviderContainer(
-    overrides: [
-      databaseServiceProvider.overrideWithValue(service),
-    ],
+    overrides: [databaseServiceProvider.overrideWithValue(service)],
   );
   return (container: container, service: service);
 }

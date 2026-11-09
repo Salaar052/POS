@@ -21,10 +21,7 @@ class DashboardPage extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Text(
-              'Welcome to Pak POS',
-              style: theme.textTheme.headlineSmall,
-            ),
+            Text('Welcome to Pak POS', style: theme.textTheme.headlineSmall),
             const SizedBox(height: AppSpacing.xs),
             Text(
               'Offline-first point of sale for Pakistan. '
@@ -73,8 +70,7 @@ class DashboardPage extends ConsumerWidget {
                   title: 'Business',
                   icon: Icons.store_outlined,
                   value: 'Not provisioned',
-                  detail:
-                      'No business record on this device. Setup flows arrive in Phase 4.',
+                  detail: 'No business record on this device. Setup flows arrive in Phase 4.',
                   accent: AppColors.warning,
                 );
               },

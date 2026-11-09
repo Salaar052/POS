@@ -3,10 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pos_mobile/app/router/app_routes.dart';
 
 class MobileNavDrawer extends StatelessWidget {
-  const MobileNavDrawer({
-    super.key,
-    required this.selectedPath,
-  });
+  const MobileNavDrawer({super.key, required this.selectedPath});
 
   final String selectedPath;
 

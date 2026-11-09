@@ -10,8 +10,8 @@ class AuditRepository {
     this._runner, {
     JsonValidator? jsonValidator,
     UuidGenerator? uuid,
-  })  : _json = jsonValidator ?? JsonValidator(),
-        _uuid = uuid ?? UuidGenerator();
+  }) : _json = jsonValidator ?? JsonValidator(),
+       _uuid = uuid ?? UuidGenerator();
 
   final DatabaseRunner _runner;
   final JsonValidator _json;
@@ -25,11 +25,13 @@ class AuditRepository {
     String? entityId,
     Map<String, Object?> metadata = const {},
   }) async {
-    final businessId =
-        await LocalBusinessRepository(_runner).requireBusinessId();
+    final businessId = await LocalBusinessRepository(_runner)
+        .requireBusinessId();
     final now = DateTime.now().toUtc().millisecondsSinceEpoch;
     final metadataJson = _json.encodeObject(metadata);
-    await _runner.database.into(_runner.database.auditEvents).insert(
+    await _runner.database
+        .into(_runner.database.auditEvents)
+        .insert(
           AuditEventsCompanion.insert(
             eventId: _uuid.v4(),
             businessId: businessId,

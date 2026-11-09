@@ -10,14 +10,14 @@ import 'package:pos_mobile/features/dashboard/presentation/dashboard_page.dart';
 import 'package:pos_mobile/features/settings/presentation/settings_page.dart';
 
 void main() {
-  testWidgets('Dashboard shows database ready and unprovisioned business', (tester) async {
+  testWidgets('Dashboard shows database ready and unprovisioned business', (
+    tester,
+  ) async {
     final service = DatabaseService.inMemory();
     addTearDown(() => service.dispose());
 
     final container = ProviderContainer(
-      overrides: [
-        databaseServiceProvider.overrideWithValue(service),
-      ],
+      overrides: [databaseServiceProvider.overrideWithValue(service)],
     );
     addTearDown(container.dispose);
 
@@ -42,9 +42,7 @@ void main() {
     addTearDown(() => service.dispose());
 
     final container = ProviderContainer(
-      overrides: [
-        databaseServiceProvider.overrideWithValue(service),
-      ],
+      overrides: [databaseServiceProvider.overrideWithValue(service)],
     );
     addTearDown(container.dispose);
 

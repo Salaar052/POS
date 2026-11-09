@@ -24,12 +24,14 @@ class SettingsRepository {
     String? updatedByUserId,
     bool enqueueSync = true,
   }) async {
-    final businessId =
-        await LocalBusinessRepository(_runner).requireBusinessId();
+    final businessId = await LocalBusinessRepository(_runner)
+        .requireBusinessId();
     final valueJson = _json.encodeObject(value);
     final now = DateTime.now().toUtc().millisecondsSinceEpoch;
     await _runner.runInTransaction(() async {
-      await _runner.database.into(_runner.database.appSettings).insertOnConflictUpdate(
+      await _runner.database
+          .into(_runner.database.appSettings)
+          .insertOnConflictUpdate(
             AppSettingsCompanion.insert(
               settingKey: settingKey,
               businessId: businessId,
@@ -45,18 +47,15 @@ class SettingsRepository {
           entityType: 'app_setting',
           entityId: settingKey,
           operationType: SyncOperationType.update,
-          payload: {
-            'setting_key': settingKey,
-            'value': value,
-          },
+          payload: {'setting_key': settingKey, 'value': value},
         );
       }
     });
   }
 
   Future<AppSettingRow?> getSetting(String settingKey) {
-    return (_runner.database.select(_runner.database.appSettings)
-          ..where((t) => t.settingKey.equals(settingKey)))
-        .getSingleOrNull();
+    return (_runner.database.select(
+      _runner.database.appSettings,
+    )..where((t) => t.settingKey.equals(settingKey))).getSingleOrNull();
   }
 }

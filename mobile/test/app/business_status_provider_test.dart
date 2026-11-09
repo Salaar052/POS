@@ -15,9 +15,7 @@ void main() {
     addTearDown(() => service.dispose());
 
     final container = ProviderContainer(
-      overrides: [
-        databaseServiceProvider.overrideWithValue(service),
-      ],
+      overrides: [databaseServiceProvider.overrideWithValue(service)],
     );
     addTearDown(container.dispose);
 
