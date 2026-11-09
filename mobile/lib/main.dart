@@ -1,63 +1,88 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:pos_mobile/app/app_database_scope.dart';
-import 'package:pos_mobile/data/services/database_service.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pos_mobile/app/app.dart';
+import 'package:pos_mobile/app/bootstrap/app_runtime.dart';
+import 'package:pos_mobile/shared/widgets/database_error_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  runApp(const RootBootstrapApp());
+}
 
-  String? databaseInitError;
-  try {
-    AppDatabaseScope.service = await DatabaseService.open();
-  } catch (error) {
-    databaseInitError = error.toString();
+/// Opens the database before [runApp], then hosts [PakPosApp] or the error UI.
+class RootBootstrapApp extends StatefulWidget {
+  const RootBootstrapApp({super.key});
+
+  @override
+  State<RootBootstrapApp> createState() => _RootBootstrapAppState();
+}
+
+class _RootBootstrapAppState extends State<RootBootstrapApp> {
+  ProviderContainer? _container;
+  bool _bootstrapping = true;
+  bool _failed = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _bootstrap();
   }
 
-  runApp(PosApp(databaseInitError: databaseInitError));
-}
-
-/// Phase 1 shell with Phase 2.1 local database bootstrap (no auto-provision).
-class PosApp extends StatefulWidget {
-  const PosApp({super.key, this.databaseInitError});
-
-  final String? databaseInitError;
-
-  @override
-  State<PosApp> createState() => _PosAppState();
-}
-
-class _PosAppState extends State<PosApp> {
   @override
   void dispose() {
-    AppDatabaseScope.dispose();
+    unawaited(AppRuntime.shutdown());
     super.dispose();
+  }
+
+  Future<void> _bootstrap() async {
+    setState(() {
+      _bootstrapping = true;
+      _failed = false;
+      _container = null;
+    });
+
+    await AppRuntime.shutdown();
+
+    try {
+      final container = await AppRuntime.start();
+      if (!mounted) {
+        await AppRuntime.shutdown();
+        return;
+      }
+      setState(() {
+        _container = container;
+        _bootstrapping = false;
+      });
+    } catch (_) {
+      if (!mounted) return;
+      setState(() {
+        _bootstrapping = false;
+        _failed = true;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final dbReady = widget.databaseInitError == null &&
-        AppDatabaseScope.service != null;
-    return MaterialApp(
-      title: 'Pak POS',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
-        useMaterial3: true,
-      ),
-      home: Scaffold(
-        body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(24),
-            child: Text(
-              widget.databaseInitError != null
-                  ? 'Local database failed to open.\n${widget.databaseInitError}'
-                  : dbReady
-                      ? 'Pak POS — offline-first billing (Phase 2)\n'
-                          'Local database ready. Business not provisioned yet.'
-                      : 'Pak POS — database unavailable.',
-              textAlign: TextAlign.center,
-            ),
-          ),
+    if (_bootstrapping) {
+      return const MaterialApp(
+        home: Scaffold(
+          body: Center(child: CircularProgressIndicator()),
         ),
-      ),
+      );
+    }
+
+    if (_failed || _container == null) {
+      return MaterialApp(
+        home: DatabaseErrorPage(onRetry: _bootstrap),
+      );
+    }
+
+    return UncontrolledProviderScope(
+      container: _container!,
+      child: const PakPosApp(),
     );
   }
 }

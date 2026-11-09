@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:pos_mobile/database/app_database.dart';
 import 'package:pos_mobile/database/connection/open_database.dart';
 
@@ -11,6 +12,12 @@ class DatabaseService {
   final String? businessId;
 
   AppDatabase get database => _database;
+
+  /// In-memory service for widget/unit tests (no file I/O).
+  @visibleForTesting
+  factory DatabaseService.inMemory({AppDatabase? database}) {
+    return DatabaseService._(database ?? openMemoryDatabase());
+  }
 
   /// Opens the bootstrap SQLite file (schema only; no auto-provision).
   static Future<DatabaseService> open({
