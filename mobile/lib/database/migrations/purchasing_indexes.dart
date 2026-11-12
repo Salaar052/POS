@@ -1,6 +1,6 @@
-import 'package:pos_mobile/database/app_database.dart';
+import 'package:drift/drift.dart';
 
-Future<void> applyPurchasingIndexes(AppDatabase db) async {
+Future<void> applyPurchasingIndexes(GeneratedDatabase db) async {
   await db.customStatement('''
 CREATE UNIQUE INDEX IF NOT EXISTS purchases_number_uq
 ON purchases (purchase_number);

@@ -162,6 +162,13 @@ class CustomerRepository {
         referenceId: idempotencyKey,
       );
       if (dup != null) {
+        _assertCustomerPaymentIdempotency(
+          existing: dup,
+          amountMinor: amountMinor,
+          method: method,
+          referenceNumber: referenceNumber,
+          notes: notes,
+        );
         return dup;
       }
       final outstanding = await _ledger.outstandingBalanceMinor(customerId);
@@ -178,9 +185,44 @@ class CustomerRepository {
         creditMinor: amountMinor,
         referenceType: refTypeCustomerPayment,
         referenceId: idempotencyKey,
-        notes: referenceNumber ?? notes,
+        paymentMethod: method,
+        referenceNumber: referenceNumber,
+        notes: notes,
       );
     });
+  }
+
+  void _assertCustomerPaymentIdempotency({
+    required CustomerLedgerEntryRow existing,
+    required int amountMinor,
+    required SalePaymentMethod method,
+    String? referenceNumber,
+    String? notes,
+  }) {
+    if (existing.creditMinor != amountMinor) {
+      throw SalesConflictException(
+        SalesConflictCode.idempotencyConflict,
+        'Payment idempotency key reused with a different amount',
+      );
+    }
+    if (existing.paymentMethod != method.storage) {
+      throw SalesConflictException(
+        SalesConflictCode.idempotencyConflict,
+        'Payment idempotency key reused with a different method',
+      );
+    }
+    if ((existing.referenceNumber ?? '') != (referenceNumber ?? '')) {
+      throw SalesConflictException(
+        SalesConflictCode.idempotencyConflict,
+        'Payment idempotency key reused with a different reference',
+      );
+    }
+    if ((existing.notes ?? '') != (notes ?? '')) {
+      throw SalesConflictException(
+        SalesConflictCode.idempotencyConflict,
+        'Payment idempotency key reused with different notes',
+      );
+    }
   }
 
   String? _trimOrNull(String? value) {

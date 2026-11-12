@@ -17,6 +17,10 @@ class CustomerLedgerEntries extends Table {
 
   TextColumn get referenceId => text()();
 
+  TextColumn get paymentMethod => text().nullable()();
+
+  TextColumn get referenceNumber => text().nullable()();
+
   TextColumn get notes => text().nullable()();
 
   IntColumn get createdAtMs => integer()();

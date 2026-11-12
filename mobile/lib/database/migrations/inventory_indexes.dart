@@ -1,6 +1,6 @@
-import 'package:pos_mobile/database/app_database.dart';
+import 'package:drift/drift.dart';
 
-Future<void> applyInventoryIndexes(AppDatabase db) async {
+Future<void> applyInventoryIndexes(GeneratedDatabase db) async {
   await db.customStatement('''
 CREATE UNIQUE INDEX IF NOT EXISTS stock_movements_reference_uq
 ON stock_movements (reference_type, reference_id, product_id, movement_type)

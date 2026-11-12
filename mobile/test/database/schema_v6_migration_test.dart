@@ -9,7 +9,7 @@ void main() {
     final version = await catalog.harness.database
         .customSelect('PRAGMA user_version')
         .getSingle();
-    expect(version.data['user_version'], 6);
+    expect(version.data['user_version'], 7);
     final tables = await catalog.harness.database
         .customSelect(
           "SELECT name FROM sqlite_master WHERE type='table' "

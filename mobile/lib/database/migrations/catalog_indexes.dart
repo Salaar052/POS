@@ -1,7 +1,7 @@
-import 'package:pos_mobile/database/app_database.dart';
+import 'package:drift/drift.dart';
 
 /// Partial unique indexes for active catalog rows (SQLite).
-Future<void> applyCatalogIndexes(AppDatabase db) async {
+Future<void> applyCatalogIndexes(GeneratedDatabase db) async {
   await db.customStatement('''
 CREATE UNIQUE INDEX IF NOT EXISTS product_categories_active_name_uq
 ON product_categories (normalized_name)

@@ -322,6 +322,15 @@ class SalesRepository {
       final refreshed = (await getSaleById(saleId))!;
       final totalMinor = refreshed.totalMinor;
 
+      if (payments.isEmpty && refreshed.customerId != null) {
+        // Credit sale with no payments at checkout is allowed.
+      } else if (payments.isEmpty && refreshed.customerId == null) {
+        throw SalesConflictException(
+          SalesConflictCode.walkInRequiresFullPayment,
+          'Walk-in sales must be fully paid at checkout',
+        );
+      }
+
       var paid = 0;
       for (final payment in payments) {
         MoneyAmount.assertNonNegativeMinor(payment.amountMinor);
@@ -331,7 +340,10 @@ class SalesRepository {
             'Payment amounts must be positive',
           );
         }
-        paid += payment.amountMinor;
+        paid += await _validatedCheckoutPaymentAmountMinor(
+          saleId: saleId,
+          payment: payment,
+        );
       }
       if (paid > totalMinor) {
         throw SalesConflictException(
@@ -381,41 +393,23 @@ class SalesRepository {
 
       final now = DateTime.now().toUtc().millisecondsSinceEpoch;
       for (final payment in payments) {
-        final existing =
+        await _persistCheckoutPayment(
+          saleId: saleId,
+          payment: payment,
+          createdAtMs: now,
+          customerId: refreshed.customerId,
+          saleNumber: refreshed.saleNumber,
+        );
+      }
+      paid = 0;
+      for (final payment in payments) {
+        final row =
             await (_runner.database.select(_runner.database.salePayments)
                   ..where(
                     (t) => t.idempotencyKey.equals(payment.idempotencyKey),
                   ))
-                .getSingleOrNull();
-        if (existing != null) {
-          continue;
-        }
-        final paymentId = _uuid.v4();
-        await _runner.database
-            .into(_runner.database.salePayments)
-            .insert(
-              SalePaymentsCompanion.insert(
-                id: paymentId,
-                saleId: saleId,
-                paymentMethod: payment.method.storage,
-                amountMinor: payment.amountMinor,
-                referenceNumber: Value(payment.referenceNumber),
-                notes: Value(payment.notes),
-                idempotencyKey: payment.idempotencyKey,
-                createdAtMs: now,
-              ),
-            );
-        if (refreshed.customerId != null) {
-          await _ledger.appendEntry(
-            customerId: refreshed.customerId!,
-            type: CustomerLedgerEntryType.customerPayment,
-            debitMinor: 0,
-            creditMinor: payment.amountMinor,
-            referenceType: refTypeSalePayment,
-            referenceId: payment.idempotencyKey,
-            notes: refreshed.saleNumber,
-          );
-        }
+                .getSingle();
+        paid += row.amountMinor;
       }
 
       if (refreshed.customerId != null && totalMinor > 0) {
@@ -460,11 +454,19 @@ class SalesRepository {
       );
     }
     return _runner.runInTransaction(() async {
+      final aggregated = _aggregateReturnLines(lines);
+
       final existingReturn =
           await (_runner.database.select(_runner.database.saleReturns)
                 ..where((t) => t.idempotencyKey.equals(idempotencyKey)))
               .getSingleOrNull();
       if (existingReturn != null) {
+        await _assertReturnIdempotency(
+          existing: existingReturn,
+          saleId: saleId,
+          reason: reason,
+          aggregatedLines: aggregated,
+        );
         return existingReturn;
       }
 
@@ -488,14 +490,15 @@ class SalesRepository {
       var totalMinor = 0;
       final planned = <_PlannedReturnLine>[];
 
-      for (final line in lines) {
-        if (line.quantityBase <= 0) {
+      for (final entry in aggregated.entries) {
+        final returnQty = entry.value;
+        if (returnQty <= 0) {
           throw SalesConflictException(
             SalesConflictCode.validation,
             'Return quantity must be positive',
           );
         }
-        final item = await getSaleItemById(line.saleItemId);
+        final item = await getSaleItemById(entry.key);
         if (item == null || item.saleId != saleId) {
           throw SalesConflictException(
             SalesConflictCode.notFound,
@@ -503,19 +506,19 @@ class SalesRepository {
           );
         }
         final maxReturn = item.quantityBase - item.quantityReturnedBase;
-        if (line.quantityBase > maxReturn) {
+        if (returnQty > maxReturn) {
           throw SalesConflictException(
             SalesConflictCode.returnExceedsEligible,
             'Return quantity exceeds sold quantity for ${item.productNameSnapshot}',
           );
         }
         final lineAfterDiscount =
-            (item.lineTotalMinor * line.quantityBase) ~/ item.quantityBase;
+            (item.lineTotalMinor * returnQty) ~/ item.quantityBase;
         totalMinor += lineAfterDiscount;
         planned.add(
           _PlannedReturnLine(
             item: item,
-            quantityBase: line.quantityBase,
+            quantityBase: returnQty,
             lineTotalMinor: lineAfterDiscount,
           ),
         );
@@ -739,6 +742,168 @@ class SalesRepository {
       );
     }
     return sale;
+  }
+
+  Map<String, int> _aggregateReturnLines(List<SaleReturnLineInput> lines) {
+    final aggregated = <String, int>{};
+    for (final line in lines) {
+      aggregated[line.saleItemId] =
+          (aggregated[line.saleItemId] ?? 0) + line.quantityBase;
+    }
+    return aggregated;
+  }
+
+  Future<void> _assertReturnIdempotency({
+    required SaleReturnRow existing,
+    required String saleId,
+    required String reason,
+    required Map<String, int> aggregatedLines,
+  }) async {
+    if (existing.saleId != saleId) {
+      throw SalesConflictException(
+        SalesConflictCode.idempotencyConflict,
+        'Return idempotency key belongs to another sale',
+      );
+    }
+    if (existing.reason != reason) {
+      throw SalesConflictException(
+        SalesConflictCode.idempotencyConflict,
+        'Return idempotency key reused with a different reason',
+      );
+    }
+    final stored = await listReturnItems(existing.id);
+    final storedMap = <String, int>{
+      for (final row in stored) row.saleItemId: row.quantityBase,
+    };
+    if (!_mapsEqual(storedMap, aggregatedLines)) {
+      throw SalesConflictException(
+        SalesConflictCode.idempotencyConflict,
+        'Return idempotency key reused with different return lines',
+      );
+    }
+  }
+
+  bool _mapsEqual(Map<String, int> a, Map<String, int> b) {
+    if (a.length != b.length) {
+      return false;
+    }
+    for (final entry in a.entries) {
+      if (b[entry.key] != entry.value) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  Future<List<SaleReturnItemRow>> listReturnItems(String saleReturnId) {
+    return (_runner.database.select(
+      _runner.database.saleReturnItems,
+    )..where((t) => t.saleReturnId.equals(saleReturnId))).get();
+  }
+
+  Future<int> _validatedCheckoutPaymentAmountMinor({
+    required String saleId,
+    required CheckoutPaymentInput payment,
+  }) async {
+    final existing =
+        await (_runner.database.select(_runner.database.salePayments)
+              ..where((t) => t.idempotencyKey.equals(payment.idempotencyKey)))
+            .getSingleOrNull();
+    if (existing != null) {
+      _assertCheckoutPaymentIdempotency(
+        existing: existing,
+        saleId: saleId,
+        payment: payment,
+      );
+      return existing.amountMinor;
+    }
+    return payment.amountMinor;
+  }
+
+  Future<void> _persistCheckoutPayment({
+    required String saleId,
+    required CheckoutPaymentInput payment,
+    required int createdAtMs,
+    String? customerId,
+    String? saleNumber,
+  }) async {
+    final existing =
+        await (_runner.database.select(_runner.database.salePayments)
+              ..where((t) => t.idempotencyKey.equals(payment.idempotencyKey)))
+            .getSingleOrNull();
+    if (existing != null) {
+      _assertCheckoutPaymentIdempotency(
+        existing: existing,
+        saleId: saleId,
+        payment: payment,
+      );
+      return;
+    }
+    final paymentId = _uuid.v4();
+    await _runner.database
+        .into(_runner.database.salePayments)
+        .insert(
+          SalePaymentsCompanion.insert(
+            id: paymentId,
+            saleId: saleId,
+            paymentMethod: payment.method.storage,
+            amountMinor: payment.amountMinor,
+            referenceNumber: Value(payment.referenceNumber),
+            notes: Value(payment.notes),
+            idempotencyKey: payment.idempotencyKey,
+            createdAtMs: createdAtMs,
+          ),
+        );
+    if (customerId != null) {
+      await _ledger.appendEntry(
+        customerId: customerId,
+        type: CustomerLedgerEntryType.customerPayment,
+        debitMinor: 0,
+        creditMinor: payment.amountMinor,
+        referenceType: refTypeSalePayment,
+        referenceId: payment.idempotencyKey,
+        paymentMethod: payment.method,
+        referenceNumber: payment.referenceNumber,
+        notes: saleNumber,
+      );
+    }
+  }
+
+  void _assertCheckoutPaymentIdempotency({
+    required SalePaymentRow existing,
+    required String saleId,
+    required CheckoutPaymentInput payment,
+  }) {
+    if (existing.saleId != saleId) {
+      throw SalesConflictException(
+        SalesConflictCode.idempotencyConflict,
+        'Payment idempotency key belongs to another sale',
+      );
+    }
+    if (existing.amountMinor != payment.amountMinor) {
+      throw SalesConflictException(
+        SalesConflictCode.idempotencyConflict,
+        'Payment idempotency key reused with a different amount',
+      );
+    }
+    if (existing.paymentMethod != payment.method.storage) {
+      throw SalesConflictException(
+        SalesConflictCode.idempotencyConflict,
+        'Payment idempotency key reused with a different method',
+      );
+    }
+    if ((existing.referenceNumber ?? '') != (payment.referenceNumber ?? '')) {
+      throw SalesConflictException(
+        SalesConflictCode.idempotencyConflict,
+        'Payment idempotency key reused with a different reference',
+      );
+    }
+    if ((existing.notes ?? '') != (payment.notes ?? '')) {
+      throw SalesConflictException(
+        SalesConflictCode.idempotencyConflict,
+        'Payment idempotency key reused with different notes',
+      );
+    }
   }
 
   Future<String?> _resolveCustomerSnapshot({String? customerId}) async {

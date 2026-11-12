@@ -3,13 +3,13 @@ import 'package:flutter_test/flutter_test.dart';
 import '../helpers/catalog_test_harness.dart';
 
 void main() {
-  test('schema v5 includes purchasing tables and preserves catalog', () async {
+  test('fresh provision includes purchasing tables at latest schema', () async {
     final catalog = await CatalogTestHarness.create();
     addTearDown(catalog.dispose);
     final version = await catalog.harness.database
         .customSelect('PRAGMA user_version')
         .getSingle();
-    expect(version.data['user_version'], 6);
+    expect(version.data['user_version'], 7);
     final tables = await catalog.harness.database
         .customSelect(
           "SELECT name FROM sqlite_master WHERE type='table' "

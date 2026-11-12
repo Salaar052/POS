@@ -1,6 +1,6 @@
 # Sales and customer accounts (Phase 5.0)
 
-Schema **v6** adds customers, sales, sale items, sale payments, customer ledger, sale returns, and sale return items to each per-business SQLite database.
+Schema **v6** introduced customers, sales, sale items, sale payments, customer ledger, sale returns, and sale return items. **Schema v7** adds nullable `payment_method` and `reference_number` on `customer_ledger_entries` for databases created from the initial v6 release (see `docs/database/migrations.md`).
 
 ## Schema relationships
 
@@ -23,7 +23,7 @@ Schema **v6** adds customers, sales, sale items, sale payments, customer ledger,
 6. For account customers: ledger debit (sale receivable) for sale total, credits for each checkout payment.
 7. Mark sale completed with `checkout_idempotency_key`.
 
-Any failure rolls back the entire transaction (no partial sale, stock, payments, or ledger).
+Any failure rolls back the entire transaction (no partial sale, stock, payments, or ledger). Checkout payment idempotency keys are resolved before totals are finalized; reusing a key with a different sale, amount, method, reference, or notes is rejected (`SalesConflictCode.idempotencyConflict`).
 
 ## Inventory integration
 
@@ -53,21 +53,25 @@ Unit selling price is captured on **add to cart** (`addDraftItem`) from `product
 
 ## Returns and refunds
 
-- Only **completed** sales; cumulative returned qty cannot exceed sold qty.
+- Only **completed** sales; cumulative returned qty cannot exceed sold qty (duplicate return lines for the same `sale_item` are **aggregated** before validation).
 - Return amount is proportional to the original line total snapshot.
-- Stock: `SALE_RETURN` movements inside the same transaction as return rows.
-- Account customers: `SALE_RETURN` ledger credit reduces receivable; cash refunds are not auto-recorded (credit balance only unless a separate refund payment is added later).
+- Stock: `SALE_RETURN` movements inside the same transaction as return rows; failures roll back return headers, items, stock movements, and ledger credits together (see `return rollback` tests in `sales_repository_integrity_test.dart`).
+- **Financial behavior:** a return records a **`SALE_RETURN` ledger credit** for account customers — it reduces outstanding receivable or increases customer credit (negative receivable). This is **not** a cash/card/bank refund unless a separate refund payment workflow is added later.
+- Walk-in returns adjust stock only; no customer ledger rows are written.
+- Fully paid account sales: a return credits the ledger (customer may show negative outstanding = store credit), without reversing `sale_payments` rows.
 
 ## Idempotency
 
 - `sales.checkout_idempotency_key` — unique when set; retries return the same completed sale.
-- `sale_payments.idempotency_key` — unique per payment row.
-- `sale_returns.idempotency_key` — unique per return.
-- `customer_ledger_entries` — unique on `(reference_type, reference_id, entry_type)`.
+- `sale_payments.idempotency_key` — globally unique; existing rows must match sale, amount, method, reference, and notes or checkout fails.
+- `sale_returns.idempotency_key` — existing return must match sale, reason, and aggregated line quantities.
+- `customer_ledger_entries` — unique on `(reference_type, reference_id, entry_type)`; customer payment retries validate full payload including method and reference.
+
+**Concurrency:** SQLite serializes writers; checkout/return/payment logic relies on single-database transactions plus movement and idempotency references. Parallel isolate/process checkout is not explicitly stress-tested; overselling the same stock from two simultaneous writers would require additional coordination beyond sequential unit tests.
 
 ## Migration
 
-Non-destructive **v5 → v6** adds sales tables and indexes via `applySalesIndexes`; catalog, inventory, and purchasing data are untouched.
+Non-destructive **v5 → v6** adds sales tables; **v6 → v7** adds ledger payment metadata columns on databases shipped without them (`schema_migration_helpers.dart`).
 
 ## Known limitations
 

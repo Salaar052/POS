@@ -156,7 +156,9 @@ class _CustomersBodyState extends ConsumerState<_CustomersBody> {
                   .take(8)
                   .map(
                     (e) => Text(
-                      '${e.entryType}: D ${e.debitMinor} / C ${e.creditMinor}',
+                      '${e.entryType}: D ${e.debitMinor} / C ${e.creditMinor}'
+                      '${e.paymentMethod != null ? ' · ${e.paymentMethod}' : ''}'
+                      '${e.referenceNumber != null ? ' · ref ${e.referenceNumber}' : ''}',
                     ),
                   ),
             ],

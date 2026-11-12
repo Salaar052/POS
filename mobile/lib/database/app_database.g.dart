@@ -16703,6 +16703,28 @@ class $CustomerLedgerEntriesTable extends CustomerLedgerEntries
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _paymentMethodMeta = const VerificationMeta(
+    'paymentMethod',
+  );
+  @override
+  late final GeneratedColumn<String> paymentMethod = GeneratedColumn<String>(
+    'payment_method',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _referenceNumberMeta = const VerificationMeta(
+    'referenceNumber',
+  );
+  @override
+  late final GeneratedColumn<String> referenceNumber = GeneratedColumn<String>(
+    'reference_number',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _notesMeta = const VerificationMeta('notes');
   @override
   late final GeneratedColumn<String> notes = GeneratedColumn<String>(
@@ -16732,6 +16754,8 @@ class $CustomerLedgerEntriesTable extends CustomerLedgerEntries
     creditMinor,
     referenceType,
     referenceId,
+    paymentMethod,
+    referenceNumber,
     notes,
     createdAtMs,
   ];
@@ -16805,6 +16829,24 @@ class $CustomerLedgerEntriesTable extends CustomerLedgerEntries
     } else if (isInserting) {
       context.missing(_referenceIdMeta);
     }
+    if (data.containsKey('payment_method')) {
+      context.handle(
+        _paymentMethodMeta,
+        paymentMethod.isAcceptableOrUnknown(
+          data['payment_method']!,
+          _paymentMethodMeta,
+        ),
+      );
+    }
+    if (data.containsKey('reference_number')) {
+      context.handle(
+        _referenceNumberMeta,
+        referenceNumber.isAcceptableOrUnknown(
+          data['reference_number']!,
+          _referenceNumberMeta,
+        ),
+      );
+    }
     if (data.containsKey('notes')) {
       context.handle(
         _notesMeta,
@@ -16859,6 +16901,14 @@ class $CustomerLedgerEntriesTable extends CustomerLedgerEntries
         DriftSqlType.string,
         data['${effectivePrefix}reference_id'],
       )!,
+      paymentMethod: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}payment_method'],
+      ),
+      referenceNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reference_number'],
+      ),
       notes: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}notes'],
@@ -16885,6 +16935,8 @@ class CustomerLedgerEntryRow extends DataClass
   final int creditMinor;
   final String referenceType;
   final String referenceId;
+  final String? paymentMethod;
+  final String? referenceNumber;
   final String? notes;
   final int createdAtMs;
   const CustomerLedgerEntryRow({
@@ -16895,6 +16947,8 @@ class CustomerLedgerEntryRow extends DataClass
     required this.creditMinor,
     required this.referenceType,
     required this.referenceId,
+    this.paymentMethod,
+    this.referenceNumber,
     this.notes,
     required this.createdAtMs,
   });
@@ -16908,6 +16962,12 @@ class CustomerLedgerEntryRow extends DataClass
     map['credit_minor'] = Variable<int>(creditMinor);
     map['reference_type'] = Variable<String>(referenceType);
     map['reference_id'] = Variable<String>(referenceId);
+    if (!nullToAbsent || paymentMethod != null) {
+      map['payment_method'] = Variable<String>(paymentMethod);
+    }
+    if (!nullToAbsent || referenceNumber != null) {
+      map['reference_number'] = Variable<String>(referenceNumber);
+    }
     if (!nullToAbsent || notes != null) {
       map['notes'] = Variable<String>(notes);
     }
@@ -16924,6 +16984,12 @@ class CustomerLedgerEntryRow extends DataClass
       creditMinor: Value(creditMinor),
       referenceType: Value(referenceType),
       referenceId: Value(referenceId),
+      paymentMethod: paymentMethod == null && nullToAbsent
+          ? const Value.absent()
+          : Value(paymentMethod),
+      referenceNumber: referenceNumber == null && nullToAbsent
+          ? const Value.absent()
+          : Value(referenceNumber),
       notes: notes == null && nullToAbsent
           ? const Value.absent()
           : Value(notes),
@@ -16944,6 +17010,8 @@ class CustomerLedgerEntryRow extends DataClass
       creditMinor: serializer.fromJson<int>(json['creditMinor']),
       referenceType: serializer.fromJson<String>(json['referenceType']),
       referenceId: serializer.fromJson<String>(json['referenceId']),
+      paymentMethod: serializer.fromJson<String?>(json['paymentMethod']),
+      referenceNumber: serializer.fromJson<String?>(json['referenceNumber']),
       notes: serializer.fromJson<String?>(json['notes']),
       createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
     );
@@ -16959,6 +17027,8 @@ class CustomerLedgerEntryRow extends DataClass
       'creditMinor': serializer.toJson<int>(creditMinor),
       'referenceType': serializer.toJson<String>(referenceType),
       'referenceId': serializer.toJson<String>(referenceId),
+      'paymentMethod': serializer.toJson<String?>(paymentMethod),
+      'referenceNumber': serializer.toJson<String?>(referenceNumber),
       'notes': serializer.toJson<String?>(notes),
       'createdAtMs': serializer.toJson<int>(createdAtMs),
     };
@@ -16972,6 +17042,8 @@ class CustomerLedgerEntryRow extends DataClass
     int? creditMinor,
     String? referenceType,
     String? referenceId,
+    Value<String?> paymentMethod = const Value.absent(),
+    Value<String?> referenceNumber = const Value.absent(),
     Value<String?> notes = const Value.absent(),
     int? createdAtMs,
   }) => CustomerLedgerEntryRow(
@@ -16982,6 +17054,12 @@ class CustomerLedgerEntryRow extends DataClass
     creditMinor: creditMinor ?? this.creditMinor,
     referenceType: referenceType ?? this.referenceType,
     referenceId: referenceId ?? this.referenceId,
+    paymentMethod: paymentMethod.present
+        ? paymentMethod.value
+        : this.paymentMethod,
+    referenceNumber: referenceNumber.present
+        ? referenceNumber.value
+        : this.referenceNumber,
     notes: notes.present ? notes.value : this.notes,
     createdAtMs: createdAtMs ?? this.createdAtMs,
   );
@@ -17006,6 +17084,12 @@ class CustomerLedgerEntryRow extends DataClass
       referenceId: data.referenceId.present
           ? data.referenceId.value
           : this.referenceId,
+      paymentMethod: data.paymentMethod.present
+          ? data.paymentMethod.value
+          : this.paymentMethod,
+      referenceNumber: data.referenceNumber.present
+          ? data.referenceNumber.value
+          : this.referenceNumber,
       notes: data.notes.present ? data.notes.value : this.notes,
       createdAtMs: data.createdAtMs.present
           ? data.createdAtMs.value
@@ -17023,6 +17107,8 @@ class CustomerLedgerEntryRow extends DataClass
           ..write('creditMinor: $creditMinor, ')
           ..write('referenceType: $referenceType, ')
           ..write('referenceId: $referenceId, ')
+          ..write('paymentMethod: $paymentMethod, ')
+          ..write('referenceNumber: $referenceNumber, ')
           ..write('notes: $notes, ')
           ..write('createdAtMs: $createdAtMs')
           ..write(')'))
@@ -17038,6 +17124,8 @@ class CustomerLedgerEntryRow extends DataClass
     creditMinor,
     referenceType,
     referenceId,
+    paymentMethod,
+    referenceNumber,
     notes,
     createdAtMs,
   );
@@ -17052,6 +17140,8 @@ class CustomerLedgerEntryRow extends DataClass
           other.creditMinor == this.creditMinor &&
           other.referenceType == this.referenceType &&
           other.referenceId == this.referenceId &&
+          other.paymentMethod == this.paymentMethod &&
+          other.referenceNumber == this.referenceNumber &&
           other.notes == this.notes &&
           other.createdAtMs == this.createdAtMs);
 }
@@ -17065,6 +17155,8 @@ class CustomerLedgerEntriesCompanion
   final Value<int> creditMinor;
   final Value<String> referenceType;
   final Value<String> referenceId;
+  final Value<String?> paymentMethod;
+  final Value<String?> referenceNumber;
   final Value<String?> notes;
   final Value<int> createdAtMs;
   final Value<int> rowid;
@@ -17076,6 +17168,8 @@ class CustomerLedgerEntriesCompanion
     this.creditMinor = const Value.absent(),
     this.referenceType = const Value.absent(),
     this.referenceId = const Value.absent(),
+    this.paymentMethod = const Value.absent(),
+    this.referenceNumber = const Value.absent(),
     this.notes = const Value.absent(),
     this.createdAtMs = const Value.absent(),
     this.rowid = const Value.absent(),
@@ -17088,6 +17182,8 @@ class CustomerLedgerEntriesCompanion
     this.creditMinor = const Value.absent(),
     required String referenceType,
     required String referenceId,
+    this.paymentMethod = const Value.absent(),
+    this.referenceNumber = const Value.absent(),
     this.notes = const Value.absent(),
     required int createdAtMs,
     this.rowid = const Value.absent(),
@@ -17105,6 +17201,8 @@ class CustomerLedgerEntriesCompanion
     Expression<int>? creditMinor,
     Expression<String>? referenceType,
     Expression<String>? referenceId,
+    Expression<String>? paymentMethod,
+    Expression<String>? referenceNumber,
     Expression<String>? notes,
     Expression<int>? createdAtMs,
     Expression<int>? rowid,
@@ -17117,6 +17215,8 @@ class CustomerLedgerEntriesCompanion
       if (creditMinor != null) 'credit_minor': creditMinor,
       if (referenceType != null) 'reference_type': referenceType,
       if (referenceId != null) 'reference_id': referenceId,
+      if (paymentMethod != null) 'payment_method': paymentMethod,
+      if (referenceNumber != null) 'reference_number': referenceNumber,
       if (notes != null) 'notes': notes,
       if (createdAtMs != null) 'created_at_ms': createdAtMs,
       if (rowid != null) 'rowid': rowid,
@@ -17131,6 +17231,8 @@ class CustomerLedgerEntriesCompanion
     Value<int>? creditMinor,
     Value<String>? referenceType,
     Value<String>? referenceId,
+    Value<String?>? paymentMethod,
+    Value<String?>? referenceNumber,
     Value<String?>? notes,
     Value<int>? createdAtMs,
     Value<int>? rowid,
@@ -17143,6 +17245,8 @@ class CustomerLedgerEntriesCompanion
       creditMinor: creditMinor ?? this.creditMinor,
       referenceType: referenceType ?? this.referenceType,
       referenceId: referenceId ?? this.referenceId,
+      paymentMethod: paymentMethod ?? this.paymentMethod,
+      referenceNumber: referenceNumber ?? this.referenceNumber,
       notes: notes ?? this.notes,
       createdAtMs: createdAtMs ?? this.createdAtMs,
       rowid: rowid ?? this.rowid,
@@ -17173,6 +17277,12 @@ class CustomerLedgerEntriesCompanion
     if (referenceId.present) {
       map['reference_id'] = Variable<String>(referenceId.value);
     }
+    if (paymentMethod.present) {
+      map['payment_method'] = Variable<String>(paymentMethod.value);
+    }
+    if (referenceNumber.present) {
+      map['reference_number'] = Variable<String>(referenceNumber.value);
+    }
     if (notes.present) {
       map['notes'] = Variable<String>(notes.value);
     }
@@ -17195,6 +17305,8 @@ class CustomerLedgerEntriesCompanion
           ..write('creditMinor: $creditMinor, ')
           ..write('referenceType: $referenceType, ')
           ..write('referenceId: $referenceId, ')
+          ..write('paymentMethod: $paymentMethod, ')
+          ..write('referenceNumber: $referenceNumber, ')
           ..write('notes: $notes, ')
           ..write('createdAtMs: $createdAtMs, ')
           ..write('rowid: $rowid')
@@ -32125,6 +32237,8 @@ typedef $$CustomerLedgerEntriesTableCreateCompanionBuilder =
       Value<int> creditMinor,
       required String referenceType,
       required String referenceId,
+      Value<String?> paymentMethod,
+      Value<String?> referenceNumber,
       Value<String?> notes,
       required int createdAtMs,
       Value<int> rowid,
@@ -32138,6 +32252,8 @@ typedef $$CustomerLedgerEntriesTableUpdateCompanionBuilder =
       Value<int> creditMinor,
       Value<String> referenceType,
       Value<String> referenceId,
+      Value<String?> paymentMethod,
+      Value<String?> referenceNumber,
       Value<String?> notes,
       Value<int> createdAtMs,
       Value<int> rowid,
@@ -32210,6 +32326,16 @@ class $$CustomerLedgerEntriesTableFilterComposer
 
   ColumnFilters<String> get referenceId => $composableBuilder(
     column: $table.referenceId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get paymentMethod => $composableBuilder(
+    column: $table.paymentMethod,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get referenceNumber => $composableBuilder(
+    column: $table.referenceNumber,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -32286,6 +32412,16 @@ class $$CustomerLedgerEntriesTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get paymentMethod => $composableBuilder(
+    column: $table.paymentMethod,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get referenceNumber => $composableBuilder(
+    column: $table.referenceNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get notes => $composableBuilder(
     column: $table.notes,
     builder: (column) => ColumnOrderings(column),
@@ -32352,6 +32488,16 @@ class $$CustomerLedgerEntriesTableAnnotationComposer
 
   GeneratedColumn<String> get referenceId => $composableBuilder(
     column: $table.referenceId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get paymentMethod => $composableBuilder(
+    column: $table.paymentMethod,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get referenceNumber => $composableBuilder(
+    column: $table.referenceNumber,
     builder: (column) => column,
   );
 
@@ -32433,6 +32579,8 @@ class $$CustomerLedgerEntriesTableTableManager
                 Value<int> creditMinor = const Value.absent(),
                 Value<String> referenceType = const Value.absent(),
                 Value<String> referenceId = const Value.absent(),
+                Value<String?> paymentMethod = const Value.absent(),
+                Value<String?> referenceNumber = const Value.absent(),
                 Value<String?> notes = const Value.absent(),
                 Value<int> createdAtMs = const Value.absent(),
                 Value<int> rowid = const Value.absent(),
@@ -32444,6 +32592,8 @@ class $$CustomerLedgerEntriesTableTableManager
                 creditMinor: creditMinor,
                 referenceType: referenceType,
                 referenceId: referenceId,
+                paymentMethod: paymentMethod,
+                referenceNumber: referenceNumber,
                 notes: notes,
                 createdAtMs: createdAtMs,
                 rowid: rowid,
@@ -32457,6 +32607,8 @@ class $$CustomerLedgerEntriesTableTableManager
                 Value<int> creditMinor = const Value.absent(),
                 required String referenceType,
                 required String referenceId,
+                Value<String?> paymentMethod = const Value.absent(),
+                Value<String?> referenceNumber = const Value.absent(),
                 Value<String?> notes = const Value.absent(),
                 required int createdAtMs,
                 Value<int> rowid = const Value.absent(),
@@ -32468,6 +32620,8 @@ class $$CustomerLedgerEntriesTableTableManager
                 creditMinor: creditMinor,
                 referenceType: referenceType,
                 referenceId: referenceId,
+                paymentMethod: paymentMethod,
+                referenceNumber: referenceNumber,
                 notes: notes,
                 createdAtMs: createdAtMs,
                 rowid: rowid,

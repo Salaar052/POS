@@ -27,6 +27,7 @@ import 'package:pos_mobile/database/tables/purchases.dart';
 import 'package:pos_mobile/database/tables/supplier_ledger_entries.dart';
 import 'package:pos_mobile/database/tables/suppliers.dart';
 import 'package:pos_mobile/database/migrations/sales_indexes.dart';
+import 'package:pos_mobile/database/migrations/schema_migration_helpers.dart';
 import 'package:pos_mobile/database/tables/customers.dart';
 import 'package:pos_mobile/database/tables/customer_ledger_entries.dart';
 import 'package:pos_mobile/database/tables/sales.dart';
@@ -74,7 +75,7 @@ class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);
 
   @override
-  int get schemaVersion => 6;
+  int get schemaVersion => 7;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -125,6 +126,9 @@ class AppDatabase extends _$AppDatabase {
         await m.createTable(saleReturns);
         await m.createTable(saleReturnItems);
         await applySalesIndexes(this);
+      }
+      if (from < 7 && to >= 7) {
+        await addCustomerLedgerPaymentColumnsIfNeeded(this);
       }
     },
   );

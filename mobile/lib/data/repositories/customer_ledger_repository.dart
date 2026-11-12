@@ -34,6 +34,8 @@ class CustomerLedgerRepository {
     required int creditMinor,
     required String referenceType,
     required String referenceId,
+    SalePaymentMethod? paymentMethod,
+    String? referenceNumber,
     String? notes,
   }) async {
     if (debitMinor < 0 || creditMinor < 0) {
@@ -69,6 +71,8 @@ class CustomerLedgerRepository {
             creditMinor: Value(creditMinor),
             referenceType: referenceType,
             referenceId: referenceId,
+            paymentMethod: Value(paymentMethod?.storage),
+            referenceNumber: Value(referenceNumber),
             notes: Value(notes),
             createdAtMs: now,
           ),

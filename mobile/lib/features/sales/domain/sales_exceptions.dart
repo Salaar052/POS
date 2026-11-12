@@ -8,6 +8,7 @@ enum SalesConflictCode {
   walkInRequiresFullPayment,
   returnExceedsEligible,
   insufficientStock,
+  idempotencyConflict,
 }
 
 class SalesConflictException implements Exception {

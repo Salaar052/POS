@@ -1,6 +1,6 @@
-import 'package:pos_mobile/database/app_database.dart';
+import 'package:drift/drift.dart';
 
-Future<void> applySalesIndexes(AppDatabase db) async {
+Future<void> applySalesIndexes(GeneratedDatabase db) async {
   await db.customStatement('''
 CREATE UNIQUE INDEX IF NOT EXISTS sales_number_uq ON sales (sale_number);
 ''');
