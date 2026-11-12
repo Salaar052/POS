@@ -1,13 +1,26 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pos_mobile/app/app.dart';
+import 'package:pos_mobile/app/bootstrap/app_bootstrap_launch.dart';
 import 'package:pos_mobile/app/bootstrap/app_runtime.dart';
+import 'package:pos_mobile/core/config/api_config.dart';
+import 'package:pos_mobile/core/security/secure_storage_factory.dart';
+import 'package:pos_mobile/features/onboarding/data/onboarding_recovery_store.dart';
+import 'package:pos_mobile/shared/widgets/api_configuration_error_app.dart';
 import 'package:pos_mobile/shared/widgets/database_error_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final apiValidation = ApiConfig.validateForCurrentBuild(
+    debugBuild: kDebugMode,
+  );
+  if (!apiValidation.isOk) {
+    runApp(ApiConfigurationErrorApp(message: apiValidation.userMessage!));
+    return;
+  }
   runApp(const RootBootstrapApp());
 }
 
@@ -54,7 +67,15 @@ class _RootBootstrapAppState extends State<RootBootstrapApp> {
     await AppRuntime.shutdown();
 
     try {
-      final container = await AppRuntime.start();
+      var container = await AppRuntime.start();
+      final recoveryStore = OnboardingRecoveryStore(
+        createPlatformSecureStorage(),
+      );
+      await AppBootstrapLaunch.openBusinessDatabaseWhenAllowed(
+        recoveryStore: recoveryStore,
+        allowBusinessDatabaseForOwnerPending: true,
+      );
+      container = AppRuntime.container ?? container;
       if (!mounted) {
         await AppRuntime.shutdown();
         return;

@@ -17,8 +17,14 @@ class DatabaseService {
 
   /// In-memory service for widget/unit tests (no file I/O).
   @visibleForTesting
-  factory DatabaseService.inMemory({AppDatabase? database}) {
-    return DatabaseService._(database ?? openMemoryDatabase());
+  factory DatabaseService.inMemory({
+    AppDatabase? database,
+    String? businessId,
+  }) {
+    return DatabaseService._(
+      database ?? openMemoryDatabase(),
+      businessId: businessId,
+    );
   }
 
   /// Opens the bootstrap SQLite file (schema only; no auto-provision).

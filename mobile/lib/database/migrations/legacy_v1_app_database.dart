@@ -39,7 +39,7 @@ class LegacyV1AppDatabase extends _$LegacyV1AppDatabase {
     },
     onCreate: (Migrator m) async {
       await m.createAll();
-          await applyPhase2CoreTriggers(this);
+      await applyPhase2CoreTriggers(this);
     },
   );
 }

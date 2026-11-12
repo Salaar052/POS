@@ -39,7 +39,7 @@ class EmptyBusinessBanner extends StatelessWidget {
             Expanded(
               child: Text(
                 'No business is set up on this device yet. '
-                'Business registration will be available in a later phase.',
+                'Complete onboarding to register your business.',
                 style: theme.textTheme.bodySmall?.copyWith(
                   color: isDark ? AppColors.slate100 : AppColors.slate700,
                 ),

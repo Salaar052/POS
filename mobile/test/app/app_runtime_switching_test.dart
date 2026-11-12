@@ -18,9 +18,8 @@ void main() {
     final service = container.read(databaseServiceProvider);
     expect(service.isBootstrap, isTrue);
     expect(
-      await InstallationRepository(
-        container.read(databaseRunnerProvider),
-      ).getProfile(),
+      await InstallationRepository(container.read(databaseRunnerProvider))
+          .getProfile(),
       isNotNull,
     );
   });

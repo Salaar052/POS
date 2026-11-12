@@ -19,7 +19,6 @@ BEGIN
   SELECT RAISE(ABORT, 'local_device allows only one row');
 END;
 ''');
-
 }
 
 /// All triggers for a fresh schema-v2 database (v1 core + installation).

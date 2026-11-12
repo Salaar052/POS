@@ -34,7 +34,7 @@ void main() {
     expect(status.isProvisioned, isFalse);
 
     expect(find.textContaining('Welcome to Pak POS'), findsOneWidget);
-    expect(find.textContaining('Connected (schema v1)'), findsOneWidget);
+    expect(find.textContaining('Connected (schema v6)'), findsOneWidget);
   });
 
   testWidgets('Settings toggles dark theme', (tester) async {

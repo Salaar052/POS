@@ -4,12 +4,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pos_mobile/app/app.dart';
 import 'package:pos_mobile/app/layout/app_shell.dart';
 import 'package:pos_mobile/app/layout/desktop_sidebar.dart';
+import 'package:pos_mobile/app/launch/app_launch_resolver.dart';
+import 'package:pos_mobile/app/providers/app_launch_provider.dart';
 import 'package:pos_mobile/app/providers/business_status_provider.dart';
+import 'package:pos_mobile/app/providers/database_providers.dart';
+import 'package:pos_mobile/app/providers/secure_storage_provider.dart';
 import 'package:pos_mobile/app/providers/theme_provider.dart';
 import 'package:pos_mobile/app/router/app_router.dart';
 import 'package:pos_mobile/app/router/app_routes.dart';
 import 'package:pos_mobile/data/services/database_service.dart';
 
+import '../fakes/fake_secure_storage_service.dart';
 import '../helpers/test_app_container.dart';
 
 void main() {
@@ -26,6 +31,12 @@ void main() {
       UncontrolledProviderScope(container: container, child: const PakPosApp()),
     );
     await tester.pump();
+    await tester.pump(const Duration(milliseconds: 50));
+    if (!container.read(appLaunchResolutionProvider).hasValue) {
+      await container.read(appLaunchResolutionProvider.future);
+    }
+    container.read(routerProvider).go(AppRoutes.dashboard);
+    await tester.pump(const Duration(milliseconds: 50));
     await tester.pump(const Duration(milliseconds: 100));
   }
 
@@ -35,9 +46,22 @@ void main() {
 
     setUp(() async {
       final handle = createInMemoryAppContainer();
-      container = handle.container;
       service = handle.service;
+      container = ProviderContainer(
+        overrides: [
+          databaseServiceProvider.overrideWithValue(service),
+          secureStorageServiceProvider.overrideWithValue(
+            FakeSecureStorageService(),
+          ),
+          appLaunchResolutionProvider.overrideWith(
+            (ref) async => const AppLaunchResolution(
+              destination: AppLaunchDestination.mainApp,
+            ),
+          ),
+        ],
+      );
       await container.read(businessProvisionStatusProvider.future);
+      await container.read(appLaunchResolutionProvider.future);
     });
 
     tearDown(() async {
@@ -47,26 +71,35 @@ void main() {
 
     testWidgets('renders each shell route destination', (tester) async {
       await pumpPakPosApp(tester, container: container);
-      final router = container.read(routerProvider);
-
       const expectations = <String, String>{
         AppRoutes.dashboard: 'Welcome to Pak POS',
         AppRoutes.pos: 'Point of Sale',
-        AppRoutes.products: 'Products',
-        AppRoutes.inventory: 'Inventory',
         AppRoutes.customers: 'Customers',
-        AppRoutes.suppliers: 'Suppliers',
-        AppRoutes.purchases: 'Purchases',
         AppRoutes.expenses: 'Expenses',
         AppRoutes.reports: 'Reports',
         AppRoutes.settings: 'Settings',
       };
 
+      const gatedRoutes = <String>[
+        AppRoutes.products,
+        AppRoutes.inventory,
+        AppRoutes.suppliers,
+        AppRoutes.purchases,
+      ];
+
       for (final entry in expectations.entries) {
-        router.go(entry.key);
+        container.read(routerProvider).go(entry.key);
         await tester.pump();
         await tester.pump(const Duration(milliseconds: 50));
         expect(find.text(entry.value), findsWidgets);
+        expect(find.byType(AppShell), findsOneWidget);
+      }
+
+      for (final path in gatedRoutes) {
+        container.read(routerProvider).go(path);
+        await tester.pump();
+        await tester.pump(const Duration(milliseconds: 50));
+        expect(find.textContaining('business database'), findsWidgets);
         expect(find.byType(AppShell), findsOneWidget);
       }
     });

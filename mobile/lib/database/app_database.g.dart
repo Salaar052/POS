@@ -5666,6 +5666,12678 @@ class KnownBusinessesCompanion extends UpdateCompanion<KnownBusinessRow> {
   }
 }
 
+class $ProductCategoriesTable extends ProductCategories
+    with TableInfo<$ProductCategoriesTable, ProductCategoryRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ProductCategoriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _normalizedNameMeta = const VerificationMeta(
+    'normalizedName',
+  );
+  @override
+  late final GeneratedColumn<String> normalizedName = GeneratedColumn<String>(
+    'normalized_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+    'description',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _isActiveMeta = const VerificationMeta(
+    'isActive',
+  );
+  @override
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+    'is_active',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_active" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
+  );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMsMeta = const VerificationMeta(
+    'updatedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAtMs = GeneratedColumn<int>(
+    'updated_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _archivedAtMsMeta = const VerificationMeta(
+    'archivedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> archivedAtMs = GeneratedColumn<int>(
+    'archived_at_ms',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    name,
+    normalizedName,
+    description,
+    isActive,
+    createdAtMs,
+    updatedAtMs,
+    archivedAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'product_categories';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ProductCategoryRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('normalized_name')) {
+      context.handle(
+        _normalizedNameMeta,
+        normalizedName.isAcceptableOrUnknown(
+          data['normalized_name']!,
+          _normalizedNameMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_normalizedNameMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+        _descriptionMeta,
+        description.isAcceptableOrUnknown(
+          data['description']!,
+          _descriptionMeta,
+        ),
+      );
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(
+        _isActiveMeta,
+        isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta),
+      );
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    if (data.containsKey('updated_at_ms')) {
+      context.handle(
+        _updatedAtMsMeta,
+        updatedAtMs.isAcceptableOrUnknown(
+          data['updated_at_ms']!,
+          _updatedAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMsMeta);
+    }
+    if (data.containsKey('archived_at_ms')) {
+      context.handle(
+        _archivedAtMsMeta,
+        archivedAtMs.isAcceptableOrUnknown(
+          data['archived_at_ms']!,
+          _archivedAtMsMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ProductCategoryRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ProductCategoryRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      normalizedName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}normalized_name'],
+      )!,
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      ),
+      isActive: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_active'],
+      )!,
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+      updatedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at_ms'],
+      )!,
+      archivedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}archived_at_ms'],
+      ),
+    );
+  }
+
+  @override
+  $ProductCategoriesTable createAlias(String alias) {
+    return $ProductCategoriesTable(attachedDatabase, alias);
+  }
+}
+
+class ProductCategoryRow extends DataClass
+    implements Insertable<ProductCategoryRow> {
+  final String id;
+  final String name;
+  final String normalizedName;
+  final String? description;
+  final bool isActive;
+  final int createdAtMs;
+  final int updatedAtMs;
+  final int? archivedAtMs;
+  const ProductCategoryRow({
+    required this.id,
+    required this.name,
+    required this.normalizedName,
+    this.description,
+    required this.isActive,
+    required this.createdAtMs,
+    required this.updatedAtMs,
+    this.archivedAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['name'] = Variable<String>(name);
+    map['normalized_name'] = Variable<String>(normalizedName);
+    if (!nullToAbsent || description != null) {
+      map['description'] = Variable<String>(description);
+    }
+    map['is_active'] = Variable<bool>(isActive);
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    map['updated_at_ms'] = Variable<int>(updatedAtMs);
+    if (!nullToAbsent || archivedAtMs != null) {
+      map['archived_at_ms'] = Variable<int>(archivedAtMs);
+    }
+    return map;
+  }
+
+  ProductCategoriesCompanion toCompanion(bool nullToAbsent) {
+    return ProductCategoriesCompanion(
+      id: Value(id),
+      name: Value(name),
+      normalizedName: Value(normalizedName),
+      description: description == null && nullToAbsent
+          ? const Value.absent()
+          : Value(description),
+      isActive: Value(isActive),
+      createdAtMs: Value(createdAtMs),
+      updatedAtMs: Value(updatedAtMs),
+      archivedAtMs: archivedAtMs == null && nullToAbsent
+          ? const Value.absent()
+          : Value(archivedAtMs),
+    );
+  }
+
+  factory ProductCategoryRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ProductCategoryRow(
+      id: serializer.fromJson<String>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      normalizedName: serializer.fromJson<String>(json['normalizedName']),
+      description: serializer.fromJson<String?>(json['description']),
+      isActive: serializer.fromJson<bool>(json['isActive']),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+      updatedAtMs: serializer.fromJson<int>(json['updatedAtMs']),
+      archivedAtMs: serializer.fromJson<int?>(json['archivedAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'name': serializer.toJson<String>(name),
+      'normalizedName': serializer.toJson<String>(normalizedName),
+      'description': serializer.toJson<String?>(description),
+      'isActive': serializer.toJson<bool>(isActive),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+      'updatedAtMs': serializer.toJson<int>(updatedAtMs),
+      'archivedAtMs': serializer.toJson<int?>(archivedAtMs),
+    };
+  }
+
+  ProductCategoryRow copyWith({
+    String? id,
+    String? name,
+    String? normalizedName,
+    Value<String?> description = const Value.absent(),
+    bool? isActive,
+    int? createdAtMs,
+    int? updatedAtMs,
+    Value<int?> archivedAtMs = const Value.absent(),
+  }) => ProductCategoryRow(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    normalizedName: normalizedName ?? this.normalizedName,
+    description: description.present ? description.value : this.description,
+    isActive: isActive ?? this.isActive,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+    updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+    archivedAtMs: archivedAtMs.present ? archivedAtMs.value : this.archivedAtMs,
+  );
+  ProductCategoryRow copyWithCompanion(ProductCategoriesCompanion data) {
+    return ProductCategoryRow(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      normalizedName: data.normalizedName.present
+          ? data.normalizedName.value
+          : this.normalizedName,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+      updatedAtMs: data.updatedAtMs.present
+          ? data.updatedAtMs.value
+          : this.updatedAtMs,
+      archivedAtMs: data.archivedAtMs.present
+          ? data.archivedAtMs.value
+          : this.archivedAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ProductCategoryRow(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('normalizedName: $normalizedName, ')
+          ..write('description: $description, ')
+          ..write('isActive: $isActive, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('updatedAtMs: $updatedAtMs, ')
+          ..write('archivedAtMs: $archivedAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    name,
+    normalizedName,
+    description,
+    isActive,
+    createdAtMs,
+    updatedAtMs,
+    archivedAtMs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ProductCategoryRow &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.normalizedName == this.normalizedName &&
+          other.description == this.description &&
+          other.isActive == this.isActive &&
+          other.createdAtMs == this.createdAtMs &&
+          other.updatedAtMs == this.updatedAtMs &&
+          other.archivedAtMs == this.archivedAtMs);
+}
+
+class ProductCategoriesCompanion extends UpdateCompanion<ProductCategoryRow> {
+  final Value<String> id;
+  final Value<String> name;
+  final Value<String> normalizedName;
+  final Value<String?> description;
+  final Value<bool> isActive;
+  final Value<int> createdAtMs;
+  final Value<int> updatedAtMs;
+  final Value<int?> archivedAtMs;
+  final Value<int> rowid;
+  const ProductCategoriesCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.normalizedName = const Value.absent(),
+    this.description = const Value.absent(),
+    this.isActive = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.updatedAtMs = const Value.absent(),
+    this.archivedAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ProductCategoriesCompanion.insert({
+    required String id,
+    required String name,
+    required String normalizedName,
+    this.description = const Value.absent(),
+    this.isActive = const Value.absent(),
+    required int createdAtMs,
+    required int updatedAtMs,
+    this.archivedAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       name = Value(name),
+       normalizedName = Value(normalizedName),
+       createdAtMs = Value(createdAtMs),
+       updatedAtMs = Value(updatedAtMs);
+  static Insertable<ProductCategoryRow> custom({
+    Expression<String>? id,
+    Expression<String>? name,
+    Expression<String>? normalizedName,
+    Expression<String>? description,
+    Expression<bool>? isActive,
+    Expression<int>? createdAtMs,
+    Expression<int>? updatedAtMs,
+    Expression<int>? archivedAtMs,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (normalizedName != null) 'normalized_name': normalizedName,
+      if (description != null) 'description': description,
+      if (isActive != null) 'is_active': isActive,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (updatedAtMs != null) 'updated_at_ms': updatedAtMs,
+      if (archivedAtMs != null) 'archived_at_ms': archivedAtMs,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ProductCategoriesCompanion copyWith({
+    Value<String>? id,
+    Value<String>? name,
+    Value<String>? normalizedName,
+    Value<String?>? description,
+    Value<bool>? isActive,
+    Value<int>? createdAtMs,
+    Value<int>? updatedAtMs,
+    Value<int?>? archivedAtMs,
+    Value<int>? rowid,
+  }) {
+    return ProductCategoriesCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      normalizedName: normalizedName ?? this.normalizedName,
+      description: description ?? this.description,
+      isActive: isActive ?? this.isActive,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+      archivedAtMs: archivedAtMs ?? this.archivedAtMs,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (normalizedName.present) {
+      map['normalized_name'] = Variable<String>(normalizedName.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (updatedAtMs.present) {
+      map['updated_at_ms'] = Variable<int>(updatedAtMs.value);
+    }
+    if (archivedAtMs.present) {
+      map['archived_at_ms'] = Variable<int>(archivedAtMs.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ProductCategoriesCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('normalizedName: $normalizedName, ')
+          ..write('description: $description, ')
+          ..write('isActive: $isActive, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('updatedAtMs: $updatedAtMs, ')
+          ..write('archivedAtMs: $archivedAtMs, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ProductsTable extends Products
+    with TableInfo<$ProductsTable, ProductRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ProductsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _descriptionMeta = const VerificationMeta(
+    'description',
+  );
+  @override
+  late final GeneratedColumn<String> description = GeneratedColumn<String>(
+    'description',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _skuMeta = const VerificationMeta('sku');
+  @override
+  late final GeneratedColumn<String> sku = GeneratedColumn<String>(
+    'sku',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _skuNormalizedMeta = const VerificationMeta(
+    'skuNormalized',
+  );
+  @override
+  late final GeneratedColumn<String> skuNormalized = GeneratedColumn<String>(
+    'sku_normalized',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _barcodeMeta = const VerificationMeta(
+    'barcode',
+  );
+  @override
+  late final GeneratedColumn<String> barcode = GeneratedColumn<String>(
+    'barcode',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _barcodeNormalizedMeta = const VerificationMeta(
+    'barcodeNormalized',
+  );
+  @override
+  late final GeneratedColumn<String> barcodeNormalized =
+      GeneratedColumn<String>(
+        'barcode_normalized',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _categoryIdMeta = const VerificationMeta(
+    'categoryId',
+  );
+  @override
+  late final GeneratedColumn<String> categoryId = GeneratedColumn<String>(
+    'category_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES product_categories (id)',
+    ),
+  );
+  static const VerificationMeta _costPriceMinorMeta = const VerificationMeta(
+    'costPriceMinor',
+  );
+  @override
+  late final GeneratedColumn<int> costPriceMinor = GeneratedColumn<int>(
+    'cost_price_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _sellingPriceMinorMeta = const VerificationMeta(
+    'sellingPriceMinor',
+  );
+  @override
+  late final GeneratedColumn<int> sellingPriceMinor = GeneratedColumn<int>(
+    'selling_price_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _unitMeta = const VerificationMeta('unit');
+  @override
+  late final GeneratedColumn<String> unit = GeneratedColumn<String>(
+    'unit',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('each'),
+  );
+  static const VerificationMeta _isActiveMeta = const VerificationMeta(
+    'isActive',
+  );
+  @override
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+    'is_active',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_active" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
+  );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMsMeta = const VerificationMeta(
+    'updatedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAtMs = GeneratedColumn<int>(
+    'updated_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _archivedAtMsMeta = const VerificationMeta(
+    'archivedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> archivedAtMs = GeneratedColumn<int>(
+    'archived_at_ms',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    name,
+    description,
+    sku,
+    skuNormalized,
+    barcode,
+    barcodeNormalized,
+    categoryId,
+    costPriceMinor,
+    sellingPriceMinor,
+    unit,
+    isActive,
+    createdAtMs,
+    updatedAtMs,
+    archivedAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'products';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ProductRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('description')) {
+      context.handle(
+        _descriptionMeta,
+        description.isAcceptableOrUnknown(
+          data['description']!,
+          _descriptionMeta,
+        ),
+      );
+    }
+    if (data.containsKey('sku')) {
+      context.handle(
+        _skuMeta,
+        sku.isAcceptableOrUnknown(data['sku']!, _skuMeta),
+      );
+    }
+    if (data.containsKey('sku_normalized')) {
+      context.handle(
+        _skuNormalizedMeta,
+        skuNormalized.isAcceptableOrUnknown(
+          data['sku_normalized']!,
+          _skuNormalizedMeta,
+        ),
+      );
+    }
+    if (data.containsKey('barcode')) {
+      context.handle(
+        _barcodeMeta,
+        barcode.isAcceptableOrUnknown(data['barcode']!, _barcodeMeta),
+      );
+    }
+    if (data.containsKey('barcode_normalized')) {
+      context.handle(
+        _barcodeNormalizedMeta,
+        barcodeNormalized.isAcceptableOrUnknown(
+          data['barcode_normalized']!,
+          _barcodeNormalizedMeta,
+        ),
+      );
+    }
+    if (data.containsKey('category_id')) {
+      context.handle(
+        _categoryIdMeta,
+        categoryId.isAcceptableOrUnknown(data['category_id']!, _categoryIdMeta),
+      );
+    }
+    if (data.containsKey('cost_price_minor')) {
+      context.handle(
+        _costPriceMinorMeta,
+        costPriceMinor.isAcceptableOrUnknown(
+          data['cost_price_minor']!,
+          _costPriceMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_costPriceMinorMeta);
+    }
+    if (data.containsKey('selling_price_minor')) {
+      context.handle(
+        _sellingPriceMinorMeta,
+        sellingPriceMinor.isAcceptableOrUnknown(
+          data['selling_price_minor']!,
+          _sellingPriceMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_sellingPriceMinorMeta);
+    }
+    if (data.containsKey('unit')) {
+      context.handle(
+        _unitMeta,
+        unit.isAcceptableOrUnknown(data['unit']!, _unitMeta),
+      );
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(
+        _isActiveMeta,
+        isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta),
+      );
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    if (data.containsKey('updated_at_ms')) {
+      context.handle(
+        _updatedAtMsMeta,
+        updatedAtMs.isAcceptableOrUnknown(
+          data['updated_at_ms']!,
+          _updatedAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMsMeta);
+    }
+    if (data.containsKey('archived_at_ms')) {
+      context.handle(
+        _archivedAtMsMeta,
+        archivedAtMs.isAcceptableOrUnknown(
+          data['archived_at_ms']!,
+          _archivedAtMsMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ProductRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ProductRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      description: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}description'],
+      ),
+      sku: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sku'],
+      ),
+      skuNormalized: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sku_normalized'],
+      ),
+      barcode: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}barcode'],
+      ),
+      barcodeNormalized: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}barcode_normalized'],
+      ),
+      categoryId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}category_id'],
+      ),
+      costPriceMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}cost_price_minor'],
+      )!,
+      sellingPriceMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}selling_price_minor'],
+      )!,
+      unit: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}unit'],
+      )!,
+      isActive: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_active'],
+      )!,
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+      updatedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at_ms'],
+      )!,
+      archivedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}archived_at_ms'],
+      ),
+    );
+  }
+
+  @override
+  $ProductsTable createAlias(String alias) {
+    return $ProductsTable(attachedDatabase, alias);
+  }
+}
+
+class ProductRow extends DataClass implements Insertable<ProductRow> {
+  final String id;
+  final String name;
+  final String? description;
+  final String? sku;
+  final String? skuNormalized;
+  final String? barcode;
+  final String? barcodeNormalized;
+  final String? categoryId;
+  final int costPriceMinor;
+  final int sellingPriceMinor;
+  final String unit;
+  final bool isActive;
+  final int createdAtMs;
+  final int updatedAtMs;
+  final int? archivedAtMs;
+  const ProductRow({
+    required this.id,
+    required this.name,
+    this.description,
+    this.sku,
+    this.skuNormalized,
+    this.barcode,
+    this.barcodeNormalized,
+    this.categoryId,
+    required this.costPriceMinor,
+    required this.sellingPriceMinor,
+    required this.unit,
+    required this.isActive,
+    required this.createdAtMs,
+    required this.updatedAtMs,
+    this.archivedAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['name'] = Variable<String>(name);
+    if (!nullToAbsent || description != null) {
+      map['description'] = Variable<String>(description);
+    }
+    if (!nullToAbsent || sku != null) {
+      map['sku'] = Variable<String>(sku);
+    }
+    if (!nullToAbsent || skuNormalized != null) {
+      map['sku_normalized'] = Variable<String>(skuNormalized);
+    }
+    if (!nullToAbsent || barcode != null) {
+      map['barcode'] = Variable<String>(barcode);
+    }
+    if (!nullToAbsent || barcodeNormalized != null) {
+      map['barcode_normalized'] = Variable<String>(barcodeNormalized);
+    }
+    if (!nullToAbsent || categoryId != null) {
+      map['category_id'] = Variable<String>(categoryId);
+    }
+    map['cost_price_minor'] = Variable<int>(costPriceMinor);
+    map['selling_price_minor'] = Variable<int>(sellingPriceMinor);
+    map['unit'] = Variable<String>(unit);
+    map['is_active'] = Variable<bool>(isActive);
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    map['updated_at_ms'] = Variable<int>(updatedAtMs);
+    if (!nullToAbsent || archivedAtMs != null) {
+      map['archived_at_ms'] = Variable<int>(archivedAtMs);
+    }
+    return map;
+  }
+
+  ProductsCompanion toCompanion(bool nullToAbsent) {
+    return ProductsCompanion(
+      id: Value(id),
+      name: Value(name),
+      description: description == null && nullToAbsent
+          ? const Value.absent()
+          : Value(description),
+      sku: sku == null && nullToAbsent ? const Value.absent() : Value(sku),
+      skuNormalized: skuNormalized == null && nullToAbsent
+          ? const Value.absent()
+          : Value(skuNormalized),
+      barcode: barcode == null && nullToAbsent
+          ? const Value.absent()
+          : Value(barcode),
+      barcodeNormalized: barcodeNormalized == null && nullToAbsent
+          ? const Value.absent()
+          : Value(barcodeNormalized),
+      categoryId: categoryId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(categoryId),
+      costPriceMinor: Value(costPriceMinor),
+      sellingPriceMinor: Value(sellingPriceMinor),
+      unit: Value(unit),
+      isActive: Value(isActive),
+      createdAtMs: Value(createdAtMs),
+      updatedAtMs: Value(updatedAtMs),
+      archivedAtMs: archivedAtMs == null && nullToAbsent
+          ? const Value.absent()
+          : Value(archivedAtMs),
+    );
+  }
+
+  factory ProductRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ProductRow(
+      id: serializer.fromJson<String>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      description: serializer.fromJson<String?>(json['description']),
+      sku: serializer.fromJson<String?>(json['sku']),
+      skuNormalized: serializer.fromJson<String?>(json['skuNormalized']),
+      barcode: serializer.fromJson<String?>(json['barcode']),
+      barcodeNormalized: serializer.fromJson<String?>(
+        json['barcodeNormalized'],
+      ),
+      categoryId: serializer.fromJson<String?>(json['categoryId']),
+      costPriceMinor: serializer.fromJson<int>(json['costPriceMinor']),
+      sellingPriceMinor: serializer.fromJson<int>(json['sellingPriceMinor']),
+      unit: serializer.fromJson<String>(json['unit']),
+      isActive: serializer.fromJson<bool>(json['isActive']),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+      updatedAtMs: serializer.fromJson<int>(json['updatedAtMs']),
+      archivedAtMs: serializer.fromJson<int?>(json['archivedAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'name': serializer.toJson<String>(name),
+      'description': serializer.toJson<String?>(description),
+      'sku': serializer.toJson<String?>(sku),
+      'skuNormalized': serializer.toJson<String?>(skuNormalized),
+      'barcode': serializer.toJson<String?>(barcode),
+      'barcodeNormalized': serializer.toJson<String?>(barcodeNormalized),
+      'categoryId': serializer.toJson<String?>(categoryId),
+      'costPriceMinor': serializer.toJson<int>(costPriceMinor),
+      'sellingPriceMinor': serializer.toJson<int>(sellingPriceMinor),
+      'unit': serializer.toJson<String>(unit),
+      'isActive': serializer.toJson<bool>(isActive),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+      'updatedAtMs': serializer.toJson<int>(updatedAtMs),
+      'archivedAtMs': serializer.toJson<int?>(archivedAtMs),
+    };
+  }
+
+  ProductRow copyWith({
+    String? id,
+    String? name,
+    Value<String?> description = const Value.absent(),
+    Value<String?> sku = const Value.absent(),
+    Value<String?> skuNormalized = const Value.absent(),
+    Value<String?> barcode = const Value.absent(),
+    Value<String?> barcodeNormalized = const Value.absent(),
+    Value<String?> categoryId = const Value.absent(),
+    int? costPriceMinor,
+    int? sellingPriceMinor,
+    String? unit,
+    bool? isActive,
+    int? createdAtMs,
+    int? updatedAtMs,
+    Value<int?> archivedAtMs = const Value.absent(),
+  }) => ProductRow(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    description: description.present ? description.value : this.description,
+    sku: sku.present ? sku.value : this.sku,
+    skuNormalized: skuNormalized.present
+        ? skuNormalized.value
+        : this.skuNormalized,
+    barcode: barcode.present ? barcode.value : this.barcode,
+    barcodeNormalized: barcodeNormalized.present
+        ? barcodeNormalized.value
+        : this.barcodeNormalized,
+    categoryId: categoryId.present ? categoryId.value : this.categoryId,
+    costPriceMinor: costPriceMinor ?? this.costPriceMinor,
+    sellingPriceMinor: sellingPriceMinor ?? this.sellingPriceMinor,
+    unit: unit ?? this.unit,
+    isActive: isActive ?? this.isActive,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+    updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+    archivedAtMs: archivedAtMs.present ? archivedAtMs.value : this.archivedAtMs,
+  );
+  ProductRow copyWithCompanion(ProductsCompanion data) {
+    return ProductRow(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      description: data.description.present
+          ? data.description.value
+          : this.description,
+      sku: data.sku.present ? data.sku.value : this.sku,
+      skuNormalized: data.skuNormalized.present
+          ? data.skuNormalized.value
+          : this.skuNormalized,
+      barcode: data.barcode.present ? data.barcode.value : this.barcode,
+      barcodeNormalized: data.barcodeNormalized.present
+          ? data.barcodeNormalized.value
+          : this.barcodeNormalized,
+      categoryId: data.categoryId.present
+          ? data.categoryId.value
+          : this.categoryId,
+      costPriceMinor: data.costPriceMinor.present
+          ? data.costPriceMinor.value
+          : this.costPriceMinor,
+      sellingPriceMinor: data.sellingPriceMinor.present
+          ? data.sellingPriceMinor.value
+          : this.sellingPriceMinor,
+      unit: data.unit.present ? data.unit.value : this.unit,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+      updatedAtMs: data.updatedAtMs.present
+          ? data.updatedAtMs.value
+          : this.updatedAtMs,
+      archivedAtMs: data.archivedAtMs.present
+          ? data.archivedAtMs.value
+          : this.archivedAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ProductRow(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('description: $description, ')
+          ..write('sku: $sku, ')
+          ..write('skuNormalized: $skuNormalized, ')
+          ..write('barcode: $barcode, ')
+          ..write('barcodeNormalized: $barcodeNormalized, ')
+          ..write('categoryId: $categoryId, ')
+          ..write('costPriceMinor: $costPriceMinor, ')
+          ..write('sellingPriceMinor: $sellingPriceMinor, ')
+          ..write('unit: $unit, ')
+          ..write('isActive: $isActive, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('updatedAtMs: $updatedAtMs, ')
+          ..write('archivedAtMs: $archivedAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    name,
+    description,
+    sku,
+    skuNormalized,
+    barcode,
+    barcodeNormalized,
+    categoryId,
+    costPriceMinor,
+    sellingPriceMinor,
+    unit,
+    isActive,
+    createdAtMs,
+    updatedAtMs,
+    archivedAtMs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ProductRow &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.description == this.description &&
+          other.sku == this.sku &&
+          other.skuNormalized == this.skuNormalized &&
+          other.barcode == this.barcode &&
+          other.barcodeNormalized == this.barcodeNormalized &&
+          other.categoryId == this.categoryId &&
+          other.costPriceMinor == this.costPriceMinor &&
+          other.sellingPriceMinor == this.sellingPriceMinor &&
+          other.unit == this.unit &&
+          other.isActive == this.isActive &&
+          other.createdAtMs == this.createdAtMs &&
+          other.updatedAtMs == this.updatedAtMs &&
+          other.archivedAtMs == this.archivedAtMs);
+}
+
+class ProductsCompanion extends UpdateCompanion<ProductRow> {
+  final Value<String> id;
+  final Value<String> name;
+  final Value<String?> description;
+  final Value<String?> sku;
+  final Value<String?> skuNormalized;
+  final Value<String?> barcode;
+  final Value<String?> barcodeNormalized;
+  final Value<String?> categoryId;
+  final Value<int> costPriceMinor;
+  final Value<int> sellingPriceMinor;
+  final Value<String> unit;
+  final Value<bool> isActive;
+  final Value<int> createdAtMs;
+  final Value<int> updatedAtMs;
+  final Value<int?> archivedAtMs;
+  final Value<int> rowid;
+  const ProductsCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.description = const Value.absent(),
+    this.sku = const Value.absent(),
+    this.skuNormalized = const Value.absent(),
+    this.barcode = const Value.absent(),
+    this.barcodeNormalized = const Value.absent(),
+    this.categoryId = const Value.absent(),
+    this.costPriceMinor = const Value.absent(),
+    this.sellingPriceMinor = const Value.absent(),
+    this.unit = const Value.absent(),
+    this.isActive = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.updatedAtMs = const Value.absent(),
+    this.archivedAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ProductsCompanion.insert({
+    required String id,
+    required String name,
+    this.description = const Value.absent(),
+    this.sku = const Value.absent(),
+    this.skuNormalized = const Value.absent(),
+    this.barcode = const Value.absent(),
+    this.barcodeNormalized = const Value.absent(),
+    this.categoryId = const Value.absent(),
+    required int costPriceMinor,
+    required int sellingPriceMinor,
+    this.unit = const Value.absent(),
+    this.isActive = const Value.absent(),
+    required int createdAtMs,
+    required int updatedAtMs,
+    this.archivedAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       name = Value(name),
+       costPriceMinor = Value(costPriceMinor),
+       sellingPriceMinor = Value(sellingPriceMinor),
+       createdAtMs = Value(createdAtMs),
+       updatedAtMs = Value(updatedAtMs);
+  static Insertable<ProductRow> custom({
+    Expression<String>? id,
+    Expression<String>? name,
+    Expression<String>? description,
+    Expression<String>? sku,
+    Expression<String>? skuNormalized,
+    Expression<String>? barcode,
+    Expression<String>? barcodeNormalized,
+    Expression<String>? categoryId,
+    Expression<int>? costPriceMinor,
+    Expression<int>? sellingPriceMinor,
+    Expression<String>? unit,
+    Expression<bool>? isActive,
+    Expression<int>? createdAtMs,
+    Expression<int>? updatedAtMs,
+    Expression<int>? archivedAtMs,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (description != null) 'description': description,
+      if (sku != null) 'sku': sku,
+      if (skuNormalized != null) 'sku_normalized': skuNormalized,
+      if (barcode != null) 'barcode': barcode,
+      if (barcodeNormalized != null) 'barcode_normalized': barcodeNormalized,
+      if (categoryId != null) 'category_id': categoryId,
+      if (costPriceMinor != null) 'cost_price_minor': costPriceMinor,
+      if (sellingPriceMinor != null) 'selling_price_minor': sellingPriceMinor,
+      if (unit != null) 'unit': unit,
+      if (isActive != null) 'is_active': isActive,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (updatedAtMs != null) 'updated_at_ms': updatedAtMs,
+      if (archivedAtMs != null) 'archived_at_ms': archivedAtMs,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ProductsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? name,
+    Value<String?>? description,
+    Value<String?>? sku,
+    Value<String?>? skuNormalized,
+    Value<String?>? barcode,
+    Value<String?>? barcodeNormalized,
+    Value<String?>? categoryId,
+    Value<int>? costPriceMinor,
+    Value<int>? sellingPriceMinor,
+    Value<String>? unit,
+    Value<bool>? isActive,
+    Value<int>? createdAtMs,
+    Value<int>? updatedAtMs,
+    Value<int?>? archivedAtMs,
+    Value<int>? rowid,
+  }) {
+    return ProductsCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      sku: sku ?? this.sku,
+      skuNormalized: skuNormalized ?? this.skuNormalized,
+      barcode: barcode ?? this.barcode,
+      barcodeNormalized: barcodeNormalized ?? this.barcodeNormalized,
+      categoryId: categoryId ?? this.categoryId,
+      costPriceMinor: costPriceMinor ?? this.costPriceMinor,
+      sellingPriceMinor: sellingPriceMinor ?? this.sellingPriceMinor,
+      unit: unit ?? this.unit,
+      isActive: isActive ?? this.isActive,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+      archivedAtMs: archivedAtMs ?? this.archivedAtMs,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (description.present) {
+      map['description'] = Variable<String>(description.value);
+    }
+    if (sku.present) {
+      map['sku'] = Variable<String>(sku.value);
+    }
+    if (skuNormalized.present) {
+      map['sku_normalized'] = Variable<String>(skuNormalized.value);
+    }
+    if (barcode.present) {
+      map['barcode'] = Variable<String>(barcode.value);
+    }
+    if (barcodeNormalized.present) {
+      map['barcode_normalized'] = Variable<String>(barcodeNormalized.value);
+    }
+    if (categoryId.present) {
+      map['category_id'] = Variable<String>(categoryId.value);
+    }
+    if (costPriceMinor.present) {
+      map['cost_price_minor'] = Variable<int>(costPriceMinor.value);
+    }
+    if (sellingPriceMinor.present) {
+      map['selling_price_minor'] = Variable<int>(sellingPriceMinor.value);
+    }
+    if (unit.present) {
+      map['unit'] = Variable<String>(unit.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (updatedAtMs.present) {
+      map['updated_at_ms'] = Variable<int>(updatedAtMs.value);
+    }
+    if (archivedAtMs.present) {
+      map['archived_at_ms'] = Variable<int>(archivedAtMs.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ProductsCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('description: $description, ')
+          ..write('sku: $sku, ')
+          ..write('skuNormalized: $skuNormalized, ')
+          ..write('barcode: $barcode, ')
+          ..write('barcodeNormalized: $barcodeNormalized, ')
+          ..write('categoryId: $categoryId, ')
+          ..write('costPriceMinor: $costPriceMinor, ')
+          ..write('sellingPriceMinor: $sellingPriceMinor, ')
+          ..write('unit: $unit, ')
+          ..write('isActive: $isActive, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('updatedAtMs: $updatedAtMs, ')
+          ..write('archivedAtMs: $archivedAtMs, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $InventoryBalancesTable extends InventoryBalances
+    with TableInfo<$InventoryBalancesTable, InventoryBalanceRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $InventoryBalancesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _productIdMeta = const VerificationMeta(
+    'productId',
+  );
+  @override
+  late final GeneratedColumn<String> productId = GeneratedColumn<String>(
+    'product_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES products (id)',
+    ),
+  );
+  static const VerificationMeta _quantityOnHandBaseMeta =
+      const VerificationMeta('quantityOnHandBase');
+  @override
+  late final GeneratedColumn<int> quantityOnHandBase = GeneratedColumn<int>(
+    'quantity_on_hand_base',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _minimumStockBaseMeta = const VerificationMeta(
+    'minimumStockBase',
+  );
+  @override
+  late final GeneratedColumn<int> minimumStockBase = GeneratedColumn<int>(
+    'minimum_stock_base',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _updatedAtMsMeta = const VerificationMeta(
+    'updatedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAtMs = GeneratedColumn<int>(
+    'updated_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    productId,
+    quantityOnHandBase,
+    minimumStockBase,
+    updatedAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'inventory_balances';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<InventoryBalanceRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('product_id')) {
+      context.handle(
+        _productIdMeta,
+        productId.isAcceptableOrUnknown(data['product_id']!, _productIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_productIdMeta);
+    }
+    if (data.containsKey('quantity_on_hand_base')) {
+      context.handle(
+        _quantityOnHandBaseMeta,
+        quantityOnHandBase.isAcceptableOrUnknown(
+          data['quantity_on_hand_base']!,
+          _quantityOnHandBaseMeta,
+        ),
+      );
+    }
+    if (data.containsKey('minimum_stock_base')) {
+      context.handle(
+        _minimumStockBaseMeta,
+        minimumStockBase.isAcceptableOrUnknown(
+          data['minimum_stock_base']!,
+          _minimumStockBaseMeta,
+        ),
+      );
+    }
+    if (data.containsKey('updated_at_ms')) {
+      context.handle(
+        _updatedAtMsMeta,
+        updatedAtMs.isAcceptableOrUnknown(
+          data['updated_at_ms']!,
+          _updatedAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {productId};
+  @override
+  InventoryBalanceRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return InventoryBalanceRow(
+      productId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}product_id'],
+      )!,
+      quantityOnHandBase: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}quantity_on_hand_base'],
+      )!,
+      minimumStockBase: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}minimum_stock_base'],
+      ),
+      updatedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at_ms'],
+      )!,
+    );
+  }
+
+  @override
+  $InventoryBalancesTable createAlias(String alias) {
+    return $InventoryBalancesTable(attachedDatabase, alias);
+  }
+}
+
+class InventoryBalanceRow extends DataClass
+    implements Insertable<InventoryBalanceRow> {
+  final String productId;
+  final int quantityOnHandBase;
+
+  /// Null means no low-stock threshold configured for this product.
+  final int? minimumStockBase;
+  final int updatedAtMs;
+  const InventoryBalanceRow({
+    required this.productId,
+    required this.quantityOnHandBase,
+    this.minimumStockBase,
+    required this.updatedAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['product_id'] = Variable<String>(productId);
+    map['quantity_on_hand_base'] = Variable<int>(quantityOnHandBase);
+    if (!nullToAbsent || minimumStockBase != null) {
+      map['minimum_stock_base'] = Variable<int>(minimumStockBase);
+    }
+    map['updated_at_ms'] = Variable<int>(updatedAtMs);
+    return map;
+  }
+
+  InventoryBalancesCompanion toCompanion(bool nullToAbsent) {
+    return InventoryBalancesCompanion(
+      productId: Value(productId),
+      quantityOnHandBase: Value(quantityOnHandBase),
+      minimumStockBase: minimumStockBase == null && nullToAbsent
+          ? const Value.absent()
+          : Value(minimumStockBase),
+      updatedAtMs: Value(updatedAtMs),
+    );
+  }
+
+  factory InventoryBalanceRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return InventoryBalanceRow(
+      productId: serializer.fromJson<String>(json['productId']),
+      quantityOnHandBase: serializer.fromJson<int>(json['quantityOnHandBase']),
+      minimumStockBase: serializer.fromJson<int?>(json['minimumStockBase']),
+      updatedAtMs: serializer.fromJson<int>(json['updatedAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'productId': serializer.toJson<String>(productId),
+      'quantityOnHandBase': serializer.toJson<int>(quantityOnHandBase),
+      'minimumStockBase': serializer.toJson<int?>(minimumStockBase),
+      'updatedAtMs': serializer.toJson<int>(updatedAtMs),
+    };
+  }
+
+  InventoryBalanceRow copyWith({
+    String? productId,
+    int? quantityOnHandBase,
+    Value<int?> minimumStockBase = const Value.absent(),
+    int? updatedAtMs,
+  }) => InventoryBalanceRow(
+    productId: productId ?? this.productId,
+    quantityOnHandBase: quantityOnHandBase ?? this.quantityOnHandBase,
+    minimumStockBase: minimumStockBase.present
+        ? minimumStockBase.value
+        : this.minimumStockBase,
+    updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+  );
+  InventoryBalanceRow copyWithCompanion(InventoryBalancesCompanion data) {
+    return InventoryBalanceRow(
+      productId: data.productId.present ? data.productId.value : this.productId,
+      quantityOnHandBase: data.quantityOnHandBase.present
+          ? data.quantityOnHandBase.value
+          : this.quantityOnHandBase,
+      minimumStockBase: data.minimumStockBase.present
+          ? data.minimumStockBase.value
+          : this.minimumStockBase,
+      updatedAtMs: data.updatedAtMs.present
+          ? data.updatedAtMs.value
+          : this.updatedAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('InventoryBalanceRow(')
+          ..write('productId: $productId, ')
+          ..write('quantityOnHandBase: $quantityOnHandBase, ')
+          ..write('minimumStockBase: $minimumStockBase, ')
+          ..write('updatedAtMs: $updatedAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(productId, quantityOnHandBase, minimumStockBase, updatedAtMs);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is InventoryBalanceRow &&
+          other.productId == this.productId &&
+          other.quantityOnHandBase == this.quantityOnHandBase &&
+          other.minimumStockBase == this.minimumStockBase &&
+          other.updatedAtMs == this.updatedAtMs);
+}
+
+class InventoryBalancesCompanion extends UpdateCompanion<InventoryBalanceRow> {
+  final Value<String> productId;
+  final Value<int> quantityOnHandBase;
+  final Value<int?> minimumStockBase;
+  final Value<int> updatedAtMs;
+  final Value<int> rowid;
+  const InventoryBalancesCompanion({
+    this.productId = const Value.absent(),
+    this.quantityOnHandBase = const Value.absent(),
+    this.minimumStockBase = const Value.absent(),
+    this.updatedAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  InventoryBalancesCompanion.insert({
+    required String productId,
+    this.quantityOnHandBase = const Value.absent(),
+    this.minimumStockBase = const Value.absent(),
+    required int updatedAtMs,
+    this.rowid = const Value.absent(),
+  }) : productId = Value(productId),
+       updatedAtMs = Value(updatedAtMs);
+  static Insertable<InventoryBalanceRow> custom({
+    Expression<String>? productId,
+    Expression<int>? quantityOnHandBase,
+    Expression<int>? minimumStockBase,
+    Expression<int>? updatedAtMs,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (productId != null) 'product_id': productId,
+      if (quantityOnHandBase != null)
+        'quantity_on_hand_base': quantityOnHandBase,
+      if (minimumStockBase != null) 'minimum_stock_base': minimumStockBase,
+      if (updatedAtMs != null) 'updated_at_ms': updatedAtMs,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  InventoryBalancesCompanion copyWith({
+    Value<String>? productId,
+    Value<int>? quantityOnHandBase,
+    Value<int?>? minimumStockBase,
+    Value<int>? updatedAtMs,
+    Value<int>? rowid,
+  }) {
+    return InventoryBalancesCompanion(
+      productId: productId ?? this.productId,
+      quantityOnHandBase: quantityOnHandBase ?? this.quantityOnHandBase,
+      minimumStockBase: minimumStockBase ?? this.minimumStockBase,
+      updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (productId.present) {
+      map['product_id'] = Variable<String>(productId.value);
+    }
+    if (quantityOnHandBase.present) {
+      map['quantity_on_hand_base'] = Variable<int>(quantityOnHandBase.value);
+    }
+    if (minimumStockBase.present) {
+      map['minimum_stock_base'] = Variable<int>(minimumStockBase.value);
+    }
+    if (updatedAtMs.present) {
+      map['updated_at_ms'] = Variable<int>(updatedAtMs.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('InventoryBalancesCompanion(')
+          ..write('productId: $productId, ')
+          ..write('quantityOnHandBase: $quantityOnHandBase, ')
+          ..write('minimumStockBase: $minimumStockBase, ')
+          ..write('updatedAtMs: $updatedAtMs, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $StockMovementsTable extends StockMovements
+    with TableInfo<$StockMovementsTable, StockMovementRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $StockMovementsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _productIdMeta = const VerificationMeta(
+    'productId',
+  );
+  @override
+  late final GeneratedColumn<String> productId = GeneratedColumn<String>(
+    'product_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES products (id)',
+    ),
+  );
+  static const VerificationMeta _movementTypeMeta = const VerificationMeta(
+    'movementType',
+  );
+  @override
+  late final GeneratedColumn<String> movementType = GeneratedColumn<String>(
+    'movement_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _quantityBaseMeta = const VerificationMeta(
+    'quantityBase',
+  );
+  @override
+  late final GeneratedColumn<int> quantityBase = GeneratedColumn<int>(
+    'quantity_base',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _previousQuantityBaseMeta =
+      const VerificationMeta('previousQuantityBase');
+  @override
+  late final GeneratedColumn<int> previousQuantityBase = GeneratedColumn<int>(
+    'previous_quantity_base',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _resultingQuantityBaseMeta =
+      const VerificationMeta('resultingQuantityBase');
+  @override
+  late final GeneratedColumn<int> resultingQuantityBase = GeneratedColumn<int>(
+    'resulting_quantity_base',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _referenceTypeMeta = const VerificationMeta(
+    'referenceType',
+  );
+  @override
+  late final GeneratedColumn<String> referenceType = GeneratedColumn<String>(
+    'reference_type',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _referenceIdMeta = const VerificationMeta(
+    'referenceId',
+  );
+  @override
+  late final GeneratedColumn<String> referenceId = GeneratedColumn<String>(
+    'reference_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _reasonMeta = const VerificationMeta('reason');
+  @override
+  late final GeneratedColumn<String> reason = GeneratedColumn<String>(
+    'reason',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+    'notes',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdByMeta = const VerificationMeta(
+    'createdBy',
+  );
+  @override
+  late final GeneratedColumn<String> createdBy = GeneratedColumn<String>(
+    'created_by',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    productId,
+    movementType,
+    quantityBase,
+    previousQuantityBase,
+    resultingQuantityBase,
+    referenceType,
+    referenceId,
+    reason,
+    notes,
+    createdBy,
+    createdAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'stock_movements';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<StockMovementRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('product_id')) {
+      context.handle(
+        _productIdMeta,
+        productId.isAcceptableOrUnknown(data['product_id']!, _productIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_productIdMeta);
+    }
+    if (data.containsKey('movement_type')) {
+      context.handle(
+        _movementTypeMeta,
+        movementType.isAcceptableOrUnknown(
+          data['movement_type']!,
+          _movementTypeMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_movementTypeMeta);
+    }
+    if (data.containsKey('quantity_base')) {
+      context.handle(
+        _quantityBaseMeta,
+        quantityBase.isAcceptableOrUnknown(
+          data['quantity_base']!,
+          _quantityBaseMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_quantityBaseMeta);
+    }
+    if (data.containsKey('previous_quantity_base')) {
+      context.handle(
+        _previousQuantityBaseMeta,
+        previousQuantityBase.isAcceptableOrUnknown(
+          data['previous_quantity_base']!,
+          _previousQuantityBaseMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_previousQuantityBaseMeta);
+    }
+    if (data.containsKey('resulting_quantity_base')) {
+      context.handle(
+        _resultingQuantityBaseMeta,
+        resultingQuantityBase.isAcceptableOrUnknown(
+          data['resulting_quantity_base']!,
+          _resultingQuantityBaseMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_resultingQuantityBaseMeta);
+    }
+    if (data.containsKey('reference_type')) {
+      context.handle(
+        _referenceTypeMeta,
+        referenceType.isAcceptableOrUnknown(
+          data['reference_type']!,
+          _referenceTypeMeta,
+        ),
+      );
+    }
+    if (data.containsKey('reference_id')) {
+      context.handle(
+        _referenceIdMeta,
+        referenceId.isAcceptableOrUnknown(
+          data['reference_id']!,
+          _referenceIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('reason')) {
+      context.handle(
+        _reasonMeta,
+        reason.isAcceptableOrUnknown(data['reason']!, _reasonMeta),
+      );
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+        _notesMeta,
+        notes.isAcceptableOrUnknown(data['notes']!, _notesMeta),
+      );
+    }
+    if (data.containsKey('created_by')) {
+      context.handle(
+        _createdByMeta,
+        createdBy.isAcceptableOrUnknown(data['created_by']!, _createdByMeta),
+      );
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  StockMovementRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return StockMovementRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      productId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}product_id'],
+      )!,
+      movementType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}movement_type'],
+      )!,
+      quantityBase: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}quantity_base'],
+      )!,
+      previousQuantityBase: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}previous_quantity_base'],
+      )!,
+      resultingQuantityBase: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}resulting_quantity_base'],
+      )!,
+      referenceType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reference_type'],
+      ),
+      referenceId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reference_id'],
+      ),
+      reason: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reason'],
+      ),
+      notes: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}notes'],
+      ),
+      createdBy: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}created_by'],
+      ),
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+    );
+  }
+
+  @override
+  $StockMovementsTable createAlias(String alias) {
+    return $StockMovementsTable(attachedDatabase, alias);
+  }
+}
+
+class StockMovementRow extends DataClass
+    implements Insertable<StockMovementRow> {
+  final String id;
+  final String productId;
+  final String movementType;
+  final int quantityBase;
+  final int previousQuantityBase;
+  final int resultingQuantityBase;
+  final String? referenceType;
+  final String? referenceId;
+  final String? reason;
+  final String? notes;
+  final String? createdBy;
+  final int createdAtMs;
+  const StockMovementRow({
+    required this.id,
+    required this.productId,
+    required this.movementType,
+    required this.quantityBase,
+    required this.previousQuantityBase,
+    required this.resultingQuantityBase,
+    this.referenceType,
+    this.referenceId,
+    this.reason,
+    this.notes,
+    this.createdBy,
+    required this.createdAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['product_id'] = Variable<String>(productId);
+    map['movement_type'] = Variable<String>(movementType);
+    map['quantity_base'] = Variable<int>(quantityBase);
+    map['previous_quantity_base'] = Variable<int>(previousQuantityBase);
+    map['resulting_quantity_base'] = Variable<int>(resultingQuantityBase);
+    if (!nullToAbsent || referenceType != null) {
+      map['reference_type'] = Variable<String>(referenceType);
+    }
+    if (!nullToAbsent || referenceId != null) {
+      map['reference_id'] = Variable<String>(referenceId);
+    }
+    if (!nullToAbsent || reason != null) {
+      map['reason'] = Variable<String>(reason);
+    }
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    if (!nullToAbsent || createdBy != null) {
+      map['created_by'] = Variable<String>(createdBy);
+    }
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    return map;
+  }
+
+  StockMovementsCompanion toCompanion(bool nullToAbsent) {
+    return StockMovementsCompanion(
+      id: Value(id),
+      productId: Value(productId),
+      movementType: Value(movementType),
+      quantityBase: Value(quantityBase),
+      previousQuantityBase: Value(previousQuantityBase),
+      resultingQuantityBase: Value(resultingQuantityBase),
+      referenceType: referenceType == null && nullToAbsent
+          ? const Value.absent()
+          : Value(referenceType),
+      referenceId: referenceId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(referenceId),
+      reason: reason == null && nullToAbsent
+          ? const Value.absent()
+          : Value(reason),
+      notes: notes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(notes),
+      createdBy: createdBy == null && nullToAbsent
+          ? const Value.absent()
+          : Value(createdBy),
+      createdAtMs: Value(createdAtMs),
+    );
+  }
+
+  factory StockMovementRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return StockMovementRow(
+      id: serializer.fromJson<String>(json['id']),
+      productId: serializer.fromJson<String>(json['productId']),
+      movementType: serializer.fromJson<String>(json['movementType']),
+      quantityBase: serializer.fromJson<int>(json['quantityBase']),
+      previousQuantityBase: serializer.fromJson<int>(
+        json['previousQuantityBase'],
+      ),
+      resultingQuantityBase: serializer.fromJson<int>(
+        json['resultingQuantityBase'],
+      ),
+      referenceType: serializer.fromJson<String?>(json['referenceType']),
+      referenceId: serializer.fromJson<String?>(json['referenceId']),
+      reason: serializer.fromJson<String?>(json['reason']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      createdBy: serializer.fromJson<String?>(json['createdBy']),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'productId': serializer.toJson<String>(productId),
+      'movementType': serializer.toJson<String>(movementType),
+      'quantityBase': serializer.toJson<int>(quantityBase),
+      'previousQuantityBase': serializer.toJson<int>(previousQuantityBase),
+      'resultingQuantityBase': serializer.toJson<int>(resultingQuantityBase),
+      'referenceType': serializer.toJson<String?>(referenceType),
+      'referenceId': serializer.toJson<String?>(referenceId),
+      'reason': serializer.toJson<String?>(reason),
+      'notes': serializer.toJson<String?>(notes),
+      'createdBy': serializer.toJson<String?>(createdBy),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+    };
+  }
+
+  StockMovementRow copyWith({
+    String? id,
+    String? productId,
+    String? movementType,
+    int? quantityBase,
+    int? previousQuantityBase,
+    int? resultingQuantityBase,
+    Value<String?> referenceType = const Value.absent(),
+    Value<String?> referenceId = const Value.absent(),
+    Value<String?> reason = const Value.absent(),
+    Value<String?> notes = const Value.absent(),
+    Value<String?> createdBy = const Value.absent(),
+    int? createdAtMs,
+  }) => StockMovementRow(
+    id: id ?? this.id,
+    productId: productId ?? this.productId,
+    movementType: movementType ?? this.movementType,
+    quantityBase: quantityBase ?? this.quantityBase,
+    previousQuantityBase: previousQuantityBase ?? this.previousQuantityBase,
+    resultingQuantityBase: resultingQuantityBase ?? this.resultingQuantityBase,
+    referenceType: referenceType.present
+        ? referenceType.value
+        : this.referenceType,
+    referenceId: referenceId.present ? referenceId.value : this.referenceId,
+    reason: reason.present ? reason.value : this.reason,
+    notes: notes.present ? notes.value : this.notes,
+    createdBy: createdBy.present ? createdBy.value : this.createdBy,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+  );
+  StockMovementRow copyWithCompanion(StockMovementsCompanion data) {
+    return StockMovementRow(
+      id: data.id.present ? data.id.value : this.id,
+      productId: data.productId.present ? data.productId.value : this.productId,
+      movementType: data.movementType.present
+          ? data.movementType.value
+          : this.movementType,
+      quantityBase: data.quantityBase.present
+          ? data.quantityBase.value
+          : this.quantityBase,
+      previousQuantityBase: data.previousQuantityBase.present
+          ? data.previousQuantityBase.value
+          : this.previousQuantityBase,
+      resultingQuantityBase: data.resultingQuantityBase.present
+          ? data.resultingQuantityBase.value
+          : this.resultingQuantityBase,
+      referenceType: data.referenceType.present
+          ? data.referenceType.value
+          : this.referenceType,
+      referenceId: data.referenceId.present
+          ? data.referenceId.value
+          : this.referenceId,
+      reason: data.reason.present ? data.reason.value : this.reason,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      createdBy: data.createdBy.present ? data.createdBy.value : this.createdBy,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('StockMovementRow(')
+          ..write('id: $id, ')
+          ..write('productId: $productId, ')
+          ..write('movementType: $movementType, ')
+          ..write('quantityBase: $quantityBase, ')
+          ..write('previousQuantityBase: $previousQuantityBase, ')
+          ..write('resultingQuantityBase: $resultingQuantityBase, ')
+          ..write('referenceType: $referenceType, ')
+          ..write('referenceId: $referenceId, ')
+          ..write('reason: $reason, ')
+          ..write('notes: $notes, ')
+          ..write('createdBy: $createdBy, ')
+          ..write('createdAtMs: $createdAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    productId,
+    movementType,
+    quantityBase,
+    previousQuantityBase,
+    resultingQuantityBase,
+    referenceType,
+    referenceId,
+    reason,
+    notes,
+    createdBy,
+    createdAtMs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is StockMovementRow &&
+          other.id == this.id &&
+          other.productId == this.productId &&
+          other.movementType == this.movementType &&
+          other.quantityBase == this.quantityBase &&
+          other.previousQuantityBase == this.previousQuantityBase &&
+          other.resultingQuantityBase == this.resultingQuantityBase &&
+          other.referenceType == this.referenceType &&
+          other.referenceId == this.referenceId &&
+          other.reason == this.reason &&
+          other.notes == this.notes &&
+          other.createdBy == this.createdBy &&
+          other.createdAtMs == this.createdAtMs);
+}
+
+class StockMovementsCompanion extends UpdateCompanion<StockMovementRow> {
+  final Value<String> id;
+  final Value<String> productId;
+  final Value<String> movementType;
+  final Value<int> quantityBase;
+  final Value<int> previousQuantityBase;
+  final Value<int> resultingQuantityBase;
+  final Value<String?> referenceType;
+  final Value<String?> referenceId;
+  final Value<String?> reason;
+  final Value<String?> notes;
+  final Value<String?> createdBy;
+  final Value<int> createdAtMs;
+  final Value<int> rowid;
+  const StockMovementsCompanion({
+    this.id = const Value.absent(),
+    this.productId = const Value.absent(),
+    this.movementType = const Value.absent(),
+    this.quantityBase = const Value.absent(),
+    this.previousQuantityBase = const Value.absent(),
+    this.resultingQuantityBase = const Value.absent(),
+    this.referenceType = const Value.absent(),
+    this.referenceId = const Value.absent(),
+    this.reason = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdBy = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  StockMovementsCompanion.insert({
+    required String id,
+    required String productId,
+    required String movementType,
+    required int quantityBase,
+    required int previousQuantityBase,
+    required int resultingQuantityBase,
+    this.referenceType = const Value.absent(),
+    this.referenceId = const Value.absent(),
+    this.reason = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdBy = const Value.absent(),
+    required int createdAtMs,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       productId = Value(productId),
+       movementType = Value(movementType),
+       quantityBase = Value(quantityBase),
+       previousQuantityBase = Value(previousQuantityBase),
+       resultingQuantityBase = Value(resultingQuantityBase),
+       createdAtMs = Value(createdAtMs);
+  static Insertable<StockMovementRow> custom({
+    Expression<String>? id,
+    Expression<String>? productId,
+    Expression<String>? movementType,
+    Expression<int>? quantityBase,
+    Expression<int>? previousQuantityBase,
+    Expression<int>? resultingQuantityBase,
+    Expression<String>? referenceType,
+    Expression<String>? referenceId,
+    Expression<String>? reason,
+    Expression<String>? notes,
+    Expression<String>? createdBy,
+    Expression<int>? createdAtMs,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (productId != null) 'product_id': productId,
+      if (movementType != null) 'movement_type': movementType,
+      if (quantityBase != null) 'quantity_base': quantityBase,
+      if (previousQuantityBase != null)
+        'previous_quantity_base': previousQuantityBase,
+      if (resultingQuantityBase != null)
+        'resulting_quantity_base': resultingQuantityBase,
+      if (referenceType != null) 'reference_type': referenceType,
+      if (referenceId != null) 'reference_id': referenceId,
+      if (reason != null) 'reason': reason,
+      if (notes != null) 'notes': notes,
+      if (createdBy != null) 'created_by': createdBy,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  StockMovementsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? productId,
+    Value<String>? movementType,
+    Value<int>? quantityBase,
+    Value<int>? previousQuantityBase,
+    Value<int>? resultingQuantityBase,
+    Value<String?>? referenceType,
+    Value<String?>? referenceId,
+    Value<String?>? reason,
+    Value<String?>? notes,
+    Value<String?>? createdBy,
+    Value<int>? createdAtMs,
+    Value<int>? rowid,
+  }) {
+    return StockMovementsCompanion(
+      id: id ?? this.id,
+      productId: productId ?? this.productId,
+      movementType: movementType ?? this.movementType,
+      quantityBase: quantityBase ?? this.quantityBase,
+      previousQuantityBase: previousQuantityBase ?? this.previousQuantityBase,
+      resultingQuantityBase:
+          resultingQuantityBase ?? this.resultingQuantityBase,
+      referenceType: referenceType ?? this.referenceType,
+      referenceId: referenceId ?? this.referenceId,
+      reason: reason ?? this.reason,
+      notes: notes ?? this.notes,
+      createdBy: createdBy ?? this.createdBy,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (productId.present) {
+      map['product_id'] = Variable<String>(productId.value);
+    }
+    if (movementType.present) {
+      map['movement_type'] = Variable<String>(movementType.value);
+    }
+    if (quantityBase.present) {
+      map['quantity_base'] = Variable<int>(quantityBase.value);
+    }
+    if (previousQuantityBase.present) {
+      map['previous_quantity_base'] = Variable<int>(previousQuantityBase.value);
+    }
+    if (resultingQuantityBase.present) {
+      map['resulting_quantity_base'] = Variable<int>(
+        resultingQuantityBase.value,
+      );
+    }
+    if (referenceType.present) {
+      map['reference_type'] = Variable<String>(referenceType.value);
+    }
+    if (referenceId.present) {
+      map['reference_id'] = Variable<String>(referenceId.value);
+    }
+    if (reason.present) {
+      map['reason'] = Variable<String>(reason.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (createdBy.present) {
+      map['created_by'] = Variable<String>(createdBy.value);
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('StockMovementsCompanion(')
+          ..write('id: $id, ')
+          ..write('productId: $productId, ')
+          ..write('movementType: $movementType, ')
+          ..write('quantityBase: $quantityBase, ')
+          ..write('previousQuantityBase: $previousQuantityBase, ')
+          ..write('resultingQuantityBase: $resultingQuantityBase, ')
+          ..write('referenceType: $referenceType, ')
+          ..write('referenceId: $referenceId, ')
+          ..write('reason: $reason, ')
+          ..write('notes: $notes, ')
+          ..write('createdBy: $createdBy, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SuppliersTable extends Suppliers
+    with TableInfo<$SuppliersTable, SupplierRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SuppliersTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _normalizedNameMeta = const VerificationMeta(
+    'normalizedName',
+  );
+  @override
+  late final GeneratedColumn<String> normalizedName = GeneratedColumn<String>(
+    'normalized_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _contactPersonMeta = const VerificationMeta(
+    'contactPerson',
+  );
+  @override
+  late final GeneratedColumn<String> contactPerson = GeneratedColumn<String>(
+    'contact_person',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _phoneMeta = const VerificationMeta('phone');
+  @override
+  late final GeneratedColumn<String> phone = GeneratedColumn<String>(
+    'phone',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _emailMeta = const VerificationMeta('email');
+  @override
+  late final GeneratedColumn<String> email = GeneratedColumn<String>(
+    'email',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _addressMeta = const VerificationMeta(
+    'address',
+  );
+  @override
+  late final GeneratedColumn<String> address = GeneratedColumn<String>(
+    'address',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _taxRegistrationNumberMeta =
+      const VerificationMeta('taxRegistrationNumber');
+  @override
+  late final GeneratedColumn<String> taxRegistrationNumber =
+      GeneratedColumn<String>(
+        'tax_registration_number',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+    'notes',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _isActiveMeta = const VerificationMeta(
+    'isActive',
+  );
+  @override
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+    'is_active',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_active" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
+  );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMsMeta = const VerificationMeta(
+    'updatedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAtMs = GeneratedColumn<int>(
+    'updated_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _archivedAtMsMeta = const VerificationMeta(
+    'archivedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> archivedAtMs = GeneratedColumn<int>(
+    'archived_at_ms',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    name,
+    normalizedName,
+    contactPerson,
+    phone,
+    email,
+    address,
+    taxRegistrationNumber,
+    notes,
+    isActive,
+    createdAtMs,
+    updatedAtMs,
+    archivedAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'suppliers';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SupplierRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('normalized_name')) {
+      context.handle(
+        _normalizedNameMeta,
+        normalizedName.isAcceptableOrUnknown(
+          data['normalized_name']!,
+          _normalizedNameMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_normalizedNameMeta);
+    }
+    if (data.containsKey('contact_person')) {
+      context.handle(
+        _contactPersonMeta,
+        contactPerson.isAcceptableOrUnknown(
+          data['contact_person']!,
+          _contactPersonMeta,
+        ),
+      );
+    }
+    if (data.containsKey('phone')) {
+      context.handle(
+        _phoneMeta,
+        phone.isAcceptableOrUnknown(data['phone']!, _phoneMeta),
+      );
+    }
+    if (data.containsKey('email')) {
+      context.handle(
+        _emailMeta,
+        email.isAcceptableOrUnknown(data['email']!, _emailMeta),
+      );
+    }
+    if (data.containsKey('address')) {
+      context.handle(
+        _addressMeta,
+        address.isAcceptableOrUnknown(data['address']!, _addressMeta),
+      );
+    }
+    if (data.containsKey('tax_registration_number')) {
+      context.handle(
+        _taxRegistrationNumberMeta,
+        taxRegistrationNumber.isAcceptableOrUnknown(
+          data['tax_registration_number']!,
+          _taxRegistrationNumberMeta,
+        ),
+      );
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+        _notesMeta,
+        notes.isAcceptableOrUnknown(data['notes']!, _notesMeta),
+      );
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(
+        _isActiveMeta,
+        isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta),
+      );
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    if (data.containsKey('updated_at_ms')) {
+      context.handle(
+        _updatedAtMsMeta,
+        updatedAtMs.isAcceptableOrUnknown(
+          data['updated_at_ms']!,
+          _updatedAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMsMeta);
+    }
+    if (data.containsKey('archived_at_ms')) {
+      context.handle(
+        _archivedAtMsMeta,
+        archivedAtMs.isAcceptableOrUnknown(
+          data['archived_at_ms']!,
+          _archivedAtMsMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SupplierRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SupplierRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      normalizedName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}normalized_name'],
+      )!,
+      contactPerson: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}contact_person'],
+      ),
+      phone: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}phone'],
+      ),
+      email: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}email'],
+      ),
+      address: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}address'],
+      ),
+      taxRegistrationNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}tax_registration_number'],
+      ),
+      notes: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}notes'],
+      ),
+      isActive: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_active'],
+      )!,
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+      updatedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at_ms'],
+      )!,
+      archivedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}archived_at_ms'],
+      ),
+    );
+  }
+
+  @override
+  $SuppliersTable createAlias(String alias) {
+    return $SuppliersTable(attachedDatabase, alias);
+  }
+}
+
+class SupplierRow extends DataClass implements Insertable<SupplierRow> {
+  final String id;
+  final String name;
+  final String normalizedName;
+  final String? contactPerson;
+  final String? phone;
+  final String? email;
+  final String? address;
+  final String? taxRegistrationNumber;
+  final String? notes;
+  final bool isActive;
+  final int createdAtMs;
+  final int updatedAtMs;
+  final int? archivedAtMs;
+  const SupplierRow({
+    required this.id,
+    required this.name,
+    required this.normalizedName,
+    this.contactPerson,
+    this.phone,
+    this.email,
+    this.address,
+    this.taxRegistrationNumber,
+    this.notes,
+    required this.isActive,
+    required this.createdAtMs,
+    required this.updatedAtMs,
+    this.archivedAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['name'] = Variable<String>(name);
+    map['normalized_name'] = Variable<String>(normalizedName);
+    if (!nullToAbsent || contactPerson != null) {
+      map['contact_person'] = Variable<String>(contactPerson);
+    }
+    if (!nullToAbsent || phone != null) {
+      map['phone'] = Variable<String>(phone);
+    }
+    if (!nullToAbsent || email != null) {
+      map['email'] = Variable<String>(email);
+    }
+    if (!nullToAbsent || address != null) {
+      map['address'] = Variable<String>(address);
+    }
+    if (!nullToAbsent || taxRegistrationNumber != null) {
+      map['tax_registration_number'] = Variable<String>(taxRegistrationNumber);
+    }
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['is_active'] = Variable<bool>(isActive);
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    map['updated_at_ms'] = Variable<int>(updatedAtMs);
+    if (!nullToAbsent || archivedAtMs != null) {
+      map['archived_at_ms'] = Variable<int>(archivedAtMs);
+    }
+    return map;
+  }
+
+  SuppliersCompanion toCompanion(bool nullToAbsent) {
+    return SuppliersCompanion(
+      id: Value(id),
+      name: Value(name),
+      normalizedName: Value(normalizedName),
+      contactPerson: contactPerson == null && nullToAbsent
+          ? const Value.absent()
+          : Value(contactPerson),
+      phone: phone == null && nullToAbsent
+          ? const Value.absent()
+          : Value(phone),
+      email: email == null && nullToAbsent
+          ? const Value.absent()
+          : Value(email),
+      address: address == null && nullToAbsent
+          ? const Value.absent()
+          : Value(address),
+      taxRegistrationNumber: taxRegistrationNumber == null && nullToAbsent
+          ? const Value.absent()
+          : Value(taxRegistrationNumber),
+      notes: notes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(notes),
+      isActive: Value(isActive),
+      createdAtMs: Value(createdAtMs),
+      updatedAtMs: Value(updatedAtMs),
+      archivedAtMs: archivedAtMs == null && nullToAbsent
+          ? const Value.absent()
+          : Value(archivedAtMs),
+    );
+  }
+
+  factory SupplierRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SupplierRow(
+      id: serializer.fromJson<String>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      normalizedName: serializer.fromJson<String>(json['normalizedName']),
+      contactPerson: serializer.fromJson<String?>(json['contactPerson']),
+      phone: serializer.fromJson<String?>(json['phone']),
+      email: serializer.fromJson<String?>(json['email']),
+      address: serializer.fromJson<String?>(json['address']),
+      taxRegistrationNumber: serializer.fromJson<String?>(
+        json['taxRegistrationNumber'],
+      ),
+      notes: serializer.fromJson<String?>(json['notes']),
+      isActive: serializer.fromJson<bool>(json['isActive']),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+      updatedAtMs: serializer.fromJson<int>(json['updatedAtMs']),
+      archivedAtMs: serializer.fromJson<int?>(json['archivedAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'name': serializer.toJson<String>(name),
+      'normalizedName': serializer.toJson<String>(normalizedName),
+      'contactPerson': serializer.toJson<String?>(contactPerson),
+      'phone': serializer.toJson<String?>(phone),
+      'email': serializer.toJson<String?>(email),
+      'address': serializer.toJson<String?>(address),
+      'taxRegistrationNumber': serializer.toJson<String?>(
+        taxRegistrationNumber,
+      ),
+      'notes': serializer.toJson<String?>(notes),
+      'isActive': serializer.toJson<bool>(isActive),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+      'updatedAtMs': serializer.toJson<int>(updatedAtMs),
+      'archivedAtMs': serializer.toJson<int?>(archivedAtMs),
+    };
+  }
+
+  SupplierRow copyWith({
+    String? id,
+    String? name,
+    String? normalizedName,
+    Value<String?> contactPerson = const Value.absent(),
+    Value<String?> phone = const Value.absent(),
+    Value<String?> email = const Value.absent(),
+    Value<String?> address = const Value.absent(),
+    Value<String?> taxRegistrationNumber = const Value.absent(),
+    Value<String?> notes = const Value.absent(),
+    bool? isActive,
+    int? createdAtMs,
+    int? updatedAtMs,
+    Value<int?> archivedAtMs = const Value.absent(),
+  }) => SupplierRow(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    normalizedName: normalizedName ?? this.normalizedName,
+    contactPerson: contactPerson.present
+        ? contactPerson.value
+        : this.contactPerson,
+    phone: phone.present ? phone.value : this.phone,
+    email: email.present ? email.value : this.email,
+    address: address.present ? address.value : this.address,
+    taxRegistrationNumber: taxRegistrationNumber.present
+        ? taxRegistrationNumber.value
+        : this.taxRegistrationNumber,
+    notes: notes.present ? notes.value : this.notes,
+    isActive: isActive ?? this.isActive,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+    updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+    archivedAtMs: archivedAtMs.present ? archivedAtMs.value : this.archivedAtMs,
+  );
+  SupplierRow copyWithCompanion(SuppliersCompanion data) {
+    return SupplierRow(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      normalizedName: data.normalizedName.present
+          ? data.normalizedName.value
+          : this.normalizedName,
+      contactPerson: data.contactPerson.present
+          ? data.contactPerson.value
+          : this.contactPerson,
+      phone: data.phone.present ? data.phone.value : this.phone,
+      email: data.email.present ? data.email.value : this.email,
+      address: data.address.present ? data.address.value : this.address,
+      taxRegistrationNumber: data.taxRegistrationNumber.present
+          ? data.taxRegistrationNumber.value
+          : this.taxRegistrationNumber,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+      updatedAtMs: data.updatedAtMs.present
+          ? data.updatedAtMs.value
+          : this.updatedAtMs,
+      archivedAtMs: data.archivedAtMs.present
+          ? data.archivedAtMs.value
+          : this.archivedAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SupplierRow(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('normalizedName: $normalizedName, ')
+          ..write('contactPerson: $contactPerson, ')
+          ..write('phone: $phone, ')
+          ..write('email: $email, ')
+          ..write('address: $address, ')
+          ..write('taxRegistrationNumber: $taxRegistrationNumber, ')
+          ..write('notes: $notes, ')
+          ..write('isActive: $isActive, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('updatedAtMs: $updatedAtMs, ')
+          ..write('archivedAtMs: $archivedAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    name,
+    normalizedName,
+    contactPerson,
+    phone,
+    email,
+    address,
+    taxRegistrationNumber,
+    notes,
+    isActive,
+    createdAtMs,
+    updatedAtMs,
+    archivedAtMs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SupplierRow &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.normalizedName == this.normalizedName &&
+          other.contactPerson == this.contactPerson &&
+          other.phone == this.phone &&
+          other.email == this.email &&
+          other.address == this.address &&
+          other.taxRegistrationNumber == this.taxRegistrationNumber &&
+          other.notes == this.notes &&
+          other.isActive == this.isActive &&
+          other.createdAtMs == this.createdAtMs &&
+          other.updatedAtMs == this.updatedAtMs &&
+          other.archivedAtMs == this.archivedAtMs);
+}
+
+class SuppliersCompanion extends UpdateCompanion<SupplierRow> {
+  final Value<String> id;
+  final Value<String> name;
+  final Value<String> normalizedName;
+  final Value<String?> contactPerson;
+  final Value<String?> phone;
+  final Value<String?> email;
+  final Value<String?> address;
+  final Value<String?> taxRegistrationNumber;
+  final Value<String?> notes;
+  final Value<bool> isActive;
+  final Value<int> createdAtMs;
+  final Value<int> updatedAtMs;
+  final Value<int?> archivedAtMs;
+  final Value<int> rowid;
+  const SuppliersCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.normalizedName = const Value.absent(),
+    this.contactPerson = const Value.absent(),
+    this.phone = const Value.absent(),
+    this.email = const Value.absent(),
+    this.address = const Value.absent(),
+    this.taxRegistrationNumber = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.isActive = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.updatedAtMs = const Value.absent(),
+    this.archivedAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SuppliersCompanion.insert({
+    required String id,
+    required String name,
+    required String normalizedName,
+    this.contactPerson = const Value.absent(),
+    this.phone = const Value.absent(),
+    this.email = const Value.absent(),
+    this.address = const Value.absent(),
+    this.taxRegistrationNumber = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.isActive = const Value.absent(),
+    required int createdAtMs,
+    required int updatedAtMs,
+    this.archivedAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       name = Value(name),
+       normalizedName = Value(normalizedName),
+       createdAtMs = Value(createdAtMs),
+       updatedAtMs = Value(updatedAtMs);
+  static Insertable<SupplierRow> custom({
+    Expression<String>? id,
+    Expression<String>? name,
+    Expression<String>? normalizedName,
+    Expression<String>? contactPerson,
+    Expression<String>? phone,
+    Expression<String>? email,
+    Expression<String>? address,
+    Expression<String>? taxRegistrationNumber,
+    Expression<String>? notes,
+    Expression<bool>? isActive,
+    Expression<int>? createdAtMs,
+    Expression<int>? updatedAtMs,
+    Expression<int>? archivedAtMs,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (normalizedName != null) 'normalized_name': normalizedName,
+      if (contactPerson != null) 'contact_person': contactPerson,
+      if (phone != null) 'phone': phone,
+      if (email != null) 'email': email,
+      if (address != null) 'address': address,
+      if (taxRegistrationNumber != null)
+        'tax_registration_number': taxRegistrationNumber,
+      if (notes != null) 'notes': notes,
+      if (isActive != null) 'is_active': isActive,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (updatedAtMs != null) 'updated_at_ms': updatedAtMs,
+      if (archivedAtMs != null) 'archived_at_ms': archivedAtMs,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SuppliersCompanion copyWith({
+    Value<String>? id,
+    Value<String>? name,
+    Value<String>? normalizedName,
+    Value<String?>? contactPerson,
+    Value<String?>? phone,
+    Value<String?>? email,
+    Value<String?>? address,
+    Value<String?>? taxRegistrationNumber,
+    Value<String?>? notes,
+    Value<bool>? isActive,
+    Value<int>? createdAtMs,
+    Value<int>? updatedAtMs,
+    Value<int?>? archivedAtMs,
+    Value<int>? rowid,
+  }) {
+    return SuppliersCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      normalizedName: normalizedName ?? this.normalizedName,
+      contactPerson: contactPerson ?? this.contactPerson,
+      phone: phone ?? this.phone,
+      email: email ?? this.email,
+      address: address ?? this.address,
+      taxRegistrationNumber:
+          taxRegistrationNumber ?? this.taxRegistrationNumber,
+      notes: notes ?? this.notes,
+      isActive: isActive ?? this.isActive,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+      archivedAtMs: archivedAtMs ?? this.archivedAtMs,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (normalizedName.present) {
+      map['normalized_name'] = Variable<String>(normalizedName.value);
+    }
+    if (contactPerson.present) {
+      map['contact_person'] = Variable<String>(contactPerson.value);
+    }
+    if (phone.present) {
+      map['phone'] = Variable<String>(phone.value);
+    }
+    if (email.present) {
+      map['email'] = Variable<String>(email.value);
+    }
+    if (address.present) {
+      map['address'] = Variable<String>(address.value);
+    }
+    if (taxRegistrationNumber.present) {
+      map['tax_registration_number'] = Variable<String>(
+        taxRegistrationNumber.value,
+      );
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (updatedAtMs.present) {
+      map['updated_at_ms'] = Variable<int>(updatedAtMs.value);
+    }
+    if (archivedAtMs.present) {
+      map['archived_at_ms'] = Variable<int>(archivedAtMs.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SuppliersCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('normalizedName: $normalizedName, ')
+          ..write('contactPerson: $contactPerson, ')
+          ..write('phone: $phone, ')
+          ..write('email: $email, ')
+          ..write('address: $address, ')
+          ..write('taxRegistrationNumber: $taxRegistrationNumber, ')
+          ..write('notes: $notes, ')
+          ..write('isActive: $isActive, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('updatedAtMs: $updatedAtMs, ')
+          ..write('archivedAtMs: $archivedAtMs, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $DocumentSequencesTable extends DocumentSequences
+    with TableInfo<$DocumentSequencesTable, DocumentSequenceRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DocumentSequencesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _sequenceKeyMeta = const VerificationMeta(
+    'sequenceKey',
+  );
+  @override
+  late final GeneratedColumn<String> sequenceKey = GeneratedColumn<String>(
+    'sequence_key',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nextNumberMeta = const VerificationMeta(
+    'nextNumber',
+  );
+  @override
+  late final GeneratedColumn<int> nextNumber = GeneratedColumn<int>(
+    'next_number',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [sequenceKey, nextNumber];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'document_sequences';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<DocumentSequenceRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('sequence_key')) {
+      context.handle(
+        _sequenceKeyMeta,
+        sequenceKey.isAcceptableOrUnknown(
+          data['sequence_key']!,
+          _sequenceKeyMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_sequenceKeyMeta);
+    }
+    if (data.containsKey('next_number')) {
+      context.handle(
+        _nextNumberMeta,
+        nextNumber.isAcceptableOrUnknown(data['next_number']!, _nextNumberMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nextNumberMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {sequenceKey};
+  @override
+  DocumentSequenceRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DocumentSequenceRow(
+      sequenceKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sequence_key'],
+      )!,
+      nextNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}next_number'],
+      )!,
+    );
+  }
+
+  @override
+  $DocumentSequencesTable createAlias(String alias) {
+    return $DocumentSequencesTable(attachedDatabase, alias);
+  }
+}
+
+class DocumentSequenceRow extends DataClass
+    implements Insertable<DocumentSequenceRow> {
+  final String sequenceKey;
+  final int nextNumber;
+  const DocumentSequenceRow({
+    required this.sequenceKey,
+    required this.nextNumber,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['sequence_key'] = Variable<String>(sequenceKey);
+    map['next_number'] = Variable<int>(nextNumber);
+    return map;
+  }
+
+  DocumentSequencesCompanion toCompanion(bool nullToAbsent) {
+    return DocumentSequencesCompanion(
+      sequenceKey: Value(sequenceKey),
+      nextNumber: Value(nextNumber),
+    );
+  }
+
+  factory DocumentSequenceRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DocumentSequenceRow(
+      sequenceKey: serializer.fromJson<String>(json['sequenceKey']),
+      nextNumber: serializer.fromJson<int>(json['nextNumber']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'sequenceKey': serializer.toJson<String>(sequenceKey),
+      'nextNumber': serializer.toJson<int>(nextNumber),
+    };
+  }
+
+  DocumentSequenceRow copyWith({String? sequenceKey, int? nextNumber}) =>
+      DocumentSequenceRow(
+        sequenceKey: sequenceKey ?? this.sequenceKey,
+        nextNumber: nextNumber ?? this.nextNumber,
+      );
+  DocumentSequenceRow copyWithCompanion(DocumentSequencesCompanion data) {
+    return DocumentSequenceRow(
+      sequenceKey: data.sequenceKey.present
+          ? data.sequenceKey.value
+          : this.sequenceKey,
+      nextNumber: data.nextNumber.present
+          ? data.nextNumber.value
+          : this.nextNumber,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DocumentSequenceRow(')
+          ..write('sequenceKey: $sequenceKey, ')
+          ..write('nextNumber: $nextNumber')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(sequenceKey, nextNumber);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DocumentSequenceRow &&
+          other.sequenceKey == this.sequenceKey &&
+          other.nextNumber == this.nextNumber);
+}
+
+class DocumentSequencesCompanion extends UpdateCompanion<DocumentSequenceRow> {
+  final Value<String> sequenceKey;
+  final Value<int> nextNumber;
+  final Value<int> rowid;
+  const DocumentSequencesCompanion({
+    this.sequenceKey = const Value.absent(),
+    this.nextNumber = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  DocumentSequencesCompanion.insert({
+    required String sequenceKey,
+    required int nextNumber,
+    this.rowid = const Value.absent(),
+  }) : sequenceKey = Value(sequenceKey),
+       nextNumber = Value(nextNumber);
+  static Insertable<DocumentSequenceRow> custom({
+    Expression<String>? sequenceKey,
+    Expression<int>? nextNumber,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (sequenceKey != null) 'sequence_key': sequenceKey,
+      if (nextNumber != null) 'next_number': nextNumber,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  DocumentSequencesCompanion copyWith({
+    Value<String>? sequenceKey,
+    Value<int>? nextNumber,
+    Value<int>? rowid,
+  }) {
+    return DocumentSequencesCompanion(
+      sequenceKey: sequenceKey ?? this.sequenceKey,
+      nextNumber: nextNumber ?? this.nextNumber,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (sequenceKey.present) {
+      map['sequence_key'] = Variable<String>(sequenceKey.value);
+    }
+    if (nextNumber.present) {
+      map['next_number'] = Variable<int>(nextNumber.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DocumentSequencesCompanion(')
+          ..write('sequenceKey: $sequenceKey, ')
+          ..write('nextNumber: $nextNumber, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PurchasesTable extends Purchases
+    with TableInfo<$PurchasesTable, PurchaseRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PurchasesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _purchaseNumberMeta = const VerificationMeta(
+    'purchaseNumber',
+  );
+  @override
+  late final GeneratedColumn<String> purchaseNumber = GeneratedColumn<String>(
+    'purchase_number',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _supplierIdMeta = const VerificationMeta(
+    'supplierId',
+  );
+  @override
+  late final GeneratedColumn<String> supplierId = GeneratedColumn<String>(
+    'supplier_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES suppliers (id)',
+    ),
+  );
+  static const VerificationMeta _supplierNameSnapshotMeta =
+      const VerificationMeta('supplierNameSnapshot');
+  @override
+  late final GeneratedColumn<String> supplierNameSnapshot =
+      GeneratedColumn<String>(
+        'supplier_name_snapshot',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _supplierInvoiceNumberMeta =
+      const VerificationMeta('supplierInvoiceNumber');
+  @override
+  late final GeneratedColumn<String> supplierInvoiceNumber =
+      GeneratedColumn<String>(
+        'supplier_invoice_number',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _subtotalMinorMeta = const VerificationMeta(
+    'subtotalMinor',
+  );
+  @override
+  late final GeneratedColumn<int> subtotalMinor = GeneratedColumn<int>(
+    'subtotal_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _discountMinorMeta = const VerificationMeta(
+    'discountMinor',
+  );
+  @override
+  late final GeneratedColumn<int> discountMinor = GeneratedColumn<int>(
+    'discount_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _taxMinorMeta = const VerificationMeta(
+    'taxMinor',
+  );
+  @override
+  late final GeneratedColumn<int> taxMinor = GeneratedColumn<int>(
+    'tax_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _additionalChargesMinorMeta =
+      const VerificationMeta('additionalChargesMinor');
+  @override
+  late final GeneratedColumn<int> additionalChargesMinor = GeneratedColumn<int>(
+    'additional_charges_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _totalMinorMeta = const VerificationMeta(
+    'totalMinor',
+  );
+  @override
+  late final GeneratedColumn<int> totalMinor = GeneratedColumn<int>(
+    'total_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _amountPaidMinorMeta = const VerificationMeta(
+    'amountPaidMinor',
+  );
+  @override
+  late final GeneratedColumn<int> amountPaidMinor = GeneratedColumn<int>(
+    'amount_paid_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _amountDueMinorMeta = const VerificationMeta(
+    'amountDueMinor',
+  );
+  @override
+  late final GeneratedColumn<int> amountDueMinor = GeneratedColumn<int>(
+    'amount_due_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _paymentStatusMeta = const VerificationMeta(
+    'paymentStatus',
+  );
+  @override
+  late final GeneratedColumn<String> paymentStatus = GeneratedColumn<String>(
+    'payment_status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+    'notes',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _purchaseDateMsMeta = const VerificationMeta(
+    'purchaseDateMs',
+  );
+  @override
+  late final GeneratedColumn<int> purchaseDateMs = GeneratedColumn<int>(
+    'purchase_date_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMsMeta = const VerificationMeta(
+    'updatedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAtMs = GeneratedColumn<int>(
+    'updated_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _receivedAtMsMeta = const VerificationMeta(
+    'receivedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> receivedAtMs = GeneratedColumn<int>(
+    'received_at_ms',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _cancelledAtMsMeta = const VerificationMeta(
+    'cancelledAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> cancelledAtMs = GeneratedColumn<int>(
+    'cancelled_at_ms',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _receiveIdempotencyKeyMeta =
+      const VerificationMeta('receiveIdempotencyKey');
+  @override
+  late final GeneratedColumn<String> receiveIdempotencyKey =
+      GeneratedColumn<String>(
+        'receive_idempotency_key',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    purchaseNumber,
+    supplierId,
+    supplierNameSnapshot,
+    supplierInvoiceNumber,
+    status,
+    subtotalMinor,
+    discountMinor,
+    taxMinor,
+    additionalChargesMinor,
+    totalMinor,
+    amountPaidMinor,
+    amountDueMinor,
+    paymentStatus,
+    notes,
+    purchaseDateMs,
+    createdAtMs,
+    updatedAtMs,
+    receivedAtMs,
+    cancelledAtMs,
+    receiveIdempotencyKey,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'purchases';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<PurchaseRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('purchase_number')) {
+      context.handle(
+        _purchaseNumberMeta,
+        purchaseNumber.isAcceptableOrUnknown(
+          data['purchase_number']!,
+          _purchaseNumberMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_purchaseNumberMeta);
+    }
+    if (data.containsKey('supplier_id')) {
+      context.handle(
+        _supplierIdMeta,
+        supplierId.isAcceptableOrUnknown(data['supplier_id']!, _supplierIdMeta),
+      );
+    }
+    if (data.containsKey('supplier_name_snapshot')) {
+      context.handle(
+        _supplierNameSnapshotMeta,
+        supplierNameSnapshot.isAcceptableOrUnknown(
+          data['supplier_name_snapshot']!,
+          _supplierNameSnapshotMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_supplierNameSnapshotMeta);
+    }
+    if (data.containsKey('supplier_invoice_number')) {
+      context.handle(
+        _supplierInvoiceNumberMeta,
+        supplierInvoiceNumber.isAcceptableOrUnknown(
+          data['supplier_invoice_number']!,
+          _supplierInvoiceNumberMeta,
+        ),
+      );
+    }
+    if (data.containsKey('status')) {
+      context.handle(
+        _statusMeta,
+        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_statusMeta);
+    }
+    if (data.containsKey('subtotal_minor')) {
+      context.handle(
+        _subtotalMinorMeta,
+        subtotalMinor.isAcceptableOrUnknown(
+          data['subtotal_minor']!,
+          _subtotalMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_subtotalMinorMeta);
+    }
+    if (data.containsKey('discount_minor')) {
+      context.handle(
+        _discountMinorMeta,
+        discountMinor.isAcceptableOrUnknown(
+          data['discount_minor']!,
+          _discountMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_discountMinorMeta);
+    }
+    if (data.containsKey('tax_minor')) {
+      context.handle(
+        _taxMinorMeta,
+        taxMinor.isAcceptableOrUnknown(data['tax_minor']!, _taxMinorMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_taxMinorMeta);
+    }
+    if (data.containsKey('additional_charges_minor')) {
+      context.handle(
+        _additionalChargesMinorMeta,
+        additionalChargesMinor.isAcceptableOrUnknown(
+          data['additional_charges_minor']!,
+          _additionalChargesMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_additionalChargesMinorMeta);
+    }
+    if (data.containsKey('total_minor')) {
+      context.handle(
+        _totalMinorMeta,
+        totalMinor.isAcceptableOrUnknown(data['total_minor']!, _totalMinorMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_totalMinorMeta);
+    }
+    if (data.containsKey('amount_paid_minor')) {
+      context.handle(
+        _amountPaidMinorMeta,
+        amountPaidMinor.isAcceptableOrUnknown(
+          data['amount_paid_minor']!,
+          _amountPaidMinorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('amount_due_minor')) {
+      context.handle(
+        _amountDueMinorMeta,
+        amountDueMinor.isAcceptableOrUnknown(
+          data['amount_due_minor']!,
+          _amountDueMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_amountDueMinorMeta);
+    }
+    if (data.containsKey('payment_status')) {
+      context.handle(
+        _paymentStatusMeta,
+        paymentStatus.isAcceptableOrUnknown(
+          data['payment_status']!,
+          _paymentStatusMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_paymentStatusMeta);
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+        _notesMeta,
+        notes.isAcceptableOrUnknown(data['notes']!, _notesMeta),
+      );
+    }
+    if (data.containsKey('purchase_date_ms')) {
+      context.handle(
+        _purchaseDateMsMeta,
+        purchaseDateMs.isAcceptableOrUnknown(
+          data['purchase_date_ms']!,
+          _purchaseDateMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_purchaseDateMsMeta);
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    if (data.containsKey('updated_at_ms')) {
+      context.handle(
+        _updatedAtMsMeta,
+        updatedAtMs.isAcceptableOrUnknown(
+          data['updated_at_ms']!,
+          _updatedAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMsMeta);
+    }
+    if (data.containsKey('received_at_ms')) {
+      context.handle(
+        _receivedAtMsMeta,
+        receivedAtMs.isAcceptableOrUnknown(
+          data['received_at_ms']!,
+          _receivedAtMsMeta,
+        ),
+      );
+    }
+    if (data.containsKey('cancelled_at_ms')) {
+      context.handle(
+        _cancelledAtMsMeta,
+        cancelledAtMs.isAcceptableOrUnknown(
+          data['cancelled_at_ms']!,
+          _cancelledAtMsMeta,
+        ),
+      );
+    }
+    if (data.containsKey('receive_idempotency_key')) {
+      context.handle(
+        _receiveIdempotencyKeyMeta,
+        receiveIdempotencyKey.isAcceptableOrUnknown(
+          data['receive_idempotency_key']!,
+          _receiveIdempotencyKeyMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PurchaseRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PurchaseRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      purchaseNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}purchase_number'],
+      )!,
+      supplierId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}supplier_id'],
+      ),
+      supplierNameSnapshot: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}supplier_name_snapshot'],
+      )!,
+      supplierInvoiceNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}supplier_invoice_number'],
+      ),
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
+      subtotalMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}subtotal_minor'],
+      )!,
+      discountMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}discount_minor'],
+      )!,
+      taxMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}tax_minor'],
+      )!,
+      additionalChargesMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}additional_charges_minor'],
+      )!,
+      totalMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}total_minor'],
+      )!,
+      amountPaidMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}amount_paid_minor'],
+      )!,
+      amountDueMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}amount_due_minor'],
+      )!,
+      paymentStatus: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}payment_status'],
+      )!,
+      notes: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}notes'],
+      ),
+      purchaseDateMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}purchase_date_ms'],
+      )!,
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+      updatedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at_ms'],
+      )!,
+      receivedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}received_at_ms'],
+      ),
+      cancelledAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}cancelled_at_ms'],
+      ),
+      receiveIdempotencyKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}receive_idempotency_key'],
+      ),
+    );
+  }
+
+  @override
+  $PurchasesTable createAlias(String alias) {
+    return $PurchasesTable(attachedDatabase, alias);
+  }
+}
+
+class PurchaseRow extends DataClass implements Insertable<PurchaseRow> {
+  final String id;
+  final String purchaseNumber;
+  final String? supplierId;
+  final String supplierNameSnapshot;
+  final String? supplierInvoiceNumber;
+  final String status;
+  final int subtotalMinor;
+  final int discountMinor;
+  final int taxMinor;
+  final int additionalChargesMinor;
+  final int totalMinor;
+  final int amountPaidMinor;
+  final int amountDueMinor;
+  final String paymentStatus;
+  final String? notes;
+  final int purchaseDateMs;
+  final int createdAtMs;
+  final int updatedAtMs;
+  final int? receivedAtMs;
+  final int? cancelledAtMs;
+  final String? receiveIdempotencyKey;
+  const PurchaseRow({
+    required this.id,
+    required this.purchaseNumber,
+    this.supplierId,
+    required this.supplierNameSnapshot,
+    this.supplierInvoiceNumber,
+    required this.status,
+    required this.subtotalMinor,
+    required this.discountMinor,
+    required this.taxMinor,
+    required this.additionalChargesMinor,
+    required this.totalMinor,
+    required this.amountPaidMinor,
+    required this.amountDueMinor,
+    required this.paymentStatus,
+    this.notes,
+    required this.purchaseDateMs,
+    required this.createdAtMs,
+    required this.updatedAtMs,
+    this.receivedAtMs,
+    this.cancelledAtMs,
+    this.receiveIdempotencyKey,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['purchase_number'] = Variable<String>(purchaseNumber);
+    if (!nullToAbsent || supplierId != null) {
+      map['supplier_id'] = Variable<String>(supplierId);
+    }
+    map['supplier_name_snapshot'] = Variable<String>(supplierNameSnapshot);
+    if (!nullToAbsent || supplierInvoiceNumber != null) {
+      map['supplier_invoice_number'] = Variable<String>(supplierInvoiceNumber);
+    }
+    map['status'] = Variable<String>(status);
+    map['subtotal_minor'] = Variable<int>(subtotalMinor);
+    map['discount_minor'] = Variable<int>(discountMinor);
+    map['tax_minor'] = Variable<int>(taxMinor);
+    map['additional_charges_minor'] = Variable<int>(additionalChargesMinor);
+    map['total_minor'] = Variable<int>(totalMinor);
+    map['amount_paid_minor'] = Variable<int>(amountPaidMinor);
+    map['amount_due_minor'] = Variable<int>(amountDueMinor);
+    map['payment_status'] = Variable<String>(paymentStatus);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['purchase_date_ms'] = Variable<int>(purchaseDateMs);
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    map['updated_at_ms'] = Variable<int>(updatedAtMs);
+    if (!nullToAbsent || receivedAtMs != null) {
+      map['received_at_ms'] = Variable<int>(receivedAtMs);
+    }
+    if (!nullToAbsent || cancelledAtMs != null) {
+      map['cancelled_at_ms'] = Variable<int>(cancelledAtMs);
+    }
+    if (!nullToAbsent || receiveIdempotencyKey != null) {
+      map['receive_idempotency_key'] = Variable<String>(receiveIdempotencyKey);
+    }
+    return map;
+  }
+
+  PurchasesCompanion toCompanion(bool nullToAbsent) {
+    return PurchasesCompanion(
+      id: Value(id),
+      purchaseNumber: Value(purchaseNumber),
+      supplierId: supplierId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(supplierId),
+      supplierNameSnapshot: Value(supplierNameSnapshot),
+      supplierInvoiceNumber: supplierInvoiceNumber == null && nullToAbsent
+          ? const Value.absent()
+          : Value(supplierInvoiceNumber),
+      status: Value(status),
+      subtotalMinor: Value(subtotalMinor),
+      discountMinor: Value(discountMinor),
+      taxMinor: Value(taxMinor),
+      additionalChargesMinor: Value(additionalChargesMinor),
+      totalMinor: Value(totalMinor),
+      amountPaidMinor: Value(amountPaidMinor),
+      amountDueMinor: Value(amountDueMinor),
+      paymentStatus: Value(paymentStatus),
+      notes: notes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(notes),
+      purchaseDateMs: Value(purchaseDateMs),
+      createdAtMs: Value(createdAtMs),
+      updatedAtMs: Value(updatedAtMs),
+      receivedAtMs: receivedAtMs == null && nullToAbsent
+          ? const Value.absent()
+          : Value(receivedAtMs),
+      cancelledAtMs: cancelledAtMs == null && nullToAbsent
+          ? const Value.absent()
+          : Value(cancelledAtMs),
+      receiveIdempotencyKey: receiveIdempotencyKey == null && nullToAbsent
+          ? const Value.absent()
+          : Value(receiveIdempotencyKey),
+    );
+  }
+
+  factory PurchaseRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PurchaseRow(
+      id: serializer.fromJson<String>(json['id']),
+      purchaseNumber: serializer.fromJson<String>(json['purchaseNumber']),
+      supplierId: serializer.fromJson<String?>(json['supplierId']),
+      supplierNameSnapshot: serializer.fromJson<String>(
+        json['supplierNameSnapshot'],
+      ),
+      supplierInvoiceNumber: serializer.fromJson<String?>(
+        json['supplierInvoiceNumber'],
+      ),
+      status: serializer.fromJson<String>(json['status']),
+      subtotalMinor: serializer.fromJson<int>(json['subtotalMinor']),
+      discountMinor: serializer.fromJson<int>(json['discountMinor']),
+      taxMinor: serializer.fromJson<int>(json['taxMinor']),
+      additionalChargesMinor: serializer.fromJson<int>(
+        json['additionalChargesMinor'],
+      ),
+      totalMinor: serializer.fromJson<int>(json['totalMinor']),
+      amountPaidMinor: serializer.fromJson<int>(json['amountPaidMinor']),
+      amountDueMinor: serializer.fromJson<int>(json['amountDueMinor']),
+      paymentStatus: serializer.fromJson<String>(json['paymentStatus']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      purchaseDateMs: serializer.fromJson<int>(json['purchaseDateMs']),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+      updatedAtMs: serializer.fromJson<int>(json['updatedAtMs']),
+      receivedAtMs: serializer.fromJson<int?>(json['receivedAtMs']),
+      cancelledAtMs: serializer.fromJson<int?>(json['cancelledAtMs']),
+      receiveIdempotencyKey: serializer.fromJson<String?>(
+        json['receiveIdempotencyKey'],
+      ),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'purchaseNumber': serializer.toJson<String>(purchaseNumber),
+      'supplierId': serializer.toJson<String?>(supplierId),
+      'supplierNameSnapshot': serializer.toJson<String>(supplierNameSnapshot),
+      'supplierInvoiceNumber': serializer.toJson<String?>(
+        supplierInvoiceNumber,
+      ),
+      'status': serializer.toJson<String>(status),
+      'subtotalMinor': serializer.toJson<int>(subtotalMinor),
+      'discountMinor': serializer.toJson<int>(discountMinor),
+      'taxMinor': serializer.toJson<int>(taxMinor),
+      'additionalChargesMinor': serializer.toJson<int>(additionalChargesMinor),
+      'totalMinor': serializer.toJson<int>(totalMinor),
+      'amountPaidMinor': serializer.toJson<int>(amountPaidMinor),
+      'amountDueMinor': serializer.toJson<int>(amountDueMinor),
+      'paymentStatus': serializer.toJson<String>(paymentStatus),
+      'notes': serializer.toJson<String?>(notes),
+      'purchaseDateMs': serializer.toJson<int>(purchaseDateMs),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+      'updatedAtMs': serializer.toJson<int>(updatedAtMs),
+      'receivedAtMs': serializer.toJson<int?>(receivedAtMs),
+      'cancelledAtMs': serializer.toJson<int?>(cancelledAtMs),
+      'receiveIdempotencyKey': serializer.toJson<String?>(
+        receiveIdempotencyKey,
+      ),
+    };
+  }
+
+  PurchaseRow copyWith({
+    String? id,
+    String? purchaseNumber,
+    Value<String?> supplierId = const Value.absent(),
+    String? supplierNameSnapshot,
+    Value<String?> supplierInvoiceNumber = const Value.absent(),
+    String? status,
+    int? subtotalMinor,
+    int? discountMinor,
+    int? taxMinor,
+    int? additionalChargesMinor,
+    int? totalMinor,
+    int? amountPaidMinor,
+    int? amountDueMinor,
+    String? paymentStatus,
+    Value<String?> notes = const Value.absent(),
+    int? purchaseDateMs,
+    int? createdAtMs,
+    int? updatedAtMs,
+    Value<int?> receivedAtMs = const Value.absent(),
+    Value<int?> cancelledAtMs = const Value.absent(),
+    Value<String?> receiveIdempotencyKey = const Value.absent(),
+  }) => PurchaseRow(
+    id: id ?? this.id,
+    purchaseNumber: purchaseNumber ?? this.purchaseNumber,
+    supplierId: supplierId.present ? supplierId.value : this.supplierId,
+    supplierNameSnapshot: supplierNameSnapshot ?? this.supplierNameSnapshot,
+    supplierInvoiceNumber: supplierInvoiceNumber.present
+        ? supplierInvoiceNumber.value
+        : this.supplierInvoiceNumber,
+    status: status ?? this.status,
+    subtotalMinor: subtotalMinor ?? this.subtotalMinor,
+    discountMinor: discountMinor ?? this.discountMinor,
+    taxMinor: taxMinor ?? this.taxMinor,
+    additionalChargesMinor:
+        additionalChargesMinor ?? this.additionalChargesMinor,
+    totalMinor: totalMinor ?? this.totalMinor,
+    amountPaidMinor: amountPaidMinor ?? this.amountPaidMinor,
+    amountDueMinor: amountDueMinor ?? this.amountDueMinor,
+    paymentStatus: paymentStatus ?? this.paymentStatus,
+    notes: notes.present ? notes.value : this.notes,
+    purchaseDateMs: purchaseDateMs ?? this.purchaseDateMs,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+    updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+    receivedAtMs: receivedAtMs.present ? receivedAtMs.value : this.receivedAtMs,
+    cancelledAtMs: cancelledAtMs.present
+        ? cancelledAtMs.value
+        : this.cancelledAtMs,
+    receiveIdempotencyKey: receiveIdempotencyKey.present
+        ? receiveIdempotencyKey.value
+        : this.receiveIdempotencyKey,
+  );
+  PurchaseRow copyWithCompanion(PurchasesCompanion data) {
+    return PurchaseRow(
+      id: data.id.present ? data.id.value : this.id,
+      purchaseNumber: data.purchaseNumber.present
+          ? data.purchaseNumber.value
+          : this.purchaseNumber,
+      supplierId: data.supplierId.present
+          ? data.supplierId.value
+          : this.supplierId,
+      supplierNameSnapshot: data.supplierNameSnapshot.present
+          ? data.supplierNameSnapshot.value
+          : this.supplierNameSnapshot,
+      supplierInvoiceNumber: data.supplierInvoiceNumber.present
+          ? data.supplierInvoiceNumber.value
+          : this.supplierInvoiceNumber,
+      status: data.status.present ? data.status.value : this.status,
+      subtotalMinor: data.subtotalMinor.present
+          ? data.subtotalMinor.value
+          : this.subtotalMinor,
+      discountMinor: data.discountMinor.present
+          ? data.discountMinor.value
+          : this.discountMinor,
+      taxMinor: data.taxMinor.present ? data.taxMinor.value : this.taxMinor,
+      additionalChargesMinor: data.additionalChargesMinor.present
+          ? data.additionalChargesMinor.value
+          : this.additionalChargesMinor,
+      totalMinor: data.totalMinor.present
+          ? data.totalMinor.value
+          : this.totalMinor,
+      amountPaidMinor: data.amountPaidMinor.present
+          ? data.amountPaidMinor.value
+          : this.amountPaidMinor,
+      amountDueMinor: data.amountDueMinor.present
+          ? data.amountDueMinor.value
+          : this.amountDueMinor,
+      paymentStatus: data.paymentStatus.present
+          ? data.paymentStatus.value
+          : this.paymentStatus,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      purchaseDateMs: data.purchaseDateMs.present
+          ? data.purchaseDateMs.value
+          : this.purchaseDateMs,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+      updatedAtMs: data.updatedAtMs.present
+          ? data.updatedAtMs.value
+          : this.updatedAtMs,
+      receivedAtMs: data.receivedAtMs.present
+          ? data.receivedAtMs.value
+          : this.receivedAtMs,
+      cancelledAtMs: data.cancelledAtMs.present
+          ? data.cancelledAtMs.value
+          : this.cancelledAtMs,
+      receiveIdempotencyKey: data.receiveIdempotencyKey.present
+          ? data.receiveIdempotencyKey.value
+          : this.receiveIdempotencyKey,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PurchaseRow(')
+          ..write('id: $id, ')
+          ..write('purchaseNumber: $purchaseNumber, ')
+          ..write('supplierId: $supplierId, ')
+          ..write('supplierNameSnapshot: $supplierNameSnapshot, ')
+          ..write('supplierInvoiceNumber: $supplierInvoiceNumber, ')
+          ..write('status: $status, ')
+          ..write('subtotalMinor: $subtotalMinor, ')
+          ..write('discountMinor: $discountMinor, ')
+          ..write('taxMinor: $taxMinor, ')
+          ..write('additionalChargesMinor: $additionalChargesMinor, ')
+          ..write('totalMinor: $totalMinor, ')
+          ..write('amountPaidMinor: $amountPaidMinor, ')
+          ..write('amountDueMinor: $amountDueMinor, ')
+          ..write('paymentStatus: $paymentStatus, ')
+          ..write('notes: $notes, ')
+          ..write('purchaseDateMs: $purchaseDateMs, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('updatedAtMs: $updatedAtMs, ')
+          ..write('receivedAtMs: $receivedAtMs, ')
+          ..write('cancelledAtMs: $cancelledAtMs, ')
+          ..write('receiveIdempotencyKey: $receiveIdempotencyKey')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hashAll([
+    id,
+    purchaseNumber,
+    supplierId,
+    supplierNameSnapshot,
+    supplierInvoiceNumber,
+    status,
+    subtotalMinor,
+    discountMinor,
+    taxMinor,
+    additionalChargesMinor,
+    totalMinor,
+    amountPaidMinor,
+    amountDueMinor,
+    paymentStatus,
+    notes,
+    purchaseDateMs,
+    createdAtMs,
+    updatedAtMs,
+    receivedAtMs,
+    cancelledAtMs,
+    receiveIdempotencyKey,
+  ]);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PurchaseRow &&
+          other.id == this.id &&
+          other.purchaseNumber == this.purchaseNumber &&
+          other.supplierId == this.supplierId &&
+          other.supplierNameSnapshot == this.supplierNameSnapshot &&
+          other.supplierInvoiceNumber == this.supplierInvoiceNumber &&
+          other.status == this.status &&
+          other.subtotalMinor == this.subtotalMinor &&
+          other.discountMinor == this.discountMinor &&
+          other.taxMinor == this.taxMinor &&
+          other.additionalChargesMinor == this.additionalChargesMinor &&
+          other.totalMinor == this.totalMinor &&
+          other.amountPaidMinor == this.amountPaidMinor &&
+          other.amountDueMinor == this.amountDueMinor &&
+          other.paymentStatus == this.paymentStatus &&
+          other.notes == this.notes &&
+          other.purchaseDateMs == this.purchaseDateMs &&
+          other.createdAtMs == this.createdAtMs &&
+          other.updatedAtMs == this.updatedAtMs &&
+          other.receivedAtMs == this.receivedAtMs &&
+          other.cancelledAtMs == this.cancelledAtMs &&
+          other.receiveIdempotencyKey == this.receiveIdempotencyKey);
+}
+
+class PurchasesCompanion extends UpdateCompanion<PurchaseRow> {
+  final Value<String> id;
+  final Value<String> purchaseNumber;
+  final Value<String?> supplierId;
+  final Value<String> supplierNameSnapshot;
+  final Value<String?> supplierInvoiceNumber;
+  final Value<String> status;
+  final Value<int> subtotalMinor;
+  final Value<int> discountMinor;
+  final Value<int> taxMinor;
+  final Value<int> additionalChargesMinor;
+  final Value<int> totalMinor;
+  final Value<int> amountPaidMinor;
+  final Value<int> amountDueMinor;
+  final Value<String> paymentStatus;
+  final Value<String?> notes;
+  final Value<int> purchaseDateMs;
+  final Value<int> createdAtMs;
+  final Value<int> updatedAtMs;
+  final Value<int?> receivedAtMs;
+  final Value<int?> cancelledAtMs;
+  final Value<String?> receiveIdempotencyKey;
+  final Value<int> rowid;
+  const PurchasesCompanion({
+    this.id = const Value.absent(),
+    this.purchaseNumber = const Value.absent(),
+    this.supplierId = const Value.absent(),
+    this.supplierNameSnapshot = const Value.absent(),
+    this.supplierInvoiceNumber = const Value.absent(),
+    this.status = const Value.absent(),
+    this.subtotalMinor = const Value.absent(),
+    this.discountMinor = const Value.absent(),
+    this.taxMinor = const Value.absent(),
+    this.additionalChargesMinor = const Value.absent(),
+    this.totalMinor = const Value.absent(),
+    this.amountPaidMinor = const Value.absent(),
+    this.amountDueMinor = const Value.absent(),
+    this.paymentStatus = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.purchaseDateMs = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.updatedAtMs = const Value.absent(),
+    this.receivedAtMs = const Value.absent(),
+    this.cancelledAtMs = const Value.absent(),
+    this.receiveIdempotencyKey = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PurchasesCompanion.insert({
+    required String id,
+    required String purchaseNumber,
+    this.supplierId = const Value.absent(),
+    required String supplierNameSnapshot,
+    this.supplierInvoiceNumber = const Value.absent(),
+    required String status,
+    required int subtotalMinor,
+    required int discountMinor,
+    required int taxMinor,
+    required int additionalChargesMinor,
+    required int totalMinor,
+    this.amountPaidMinor = const Value.absent(),
+    required int amountDueMinor,
+    required String paymentStatus,
+    this.notes = const Value.absent(),
+    required int purchaseDateMs,
+    required int createdAtMs,
+    required int updatedAtMs,
+    this.receivedAtMs = const Value.absent(),
+    this.cancelledAtMs = const Value.absent(),
+    this.receiveIdempotencyKey = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       purchaseNumber = Value(purchaseNumber),
+       supplierNameSnapshot = Value(supplierNameSnapshot),
+       status = Value(status),
+       subtotalMinor = Value(subtotalMinor),
+       discountMinor = Value(discountMinor),
+       taxMinor = Value(taxMinor),
+       additionalChargesMinor = Value(additionalChargesMinor),
+       totalMinor = Value(totalMinor),
+       amountDueMinor = Value(amountDueMinor),
+       paymentStatus = Value(paymentStatus),
+       purchaseDateMs = Value(purchaseDateMs),
+       createdAtMs = Value(createdAtMs),
+       updatedAtMs = Value(updatedAtMs);
+  static Insertable<PurchaseRow> custom({
+    Expression<String>? id,
+    Expression<String>? purchaseNumber,
+    Expression<String>? supplierId,
+    Expression<String>? supplierNameSnapshot,
+    Expression<String>? supplierInvoiceNumber,
+    Expression<String>? status,
+    Expression<int>? subtotalMinor,
+    Expression<int>? discountMinor,
+    Expression<int>? taxMinor,
+    Expression<int>? additionalChargesMinor,
+    Expression<int>? totalMinor,
+    Expression<int>? amountPaidMinor,
+    Expression<int>? amountDueMinor,
+    Expression<String>? paymentStatus,
+    Expression<String>? notes,
+    Expression<int>? purchaseDateMs,
+    Expression<int>? createdAtMs,
+    Expression<int>? updatedAtMs,
+    Expression<int>? receivedAtMs,
+    Expression<int>? cancelledAtMs,
+    Expression<String>? receiveIdempotencyKey,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (purchaseNumber != null) 'purchase_number': purchaseNumber,
+      if (supplierId != null) 'supplier_id': supplierId,
+      if (supplierNameSnapshot != null)
+        'supplier_name_snapshot': supplierNameSnapshot,
+      if (supplierInvoiceNumber != null)
+        'supplier_invoice_number': supplierInvoiceNumber,
+      if (status != null) 'status': status,
+      if (subtotalMinor != null) 'subtotal_minor': subtotalMinor,
+      if (discountMinor != null) 'discount_minor': discountMinor,
+      if (taxMinor != null) 'tax_minor': taxMinor,
+      if (additionalChargesMinor != null)
+        'additional_charges_minor': additionalChargesMinor,
+      if (totalMinor != null) 'total_minor': totalMinor,
+      if (amountPaidMinor != null) 'amount_paid_minor': amountPaidMinor,
+      if (amountDueMinor != null) 'amount_due_minor': amountDueMinor,
+      if (paymentStatus != null) 'payment_status': paymentStatus,
+      if (notes != null) 'notes': notes,
+      if (purchaseDateMs != null) 'purchase_date_ms': purchaseDateMs,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (updatedAtMs != null) 'updated_at_ms': updatedAtMs,
+      if (receivedAtMs != null) 'received_at_ms': receivedAtMs,
+      if (cancelledAtMs != null) 'cancelled_at_ms': cancelledAtMs,
+      if (receiveIdempotencyKey != null)
+        'receive_idempotency_key': receiveIdempotencyKey,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PurchasesCompanion copyWith({
+    Value<String>? id,
+    Value<String>? purchaseNumber,
+    Value<String?>? supplierId,
+    Value<String>? supplierNameSnapshot,
+    Value<String?>? supplierInvoiceNumber,
+    Value<String>? status,
+    Value<int>? subtotalMinor,
+    Value<int>? discountMinor,
+    Value<int>? taxMinor,
+    Value<int>? additionalChargesMinor,
+    Value<int>? totalMinor,
+    Value<int>? amountPaidMinor,
+    Value<int>? amountDueMinor,
+    Value<String>? paymentStatus,
+    Value<String?>? notes,
+    Value<int>? purchaseDateMs,
+    Value<int>? createdAtMs,
+    Value<int>? updatedAtMs,
+    Value<int?>? receivedAtMs,
+    Value<int?>? cancelledAtMs,
+    Value<String?>? receiveIdempotencyKey,
+    Value<int>? rowid,
+  }) {
+    return PurchasesCompanion(
+      id: id ?? this.id,
+      purchaseNumber: purchaseNumber ?? this.purchaseNumber,
+      supplierId: supplierId ?? this.supplierId,
+      supplierNameSnapshot: supplierNameSnapshot ?? this.supplierNameSnapshot,
+      supplierInvoiceNumber:
+          supplierInvoiceNumber ?? this.supplierInvoiceNumber,
+      status: status ?? this.status,
+      subtotalMinor: subtotalMinor ?? this.subtotalMinor,
+      discountMinor: discountMinor ?? this.discountMinor,
+      taxMinor: taxMinor ?? this.taxMinor,
+      additionalChargesMinor:
+          additionalChargesMinor ?? this.additionalChargesMinor,
+      totalMinor: totalMinor ?? this.totalMinor,
+      amountPaidMinor: amountPaidMinor ?? this.amountPaidMinor,
+      amountDueMinor: amountDueMinor ?? this.amountDueMinor,
+      paymentStatus: paymentStatus ?? this.paymentStatus,
+      notes: notes ?? this.notes,
+      purchaseDateMs: purchaseDateMs ?? this.purchaseDateMs,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+      receivedAtMs: receivedAtMs ?? this.receivedAtMs,
+      cancelledAtMs: cancelledAtMs ?? this.cancelledAtMs,
+      receiveIdempotencyKey:
+          receiveIdempotencyKey ?? this.receiveIdempotencyKey,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (purchaseNumber.present) {
+      map['purchase_number'] = Variable<String>(purchaseNumber.value);
+    }
+    if (supplierId.present) {
+      map['supplier_id'] = Variable<String>(supplierId.value);
+    }
+    if (supplierNameSnapshot.present) {
+      map['supplier_name_snapshot'] = Variable<String>(
+        supplierNameSnapshot.value,
+      );
+    }
+    if (supplierInvoiceNumber.present) {
+      map['supplier_invoice_number'] = Variable<String>(
+        supplierInvoiceNumber.value,
+      );
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (subtotalMinor.present) {
+      map['subtotal_minor'] = Variable<int>(subtotalMinor.value);
+    }
+    if (discountMinor.present) {
+      map['discount_minor'] = Variable<int>(discountMinor.value);
+    }
+    if (taxMinor.present) {
+      map['tax_minor'] = Variable<int>(taxMinor.value);
+    }
+    if (additionalChargesMinor.present) {
+      map['additional_charges_minor'] = Variable<int>(
+        additionalChargesMinor.value,
+      );
+    }
+    if (totalMinor.present) {
+      map['total_minor'] = Variable<int>(totalMinor.value);
+    }
+    if (amountPaidMinor.present) {
+      map['amount_paid_minor'] = Variable<int>(amountPaidMinor.value);
+    }
+    if (amountDueMinor.present) {
+      map['amount_due_minor'] = Variable<int>(amountDueMinor.value);
+    }
+    if (paymentStatus.present) {
+      map['payment_status'] = Variable<String>(paymentStatus.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (purchaseDateMs.present) {
+      map['purchase_date_ms'] = Variable<int>(purchaseDateMs.value);
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (updatedAtMs.present) {
+      map['updated_at_ms'] = Variable<int>(updatedAtMs.value);
+    }
+    if (receivedAtMs.present) {
+      map['received_at_ms'] = Variable<int>(receivedAtMs.value);
+    }
+    if (cancelledAtMs.present) {
+      map['cancelled_at_ms'] = Variable<int>(cancelledAtMs.value);
+    }
+    if (receiveIdempotencyKey.present) {
+      map['receive_idempotency_key'] = Variable<String>(
+        receiveIdempotencyKey.value,
+      );
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PurchasesCompanion(')
+          ..write('id: $id, ')
+          ..write('purchaseNumber: $purchaseNumber, ')
+          ..write('supplierId: $supplierId, ')
+          ..write('supplierNameSnapshot: $supplierNameSnapshot, ')
+          ..write('supplierInvoiceNumber: $supplierInvoiceNumber, ')
+          ..write('status: $status, ')
+          ..write('subtotalMinor: $subtotalMinor, ')
+          ..write('discountMinor: $discountMinor, ')
+          ..write('taxMinor: $taxMinor, ')
+          ..write('additionalChargesMinor: $additionalChargesMinor, ')
+          ..write('totalMinor: $totalMinor, ')
+          ..write('amountPaidMinor: $amountPaidMinor, ')
+          ..write('amountDueMinor: $amountDueMinor, ')
+          ..write('paymentStatus: $paymentStatus, ')
+          ..write('notes: $notes, ')
+          ..write('purchaseDateMs: $purchaseDateMs, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('updatedAtMs: $updatedAtMs, ')
+          ..write('receivedAtMs: $receivedAtMs, ')
+          ..write('cancelledAtMs: $cancelledAtMs, ')
+          ..write('receiveIdempotencyKey: $receiveIdempotencyKey, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PurchaseItemsTable extends PurchaseItems
+    with TableInfo<$PurchaseItemsTable, PurchaseItemRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PurchaseItemsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _purchaseIdMeta = const VerificationMeta(
+    'purchaseId',
+  );
+  @override
+  late final GeneratedColumn<String> purchaseId = GeneratedColumn<String>(
+    'purchase_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES purchases (id)',
+    ),
+  );
+  static const VerificationMeta _productIdMeta = const VerificationMeta(
+    'productId',
+  );
+  @override
+  late final GeneratedColumn<String> productId = GeneratedColumn<String>(
+    'product_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES products (id)',
+    ),
+  );
+  static const VerificationMeta _productNameSnapshotMeta =
+      const VerificationMeta('productNameSnapshot');
+  @override
+  late final GeneratedColumn<String> productNameSnapshot =
+      GeneratedColumn<String>(
+        'product_name_snapshot',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _skuSnapshotMeta = const VerificationMeta(
+    'skuSnapshot',
+  );
+  @override
+  late final GeneratedColumn<String> skuSnapshot = GeneratedColumn<String>(
+    'sku_snapshot',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _unitSnapshotMeta = const VerificationMeta(
+    'unitSnapshot',
+  );
+  @override
+  late final GeneratedColumn<String> unitSnapshot = GeneratedColumn<String>(
+    'unit_snapshot',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _quantityBaseMeta = const VerificationMeta(
+    'quantityBase',
+  );
+  @override
+  late final GeneratedColumn<int> quantityBase = GeneratedColumn<int>(
+    'quantity_base',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _quantityReceivedBaseMeta =
+      const VerificationMeta('quantityReceivedBase');
+  @override
+  late final GeneratedColumn<int> quantityReceivedBase = GeneratedColumn<int>(
+    'quantity_received_base',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _quantityReturnedBaseMeta =
+      const VerificationMeta('quantityReturnedBase');
+  @override
+  late final GeneratedColumn<int> quantityReturnedBase = GeneratedColumn<int>(
+    'quantity_returned_base',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _unitCostMinorMeta = const VerificationMeta(
+    'unitCostMinor',
+  );
+  @override
+  late final GeneratedColumn<int> unitCostMinor = GeneratedColumn<int>(
+    'unit_cost_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _discountMinorMeta = const VerificationMeta(
+    'discountMinor',
+  );
+  @override
+  late final GeneratedColumn<int> discountMinor = GeneratedColumn<int>(
+    'discount_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _taxMinorMeta = const VerificationMeta(
+    'taxMinor',
+  );
+  @override
+  late final GeneratedColumn<int> taxMinor = GeneratedColumn<int>(
+    'tax_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _lineTotalMinorMeta = const VerificationMeta(
+    'lineTotalMinor',
+  );
+  @override
+  late final GeneratedColumn<int> lineTotalMinor = GeneratedColumn<int>(
+    'line_total_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    purchaseId,
+    productId,
+    productNameSnapshot,
+    skuSnapshot,
+    unitSnapshot,
+    quantityBase,
+    quantityReceivedBase,
+    quantityReturnedBase,
+    unitCostMinor,
+    discountMinor,
+    taxMinor,
+    lineTotalMinor,
+    createdAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'purchase_items';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<PurchaseItemRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('purchase_id')) {
+      context.handle(
+        _purchaseIdMeta,
+        purchaseId.isAcceptableOrUnknown(data['purchase_id']!, _purchaseIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_purchaseIdMeta);
+    }
+    if (data.containsKey('product_id')) {
+      context.handle(
+        _productIdMeta,
+        productId.isAcceptableOrUnknown(data['product_id']!, _productIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_productIdMeta);
+    }
+    if (data.containsKey('product_name_snapshot')) {
+      context.handle(
+        _productNameSnapshotMeta,
+        productNameSnapshot.isAcceptableOrUnknown(
+          data['product_name_snapshot']!,
+          _productNameSnapshotMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_productNameSnapshotMeta);
+    }
+    if (data.containsKey('sku_snapshot')) {
+      context.handle(
+        _skuSnapshotMeta,
+        skuSnapshot.isAcceptableOrUnknown(
+          data['sku_snapshot']!,
+          _skuSnapshotMeta,
+        ),
+      );
+    }
+    if (data.containsKey('unit_snapshot')) {
+      context.handle(
+        _unitSnapshotMeta,
+        unitSnapshot.isAcceptableOrUnknown(
+          data['unit_snapshot']!,
+          _unitSnapshotMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_unitSnapshotMeta);
+    }
+    if (data.containsKey('quantity_base')) {
+      context.handle(
+        _quantityBaseMeta,
+        quantityBase.isAcceptableOrUnknown(
+          data['quantity_base']!,
+          _quantityBaseMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_quantityBaseMeta);
+    }
+    if (data.containsKey('quantity_received_base')) {
+      context.handle(
+        _quantityReceivedBaseMeta,
+        quantityReceivedBase.isAcceptableOrUnknown(
+          data['quantity_received_base']!,
+          _quantityReceivedBaseMeta,
+        ),
+      );
+    }
+    if (data.containsKey('quantity_returned_base')) {
+      context.handle(
+        _quantityReturnedBaseMeta,
+        quantityReturnedBase.isAcceptableOrUnknown(
+          data['quantity_returned_base']!,
+          _quantityReturnedBaseMeta,
+        ),
+      );
+    }
+    if (data.containsKey('unit_cost_minor')) {
+      context.handle(
+        _unitCostMinorMeta,
+        unitCostMinor.isAcceptableOrUnknown(
+          data['unit_cost_minor']!,
+          _unitCostMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_unitCostMinorMeta);
+    }
+    if (data.containsKey('discount_minor')) {
+      context.handle(
+        _discountMinorMeta,
+        discountMinor.isAcceptableOrUnknown(
+          data['discount_minor']!,
+          _discountMinorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('tax_minor')) {
+      context.handle(
+        _taxMinorMeta,
+        taxMinor.isAcceptableOrUnknown(data['tax_minor']!, _taxMinorMeta),
+      );
+    }
+    if (data.containsKey('line_total_minor')) {
+      context.handle(
+        _lineTotalMinorMeta,
+        lineTotalMinor.isAcceptableOrUnknown(
+          data['line_total_minor']!,
+          _lineTotalMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_lineTotalMinorMeta);
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PurchaseItemRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PurchaseItemRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      purchaseId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}purchase_id'],
+      )!,
+      productId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}product_id'],
+      )!,
+      productNameSnapshot: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}product_name_snapshot'],
+      )!,
+      skuSnapshot: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sku_snapshot'],
+      ),
+      unitSnapshot: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}unit_snapshot'],
+      )!,
+      quantityBase: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}quantity_base'],
+      )!,
+      quantityReceivedBase: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}quantity_received_base'],
+      )!,
+      quantityReturnedBase: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}quantity_returned_base'],
+      )!,
+      unitCostMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}unit_cost_minor'],
+      )!,
+      discountMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}discount_minor'],
+      )!,
+      taxMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}tax_minor'],
+      )!,
+      lineTotalMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}line_total_minor'],
+      )!,
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+    );
+  }
+
+  @override
+  $PurchaseItemsTable createAlias(String alias) {
+    return $PurchaseItemsTable(attachedDatabase, alias);
+  }
+}
+
+class PurchaseItemRow extends DataClass implements Insertable<PurchaseItemRow> {
+  final String id;
+  final String purchaseId;
+  final String productId;
+  final String productNameSnapshot;
+  final String? skuSnapshot;
+  final String unitSnapshot;
+  final int quantityBase;
+  final int quantityReceivedBase;
+  final int quantityReturnedBase;
+  final int unitCostMinor;
+  final int discountMinor;
+  final int taxMinor;
+  final int lineTotalMinor;
+  final int createdAtMs;
+  const PurchaseItemRow({
+    required this.id,
+    required this.purchaseId,
+    required this.productId,
+    required this.productNameSnapshot,
+    this.skuSnapshot,
+    required this.unitSnapshot,
+    required this.quantityBase,
+    required this.quantityReceivedBase,
+    required this.quantityReturnedBase,
+    required this.unitCostMinor,
+    required this.discountMinor,
+    required this.taxMinor,
+    required this.lineTotalMinor,
+    required this.createdAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['purchase_id'] = Variable<String>(purchaseId);
+    map['product_id'] = Variable<String>(productId);
+    map['product_name_snapshot'] = Variable<String>(productNameSnapshot);
+    if (!nullToAbsent || skuSnapshot != null) {
+      map['sku_snapshot'] = Variable<String>(skuSnapshot);
+    }
+    map['unit_snapshot'] = Variable<String>(unitSnapshot);
+    map['quantity_base'] = Variable<int>(quantityBase);
+    map['quantity_received_base'] = Variable<int>(quantityReceivedBase);
+    map['quantity_returned_base'] = Variable<int>(quantityReturnedBase);
+    map['unit_cost_minor'] = Variable<int>(unitCostMinor);
+    map['discount_minor'] = Variable<int>(discountMinor);
+    map['tax_minor'] = Variable<int>(taxMinor);
+    map['line_total_minor'] = Variable<int>(lineTotalMinor);
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    return map;
+  }
+
+  PurchaseItemsCompanion toCompanion(bool nullToAbsent) {
+    return PurchaseItemsCompanion(
+      id: Value(id),
+      purchaseId: Value(purchaseId),
+      productId: Value(productId),
+      productNameSnapshot: Value(productNameSnapshot),
+      skuSnapshot: skuSnapshot == null && nullToAbsent
+          ? const Value.absent()
+          : Value(skuSnapshot),
+      unitSnapshot: Value(unitSnapshot),
+      quantityBase: Value(quantityBase),
+      quantityReceivedBase: Value(quantityReceivedBase),
+      quantityReturnedBase: Value(quantityReturnedBase),
+      unitCostMinor: Value(unitCostMinor),
+      discountMinor: Value(discountMinor),
+      taxMinor: Value(taxMinor),
+      lineTotalMinor: Value(lineTotalMinor),
+      createdAtMs: Value(createdAtMs),
+    );
+  }
+
+  factory PurchaseItemRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PurchaseItemRow(
+      id: serializer.fromJson<String>(json['id']),
+      purchaseId: serializer.fromJson<String>(json['purchaseId']),
+      productId: serializer.fromJson<String>(json['productId']),
+      productNameSnapshot: serializer.fromJson<String>(
+        json['productNameSnapshot'],
+      ),
+      skuSnapshot: serializer.fromJson<String?>(json['skuSnapshot']),
+      unitSnapshot: serializer.fromJson<String>(json['unitSnapshot']),
+      quantityBase: serializer.fromJson<int>(json['quantityBase']),
+      quantityReceivedBase: serializer.fromJson<int>(
+        json['quantityReceivedBase'],
+      ),
+      quantityReturnedBase: serializer.fromJson<int>(
+        json['quantityReturnedBase'],
+      ),
+      unitCostMinor: serializer.fromJson<int>(json['unitCostMinor']),
+      discountMinor: serializer.fromJson<int>(json['discountMinor']),
+      taxMinor: serializer.fromJson<int>(json['taxMinor']),
+      lineTotalMinor: serializer.fromJson<int>(json['lineTotalMinor']),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'purchaseId': serializer.toJson<String>(purchaseId),
+      'productId': serializer.toJson<String>(productId),
+      'productNameSnapshot': serializer.toJson<String>(productNameSnapshot),
+      'skuSnapshot': serializer.toJson<String?>(skuSnapshot),
+      'unitSnapshot': serializer.toJson<String>(unitSnapshot),
+      'quantityBase': serializer.toJson<int>(quantityBase),
+      'quantityReceivedBase': serializer.toJson<int>(quantityReceivedBase),
+      'quantityReturnedBase': serializer.toJson<int>(quantityReturnedBase),
+      'unitCostMinor': serializer.toJson<int>(unitCostMinor),
+      'discountMinor': serializer.toJson<int>(discountMinor),
+      'taxMinor': serializer.toJson<int>(taxMinor),
+      'lineTotalMinor': serializer.toJson<int>(lineTotalMinor),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+    };
+  }
+
+  PurchaseItemRow copyWith({
+    String? id,
+    String? purchaseId,
+    String? productId,
+    String? productNameSnapshot,
+    Value<String?> skuSnapshot = const Value.absent(),
+    String? unitSnapshot,
+    int? quantityBase,
+    int? quantityReceivedBase,
+    int? quantityReturnedBase,
+    int? unitCostMinor,
+    int? discountMinor,
+    int? taxMinor,
+    int? lineTotalMinor,
+    int? createdAtMs,
+  }) => PurchaseItemRow(
+    id: id ?? this.id,
+    purchaseId: purchaseId ?? this.purchaseId,
+    productId: productId ?? this.productId,
+    productNameSnapshot: productNameSnapshot ?? this.productNameSnapshot,
+    skuSnapshot: skuSnapshot.present ? skuSnapshot.value : this.skuSnapshot,
+    unitSnapshot: unitSnapshot ?? this.unitSnapshot,
+    quantityBase: quantityBase ?? this.quantityBase,
+    quantityReceivedBase: quantityReceivedBase ?? this.quantityReceivedBase,
+    quantityReturnedBase: quantityReturnedBase ?? this.quantityReturnedBase,
+    unitCostMinor: unitCostMinor ?? this.unitCostMinor,
+    discountMinor: discountMinor ?? this.discountMinor,
+    taxMinor: taxMinor ?? this.taxMinor,
+    lineTotalMinor: lineTotalMinor ?? this.lineTotalMinor,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+  );
+  PurchaseItemRow copyWithCompanion(PurchaseItemsCompanion data) {
+    return PurchaseItemRow(
+      id: data.id.present ? data.id.value : this.id,
+      purchaseId: data.purchaseId.present
+          ? data.purchaseId.value
+          : this.purchaseId,
+      productId: data.productId.present ? data.productId.value : this.productId,
+      productNameSnapshot: data.productNameSnapshot.present
+          ? data.productNameSnapshot.value
+          : this.productNameSnapshot,
+      skuSnapshot: data.skuSnapshot.present
+          ? data.skuSnapshot.value
+          : this.skuSnapshot,
+      unitSnapshot: data.unitSnapshot.present
+          ? data.unitSnapshot.value
+          : this.unitSnapshot,
+      quantityBase: data.quantityBase.present
+          ? data.quantityBase.value
+          : this.quantityBase,
+      quantityReceivedBase: data.quantityReceivedBase.present
+          ? data.quantityReceivedBase.value
+          : this.quantityReceivedBase,
+      quantityReturnedBase: data.quantityReturnedBase.present
+          ? data.quantityReturnedBase.value
+          : this.quantityReturnedBase,
+      unitCostMinor: data.unitCostMinor.present
+          ? data.unitCostMinor.value
+          : this.unitCostMinor,
+      discountMinor: data.discountMinor.present
+          ? data.discountMinor.value
+          : this.discountMinor,
+      taxMinor: data.taxMinor.present ? data.taxMinor.value : this.taxMinor,
+      lineTotalMinor: data.lineTotalMinor.present
+          ? data.lineTotalMinor.value
+          : this.lineTotalMinor,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PurchaseItemRow(')
+          ..write('id: $id, ')
+          ..write('purchaseId: $purchaseId, ')
+          ..write('productId: $productId, ')
+          ..write('productNameSnapshot: $productNameSnapshot, ')
+          ..write('skuSnapshot: $skuSnapshot, ')
+          ..write('unitSnapshot: $unitSnapshot, ')
+          ..write('quantityBase: $quantityBase, ')
+          ..write('quantityReceivedBase: $quantityReceivedBase, ')
+          ..write('quantityReturnedBase: $quantityReturnedBase, ')
+          ..write('unitCostMinor: $unitCostMinor, ')
+          ..write('discountMinor: $discountMinor, ')
+          ..write('taxMinor: $taxMinor, ')
+          ..write('lineTotalMinor: $lineTotalMinor, ')
+          ..write('createdAtMs: $createdAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    purchaseId,
+    productId,
+    productNameSnapshot,
+    skuSnapshot,
+    unitSnapshot,
+    quantityBase,
+    quantityReceivedBase,
+    quantityReturnedBase,
+    unitCostMinor,
+    discountMinor,
+    taxMinor,
+    lineTotalMinor,
+    createdAtMs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PurchaseItemRow &&
+          other.id == this.id &&
+          other.purchaseId == this.purchaseId &&
+          other.productId == this.productId &&
+          other.productNameSnapshot == this.productNameSnapshot &&
+          other.skuSnapshot == this.skuSnapshot &&
+          other.unitSnapshot == this.unitSnapshot &&
+          other.quantityBase == this.quantityBase &&
+          other.quantityReceivedBase == this.quantityReceivedBase &&
+          other.quantityReturnedBase == this.quantityReturnedBase &&
+          other.unitCostMinor == this.unitCostMinor &&
+          other.discountMinor == this.discountMinor &&
+          other.taxMinor == this.taxMinor &&
+          other.lineTotalMinor == this.lineTotalMinor &&
+          other.createdAtMs == this.createdAtMs);
+}
+
+class PurchaseItemsCompanion extends UpdateCompanion<PurchaseItemRow> {
+  final Value<String> id;
+  final Value<String> purchaseId;
+  final Value<String> productId;
+  final Value<String> productNameSnapshot;
+  final Value<String?> skuSnapshot;
+  final Value<String> unitSnapshot;
+  final Value<int> quantityBase;
+  final Value<int> quantityReceivedBase;
+  final Value<int> quantityReturnedBase;
+  final Value<int> unitCostMinor;
+  final Value<int> discountMinor;
+  final Value<int> taxMinor;
+  final Value<int> lineTotalMinor;
+  final Value<int> createdAtMs;
+  final Value<int> rowid;
+  const PurchaseItemsCompanion({
+    this.id = const Value.absent(),
+    this.purchaseId = const Value.absent(),
+    this.productId = const Value.absent(),
+    this.productNameSnapshot = const Value.absent(),
+    this.skuSnapshot = const Value.absent(),
+    this.unitSnapshot = const Value.absent(),
+    this.quantityBase = const Value.absent(),
+    this.quantityReceivedBase = const Value.absent(),
+    this.quantityReturnedBase = const Value.absent(),
+    this.unitCostMinor = const Value.absent(),
+    this.discountMinor = const Value.absent(),
+    this.taxMinor = const Value.absent(),
+    this.lineTotalMinor = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PurchaseItemsCompanion.insert({
+    required String id,
+    required String purchaseId,
+    required String productId,
+    required String productNameSnapshot,
+    this.skuSnapshot = const Value.absent(),
+    required String unitSnapshot,
+    required int quantityBase,
+    this.quantityReceivedBase = const Value.absent(),
+    this.quantityReturnedBase = const Value.absent(),
+    required int unitCostMinor,
+    this.discountMinor = const Value.absent(),
+    this.taxMinor = const Value.absent(),
+    required int lineTotalMinor,
+    required int createdAtMs,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       purchaseId = Value(purchaseId),
+       productId = Value(productId),
+       productNameSnapshot = Value(productNameSnapshot),
+       unitSnapshot = Value(unitSnapshot),
+       quantityBase = Value(quantityBase),
+       unitCostMinor = Value(unitCostMinor),
+       lineTotalMinor = Value(lineTotalMinor),
+       createdAtMs = Value(createdAtMs);
+  static Insertable<PurchaseItemRow> custom({
+    Expression<String>? id,
+    Expression<String>? purchaseId,
+    Expression<String>? productId,
+    Expression<String>? productNameSnapshot,
+    Expression<String>? skuSnapshot,
+    Expression<String>? unitSnapshot,
+    Expression<int>? quantityBase,
+    Expression<int>? quantityReceivedBase,
+    Expression<int>? quantityReturnedBase,
+    Expression<int>? unitCostMinor,
+    Expression<int>? discountMinor,
+    Expression<int>? taxMinor,
+    Expression<int>? lineTotalMinor,
+    Expression<int>? createdAtMs,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (purchaseId != null) 'purchase_id': purchaseId,
+      if (productId != null) 'product_id': productId,
+      if (productNameSnapshot != null)
+        'product_name_snapshot': productNameSnapshot,
+      if (skuSnapshot != null) 'sku_snapshot': skuSnapshot,
+      if (unitSnapshot != null) 'unit_snapshot': unitSnapshot,
+      if (quantityBase != null) 'quantity_base': quantityBase,
+      if (quantityReceivedBase != null)
+        'quantity_received_base': quantityReceivedBase,
+      if (quantityReturnedBase != null)
+        'quantity_returned_base': quantityReturnedBase,
+      if (unitCostMinor != null) 'unit_cost_minor': unitCostMinor,
+      if (discountMinor != null) 'discount_minor': discountMinor,
+      if (taxMinor != null) 'tax_minor': taxMinor,
+      if (lineTotalMinor != null) 'line_total_minor': lineTotalMinor,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PurchaseItemsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? purchaseId,
+    Value<String>? productId,
+    Value<String>? productNameSnapshot,
+    Value<String?>? skuSnapshot,
+    Value<String>? unitSnapshot,
+    Value<int>? quantityBase,
+    Value<int>? quantityReceivedBase,
+    Value<int>? quantityReturnedBase,
+    Value<int>? unitCostMinor,
+    Value<int>? discountMinor,
+    Value<int>? taxMinor,
+    Value<int>? lineTotalMinor,
+    Value<int>? createdAtMs,
+    Value<int>? rowid,
+  }) {
+    return PurchaseItemsCompanion(
+      id: id ?? this.id,
+      purchaseId: purchaseId ?? this.purchaseId,
+      productId: productId ?? this.productId,
+      productNameSnapshot: productNameSnapshot ?? this.productNameSnapshot,
+      skuSnapshot: skuSnapshot ?? this.skuSnapshot,
+      unitSnapshot: unitSnapshot ?? this.unitSnapshot,
+      quantityBase: quantityBase ?? this.quantityBase,
+      quantityReceivedBase: quantityReceivedBase ?? this.quantityReceivedBase,
+      quantityReturnedBase: quantityReturnedBase ?? this.quantityReturnedBase,
+      unitCostMinor: unitCostMinor ?? this.unitCostMinor,
+      discountMinor: discountMinor ?? this.discountMinor,
+      taxMinor: taxMinor ?? this.taxMinor,
+      lineTotalMinor: lineTotalMinor ?? this.lineTotalMinor,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (purchaseId.present) {
+      map['purchase_id'] = Variable<String>(purchaseId.value);
+    }
+    if (productId.present) {
+      map['product_id'] = Variable<String>(productId.value);
+    }
+    if (productNameSnapshot.present) {
+      map['product_name_snapshot'] = Variable<String>(
+        productNameSnapshot.value,
+      );
+    }
+    if (skuSnapshot.present) {
+      map['sku_snapshot'] = Variable<String>(skuSnapshot.value);
+    }
+    if (unitSnapshot.present) {
+      map['unit_snapshot'] = Variable<String>(unitSnapshot.value);
+    }
+    if (quantityBase.present) {
+      map['quantity_base'] = Variable<int>(quantityBase.value);
+    }
+    if (quantityReceivedBase.present) {
+      map['quantity_received_base'] = Variable<int>(quantityReceivedBase.value);
+    }
+    if (quantityReturnedBase.present) {
+      map['quantity_returned_base'] = Variable<int>(quantityReturnedBase.value);
+    }
+    if (unitCostMinor.present) {
+      map['unit_cost_minor'] = Variable<int>(unitCostMinor.value);
+    }
+    if (discountMinor.present) {
+      map['discount_minor'] = Variable<int>(discountMinor.value);
+    }
+    if (taxMinor.present) {
+      map['tax_minor'] = Variable<int>(taxMinor.value);
+    }
+    if (lineTotalMinor.present) {
+      map['line_total_minor'] = Variable<int>(lineTotalMinor.value);
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PurchaseItemsCompanion(')
+          ..write('id: $id, ')
+          ..write('purchaseId: $purchaseId, ')
+          ..write('productId: $productId, ')
+          ..write('productNameSnapshot: $productNameSnapshot, ')
+          ..write('skuSnapshot: $skuSnapshot, ')
+          ..write('unitSnapshot: $unitSnapshot, ')
+          ..write('quantityBase: $quantityBase, ')
+          ..write('quantityReceivedBase: $quantityReceivedBase, ')
+          ..write('quantityReturnedBase: $quantityReturnedBase, ')
+          ..write('unitCostMinor: $unitCostMinor, ')
+          ..write('discountMinor: $discountMinor, ')
+          ..write('taxMinor: $taxMinor, ')
+          ..write('lineTotalMinor: $lineTotalMinor, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PurchasePaymentsTable extends PurchasePayments
+    with TableInfo<$PurchasePaymentsTable, PurchasePaymentRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PurchasePaymentsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _purchaseIdMeta = const VerificationMeta(
+    'purchaseId',
+  );
+  @override
+  late final GeneratedColumn<String> purchaseId = GeneratedColumn<String>(
+    'purchase_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES purchases (id)',
+    ),
+  );
+  static const VerificationMeta _paymentMethodMeta = const VerificationMeta(
+    'paymentMethod',
+  );
+  @override
+  late final GeneratedColumn<String> paymentMethod = GeneratedColumn<String>(
+    'payment_method',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _amountMinorMeta = const VerificationMeta(
+    'amountMinor',
+  );
+  @override
+  late final GeneratedColumn<int> amountMinor = GeneratedColumn<int>(
+    'amount_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _referenceNumberMeta = const VerificationMeta(
+    'referenceNumber',
+  );
+  @override
+  late final GeneratedColumn<String> referenceNumber = GeneratedColumn<String>(
+    'reference_number',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+    'notes',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _idempotencyKeyMeta = const VerificationMeta(
+    'idempotencyKey',
+  );
+  @override
+  late final GeneratedColumn<String> idempotencyKey = GeneratedColumn<String>(
+    'idempotency_key',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    purchaseId,
+    paymentMethod,
+    amountMinor,
+    referenceNumber,
+    notes,
+    idempotencyKey,
+    createdAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'purchase_payments';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<PurchasePaymentRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('purchase_id')) {
+      context.handle(
+        _purchaseIdMeta,
+        purchaseId.isAcceptableOrUnknown(data['purchase_id']!, _purchaseIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_purchaseIdMeta);
+    }
+    if (data.containsKey('payment_method')) {
+      context.handle(
+        _paymentMethodMeta,
+        paymentMethod.isAcceptableOrUnknown(
+          data['payment_method']!,
+          _paymentMethodMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_paymentMethodMeta);
+    }
+    if (data.containsKey('amount_minor')) {
+      context.handle(
+        _amountMinorMeta,
+        amountMinor.isAcceptableOrUnknown(
+          data['amount_minor']!,
+          _amountMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_amountMinorMeta);
+    }
+    if (data.containsKey('reference_number')) {
+      context.handle(
+        _referenceNumberMeta,
+        referenceNumber.isAcceptableOrUnknown(
+          data['reference_number']!,
+          _referenceNumberMeta,
+        ),
+      );
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+        _notesMeta,
+        notes.isAcceptableOrUnknown(data['notes']!, _notesMeta),
+      );
+    }
+    if (data.containsKey('idempotency_key')) {
+      context.handle(
+        _idempotencyKeyMeta,
+        idempotencyKey.isAcceptableOrUnknown(
+          data['idempotency_key']!,
+          _idempotencyKeyMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_idempotencyKeyMeta);
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PurchasePaymentRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PurchasePaymentRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      purchaseId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}purchase_id'],
+      )!,
+      paymentMethod: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}payment_method'],
+      )!,
+      amountMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}amount_minor'],
+      )!,
+      referenceNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reference_number'],
+      ),
+      notes: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}notes'],
+      ),
+      idempotencyKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}idempotency_key'],
+      )!,
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+    );
+  }
+
+  @override
+  $PurchasePaymentsTable createAlias(String alias) {
+    return $PurchasePaymentsTable(attachedDatabase, alias);
+  }
+}
+
+class PurchasePaymentRow extends DataClass
+    implements Insertable<PurchasePaymentRow> {
+  final String id;
+  final String purchaseId;
+  final String paymentMethod;
+  final int amountMinor;
+  final String? referenceNumber;
+  final String? notes;
+  final String idempotencyKey;
+  final int createdAtMs;
+  const PurchasePaymentRow({
+    required this.id,
+    required this.purchaseId,
+    required this.paymentMethod,
+    required this.amountMinor,
+    this.referenceNumber,
+    this.notes,
+    required this.idempotencyKey,
+    required this.createdAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['purchase_id'] = Variable<String>(purchaseId);
+    map['payment_method'] = Variable<String>(paymentMethod);
+    map['amount_minor'] = Variable<int>(amountMinor);
+    if (!nullToAbsent || referenceNumber != null) {
+      map['reference_number'] = Variable<String>(referenceNumber);
+    }
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['idempotency_key'] = Variable<String>(idempotencyKey);
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    return map;
+  }
+
+  PurchasePaymentsCompanion toCompanion(bool nullToAbsent) {
+    return PurchasePaymentsCompanion(
+      id: Value(id),
+      purchaseId: Value(purchaseId),
+      paymentMethod: Value(paymentMethod),
+      amountMinor: Value(amountMinor),
+      referenceNumber: referenceNumber == null && nullToAbsent
+          ? const Value.absent()
+          : Value(referenceNumber),
+      notes: notes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(notes),
+      idempotencyKey: Value(idempotencyKey),
+      createdAtMs: Value(createdAtMs),
+    );
+  }
+
+  factory PurchasePaymentRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PurchasePaymentRow(
+      id: serializer.fromJson<String>(json['id']),
+      purchaseId: serializer.fromJson<String>(json['purchaseId']),
+      paymentMethod: serializer.fromJson<String>(json['paymentMethod']),
+      amountMinor: serializer.fromJson<int>(json['amountMinor']),
+      referenceNumber: serializer.fromJson<String?>(json['referenceNumber']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      idempotencyKey: serializer.fromJson<String>(json['idempotencyKey']),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'purchaseId': serializer.toJson<String>(purchaseId),
+      'paymentMethod': serializer.toJson<String>(paymentMethod),
+      'amountMinor': serializer.toJson<int>(amountMinor),
+      'referenceNumber': serializer.toJson<String?>(referenceNumber),
+      'notes': serializer.toJson<String?>(notes),
+      'idempotencyKey': serializer.toJson<String>(idempotencyKey),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+    };
+  }
+
+  PurchasePaymentRow copyWith({
+    String? id,
+    String? purchaseId,
+    String? paymentMethod,
+    int? amountMinor,
+    Value<String?> referenceNumber = const Value.absent(),
+    Value<String?> notes = const Value.absent(),
+    String? idempotencyKey,
+    int? createdAtMs,
+  }) => PurchasePaymentRow(
+    id: id ?? this.id,
+    purchaseId: purchaseId ?? this.purchaseId,
+    paymentMethod: paymentMethod ?? this.paymentMethod,
+    amountMinor: amountMinor ?? this.amountMinor,
+    referenceNumber: referenceNumber.present
+        ? referenceNumber.value
+        : this.referenceNumber,
+    notes: notes.present ? notes.value : this.notes,
+    idempotencyKey: idempotencyKey ?? this.idempotencyKey,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+  );
+  PurchasePaymentRow copyWithCompanion(PurchasePaymentsCompanion data) {
+    return PurchasePaymentRow(
+      id: data.id.present ? data.id.value : this.id,
+      purchaseId: data.purchaseId.present
+          ? data.purchaseId.value
+          : this.purchaseId,
+      paymentMethod: data.paymentMethod.present
+          ? data.paymentMethod.value
+          : this.paymentMethod,
+      amountMinor: data.amountMinor.present
+          ? data.amountMinor.value
+          : this.amountMinor,
+      referenceNumber: data.referenceNumber.present
+          ? data.referenceNumber.value
+          : this.referenceNumber,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      idempotencyKey: data.idempotencyKey.present
+          ? data.idempotencyKey.value
+          : this.idempotencyKey,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PurchasePaymentRow(')
+          ..write('id: $id, ')
+          ..write('purchaseId: $purchaseId, ')
+          ..write('paymentMethod: $paymentMethod, ')
+          ..write('amountMinor: $amountMinor, ')
+          ..write('referenceNumber: $referenceNumber, ')
+          ..write('notes: $notes, ')
+          ..write('idempotencyKey: $idempotencyKey, ')
+          ..write('createdAtMs: $createdAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    purchaseId,
+    paymentMethod,
+    amountMinor,
+    referenceNumber,
+    notes,
+    idempotencyKey,
+    createdAtMs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PurchasePaymentRow &&
+          other.id == this.id &&
+          other.purchaseId == this.purchaseId &&
+          other.paymentMethod == this.paymentMethod &&
+          other.amountMinor == this.amountMinor &&
+          other.referenceNumber == this.referenceNumber &&
+          other.notes == this.notes &&
+          other.idempotencyKey == this.idempotencyKey &&
+          other.createdAtMs == this.createdAtMs);
+}
+
+class PurchasePaymentsCompanion extends UpdateCompanion<PurchasePaymentRow> {
+  final Value<String> id;
+  final Value<String> purchaseId;
+  final Value<String> paymentMethod;
+  final Value<int> amountMinor;
+  final Value<String?> referenceNumber;
+  final Value<String?> notes;
+  final Value<String> idempotencyKey;
+  final Value<int> createdAtMs;
+  final Value<int> rowid;
+  const PurchasePaymentsCompanion({
+    this.id = const Value.absent(),
+    this.purchaseId = const Value.absent(),
+    this.paymentMethod = const Value.absent(),
+    this.amountMinor = const Value.absent(),
+    this.referenceNumber = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.idempotencyKey = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PurchasePaymentsCompanion.insert({
+    required String id,
+    required String purchaseId,
+    required String paymentMethod,
+    required int amountMinor,
+    this.referenceNumber = const Value.absent(),
+    this.notes = const Value.absent(),
+    required String idempotencyKey,
+    required int createdAtMs,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       purchaseId = Value(purchaseId),
+       paymentMethod = Value(paymentMethod),
+       amountMinor = Value(amountMinor),
+       idempotencyKey = Value(idempotencyKey),
+       createdAtMs = Value(createdAtMs);
+  static Insertable<PurchasePaymentRow> custom({
+    Expression<String>? id,
+    Expression<String>? purchaseId,
+    Expression<String>? paymentMethod,
+    Expression<int>? amountMinor,
+    Expression<String>? referenceNumber,
+    Expression<String>? notes,
+    Expression<String>? idempotencyKey,
+    Expression<int>? createdAtMs,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (purchaseId != null) 'purchase_id': purchaseId,
+      if (paymentMethod != null) 'payment_method': paymentMethod,
+      if (amountMinor != null) 'amount_minor': amountMinor,
+      if (referenceNumber != null) 'reference_number': referenceNumber,
+      if (notes != null) 'notes': notes,
+      if (idempotencyKey != null) 'idempotency_key': idempotencyKey,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PurchasePaymentsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? purchaseId,
+    Value<String>? paymentMethod,
+    Value<int>? amountMinor,
+    Value<String?>? referenceNumber,
+    Value<String?>? notes,
+    Value<String>? idempotencyKey,
+    Value<int>? createdAtMs,
+    Value<int>? rowid,
+  }) {
+    return PurchasePaymentsCompanion(
+      id: id ?? this.id,
+      purchaseId: purchaseId ?? this.purchaseId,
+      paymentMethod: paymentMethod ?? this.paymentMethod,
+      amountMinor: amountMinor ?? this.amountMinor,
+      referenceNumber: referenceNumber ?? this.referenceNumber,
+      notes: notes ?? this.notes,
+      idempotencyKey: idempotencyKey ?? this.idempotencyKey,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (purchaseId.present) {
+      map['purchase_id'] = Variable<String>(purchaseId.value);
+    }
+    if (paymentMethod.present) {
+      map['payment_method'] = Variable<String>(paymentMethod.value);
+    }
+    if (amountMinor.present) {
+      map['amount_minor'] = Variable<int>(amountMinor.value);
+    }
+    if (referenceNumber.present) {
+      map['reference_number'] = Variable<String>(referenceNumber.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (idempotencyKey.present) {
+      map['idempotency_key'] = Variable<String>(idempotencyKey.value);
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PurchasePaymentsCompanion(')
+          ..write('id: $id, ')
+          ..write('purchaseId: $purchaseId, ')
+          ..write('paymentMethod: $paymentMethod, ')
+          ..write('amountMinor: $amountMinor, ')
+          ..write('referenceNumber: $referenceNumber, ')
+          ..write('notes: $notes, ')
+          ..write('idempotencyKey: $idempotencyKey, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SupplierLedgerEntriesTable extends SupplierLedgerEntries
+    with TableInfo<$SupplierLedgerEntriesTable, SupplierLedgerEntryRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SupplierLedgerEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _supplierIdMeta = const VerificationMeta(
+    'supplierId',
+  );
+  @override
+  late final GeneratedColumn<String> supplierId = GeneratedColumn<String>(
+    'supplier_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES suppliers (id)',
+    ),
+  );
+  static const VerificationMeta _entryTypeMeta = const VerificationMeta(
+    'entryType',
+  );
+  @override
+  late final GeneratedColumn<String> entryType = GeneratedColumn<String>(
+    'entry_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _debitMinorMeta = const VerificationMeta(
+    'debitMinor',
+  );
+  @override
+  late final GeneratedColumn<int> debitMinor = GeneratedColumn<int>(
+    'debit_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _creditMinorMeta = const VerificationMeta(
+    'creditMinor',
+  );
+  @override
+  late final GeneratedColumn<int> creditMinor = GeneratedColumn<int>(
+    'credit_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _referenceTypeMeta = const VerificationMeta(
+    'referenceType',
+  );
+  @override
+  late final GeneratedColumn<String> referenceType = GeneratedColumn<String>(
+    'reference_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _referenceIdMeta = const VerificationMeta(
+    'referenceId',
+  );
+  @override
+  late final GeneratedColumn<String> referenceId = GeneratedColumn<String>(
+    'reference_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+    'notes',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    supplierId,
+    entryType,
+    debitMinor,
+    creditMinor,
+    referenceType,
+    referenceId,
+    notes,
+    createdAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'supplier_ledger_entries';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SupplierLedgerEntryRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('supplier_id')) {
+      context.handle(
+        _supplierIdMeta,
+        supplierId.isAcceptableOrUnknown(data['supplier_id']!, _supplierIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_supplierIdMeta);
+    }
+    if (data.containsKey('entry_type')) {
+      context.handle(
+        _entryTypeMeta,
+        entryType.isAcceptableOrUnknown(data['entry_type']!, _entryTypeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_entryTypeMeta);
+    }
+    if (data.containsKey('debit_minor')) {
+      context.handle(
+        _debitMinorMeta,
+        debitMinor.isAcceptableOrUnknown(data['debit_minor']!, _debitMinorMeta),
+      );
+    }
+    if (data.containsKey('credit_minor')) {
+      context.handle(
+        _creditMinorMeta,
+        creditMinor.isAcceptableOrUnknown(
+          data['credit_minor']!,
+          _creditMinorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('reference_type')) {
+      context.handle(
+        _referenceTypeMeta,
+        referenceType.isAcceptableOrUnknown(
+          data['reference_type']!,
+          _referenceTypeMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_referenceTypeMeta);
+    }
+    if (data.containsKey('reference_id')) {
+      context.handle(
+        _referenceIdMeta,
+        referenceId.isAcceptableOrUnknown(
+          data['reference_id']!,
+          _referenceIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_referenceIdMeta);
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+        _notesMeta,
+        notes.isAcceptableOrUnknown(data['notes']!, _notesMeta),
+      );
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SupplierLedgerEntryRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SupplierLedgerEntryRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      supplierId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}supplier_id'],
+      )!,
+      entryType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}entry_type'],
+      )!,
+      debitMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}debit_minor'],
+      )!,
+      creditMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}credit_minor'],
+      )!,
+      referenceType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reference_type'],
+      )!,
+      referenceId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reference_id'],
+      )!,
+      notes: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}notes'],
+      ),
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+    );
+  }
+
+  @override
+  $SupplierLedgerEntriesTable createAlias(String alias) {
+    return $SupplierLedgerEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class SupplierLedgerEntryRow extends DataClass
+    implements Insertable<SupplierLedgerEntryRow> {
+  final String id;
+  final String supplierId;
+  final String entryType;
+  final int debitMinor;
+  final int creditMinor;
+  final String referenceType;
+  final String referenceId;
+  final String? notes;
+  final int createdAtMs;
+  const SupplierLedgerEntryRow({
+    required this.id,
+    required this.supplierId,
+    required this.entryType,
+    required this.debitMinor,
+    required this.creditMinor,
+    required this.referenceType,
+    required this.referenceId,
+    this.notes,
+    required this.createdAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['supplier_id'] = Variable<String>(supplierId);
+    map['entry_type'] = Variable<String>(entryType);
+    map['debit_minor'] = Variable<int>(debitMinor);
+    map['credit_minor'] = Variable<int>(creditMinor);
+    map['reference_type'] = Variable<String>(referenceType);
+    map['reference_id'] = Variable<String>(referenceId);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    return map;
+  }
+
+  SupplierLedgerEntriesCompanion toCompanion(bool nullToAbsent) {
+    return SupplierLedgerEntriesCompanion(
+      id: Value(id),
+      supplierId: Value(supplierId),
+      entryType: Value(entryType),
+      debitMinor: Value(debitMinor),
+      creditMinor: Value(creditMinor),
+      referenceType: Value(referenceType),
+      referenceId: Value(referenceId),
+      notes: notes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(notes),
+      createdAtMs: Value(createdAtMs),
+    );
+  }
+
+  factory SupplierLedgerEntryRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SupplierLedgerEntryRow(
+      id: serializer.fromJson<String>(json['id']),
+      supplierId: serializer.fromJson<String>(json['supplierId']),
+      entryType: serializer.fromJson<String>(json['entryType']),
+      debitMinor: serializer.fromJson<int>(json['debitMinor']),
+      creditMinor: serializer.fromJson<int>(json['creditMinor']),
+      referenceType: serializer.fromJson<String>(json['referenceType']),
+      referenceId: serializer.fromJson<String>(json['referenceId']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'supplierId': serializer.toJson<String>(supplierId),
+      'entryType': serializer.toJson<String>(entryType),
+      'debitMinor': serializer.toJson<int>(debitMinor),
+      'creditMinor': serializer.toJson<int>(creditMinor),
+      'referenceType': serializer.toJson<String>(referenceType),
+      'referenceId': serializer.toJson<String>(referenceId),
+      'notes': serializer.toJson<String?>(notes),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+    };
+  }
+
+  SupplierLedgerEntryRow copyWith({
+    String? id,
+    String? supplierId,
+    String? entryType,
+    int? debitMinor,
+    int? creditMinor,
+    String? referenceType,
+    String? referenceId,
+    Value<String?> notes = const Value.absent(),
+    int? createdAtMs,
+  }) => SupplierLedgerEntryRow(
+    id: id ?? this.id,
+    supplierId: supplierId ?? this.supplierId,
+    entryType: entryType ?? this.entryType,
+    debitMinor: debitMinor ?? this.debitMinor,
+    creditMinor: creditMinor ?? this.creditMinor,
+    referenceType: referenceType ?? this.referenceType,
+    referenceId: referenceId ?? this.referenceId,
+    notes: notes.present ? notes.value : this.notes,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+  );
+  SupplierLedgerEntryRow copyWithCompanion(
+    SupplierLedgerEntriesCompanion data,
+  ) {
+    return SupplierLedgerEntryRow(
+      id: data.id.present ? data.id.value : this.id,
+      supplierId: data.supplierId.present
+          ? data.supplierId.value
+          : this.supplierId,
+      entryType: data.entryType.present ? data.entryType.value : this.entryType,
+      debitMinor: data.debitMinor.present
+          ? data.debitMinor.value
+          : this.debitMinor,
+      creditMinor: data.creditMinor.present
+          ? data.creditMinor.value
+          : this.creditMinor,
+      referenceType: data.referenceType.present
+          ? data.referenceType.value
+          : this.referenceType,
+      referenceId: data.referenceId.present
+          ? data.referenceId.value
+          : this.referenceId,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SupplierLedgerEntryRow(')
+          ..write('id: $id, ')
+          ..write('supplierId: $supplierId, ')
+          ..write('entryType: $entryType, ')
+          ..write('debitMinor: $debitMinor, ')
+          ..write('creditMinor: $creditMinor, ')
+          ..write('referenceType: $referenceType, ')
+          ..write('referenceId: $referenceId, ')
+          ..write('notes: $notes, ')
+          ..write('createdAtMs: $createdAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    supplierId,
+    entryType,
+    debitMinor,
+    creditMinor,
+    referenceType,
+    referenceId,
+    notes,
+    createdAtMs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SupplierLedgerEntryRow &&
+          other.id == this.id &&
+          other.supplierId == this.supplierId &&
+          other.entryType == this.entryType &&
+          other.debitMinor == this.debitMinor &&
+          other.creditMinor == this.creditMinor &&
+          other.referenceType == this.referenceType &&
+          other.referenceId == this.referenceId &&
+          other.notes == this.notes &&
+          other.createdAtMs == this.createdAtMs);
+}
+
+class SupplierLedgerEntriesCompanion
+    extends UpdateCompanion<SupplierLedgerEntryRow> {
+  final Value<String> id;
+  final Value<String> supplierId;
+  final Value<String> entryType;
+  final Value<int> debitMinor;
+  final Value<int> creditMinor;
+  final Value<String> referenceType;
+  final Value<String> referenceId;
+  final Value<String?> notes;
+  final Value<int> createdAtMs;
+  final Value<int> rowid;
+  const SupplierLedgerEntriesCompanion({
+    this.id = const Value.absent(),
+    this.supplierId = const Value.absent(),
+    this.entryType = const Value.absent(),
+    this.debitMinor = const Value.absent(),
+    this.creditMinor = const Value.absent(),
+    this.referenceType = const Value.absent(),
+    this.referenceId = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SupplierLedgerEntriesCompanion.insert({
+    required String id,
+    required String supplierId,
+    required String entryType,
+    this.debitMinor = const Value.absent(),
+    this.creditMinor = const Value.absent(),
+    required String referenceType,
+    required String referenceId,
+    this.notes = const Value.absent(),
+    required int createdAtMs,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       supplierId = Value(supplierId),
+       entryType = Value(entryType),
+       referenceType = Value(referenceType),
+       referenceId = Value(referenceId),
+       createdAtMs = Value(createdAtMs);
+  static Insertable<SupplierLedgerEntryRow> custom({
+    Expression<String>? id,
+    Expression<String>? supplierId,
+    Expression<String>? entryType,
+    Expression<int>? debitMinor,
+    Expression<int>? creditMinor,
+    Expression<String>? referenceType,
+    Expression<String>? referenceId,
+    Expression<String>? notes,
+    Expression<int>? createdAtMs,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (supplierId != null) 'supplier_id': supplierId,
+      if (entryType != null) 'entry_type': entryType,
+      if (debitMinor != null) 'debit_minor': debitMinor,
+      if (creditMinor != null) 'credit_minor': creditMinor,
+      if (referenceType != null) 'reference_type': referenceType,
+      if (referenceId != null) 'reference_id': referenceId,
+      if (notes != null) 'notes': notes,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SupplierLedgerEntriesCompanion copyWith({
+    Value<String>? id,
+    Value<String>? supplierId,
+    Value<String>? entryType,
+    Value<int>? debitMinor,
+    Value<int>? creditMinor,
+    Value<String>? referenceType,
+    Value<String>? referenceId,
+    Value<String?>? notes,
+    Value<int>? createdAtMs,
+    Value<int>? rowid,
+  }) {
+    return SupplierLedgerEntriesCompanion(
+      id: id ?? this.id,
+      supplierId: supplierId ?? this.supplierId,
+      entryType: entryType ?? this.entryType,
+      debitMinor: debitMinor ?? this.debitMinor,
+      creditMinor: creditMinor ?? this.creditMinor,
+      referenceType: referenceType ?? this.referenceType,
+      referenceId: referenceId ?? this.referenceId,
+      notes: notes ?? this.notes,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (supplierId.present) {
+      map['supplier_id'] = Variable<String>(supplierId.value);
+    }
+    if (entryType.present) {
+      map['entry_type'] = Variable<String>(entryType.value);
+    }
+    if (debitMinor.present) {
+      map['debit_minor'] = Variable<int>(debitMinor.value);
+    }
+    if (creditMinor.present) {
+      map['credit_minor'] = Variable<int>(creditMinor.value);
+    }
+    if (referenceType.present) {
+      map['reference_type'] = Variable<String>(referenceType.value);
+    }
+    if (referenceId.present) {
+      map['reference_id'] = Variable<String>(referenceId.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SupplierLedgerEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('supplierId: $supplierId, ')
+          ..write('entryType: $entryType, ')
+          ..write('debitMinor: $debitMinor, ')
+          ..write('creditMinor: $creditMinor, ')
+          ..write('referenceType: $referenceType, ')
+          ..write('referenceId: $referenceId, ')
+          ..write('notes: $notes, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PurchaseReturnsTable extends PurchaseReturns
+    with TableInfo<$PurchaseReturnsTable, PurchaseReturnRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PurchaseReturnsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _returnNumberMeta = const VerificationMeta(
+    'returnNumber',
+  );
+  @override
+  late final GeneratedColumn<String> returnNumber = GeneratedColumn<String>(
+    'return_number',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _purchaseIdMeta = const VerificationMeta(
+    'purchaseId',
+  );
+  @override
+  late final GeneratedColumn<String> purchaseId = GeneratedColumn<String>(
+    'purchase_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES purchases (id)',
+    ),
+  );
+  static const VerificationMeta _supplierIdMeta = const VerificationMeta(
+    'supplierId',
+  );
+  @override
+  late final GeneratedColumn<String> supplierId = GeneratedColumn<String>(
+    'supplier_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES suppliers (id)',
+    ),
+  );
+  static const VerificationMeta _reasonMeta = const VerificationMeta('reason');
+  @override
+  late final GeneratedColumn<String> reason = GeneratedColumn<String>(
+    'reason',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _totalMinorMeta = const VerificationMeta(
+    'totalMinor',
+  );
+  @override
+  late final GeneratedColumn<int> totalMinor = GeneratedColumn<int>(
+    'total_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _idempotencyKeyMeta = const VerificationMeta(
+    'idempotencyKey',
+  );
+  @override
+  late final GeneratedColumn<String> idempotencyKey = GeneratedColumn<String>(
+    'idempotency_key',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _completedAtMsMeta = const VerificationMeta(
+    'completedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> completedAtMs = GeneratedColumn<int>(
+    'completed_at_ms',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    returnNumber,
+    purchaseId,
+    supplierId,
+    reason,
+    totalMinor,
+    status,
+    idempotencyKey,
+    createdAtMs,
+    completedAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'purchase_returns';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<PurchaseReturnRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('return_number')) {
+      context.handle(
+        _returnNumberMeta,
+        returnNumber.isAcceptableOrUnknown(
+          data['return_number']!,
+          _returnNumberMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_returnNumberMeta);
+    }
+    if (data.containsKey('purchase_id')) {
+      context.handle(
+        _purchaseIdMeta,
+        purchaseId.isAcceptableOrUnknown(data['purchase_id']!, _purchaseIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_purchaseIdMeta);
+    }
+    if (data.containsKey('supplier_id')) {
+      context.handle(
+        _supplierIdMeta,
+        supplierId.isAcceptableOrUnknown(data['supplier_id']!, _supplierIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_supplierIdMeta);
+    }
+    if (data.containsKey('reason')) {
+      context.handle(
+        _reasonMeta,
+        reason.isAcceptableOrUnknown(data['reason']!, _reasonMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_reasonMeta);
+    }
+    if (data.containsKey('total_minor')) {
+      context.handle(
+        _totalMinorMeta,
+        totalMinor.isAcceptableOrUnknown(data['total_minor']!, _totalMinorMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_totalMinorMeta);
+    }
+    if (data.containsKey('status')) {
+      context.handle(
+        _statusMeta,
+        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_statusMeta);
+    }
+    if (data.containsKey('idempotency_key')) {
+      context.handle(
+        _idempotencyKeyMeta,
+        idempotencyKey.isAcceptableOrUnknown(
+          data['idempotency_key']!,
+          _idempotencyKeyMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_idempotencyKeyMeta);
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    if (data.containsKey('completed_at_ms')) {
+      context.handle(
+        _completedAtMsMeta,
+        completedAtMs.isAcceptableOrUnknown(
+          data['completed_at_ms']!,
+          _completedAtMsMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PurchaseReturnRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PurchaseReturnRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      returnNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}return_number'],
+      )!,
+      purchaseId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}purchase_id'],
+      )!,
+      supplierId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}supplier_id'],
+      )!,
+      reason: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reason'],
+      )!,
+      totalMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}total_minor'],
+      )!,
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
+      idempotencyKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}idempotency_key'],
+      )!,
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+      completedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}completed_at_ms'],
+      ),
+    );
+  }
+
+  @override
+  $PurchaseReturnsTable createAlias(String alias) {
+    return $PurchaseReturnsTable(attachedDatabase, alias);
+  }
+}
+
+class PurchaseReturnRow extends DataClass
+    implements Insertable<PurchaseReturnRow> {
+  final String id;
+  final String returnNumber;
+  final String purchaseId;
+  final String supplierId;
+  final String reason;
+  final int totalMinor;
+  final String status;
+  final String idempotencyKey;
+  final int createdAtMs;
+  final int? completedAtMs;
+  const PurchaseReturnRow({
+    required this.id,
+    required this.returnNumber,
+    required this.purchaseId,
+    required this.supplierId,
+    required this.reason,
+    required this.totalMinor,
+    required this.status,
+    required this.idempotencyKey,
+    required this.createdAtMs,
+    this.completedAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['return_number'] = Variable<String>(returnNumber);
+    map['purchase_id'] = Variable<String>(purchaseId);
+    map['supplier_id'] = Variable<String>(supplierId);
+    map['reason'] = Variable<String>(reason);
+    map['total_minor'] = Variable<int>(totalMinor);
+    map['status'] = Variable<String>(status);
+    map['idempotency_key'] = Variable<String>(idempotencyKey);
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    if (!nullToAbsent || completedAtMs != null) {
+      map['completed_at_ms'] = Variable<int>(completedAtMs);
+    }
+    return map;
+  }
+
+  PurchaseReturnsCompanion toCompanion(bool nullToAbsent) {
+    return PurchaseReturnsCompanion(
+      id: Value(id),
+      returnNumber: Value(returnNumber),
+      purchaseId: Value(purchaseId),
+      supplierId: Value(supplierId),
+      reason: Value(reason),
+      totalMinor: Value(totalMinor),
+      status: Value(status),
+      idempotencyKey: Value(idempotencyKey),
+      createdAtMs: Value(createdAtMs),
+      completedAtMs: completedAtMs == null && nullToAbsent
+          ? const Value.absent()
+          : Value(completedAtMs),
+    );
+  }
+
+  factory PurchaseReturnRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PurchaseReturnRow(
+      id: serializer.fromJson<String>(json['id']),
+      returnNumber: serializer.fromJson<String>(json['returnNumber']),
+      purchaseId: serializer.fromJson<String>(json['purchaseId']),
+      supplierId: serializer.fromJson<String>(json['supplierId']),
+      reason: serializer.fromJson<String>(json['reason']),
+      totalMinor: serializer.fromJson<int>(json['totalMinor']),
+      status: serializer.fromJson<String>(json['status']),
+      idempotencyKey: serializer.fromJson<String>(json['idempotencyKey']),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+      completedAtMs: serializer.fromJson<int?>(json['completedAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'returnNumber': serializer.toJson<String>(returnNumber),
+      'purchaseId': serializer.toJson<String>(purchaseId),
+      'supplierId': serializer.toJson<String>(supplierId),
+      'reason': serializer.toJson<String>(reason),
+      'totalMinor': serializer.toJson<int>(totalMinor),
+      'status': serializer.toJson<String>(status),
+      'idempotencyKey': serializer.toJson<String>(idempotencyKey),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+      'completedAtMs': serializer.toJson<int?>(completedAtMs),
+    };
+  }
+
+  PurchaseReturnRow copyWith({
+    String? id,
+    String? returnNumber,
+    String? purchaseId,
+    String? supplierId,
+    String? reason,
+    int? totalMinor,
+    String? status,
+    String? idempotencyKey,
+    int? createdAtMs,
+    Value<int?> completedAtMs = const Value.absent(),
+  }) => PurchaseReturnRow(
+    id: id ?? this.id,
+    returnNumber: returnNumber ?? this.returnNumber,
+    purchaseId: purchaseId ?? this.purchaseId,
+    supplierId: supplierId ?? this.supplierId,
+    reason: reason ?? this.reason,
+    totalMinor: totalMinor ?? this.totalMinor,
+    status: status ?? this.status,
+    idempotencyKey: idempotencyKey ?? this.idempotencyKey,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+    completedAtMs: completedAtMs.present
+        ? completedAtMs.value
+        : this.completedAtMs,
+  );
+  PurchaseReturnRow copyWithCompanion(PurchaseReturnsCompanion data) {
+    return PurchaseReturnRow(
+      id: data.id.present ? data.id.value : this.id,
+      returnNumber: data.returnNumber.present
+          ? data.returnNumber.value
+          : this.returnNumber,
+      purchaseId: data.purchaseId.present
+          ? data.purchaseId.value
+          : this.purchaseId,
+      supplierId: data.supplierId.present
+          ? data.supplierId.value
+          : this.supplierId,
+      reason: data.reason.present ? data.reason.value : this.reason,
+      totalMinor: data.totalMinor.present
+          ? data.totalMinor.value
+          : this.totalMinor,
+      status: data.status.present ? data.status.value : this.status,
+      idempotencyKey: data.idempotencyKey.present
+          ? data.idempotencyKey.value
+          : this.idempotencyKey,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+      completedAtMs: data.completedAtMs.present
+          ? data.completedAtMs.value
+          : this.completedAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PurchaseReturnRow(')
+          ..write('id: $id, ')
+          ..write('returnNumber: $returnNumber, ')
+          ..write('purchaseId: $purchaseId, ')
+          ..write('supplierId: $supplierId, ')
+          ..write('reason: $reason, ')
+          ..write('totalMinor: $totalMinor, ')
+          ..write('status: $status, ')
+          ..write('idempotencyKey: $idempotencyKey, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('completedAtMs: $completedAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    returnNumber,
+    purchaseId,
+    supplierId,
+    reason,
+    totalMinor,
+    status,
+    idempotencyKey,
+    createdAtMs,
+    completedAtMs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PurchaseReturnRow &&
+          other.id == this.id &&
+          other.returnNumber == this.returnNumber &&
+          other.purchaseId == this.purchaseId &&
+          other.supplierId == this.supplierId &&
+          other.reason == this.reason &&
+          other.totalMinor == this.totalMinor &&
+          other.status == this.status &&
+          other.idempotencyKey == this.idempotencyKey &&
+          other.createdAtMs == this.createdAtMs &&
+          other.completedAtMs == this.completedAtMs);
+}
+
+class PurchaseReturnsCompanion extends UpdateCompanion<PurchaseReturnRow> {
+  final Value<String> id;
+  final Value<String> returnNumber;
+  final Value<String> purchaseId;
+  final Value<String> supplierId;
+  final Value<String> reason;
+  final Value<int> totalMinor;
+  final Value<String> status;
+  final Value<String> idempotencyKey;
+  final Value<int> createdAtMs;
+  final Value<int?> completedAtMs;
+  final Value<int> rowid;
+  const PurchaseReturnsCompanion({
+    this.id = const Value.absent(),
+    this.returnNumber = const Value.absent(),
+    this.purchaseId = const Value.absent(),
+    this.supplierId = const Value.absent(),
+    this.reason = const Value.absent(),
+    this.totalMinor = const Value.absent(),
+    this.status = const Value.absent(),
+    this.idempotencyKey = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.completedAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PurchaseReturnsCompanion.insert({
+    required String id,
+    required String returnNumber,
+    required String purchaseId,
+    required String supplierId,
+    required String reason,
+    required int totalMinor,
+    required String status,
+    required String idempotencyKey,
+    required int createdAtMs,
+    this.completedAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       returnNumber = Value(returnNumber),
+       purchaseId = Value(purchaseId),
+       supplierId = Value(supplierId),
+       reason = Value(reason),
+       totalMinor = Value(totalMinor),
+       status = Value(status),
+       idempotencyKey = Value(idempotencyKey),
+       createdAtMs = Value(createdAtMs);
+  static Insertable<PurchaseReturnRow> custom({
+    Expression<String>? id,
+    Expression<String>? returnNumber,
+    Expression<String>? purchaseId,
+    Expression<String>? supplierId,
+    Expression<String>? reason,
+    Expression<int>? totalMinor,
+    Expression<String>? status,
+    Expression<String>? idempotencyKey,
+    Expression<int>? createdAtMs,
+    Expression<int>? completedAtMs,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (returnNumber != null) 'return_number': returnNumber,
+      if (purchaseId != null) 'purchase_id': purchaseId,
+      if (supplierId != null) 'supplier_id': supplierId,
+      if (reason != null) 'reason': reason,
+      if (totalMinor != null) 'total_minor': totalMinor,
+      if (status != null) 'status': status,
+      if (idempotencyKey != null) 'idempotency_key': idempotencyKey,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (completedAtMs != null) 'completed_at_ms': completedAtMs,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PurchaseReturnsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? returnNumber,
+    Value<String>? purchaseId,
+    Value<String>? supplierId,
+    Value<String>? reason,
+    Value<int>? totalMinor,
+    Value<String>? status,
+    Value<String>? idempotencyKey,
+    Value<int>? createdAtMs,
+    Value<int?>? completedAtMs,
+    Value<int>? rowid,
+  }) {
+    return PurchaseReturnsCompanion(
+      id: id ?? this.id,
+      returnNumber: returnNumber ?? this.returnNumber,
+      purchaseId: purchaseId ?? this.purchaseId,
+      supplierId: supplierId ?? this.supplierId,
+      reason: reason ?? this.reason,
+      totalMinor: totalMinor ?? this.totalMinor,
+      status: status ?? this.status,
+      idempotencyKey: idempotencyKey ?? this.idempotencyKey,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      completedAtMs: completedAtMs ?? this.completedAtMs,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (returnNumber.present) {
+      map['return_number'] = Variable<String>(returnNumber.value);
+    }
+    if (purchaseId.present) {
+      map['purchase_id'] = Variable<String>(purchaseId.value);
+    }
+    if (supplierId.present) {
+      map['supplier_id'] = Variable<String>(supplierId.value);
+    }
+    if (reason.present) {
+      map['reason'] = Variable<String>(reason.value);
+    }
+    if (totalMinor.present) {
+      map['total_minor'] = Variable<int>(totalMinor.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (idempotencyKey.present) {
+      map['idempotency_key'] = Variable<String>(idempotencyKey.value);
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (completedAtMs.present) {
+      map['completed_at_ms'] = Variable<int>(completedAtMs.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PurchaseReturnsCompanion(')
+          ..write('id: $id, ')
+          ..write('returnNumber: $returnNumber, ')
+          ..write('purchaseId: $purchaseId, ')
+          ..write('supplierId: $supplierId, ')
+          ..write('reason: $reason, ')
+          ..write('totalMinor: $totalMinor, ')
+          ..write('status: $status, ')
+          ..write('idempotencyKey: $idempotencyKey, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('completedAtMs: $completedAtMs, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PurchaseReturnItemsTable extends PurchaseReturnItems
+    with TableInfo<$PurchaseReturnItemsTable, PurchaseReturnItemRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PurchaseReturnItemsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _purchaseReturnIdMeta = const VerificationMeta(
+    'purchaseReturnId',
+  );
+  @override
+  late final GeneratedColumn<String> purchaseReturnId = GeneratedColumn<String>(
+    'purchase_return_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES purchase_returns (id)',
+    ),
+  );
+  static const VerificationMeta _purchaseItemIdMeta = const VerificationMeta(
+    'purchaseItemId',
+  );
+  @override
+  late final GeneratedColumn<String> purchaseItemId = GeneratedColumn<String>(
+    'purchase_item_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES purchase_items (id)',
+    ),
+  );
+  static const VerificationMeta _productIdMeta = const VerificationMeta(
+    'productId',
+  );
+  @override
+  late final GeneratedColumn<String> productId = GeneratedColumn<String>(
+    'product_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES products (id)',
+    ),
+  );
+  static const VerificationMeta _quantityBaseMeta = const VerificationMeta(
+    'quantityBase',
+  );
+  @override
+  late final GeneratedColumn<int> quantityBase = GeneratedColumn<int>(
+    'quantity_base',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _unitCostMinorMeta = const VerificationMeta(
+    'unitCostMinor',
+  );
+  @override
+  late final GeneratedColumn<int> unitCostMinor = GeneratedColumn<int>(
+    'unit_cost_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _lineTotalMinorMeta = const VerificationMeta(
+    'lineTotalMinor',
+  );
+  @override
+  late final GeneratedColumn<int> lineTotalMinor = GeneratedColumn<int>(
+    'line_total_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    purchaseReturnId,
+    purchaseItemId,
+    productId,
+    quantityBase,
+    unitCostMinor,
+    lineTotalMinor,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'purchase_return_items';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<PurchaseReturnItemRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('purchase_return_id')) {
+      context.handle(
+        _purchaseReturnIdMeta,
+        purchaseReturnId.isAcceptableOrUnknown(
+          data['purchase_return_id']!,
+          _purchaseReturnIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_purchaseReturnIdMeta);
+    }
+    if (data.containsKey('purchase_item_id')) {
+      context.handle(
+        _purchaseItemIdMeta,
+        purchaseItemId.isAcceptableOrUnknown(
+          data['purchase_item_id']!,
+          _purchaseItemIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_purchaseItemIdMeta);
+    }
+    if (data.containsKey('product_id')) {
+      context.handle(
+        _productIdMeta,
+        productId.isAcceptableOrUnknown(data['product_id']!, _productIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_productIdMeta);
+    }
+    if (data.containsKey('quantity_base')) {
+      context.handle(
+        _quantityBaseMeta,
+        quantityBase.isAcceptableOrUnknown(
+          data['quantity_base']!,
+          _quantityBaseMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_quantityBaseMeta);
+    }
+    if (data.containsKey('unit_cost_minor')) {
+      context.handle(
+        _unitCostMinorMeta,
+        unitCostMinor.isAcceptableOrUnknown(
+          data['unit_cost_minor']!,
+          _unitCostMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_unitCostMinorMeta);
+    }
+    if (data.containsKey('line_total_minor')) {
+      context.handle(
+        _lineTotalMinorMeta,
+        lineTotalMinor.isAcceptableOrUnknown(
+          data['line_total_minor']!,
+          _lineTotalMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_lineTotalMinorMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PurchaseReturnItemRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PurchaseReturnItemRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      purchaseReturnId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}purchase_return_id'],
+      )!,
+      purchaseItemId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}purchase_item_id'],
+      )!,
+      productId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}product_id'],
+      )!,
+      quantityBase: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}quantity_base'],
+      )!,
+      unitCostMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}unit_cost_minor'],
+      )!,
+      lineTotalMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}line_total_minor'],
+      )!,
+    );
+  }
+
+  @override
+  $PurchaseReturnItemsTable createAlias(String alias) {
+    return $PurchaseReturnItemsTable(attachedDatabase, alias);
+  }
+}
+
+class PurchaseReturnItemRow extends DataClass
+    implements Insertable<PurchaseReturnItemRow> {
+  final String id;
+  final String purchaseReturnId;
+  final String purchaseItemId;
+  final String productId;
+  final int quantityBase;
+  final int unitCostMinor;
+  final int lineTotalMinor;
+  const PurchaseReturnItemRow({
+    required this.id,
+    required this.purchaseReturnId,
+    required this.purchaseItemId,
+    required this.productId,
+    required this.quantityBase,
+    required this.unitCostMinor,
+    required this.lineTotalMinor,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['purchase_return_id'] = Variable<String>(purchaseReturnId);
+    map['purchase_item_id'] = Variable<String>(purchaseItemId);
+    map['product_id'] = Variable<String>(productId);
+    map['quantity_base'] = Variable<int>(quantityBase);
+    map['unit_cost_minor'] = Variable<int>(unitCostMinor);
+    map['line_total_minor'] = Variable<int>(lineTotalMinor);
+    return map;
+  }
+
+  PurchaseReturnItemsCompanion toCompanion(bool nullToAbsent) {
+    return PurchaseReturnItemsCompanion(
+      id: Value(id),
+      purchaseReturnId: Value(purchaseReturnId),
+      purchaseItemId: Value(purchaseItemId),
+      productId: Value(productId),
+      quantityBase: Value(quantityBase),
+      unitCostMinor: Value(unitCostMinor),
+      lineTotalMinor: Value(lineTotalMinor),
+    );
+  }
+
+  factory PurchaseReturnItemRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PurchaseReturnItemRow(
+      id: serializer.fromJson<String>(json['id']),
+      purchaseReturnId: serializer.fromJson<String>(json['purchaseReturnId']),
+      purchaseItemId: serializer.fromJson<String>(json['purchaseItemId']),
+      productId: serializer.fromJson<String>(json['productId']),
+      quantityBase: serializer.fromJson<int>(json['quantityBase']),
+      unitCostMinor: serializer.fromJson<int>(json['unitCostMinor']),
+      lineTotalMinor: serializer.fromJson<int>(json['lineTotalMinor']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'purchaseReturnId': serializer.toJson<String>(purchaseReturnId),
+      'purchaseItemId': serializer.toJson<String>(purchaseItemId),
+      'productId': serializer.toJson<String>(productId),
+      'quantityBase': serializer.toJson<int>(quantityBase),
+      'unitCostMinor': serializer.toJson<int>(unitCostMinor),
+      'lineTotalMinor': serializer.toJson<int>(lineTotalMinor),
+    };
+  }
+
+  PurchaseReturnItemRow copyWith({
+    String? id,
+    String? purchaseReturnId,
+    String? purchaseItemId,
+    String? productId,
+    int? quantityBase,
+    int? unitCostMinor,
+    int? lineTotalMinor,
+  }) => PurchaseReturnItemRow(
+    id: id ?? this.id,
+    purchaseReturnId: purchaseReturnId ?? this.purchaseReturnId,
+    purchaseItemId: purchaseItemId ?? this.purchaseItemId,
+    productId: productId ?? this.productId,
+    quantityBase: quantityBase ?? this.quantityBase,
+    unitCostMinor: unitCostMinor ?? this.unitCostMinor,
+    lineTotalMinor: lineTotalMinor ?? this.lineTotalMinor,
+  );
+  PurchaseReturnItemRow copyWithCompanion(PurchaseReturnItemsCompanion data) {
+    return PurchaseReturnItemRow(
+      id: data.id.present ? data.id.value : this.id,
+      purchaseReturnId: data.purchaseReturnId.present
+          ? data.purchaseReturnId.value
+          : this.purchaseReturnId,
+      purchaseItemId: data.purchaseItemId.present
+          ? data.purchaseItemId.value
+          : this.purchaseItemId,
+      productId: data.productId.present ? data.productId.value : this.productId,
+      quantityBase: data.quantityBase.present
+          ? data.quantityBase.value
+          : this.quantityBase,
+      unitCostMinor: data.unitCostMinor.present
+          ? data.unitCostMinor.value
+          : this.unitCostMinor,
+      lineTotalMinor: data.lineTotalMinor.present
+          ? data.lineTotalMinor.value
+          : this.lineTotalMinor,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PurchaseReturnItemRow(')
+          ..write('id: $id, ')
+          ..write('purchaseReturnId: $purchaseReturnId, ')
+          ..write('purchaseItemId: $purchaseItemId, ')
+          ..write('productId: $productId, ')
+          ..write('quantityBase: $quantityBase, ')
+          ..write('unitCostMinor: $unitCostMinor, ')
+          ..write('lineTotalMinor: $lineTotalMinor')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    purchaseReturnId,
+    purchaseItemId,
+    productId,
+    quantityBase,
+    unitCostMinor,
+    lineTotalMinor,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PurchaseReturnItemRow &&
+          other.id == this.id &&
+          other.purchaseReturnId == this.purchaseReturnId &&
+          other.purchaseItemId == this.purchaseItemId &&
+          other.productId == this.productId &&
+          other.quantityBase == this.quantityBase &&
+          other.unitCostMinor == this.unitCostMinor &&
+          other.lineTotalMinor == this.lineTotalMinor);
+}
+
+class PurchaseReturnItemsCompanion
+    extends UpdateCompanion<PurchaseReturnItemRow> {
+  final Value<String> id;
+  final Value<String> purchaseReturnId;
+  final Value<String> purchaseItemId;
+  final Value<String> productId;
+  final Value<int> quantityBase;
+  final Value<int> unitCostMinor;
+  final Value<int> lineTotalMinor;
+  final Value<int> rowid;
+  const PurchaseReturnItemsCompanion({
+    this.id = const Value.absent(),
+    this.purchaseReturnId = const Value.absent(),
+    this.purchaseItemId = const Value.absent(),
+    this.productId = const Value.absent(),
+    this.quantityBase = const Value.absent(),
+    this.unitCostMinor = const Value.absent(),
+    this.lineTotalMinor = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PurchaseReturnItemsCompanion.insert({
+    required String id,
+    required String purchaseReturnId,
+    required String purchaseItemId,
+    required String productId,
+    required int quantityBase,
+    required int unitCostMinor,
+    required int lineTotalMinor,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       purchaseReturnId = Value(purchaseReturnId),
+       purchaseItemId = Value(purchaseItemId),
+       productId = Value(productId),
+       quantityBase = Value(quantityBase),
+       unitCostMinor = Value(unitCostMinor),
+       lineTotalMinor = Value(lineTotalMinor);
+  static Insertable<PurchaseReturnItemRow> custom({
+    Expression<String>? id,
+    Expression<String>? purchaseReturnId,
+    Expression<String>? purchaseItemId,
+    Expression<String>? productId,
+    Expression<int>? quantityBase,
+    Expression<int>? unitCostMinor,
+    Expression<int>? lineTotalMinor,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (purchaseReturnId != null) 'purchase_return_id': purchaseReturnId,
+      if (purchaseItemId != null) 'purchase_item_id': purchaseItemId,
+      if (productId != null) 'product_id': productId,
+      if (quantityBase != null) 'quantity_base': quantityBase,
+      if (unitCostMinor != null) 'unit_cost_minor': unitCostMinor,
+      if (lineTotalMinor != null) 'line_total_minor': lineTotalMinor,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PurchaseReturnItemsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? purchaseReturnId,
+    Value<String>? purchaseItemId,
+    Value<String>? productId,
+    Value<int>? quantityBase,
+    Value<int>? unitCostMinor,
+    Value<int>? lineTotalMinor,
+    Value<int>? rowid,
+  }) {
+    return PurchaseReturnItemsCompanion(
+      id: id ?? this.id,
+      purchaseReturnId: purchaseReturnId ?? this.purchaseReturnId,
+      purchaseItemId: purchaseItemId ?? this.purchaseItemId,
+      productId: productId ?? this.productId,
+      quantityBase: quantityBase ?? this.quantityBase,
+      unitCostMinor: unitCostMinor ?? this.unitCostMinor,
+      lineTotalMinor: lineTotalMinor ?? this.lineTotalMinor,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (purchaseReturnId.present) {
+      map['purchase_return_id'] = Variable<String>(purchaseReturnId.value);
+    }
+    if (purchaseItemId.present) {
+      map['purchase_item_id'] = Variable<String>(purchaseItemId.value);
+    }
+    if (productId.present) {
+      map['product_id'] = Variable<String>(productId.value);
+    }
+    if (quantityBase.present) {
+      map['quantity_base'] = Variable<int>(quantityBase.value);
+    }
+    if (unitCostMinor.present) {
+      map['unit_cost_minor'] = Variable<int>(unitCostMinor.value);
+    }
+    if (lineTotalMinor.present) {
+      map['line_total_minor'] = Variable<int>(lineTotalMinor.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PurchaseReturnItemsCompanion(')
+          ..write('id: $id, ')
+          ..write('purchaseReturnId: $purchaseReturnId, ')
+          ..write('purchaseItemId: $purchaseItemId, ')
+          ..write('productId: $productId, ')
+          ..write('quantityBase: $quantityBase, ')
+          ..write('unitCostMinor: $unitCostMinor, ')
+          ..write('lineTotalMinor: $lineTotalMinor, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $CustomersTable extends Customers
+    with TableInfo<$CustomersTable, CustomerRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CustomersTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+    'name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _normalizedNameMeta = const VerificationMeta(
+    'normalizedName',
+  );
+  @override
+  late final GeneratedColumn<String> normalizedName = GeneratedColumn<String>(
+    'normalized_name',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _phoneMeta = const VerificationMeta('phone');
+  @override
+  late final GeneratedColumn<String> phone = GeneratedColumn<String>(
+    'phone',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _phoneNormalizedMeta = const VerificationMeta(
+    'phoneNormalized',
+  );
+  @override
+  late final GeneratedColumn<String> phoneNormalized = GeneratedColumn<String>(
+    'phone_normalized',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _addressMeta = const VerificationMeta(
+    'address',
+  );
+  @override
+  late final GeneratedColumn<String> address = GeneratedColumn<String>(
+    'address',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+    'notes',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _isActiveMeta = const VerificationMeta(
+    'isActive',
+  );
+  @override
+  late final GeneratedColumn<bool> isActive = GeneratedColumn<bool>(
+    'is_active',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("is_active" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
+  );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMsMeta = const VerificationMeta(
+    'updatedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAtMs = GeneratedColumn<int>(
+    'updated_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _archivedAtMsMeta = const VerificationMeta(
+    'archivedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> archivedAtMs = GeneratedColumn<int>(
+    'archived_at_ms',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    name,
+    normalizedName,
+    phone,
+    phoneNormalized,
+    address,
+    notes,
+    isActive,
+    createdAtMs,
+    updatedAtMs,
+    archivedAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'customers';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<CustomerRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+        _nameMeta,
+        name.isAcceptableOrUnknown(data['name']!, _nameMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('normalized_name')) {
+      context.handle(
+        _normalizedNameMeta,
+        normalizedName.isAcceptableOrUnknown(
+          data['normalized_name']!,
+          _normalizedNameMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_normalizedNameMeta);
+    }
+    if (data.containsKey('phone')) {
+      context.handle(
+        _phoneMeta,
+        phone.isAcceptableOrUnknown(data['phone']!, _phoneMeta),
+      );
+    }
+    if (data.containsKey('phone_normalized')) {
+      context.handle(
+        _phoneNormalizedMeta,
+        phoneNormalized.isAcceptableOrUnknown(
+          data['phone_normalized']!,
+          _phoneNormalizedMeta,
+        ),
+      );
+    }
+    if (data.containsKey('address')) {
+      context.handle(
+        _addressMeta,
+        address.isAcceptableOrUnknown(data['address']!, _addressMeta),
+      );
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+        _notesMeta,
+        notes.isAcceptableOrUnknown(data['notes']!, _notesMeta),
+      );
+    }
+    if (data.containsKey('is_active')) {
+      context.handle(
+        _isActiveMeta,
+        isActive.isAcceptableOrUnknown(data['is_active']!, _isActiveMeta),
+      );
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    if (data.containsKey('updated_at_ms')) {
+      context.handle(
+        _updatedAtMsMeta,
+        updatedAtMs.isAcceptableOrUnknown(
+          data['updated_at_ms']!,
+          _updatedAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMsMeta);
+    }
+    if (data.containsKey('archived_at_ms')) {
+      context.handle(
+        _archivedAtMsMeta,
+        archivedAtMs.isAcceptableOrUnknown(
+          data['archived_at_ms']!,
+          _archivedAtMsMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  CustomerRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CustomerRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      name: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}name'],
+      )!,
+      normalizedName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}normalized_name'],
+      )!,
+      phone: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}phone'],
+      ),
+      phoneNormalized: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}phone_normalized'],
+      ),
+      address: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}address'],
+      ),
+      notes: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}notes'],
+      ),
+      isActive: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}is_active'],
+      )!,
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+      updatedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at_ms'],
+      )!,
+      archivedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}archived_at_ms'],
+      ),
+    );
+  }
+
+  @override
+  $CustomersTable createAlias(String alias) {
+    return $CustomersTable(attachedDatabase, alias);
+  }
+}
+
+class CustomerRow extends DataClass implements Insertable<CustomerRow> {
+  final String id;
+  final String name;
+  final String normalizedName;
+  final String? phone;
+  final String? phoneNormalized;
+  final String? address;
+  final String? notes;
+  final bool isActive;
+  final int createdAtMs;
+  final int updatedAtMs;
+  final int? archivedAtMs;
+  const CustomerRow({
+    required this.id,
+    required this.name,
+    required this.normalizedName,
+    this.phone,
+    this.phoneNormalized,
+    this.address,
+    this.notes,
+    required this.isActive,
+    required this.createdAtMs,
+    required this.updatedAtMs,
+    this.archivedAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['name'] = Variable<String>(name);
+    map['normalized_name'] = Variable<String>(normalizedName);
+    if (!nullToAbsent || phone != null) {
+      map['phone'] = Variable<String>(phone);
+    }
+    if (!nullToAbsent || phoneNormalized != null) {
+      map['phone_normalized'] = Variable<String>(phoneNormalized);
+    }
+    if (!nullToAbsent || address != null) {
+      map['address'] = Variable<String>(address);
+    }
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['is_active'] = Variable<bool>(isActive);
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    map['updated_at_ms'] = Variable<int>(updatedAtMs);
+    if (!nullToAbsent || archivedAtMs != null) {
+      map['archived_at_ms'] = Variable<int>(archivedAtMs);
+    }
+    return map;
+  }
+
+  CustomersCompanion toCompanion(bool nullToAbsent) {
+    return CustomersCompanion(
+      id: Value(id),
+      name: Value(name),
+      normalizedName: Value(normalizedName),
+      phone: phone == null && nullToAbsent
+          ? const Value.absent()
+          : Value(phone),
+      phoneNormalized: phoneNormalized == null && nullToAbsent
+          ? const Value.absent()
+          : Value(phoneNormalized),
+      address: address == null && nullToAbsent
+          ? const Value.absent()
+          : Value(address),
+      notes: notes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(notes),
+      isActive: Value(isActive),
+      createdAtMs: Value(createdAtMs),
+      updatedAtMs: Value(updatedAtMs),
+      archivedAtMs: archivedAtMs == null && nullToAbsent
+          ? const Value.absent()
+          : Value(archivedAtMs),
+    );
+  }
+
+  factory CustomerRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CustomerRow(
+      id: serializer.fromJson<String>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      normalizedName: serializer.fromJson<String>(json['normalizedName']),
+      phone: serializer.fromJson<String?>(json['phone']),
+      phoneNormalized: serializer.fromJson<String?>(json['phoneNormalized']),
+      address: serializer.fromJson<String?>(json['address']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      isActive: serializer.fromJson<bool>(json['isActive']),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+      updatedAtMs: serializer.fromJson<int>(json['updatedAtMs']),
+      archivedAtMs: serializer.fromJson<int?>(json['archivedAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'name': serializer.toJson<String>(name),
+      'normalizedName': serializer.toJson<String>(normalizedName),
+      'phone': serializer.toJson<String?>(phone),
+      'phoneNormalized': serializer.toJson<String?>(phoneNormalized),
+      'address': serializer.toJson<String?>(address),
+      'notes': serializer.toJson<String?>(notes),
+      'isActive': serializer.toJson<bool>(isActive),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+      'updatedAtMs': serializer.toJson<int>(updatedAtMs),
+      'archivedAtMs': serializer.toJson<int?>(archivedAtMs),
+    };
+  }
+
+  CustomerRow copyWith({
+    String? id,
+    String? name,
+    String? normalizedName,
+    Value<String?> phone = const Value.absent(),
+    Value<String?> phoneNormalized = const Value.absent(),
+    Value<String?> address = const Value.absent(),
+    Value<String?> notes = const Value.absent(),
+    bool? isActive,
+    int? createdAtMs,
+    int? updatedAtMs,
+    Value<int?> archivedAtMs = const Value.absent(),
+  }) => CustomerRow(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    normalizedName: normalizedName ?? this.normalizedName,
+    phone: phone.present ? phone.value : this.phone,
+    phoneNormalized: phoneNormalized.present
+        ? phoneNormalized.value
+        : this.phoneNormalized,
+    address: address.present ? address.value : this.address,
+    notes: notes.present ? notes.value : this.notes,
+    isActive: isActive ?? this.isActive,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+    updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+    archivedAtMs: archivedAtMs.present ? archivedAtMs.value : this.archivedAtMs,
+  );
+  CustomerRow copyWithCompanion(CustomersCompanion data) {
+    return CustomerRow(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      normalizedName: data.normalizedName.present
+          ? data.normalizedName.value
+          : this.normalizedName,
+      phone: data.phone.present ? data.phone.value : this.phone,
+      phoneNormalized: data.phoneNormalized.present
+          ? data.phoneNormalized.value
+          : this.phoneNormalized,
+      address: data.address.present ? data.address.value : this.address,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      isActive: data.isActive.present ? data.isActive.value : this.isActive,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+      updatedAtMs: data.updatedAtMs.present
+          ? data.updatedAtMs.value
+          : this.updatedAtMs,
+      archivedAtMs: data.archivedAtMs.present
+          ? data.archivedAtMs.value
+          : this.archivedAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CustomerRow(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('normalizedName: $normalizedName, ')
+          ..write('phone: $phone, ')
+          ..write('phoneNormalized: $phoneNormalized, ')
+          ..write('address: $address, ')
+          ..write('notes: $notes, ')
+          ..write('isActive: $isActive, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('updatedAtMs: $updatedAtMs, ')
+          ..write('archivedAtMs: $archivedAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    name,
+    normalizedName,
+    phone,
+    phoneNormalized,
+    address,
+    notes,
+    isActive,
+    createdAtMs,
+    updatedAtMs,
+    archivedAtMs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CustomerRow &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.normalizedName == this.normalizedName &&
+          other.phone == this.phone &&
+          other.phoneNormalized == this.phoneNormalized &&
+          other.address == this.address &&
+          other.notes == this.notes &&
+          other.isActive == this.isActive &&
+          other.createdAtMs == this.createdAtMs &&
+          other.updatedAtMs == this.updatedAtMs &&
+          other.archivedAtMs == this.archivedAtMs);
+}
+
+class CustomersCompanion extends UpdateCompanion<CustomerRow> {
+  final Value<String> id;
+  final Value<String> name;
+  final Value<String> normalizedName;
+  final Value<String?> phone;
+  final Value<String?> phoneNormalized;
+  final Value<String?> address;
+  final Value<String?> notes;
+  final Value<bool> isActive;
+  final Value<int> createdAtMs;
+  final Value<int> updatedAtMs;
+  final Value<int?> archivedAtMs;
+  final Value<int> rowid;
+  const CustomersCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.normalizedName = const Value.absent(),
+    this.phone = const Value.absent(),
+    this.phoneNormalized = const Value.absent(),
+    this.address = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.isActive = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.updatedAtMs = const Value.absent(),
+    this.archivedAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  CustomersCompanion.insert({
+    required String id,
+    required String name,
+    required String normalizedName,
+    this.phone = const Value.absent(),
+    this.phoneNormalized = const Value.absent(),
+    this.address = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.isActive = const Value.absent(),
+    required int createdAtMs,
+    required int updatedAtMs,
+    this.archivedAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       name = Value(name),
+       normalizedName = Value(normalizedName),
+       createdAtMs = Value(createdAtMs),
+       updatedAtMs = Value(updatedAtMs);
+  static Insertable<CustomerRow> custom({
+    Expression<String>? id,
+    Expression<String>? name,
+    Expression<String>? normalizedName,
+    Expression<String>? phone,
+    Expression<String>? phoneNormalized,
+    Expression<String>? address,
+    Expression<String>? notes,
+    Expression<bool>? isActive,
+    Expression<int>? createdAtMs,
+    Expression<int>? updatedAtMs,
+    Expression<int>? archivedAtMs,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (normalizedName != null) 'normalized_name': normalizedName,
+      if (phone != null) 'phone': phone,
+      if (phoneNormalized != null) 'phone_normalized': phoneNormalized,
+      if (address != null) 'address': address,
+      if (notes != null) 'notes': notes,
+      if (isActive != null) 'is_active': isActive,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (updatedAtMs != null) 'updated_at_ms': updatedAtMs,
+      if (archivedAtMs != null) 'archived_at_ms': archivedAtMs,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  CustomersCompanion copyWith({
+    Value<String>? id,
+    Value<String>? name,
+    Value<String>? normalizedName,
+    Value<String?>? phone,
+    Value<String?>? phoneNormalized,
+    Value<String?>? address,
+    Value<String?>? notes,
+    Value<bool>? isActive,
+    Value<int>? createdAtMs,
+    Value<int>? updatedAtMs,
+    Value<int?>? archivedAtMs,
+    Value<int>? rowid,
+  }) {
+    return CustomersCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      normalizedName: normalizedName ?? this.normalizedName,
+      phone: phone ?? this.phone,
+      phoneNormalized: phoneNormalized ?? this.phoneNormalized,
+      address: address ?? this.address,
+      notes: notes ?? this.notes,
+      isActive: isActive ?? this.isActive,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+      archivedAtMs: archivedAtMs ?? this.archivedAtMs,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (normalizedName.present) {
+      map['normalized_name'] = Variable<String>(normalizedName.value);
+    }
+    if (phone.present) {
+      map['phone'] = Variable<String>(phone.value);
+    }
+    if (phoneNormalized.present) {
+      map['phone_normalized'] = Variable<String>(phoneNormalized.value);
+    }
+    if (address.present) {
+      map['address'] = Variable<String>(address.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (isActive.present) {
+      map['is_active'] = Variable<bool>(isActive.value);
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (updatedAtMs.present) {
+      map['updated_at_ms'] = Variable<int>(updatedAtMs.value);
+    }
+    if (archivedAtMs.present) {
+      map['archived_at_ms'] = Variable<int>(archivedAtMs.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CustomersCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('normalizedName: $normalizedName, ')
+          ..write('phone: $phone, ')
+          ..write('phoneNormalized: $phoneNormalized, ')
+          ..write('address: $address, ')
+          ..write('notes: $notes, ')
+          ..write('isActive: $isActive, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('updatedAtMs: $updatedAtMs, ')
+          ..write('archivedAtMs: $archivedAtMs, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SalesTable extends Sales with TableInfo<$SalesTable, SaleRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SalesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _saleNumberMeta = const VerificationMeta(
+    'saleNumber',
+  );
+  @override
+  late final GeneratedColumn<String> saleNumber = GeneratedColumn<String>(
+    'sale_number',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _customerIdMeta = const VerificationMeta(
+    'customerId',
+  );
+  @override
+  late final GeneratedColumn<String> customerId = GeneratedColumn<String>(
+    'customer_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES customers (id)',
+    ),
+  );
+  static const VerificationMeta _customerNameSnapshotMeta =
+      const VerificationMeta('customerNameSnapshot');
+  @override
+  late final GeneratedColumn<String> customerNameSnapshot =
+      GeneratedColumn<String>(
+        'customer_name_snapshot',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _subtotalMinorMeta = const VerificationMeta(
+    'subtotalMinor',
+  );
+  @override
+  late final GeneratedColumn<int> subtotalMinor = GeneratedColumn<int>(
+    'subtotal_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _discountMinorMeta = const VerificationMeta(
+    'discountMinor',
+  );
+  @override
+  late final GeneratedColumn<int> discountMinor = GeneratedColumn<int>(
+    'discount_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _totalMinorMeta = const VerificationMeta(
+    'totalMinor',
+  );
+  @override
+  late final GeneratedColumn<int> totalMinor = GeneratedColumn<int>(
+    'total_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _amountPaidMinorMeta = const VerificationMeta(
+    'amountPaidMinor',
+  );
+  @override
+  late final GeneratedColumn<int> amountPaidMinor = GeneratedColumn<int>(
+    'amount_paid_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _amountDueMinorMeta = const VerificationMeta(
+    'amountDueMinor',
+  );
+  @override
+  late final GeneratedColumn<int> amountDueMinor = GeneratedColumn<int>(
+    'amount_due_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+    'notes',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _checkoutIdempotencyKeyMeta =
+      const VerificationMeta('checkoutIdempotencyKey');
+  @override
+  late final GeneratedColumn<String> checkoutIdempotencyKey =
+      GeneratedColumn<String>(
+        'checkout_idempotency_key',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _updatedAtMsMeta = const VerificationMeta(
+    'updatedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAtMs = GeneratedColumn<int>(
+    'updated_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _completedAtMsMeta = const VerificationMeta(
+    'completedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> completedAtMs = GeneratedColumn<int>(
+    'completed_at_ms',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _cancelledAtMsMeta = const VerificationMeta(
+    'cancelledAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> cancelledAtMs = GeneratedColumn<int>(
+    'cancelled_at_ms',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    saleNumber,
+    customerId,
+    customerNameSnapshot,
+    status,
+    subtotalMinor,
+    discountMinor,
+    totalMinor,
+    amountPaidMinor,
+    amountDueMinor,
+    notes,
+    checkoutIdempotencyKey,
+    createdAtMs,
+    updatedAtMs,
+    completedAtMs,
+    cancelledAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'sales';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SaleRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('sale_number')) {
+      context.handle(
+        _saleNumberMeta,
+        saleNumber.isAcceptableOrUnknown(data['sale_number']!, _saleNumberMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_saleNumberMeta);
+    }
+    if (data.containsKey('customer_id')) {
+      context.handle(
+        _customerIdMeta,
+        customerId.isAcceptableOrUnknown(data['customer_id']!, _customerIdMeta),
+      );
+    }
+    if (data.containsKey('customer_name_snapshot')) {
+      context.handle(
+        _customerNameSnapshotMeta,
+        customerNameSnapshot.isAcceptableOrUnknown(
+          data['customer_name_snapshot']!,
+          _customerNameSnapshotMeta,
+        ),
+      );
+    }
+    if (data.containsKey('status')) {
+      context.handle(
+        _statusMeta,
+        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_statusMeta);
+    }
+    if (data.containsKey('subtotal_minor')) {
+      context.handle(
+        _subtotalMinorMeta,
+        subtotalMinor.isAcceptableOrUnknown(
+          data['subtotal_minor']!,
+          _subtotalMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_subtotalMinorMeta);
+    }
+    if (data.containsKey('discount_minor')) {
+      context.handle(
+        _discountMinorMeta,
+        discountMinor.isAcceptableOrUnknown(
+          data['discount_minor']!,
+          _discountMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_discountMinorMeta);
+    }
+    if (data.containsKey('total_minor')) {
+      context.handle(
+        _totalMinorMeta,
+        totalMinor.isAcceptableOrUnknown(data['total_minor']!, _totalMinorMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_totalMinorMeta);
+    }
+    if (data.containsKey('amount_paid_minor')) {
+      context.handle(
+        _amountPaidMinorMeta,
+        amountPaidMinor.isAcceptableOrUnknown(
+          data['amount_paid_minor']!,
+          _amountPaidMinorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('amount_due_minor')) {
+      context.handle(
+        _amountDueMinorMeta,
+        amountDueMinor.isAcceptableOrUnknown(
+          data['amount_due_minor']!,
+          _amountDueMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_amountDueMinorMeta);
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+        _notesMeta,
+        notes.isAcceptableOrUnknown(data['notes']!, _notesMeta),
+      );
+    }
+    if (data.containsKey('checkout_idempotency_key')) {
+      context.handle(
+        _checkoutIdempotencyKeyMeta,
+        checkoutIdempotencyKey.isAcceptableOrUnknown(
+          data['checkout_idempotency_key']!,
+          _checkoutIdempotencyKeyMeta,
+        ),
+      );
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    if (data.containsKey('updated_at_ms')) {
+      context.handle(
+        _updatedAtMsMeta,
+        updatedAtMs.isAcceptableOrUnknown(
+          data['updated_at_ms']!,
+          _updatedAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMsMeta);
+    }
+    if (data.containsKey('completed_at_ms')) {
+      context.handle(
+        _completedAtMsMeta,
+        completedAtMs.isAcceptableOrUnknown(
+          data['completed_at_ms']!,
+          _completedAtMsMeta,
+        ),
+      );
+    }
+    if (data.containsKey('cancelled_at_ms')) {
+      context.handle(
+        _cancelledAtMsMeta,
+        cancelledAtMs.isAcceptableOrUnknown(
+          data['cancelled_at_ms']!,
+          _cancelledAtMsMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SaleRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SaleRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      saleNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sale_number'],
+      )!,
+      customerId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}customer_id'],
+      ),
+      customerNameSnapshot: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}customer_name_snapshot'],
+      ),
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
+      subtotalMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}subtotal_minor'],
+      )!,
+      discountMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}discount_minor'],
+      )!,
+      totalMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}total_minor'],
+      )!,
+      amountPaidMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}amount_paid_minor'],
+      )!,
+      amountDueMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}amount_due_minor'],
+      )!,
+      notes: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}notes'],
+      ),
+      checkoutIdempotencyKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}checkout_idempotency_key'],
+      ),
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+      updatedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at_ms'],
+      )!,
+      completedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}completed_at_ms'],
+      ),
+      cancelledAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}cancelled_at_ms'],
+      ),
+    );
+  }
+
+  @override
+  $SalesTable createAlias(String alias) {
+    return $SalesTable(attachedDatabase, alias);
+  }
+}
+
+class SaleRow extends DataClass implements Insertable<SaleRow> {
+  final String id;
+  final String saleNumber;
+  final String? customerId;
+  final String? customerNameSnapshot;
+  final String status;
+  final int subtotalMinor;
+  final int discountMinor;
+  final int totalMinor;
+  final int amountPaidMinor;
+  final int amountDueMinor;
+  final String? notes;
+  final String? checkoutIdempotencyKey;
+  final int createdAtMs;
+  final int updatedAtMs;
+  final int? completedAtMs;
+  final int? cancelledAtMs;
+  const SaleRow({
+    required this.id,
+    required this.saleNumber,
+    this.customerId,
+    this.customerNameSnapshot,
+    required this.status,
+    required this.subtotalMinor,
+    required this.discountMinor,
+    required this.totalMinor,
+    required this.amountPaidMinor,
+    required this.amountDueMinor,
+    this.notes,
+    this.checkoutIdempotencyKey,
+    required this.createdAtMs,
+    required this.updatedAtMs,
+    this.completedAtMs,
+    this.cancelledAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['sale_number'] = Variable<String>(saleNumber);
+    if (!nullToAbsent || customerId != null) {
+      map['customer_id'] = Variable<String>(customerId);
+    }
+    if (!nullToAbsent || customerNameSnapshot != null) {
+      map['customer_name_snapshot'] = Variable<String>(customerNameSnapshot);
+    }
+    map['status'] = Variable<String>(status);
+    map['subtotal_minor'] = Variable<int>(subtotalMinor);
+    map['discount_minor'] = Variable<int>(discountMinor);
+    map['total_minor'] = Variable<int>(totalMinor);
+    map['amount_paid_minor'] = Variable<int>(amountPaidMinor);
+    map['amount_due_minor'] = Variable<int>(amountDueMinor);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    if (!nullToAbsent || checkoutIdempotencyKey != null) {
+      map['checkout_idempotency_key'] = Variable<String>(
+        checkoutIdempotencyKey,
+      );
+    }
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    map['updated_at_ms'] = Variable<int>(updatedAtMs);
+    if (!nullToAbsent || completedAtMs != null) {
+      map['completed_at_ms'] = Variable<int>(completedAtMs);
+    }
+    if (!nullToAbsent || cancelledAtMs != null) {
+      map['cancelled_at_ms'] = Variable<int>(cancelledAtMs);
+    }
+    return map;
+  }
+
+  SalesCompanion toCompanion(bool nullToAbsent) {
+    return SalesCompanion(
+      id: Value(id),
+      saleNumber: Value(saleNumber),
+      customerId: customerId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(customerId),
+      customerNameSnapshot: customerNameSnapshot == null && nullToAbsent
+          ? const Value.absent()
+          : Value(customerNameSnapshot),
+      status: Value(status),
+      subtotalMinor: Value(subtotalMinor),
+      discountMinor: Value(discountMinor),
+      totalMinor: Value(totalMinor),
+      amountPaidMinor: Value(amountPaidMinor),
+      amountDueMinor: Value(amountDueMinor),
+      notes: notes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(notes),
+      checkoutIdempotencyKey: checkoutIdempotencyKey == null && nullToAbsent
+          ? const Value.absent()
+          : Value(checkoutIdempotencyKey),
+      createdAtMs: Value(createdAtMs),
+      updatedAtMs: Value(updatedAtMs),
+      completedAtMs: completedAtMs == null && nullToAbsent
+          ? const Value.absent()
+          : Value(completedAtMs),
+      cancelledAtMs: cancelledAtMs == null && nullToAbsent
+          ? const Value.absent()
+          : Value(cancelledAtMs),
+    );
+  }
+
+  factory SaleRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SaleRow(
+      id: serializer.fromJson<String>(json['id']),
+      saleNumber: serializer.fromJson<String>(json['saleNumber']),
+      customerId: serializer.fromJson<String?>(json['customerId']),
+      customerNameSnapshot: serializer.fromJson<String?>(
+        json['customerNameSnapshot'],
+      ),
+      status: serializer.fromJson<String>(json['status']),
+      subtotalMinor: serializer.fromJson<int>(json['subtotalMinor']),
+      discountMinor: serializer.fromJson<int>(json['discountMinor']),
+      totalMinor: serializer.fromJson<int>(json['totalMinor']),
+      amountPaidMinor: serializer.fromJson<int>(json['amountPaidMinor']),
+      amountDueMinor: serializer.fromJson<int>(json['amountDueMinor']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      checkoutIdempotencyKey: serializer.fromJson<String?>(
+        json['checkoutIdempotencyKey'],
+      ),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+      updatedAtMs: serializer.fromJson<int>(json['updatedAtMs']),
+      completedAtMs: serializer.fromJson<int?>(json['completedAtMs']),
+      cancelledAtMs: serializer.fromJson<int?>(json['cancelledAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'saleNumber': serializer.toJson<String>(saleNumber),
+      'customerId': serializer.toJson<String?>(customerId),
+      'customerNameSnapshot': serializer.toJson<String?>(customerNameSnapshot),
+      'status': serializer.toJson<String>(status),
+      'subtotalMinor': serializer.toJson<int>(subtotalMinor),
+      'discountMinor': serializer.toJson<int>(discountMinor),
+      'totalMinor': serializer.toJson<int>(totalMinor),
+      'amountPaidMinor': serializer.toJson<int>(amountPaidMinor),
+      'amountDueMinor': serializer.toJson<int>(amountDueMinor),
+      'notes': serializer.toJson<String?>(notes),
+      'checkoutIdempotencyKey': serializer.toJson<String?>(
+        checkoutIdempotencyKey,
+      ),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+      'updatedAtMs': serializer.toJson<int>(updatedAtMs),
+      'completedAtMs': serializer.toJson<int?>(completedAtMs),
+      'cancelledAtMs': serializer.toJson<int?>(cancelledAtMs),
+    };
+  }
+
+  SaleRow copyWith({
+    String? id,
+    String? saleNumber,
+    Value<String?> customerId = const Value.absent(),
+    Value<String?> customerNameSnapshot = const Value.absent(),
+    String? status,
+    int? subtotalMinor,
+    int? discountMinor,
+    int? totalMinor,
+    int? amountPaidMinor,
+    int? amountDueMinor,
+    Value<String?> notes = const Value.absent(),
+    Value<String?> checkoutIdempotencyKey = const Value.absent(),
+    int? createdAtMs,
+    int? updatedAtMs,
+    Value<int?> completedAtMs = const Value.absent(),
+    Value<int?> cancelledAtMs = const Value.absent(),
+  }) => SaleRow(
+    id: id ?? this.id,
+    saleNumber: saleNumber ?? this.saleNumber,
+    customerId: customerId.present ? customerId.value : this.customerId,
+    customerNameSnapshot: customerNameSnapshot.present
+        ? customerNameSnapshot.value
+        : this.customerNameSnapshot,
+    status: status ?? this.status,
+    subtotalMinor: subtotalMinor ?? this.subtotalMinor,
+    discountMinor: discountMinor ?? this.discountMinor,
+    totalMinor: totalMinor ?? this.totalMinor,
+    amountPaidMinor: amountPaidMinor ?? this.amountPaidMinor,
+    amountDueMinor: amountDueMinor ?? this.amountDueMinor,
+    notes: notes.present ? notes.value : this.notes,
+    checkoutIdempotencyKey: checkoutIdempotencyKey.present
+        ? checkoutIdempotencyKey.value
+        : this.checkoutIdempotencyKey,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+    updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+    completedAtMs: completedAtMs.present
+        ? completedAtMs.value
+        : this.completedAtMs,
+    cancelledAtMs: cancelledAtMs.present
+        ? cancelledAtMs.value
+        : this.cancelledAtMs,
+  );
+  SaleRow copyWithCompanion(SalesCompanion data) {
+    return SaleRow(
+      id: data.id.present ? data.id.value : this.id,
+      saleNumber: data.saleNumber.present
+          ? data.saleNumber.value
+          : this.saleNumber,
+      customerId: data.customerId.present
+          ? data.customerId.value
+          : this.customerId,
+      customerNameSnapshot: data.customerNameSnapshot.present
+          ? data.customerNameSnapshot.value
+          : this.customerNameSnapshot,
+      status: data.status.present ? data.status.value : this.status,
+      subtotalMinor: data.subtotalMinor.present
+          ? data.subtotalMinor.value
+          : this.subtotalMinor,
+      discountMinor: data.discountMinor.present
+          ? data.discountMinor.value
+          : this.discountMinor,
+      totalMinor: data.totalMinor.present
+          ? data.totalMinor.value
+          : this.totalMinor,
+      amountPaidMinor: data.amountPaidMinor.present
+          ? data.amountPaidMinor.value
+          : this.amountPaidMinor,
+      amountDueMinor: data.amountDueMinor.present
+          ? data.amountDueMinor.value
+          : this.amountDueMinor,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      checkoutIdempotencyKey: data.checkoutIdempotencyKey.present
+          ? data.checkoutIdempotencyKey.value
+          : this.checkoutIdempotencyKey,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+      updatedAtMs: data.updatedAtMs.present
+          ? data.updatedAtMs.value
+          : this.updatedAtMs,
+      completedAtMs: data.completedAtMs.present
+          ? data.completedAtMs.value
+          : this.completedAtMs,
+      cancelledAtMs: data.cancelledAtMs.present
+          ? data.cancelledAtMs.value
+          : this.cancelledAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SaleRow(')
+          ..write('id: $id, ')
+          ..write('saleNumber: $saleNumber, ')
+          ..write('customerId: $customerId, ')
+          ..write('customerNameSnapshot: $customerNameSnapshot, ')
+          ..write('status: $status, ')
+          ..write('subtotalMinor: $subtotalMinor, ')
+          ..write('discountMinor: $discountMinor, ')
+          ..write('totalMinor: $totalMinor, ')
+          ..write('amountPaidMinor: $amountPaidMinor, ')
+          ..write('amountDueMinor: $amountDueMinor, ')
+          ..write('notes: $notes, ')
+          ..write('checkoutIdempotencyKey: $checkoutIdempotencyKey, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('updatedAtMs: $updatedAtMs, ')
+          ..write('completedAtMs: $completedAtMs, ')
+          ..write('cancelledAtMs: $cancelledAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    saleNumber,
+    customerId,
+    customerNameSnapshot,
+    status,
+    subtotalMinor,
+    discountMinor,
+    totalMinor,
+    amountPaidMinor,
+    amountDueMinor,
+    notes,
+    checkoutIdempotencyKey,
+    createdAtMs,
+    updatedAtMs,
+    completedAtMs,
+    cancelledAtMs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SaleRow &&
+          other.id == this.id &&
+          other.saleNumber == this.saleNumber &&
+          other.customerId == this.customerId &&
+          other.customerNameSnapshot == this.customerNameSnapshot &&
+          other.status == this.status &&
+          other.subtotalMinor == this.subtotalMinor &&
+          other.discountMinor == this.discountMinor &&
+          other.totalMinor == this.totalMinor &&
+          other.amountPaidMinor == this.amountPaidMinor &&
+          other.amountDueMinor == this.amountDueMinor &&
+          other.notes == this.notes &&
+          other.checkoutIdempotencyKey == this.checkoutIdempotencyKey &&
+          other.createdAtMs == this.createdAtMs &&
+          other.updatedAtMs == this.updatedAtMs &&
+          other.completedAtMs == this.completedAtMs &&
+          other.cancelledAtMs == this.cancelledAtMs);
+}
+
+class SalesCompanion extends UpdateCompanion<SaleRow> {
+  final Value<String> id;
+  final Value<String> saleNumber;
+  final Value<String?> customerId;
+  final Value<String?> customerNameSnapshot;
+  final Value<String> status;
+  final Value<int> subtotalMinor;
+  final Value<int> discountMinor;
+  final Value<int> totalMinor;
+  final Value<int> amountPaidMinor;
+  final Value<int> amountDueMinor;
+  final Value<String?> notes;
+  final Value<String?> checkoutIdempotencyKey;
+  final Value<int> createdAtMs;
+  final Value<int> updatedAtMs;
+  final Value<int?> completedAtMs;
+  final Value<int?> cancelledAtMs;
+  final Value<int> rowid;
+  const SalesCompanion({
+    this.id = const Value.absent(),
+    this.saleNumber = const Value.absent(),
+    this.customerId = const Value.absent(),
+    this.customerNameSnapshot = const Value.absent(),
+    this.status = const Value.absent(),
+    this.subtotalMinor = const Value.absent(),
+    this.discountMinor = const Value.absent(),
+    this.totalMinor = const Value.absent(),
+    this.amountPaidMinor = const Value.absent(),
+    this.amountDueMinor = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.checkoutIdempotencyKey = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.updatedAtMs = const Value.absent(),
+    this.completedAtMs = const Value.absent(),
+    this.cancelledAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SalesCompanion.insert({
+    required String id,
+    required String saleNumber,
+    this.customerId = const Value.absent(),
+    this.customerNameSnapshot = const Value.absent(),
+    required String status,
+    required int subtotalMinor,
+    required int discountMinor,
+    required int totalMinor,
+    this.amountPaidMinor = const Value.absent(),
+    required int amountDueMinor,
+    this.notes = const Value.absent(),
+    this.checkoutIdempotencyKey = const Value.absent(),
+    required int createdAtMs,
+    required int updatedAtMs,
+    this.completedAtMs = const Value.absent(),
+    this.cancelledAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       saleNumber = Value(saleNumber),
+       status = Value(status),
+       subtotalMinor = Value(subtotalMinor),
+       discountMinor = Value(discountMinor),
+       totalMinor = Value(totalMinor),
+       amountDueMinor = Value(amountDueMinor),
+       createdAtMs = Value(createdAtMs),
+       updatedAtMs = Value(updatedAtMs);
+  static Insertable<SaleRow> custom({
+    Expression<String>? id,
+    Expression<String>? saleNumber,
+    Expression<String>? customerId,
+    Expression<String>? customerNameSnapshot,
+    Expression<String>? status,
+    Expression<int>? subtotalMinor,
+    Expression<int>? discountMinor,
+    Expression<int>? totalMinor,
+    Expression<int>? amountPaidMinor,
+    Expression<int>? amountDueMinor,
+    Expression<String>? notes,
+    Expression<String>? checkoutIdempotencyKey,
+    Expression<int>? createdAtMs,
+    Expression<int>? updatedAtMs,
+    Expression<int>? completedAtMs,
+    Expression<int>? cancelledAtMs,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (saleNumber != null) 'sale_number': saleNumber,
+      if (customerId != null) 'customer_id': customerId,
+      if (customerNameSnapshot != null)
+        'customer_name_snapshot': customerNameSnapshot,
+      if (status != null) 'status': status,
+      if (subtotalMinor != null) 'subtotal_minor': subtotalMinor,
+      if (discountMinor != null) 'discount_minor': discountMinor,
+      if (totalMinor != null) 'total_minor': totalMinor,
+      if (amountPaidMinor != null) 'amount_paid_minor': amountPaidMinor,
+      if (amountDueMinor != null) 'amount_due_minor': amountDueMinor,
+      if (notes != null) 'notes': notes,
+      if (checkoutIdempotencyKey != null)
+        'checkout_idempotency_key': checkoutIdempotencyKey,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (updatedAtMs != null) 'updated_at_ms': updatedAtMs,
+      if (completedAtMs != null) 'completed_at_ms': completedAtMs,
+      if (cancelledAtMs != null) 'cancelled_at_ms': cancelledAtMs,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SalesCompanion copyWith({
+    Value<String>? id,
+    Value<String>? saleNumber,
+    Value<String?>? customerId,
+    Value<String?>? customerNameSnapshot,
+    Value<String>? status,
+    Value<int>? subtotalMinor,
+    Value<int>? discountMinor,
+    Value<int>? totalMinor,
+    Value<int>? amountPaidMinor,
+    Value<int>? amountDueMinor,
+    Value<String?>? notes,
+    Value<String?>? checkoutIdempotencyKey,
+    Value<int>? createdAtMs,
+    Value<int>? updatedAtMs,
+    Value<int?>? completedAtMs,
+    Value<int?>? cancelledAtMs,
+    Value<int>? rowid,
+  }) {
+    return SalesCompanion(
+      id: id ?? this.id,
+      saleNumber: saleNumber ?? this.saleNumber,
+      customerId: customerId ?? this.customerId,
+      customerNameSnapshot: customerNameSnapshot ?? this.customerNameSnapshot,
+      status: status ?? this.status,
+      subtotalMinor: subtotalMinor ?? this.subtotalMinor,
+      discountMinor: discountMinor ?? this.discountMinor,
+      totalMinor: totalMinor ?? this.totalMinor,
+      amountPaidMinor: amountPaidMinor ?? this.amountPaidMinor,
+      amountDueMinor: amountDueMinor ?? this.amountDueMinor,
+      notes: notes ?? this.notes,
+      checkoutIdempotencyKey:
+          checkoutIdempotencyKey ?? this.checkoutIdempotencyKey,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+      completedAtMs: completedAtMs ?? this.completedAtMs,
+      cancelledAtMs: cancelledAtMs ?? this.cancelledAtMs,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (saleNumber.present) {
+      map['sale_number'] = Variable<String>(saleNumber.value);
+    }
+    if (customerId.present) {
+      map['customer_id'] = Variable<String>(customerId.value);
+    }
+    if (customerNameSnapshot.present) {
+      map['customer_name_snapshot'] = Variable<String>(
+        customerNameSnapshot.value,
+      );
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (subtotalMinor.present) {
+      map['subtotal_minor'] = Variable<int>(subtotalMinor.value);
+    }
+    if (discountMinor.present) {
+      map['discount_minor'] = Variable<int>(discountMinor.value);
+    }
+    if (totalMinor.present) {
+      map['total_minor'] = Variable<int>(totalMinor.value);
+    }
+    if (amountPaidMinor.present) {
+      map['amount_paid_minor'] = Variable<int>(amountPaidMinor.value);
+    }
+    if (amountDueMinor.present) {
+      map['amount_due_minor'] = Variable<int>(amountDueMinor.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (checkoutIdempotencyKey.present) {
+      map['checkout_idempotency_key'] = Variable<String>(
+        checkoutIdempotencyKey.value,
+      );
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (updatedAtMs.present) {
+      map['updated_at_ms'] = Variable<int>(updatedAtMs.value);
+    }
+    if (completedAtMs.present) {
+      map['completed_at_ms'] = Variable<int>(completedAtMs.value);
+    }
+    if (cancelledAtMs.present) {
+      map['cancelled_at_ms'] = Variable<int>(cancelledAtMs.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SalesCompanion(')
+          ..write('id: $id, ')
+          ..write('saleNumber: $saleNumber, ')
+          ..write('customerId: $customerId, ')
+          ..write('customerNameSnapshot: $customerNameSnapshot, ')
+          ..write('status: $status, ')
+          ..write('subtotalMinor: $subtotalMinor, ')
+          ..write('discountMinor: $discountMinor, ')
+          ..write('totalMinor: $totalMinor, ')
+          ..write('amountPaidMinor: $amountPaidMinor, ')
+          ..write('amountDueMinor: $amountDueMinor, ')
+          ..write('notes: $notes, ')
+          ..write('checkoutIdempotencyKey: $checkoutIdempotencyKey, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('updatedAtMs: $updatedAtMs, ')
+          ..write('completedAtMs: $completedAtMs, ')
+          ..write('cancelledAtMs: $cancelledAtMs, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SaleItemsTable extends SaleItems
+    with TableInfo<$SaleItemsTable, SaleItemRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SaleItemsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _saleIdMeta = const VerificationMeta('saleId');
+  @override
+  late final GeneratedColumn<String> saleId = GeneratedColumn<String>(
+    'sale_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES sales (id)',
+    ),
+  );
+  static const VerificationMeta _productIdMeta = const VerificationMeta(
+    'productId',
+  );
+  @override
+  late final GeneratedColumn<String> productId = GeneratedColumn<String>(
+    'product_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES products (id)',
+    ),
+  );
+  static const VerificationMeta _productNameSnapshotMeta =
+      const VerificationMeta('productNameSnapshot');
+  @override
+  late final GeneratedColumn<String> productNameSnapshot =
+      GeneratedColumn<String>(
+        'product_name_snapshot',
+        aliasedName,
+        false,
+        type: DriftSqlType.string,
+        requiredDuringInsert: true,
+      );
+  static const VerificationMeta _skuSnapshotMeta = const VerificationMeta(
+    'skuSnapshot',
+  );
+  @override
+  late final GeneratedColumn<String> skuSnapshot = GeneratedColumn<String>(
+    'sku_snapshot',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _barcodeSnapshotMeta = const VerificationMeta(
+    'barcodeSnapshot',
+  );
+  @override
+  late final GeneratedColumn<String> barcodeSnapshot = GeneratedColumn<String>(
+    'barcode_snapshot',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _unitSnapshotMeta = const VerificationMeta(
+    'unitSnapshot',
+  );
+  @override
+  late final GeneratedColumn<String> unitSnapshot = GeneratedColumn<String>(
+    'unit_snapshot',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _quantityBaseMeta = const VerificationMeta(
+    'quantityBase',
+  );
+  @override
+  late final GeneratedColumn<int> quantityBase = GeneratedColumn<int>(
+    'quantity_base',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _quantityReturnedBaseMeta =
+      const VerificationMeta('quantityReturnedBase');
+  @override
+  late final GeneratedColumn<int> quantityReturnedBase = GeneratedColumn<int>(
+    'quantity_returned_base',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _unitPriceMinorMeta = const VerificationMeta(
+    'unitPriceMinor',
+  );
+  @override
+  late final GeneratedColumn<int> unitPriceMinor = GeneratedColumn<int>(
+    'unit_price_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _discountMinorMeta = const VerificationMeta(
+    'discountMinor',
+  );
+  @override
+  late final GeneratedColumn<int> discountMinor = GeneratedColumn<int>(
+    'discount_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _lineTotalMinorMeta = const VerificationMeta(
+    'lineTotalMinor',
+  );
+  @override
+  late final GeneratedColumn<int> lineTotalMinor = GeneratedColumn<int>(
+    'line_total_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    saleId,
+    productId,
+    productNameSnapshot,
+    skuSnapshot,
+    barcodeSnapshot,
+    unitSnapshot,
+    quantityBase,
+    quantityReturnedBase,
+    unitPriceMinor,
+    discountMinor,
+    lineTotalMinor,
+    createdAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'sale_items';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SaleItemRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('sale_id')) {
+      context.handle(
+        _saleIdMeta,
+        saleId.isAcceptableOrUnknown(data['sale_id']!, _saleIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_saleIdMeta);
+    }
+    if (data.containsKey('product_id')) {
+      context.handle(
+        _productIdMeta,
+        productId.isAcceptableOrUnknown(data['product_id']!, _productIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_productIdMeta);
+    }
+    if (data.containsKey('product_name_snapshot')) {
+      context.handle(
+        _productNameSnapshotMeta,
+        productNameSnapshot.isAcceptableOrUnknown(
+          data['product_name_snapshot']!,
+          _productNameSnapshotMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_productNameSnapshotMeta);
+    }
+    if (data.containsKey('sku_snapshot')) {
+      context.handle(
+        _skuSnapshotMeta,
+        skuSnapshot.isAcceptableOrUnknown(
+          data['sku_snapshot']!,
+          _skuSnapshotMeta,
+        ),
+      );
+    }
+    if (data.containsKey('barcode_snapshot')) {
+      context.handle(
+        _barcodeSnapshotMeta,
+        barcodeSnapshot.isAcceptableOrUnknown(
+          data['barcode_snapshot']!,
+          _barcodeSnapshotMeta,
+        ),
+      );
+    }
+    if (data.containsKey('unit_snapshot')) {
+      context.handle(
+        _unitSnapshotMeta,
+        unitSnapshot.isAcceptableOrUnknown(
+          data['unit_snapshot']!,
+          _unitSnapshotMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_unitSnapshotMeta);
+    }
+    if (data.containsKey('quantity_base')) {
+      context.handle(
+        _quantityBaseMeta,
+        quantityBase.isAcceptableOrUnknown(
+          data['quantity_base']!,
+          _quantityBaseMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_quantityBaseMeta);
+    }
+    if (data.containsKey('quantity_returned_base')) {
+      context.handle(
+        _quantityReturnedBaseMeta,
+        quantityReturnedBase.isAcceptableOrUnknown(
+          data['quantity_returned_base']!,
+          _quantityReturnedBaseMeta,
+        ),
+      );
+    }
+    if (data.containsKey('unit_price_minor')) {
+      context.handle(
+        _unitPriceMinorMeta,
+        unitPriceMinor.isAcceptableOrUnknown(
+          data['unit_price_minor']!,
+          _unitPriceMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_unitPriceMinorMeta);
+    }
+    if (data.containsKey('discount_minor')) {
+      context.handle(
+        _discountMinorMeta,
+        discountMinor.isAcceptableOrUnknown(
+          data['discount_minor']!,
+          _discountMinorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('line_total_minor')) {
+      context.handle(
+        _lineTotalMinorMeta,
+        lineTotalMinor.isAcceptableOrUnknown(
+          data['line_total_minor']!,
+          _lineTotalMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_lineTotalMinorMeta);
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SaleItemRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SaleItemRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      saleId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sale_id'],
+      )!,
+      productId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}product_id'],
+      )!,
+      productNameSnapshot: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}product_name_snapshot'],
+      )!,
+      skuSnapshot: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sku_snapshot'],
+      ),
+      barcodeSnapshot: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}barcode_snapshot'],
+      ),
+      unitSnapshot: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}unit_snapshot'],
+      )!,
+      quantityBase: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}quantity_base'],
+      )!,
+      quantityReturnedBase: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}quantity_returned_base'],
+      )!,
+      unitPriceMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}unit_price_minor'],
+      )!,
+      discountMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}discount_minor'],
+      )!,
+      lineTotalMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}line_total_minor'],
+      )!,
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+    );
+  }
+
+  @override
+  $SaleItemsTable createAlias(String alias) {
+    return $SaleItemsTable(attachedDatabase, alias);
+  }
+}
+
+class SaleItemRow extends DataClass implements Insertable<SaleItemRow> {
+  final String id;
+  final String saleId;
+  final String productId;
+  final String productNameSnapshot;
+  final String? skuSnapshot;
+  final String? barcodeSnapshot;
+  final String unitSnapshot;
+  final int quantityBase;
+  final int quantityReturnedBase;
+  final int unitPriceMinor;
+  final int discountMinor;
+  final int lineTotalMinor;
+  final int createdAtMs;
+  const SaleItemRow({
+    required this.id,
+    required this.saleId,
+    required this.productId,
+    required this.productNameSnapshot,
+    this.skuSnapshot,
+    this.barcodeSnapshot,
+    required this.unitSnapshot,
+    required this.quantityBase,
+    required this.quantityReturnedBase,
+    required this.unitPriceMinor,
+    required this.discountMinor,
+    required this.lineTotalMinor,
+    required this.createdAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['sale_id'] = Variable<String>(saleId);
+    map['product_id'] = Variable<String>(productId);
+    map['product_name_snapshot'] = Variable<String>(productNameSnapshot);
+    if (!nullToAbsent || skuSnapshot != null) {
+      map['sku_snapshot'] = Variable<String>(skuSnapshot);
+    }
+    if (!nullToAbsent || barcodeSnapshot != null) {
+      map['barcode_snapshot'] = Variable<String>(barcodeSnapshot);
+    }
+    map['unit_snapshot'] = Variable<String>(unitSnapshot);
+    map['quantity_base'] = Variable<int>(quantityBase);
+    map['quantity_returned_base'] = Variable<int>(quantityReturnedBase);
+    map['unit_price_minor'] = Variable<int>(unitPriceMinor);
+    map['discount_minor'] = Variable<int>(discountMinor);
+    map['line_total_minor'] = Variable<int>(lineTotalMinor);
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    return map;
+  }
+
+  SaleItemsCompanion toCompanion(bool nullToAbsent) {
+    return SaleItemsCompanion(
+      id: Value(id),
+      saleId: Value(saleId),
+      productId: Value(productId),
+      productNameSnapshot: Value(productNameSnapshot),
+      skuSnapshot: skuSnapshot == null && nullToAbsent
+          ? const Value.absent()
+          : Value(skuSnapshot),
+      barcodeSnapshot: barcodeSnapshot == null && nullToAbsent
+          ? const Value.absent()
+          : Value(barcodeSnapshot),
+      unitSnapshot: Value(unitSnapshot),
+      quantityBase: Value(quantityBase),
+      quantityReturnedBase: Value(quantityReturnedBase),
+      unitPriceMinor: Value(unitPriceMinor),
+      discountMinor: Value(discountMinor),
+      lineTotalMinor: Value(lineTotalMinor),
+      createdAtMs: Value(createdAtMs),
+    );
+  }
+
+  factory SaleItemRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SaleItemRow(
+      id: serializer.fromJson<String>(json['id']),
+      saleId: serializer.fromJson<String>(json['saleId']),
+      productId: serializer.fromJson<String>(json['productId']),
+      productNameSnapshot: serializer.fromJson<String>(
+        json['productNameSnapshot'],
+      ),
+      skuSnapshot: serializer.fromJson<String?>(json['skuSnapshot']),
+      barcodeSnapshot: serializer.fromJson<String?>(json['barcodeSnapshot']),
+      unitSnapshot: serializer.fromJson<String>(json['unitSnapshot']),
+      quantityBase: serializer.fromJson<int>(json['quantityBase']),
+      quantityReturnedBase: serializer.fromJson<int>(
+        json['quantityReturnedBase'],
+      ),
+      unitPriceMinor: serializer.fromJson<int>(json['unitPriceMinor']),
+      discountMinor: serializer.fromJson<int>(json['discountMinor']),
+      lineTotalMinor: serializer.fromJson<int>(json['lineTotalMinor']),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'saleId': serializer.toJson<String>(saleId),
+      'productId': serializer.toJson<String>(productId),
+      'productNameSnapshot': serializer.toJson<String>(productNameSnapshot),
+      'skuSnapshot': serializer.toJson<String?>(skuSnapshot),
+      'barcodeSnapshot': serializer.toJson<String?>(barcodeSnapshot),
+      'unitSnapshot': serializer.toJson<String>(unitSnapshot),
+      'quantityBase': serializer.toJson<int>(quantityBase),
+      'quantityReturnedBase': serializer.toJson<int>(quantityReturnedBase),
+      'unitPriceMinor': serializer.toJson<int>(unitPriceMinor),
+      'discountMinor': serializer.toJson<int>(discountMinor),
+      'lineTotalMinor': serializer.toJson<int>(lineTotalMinor),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+    };
+  }
+
+  SaleItemRow copyWith({
+    String? id,
+    String? saleId,
+    String? productId,
+    String? productNameSnapshot,
+    Value<String?> skuSnapshot = const Value.absent(),
+    Value<String?> barcodeSnapshot = const Value.absent(),
+    String? unitSnapshot,
+    int? quantityBase,
+    int? quantityReturnedBase,
+    int? unitPriceMinor,
+    int? discountMinor,
+    int? lineTotalMinor,
+    int? createdAtMs,
+  }) => SaleItemRow(
+    id: id ?? this.id,
+    saleId: saleId ?? this.saleId,
+    productId: productId ?? this.productId,
+    productNameSnapshot: productNameSnapshot ?? this.productNameSnapshot,
+    skuSnapshot: skuSnapshot.present ? skuSnapshot.value : this.skuSnapshot,
+    barcodeSnapshot: barcodeSnapshot.present
+        ? barcodeSnapshot.value
+        : this.barcodeSnapshot,
+    unitSnapshot: unitSnapshot ?? this.unitSnapshot,
+    quantityBase: quantityBase ?? this.quantityBase,
+    quantityReturnedBase: quantityReturnedBase ?? this.quantityReturnedBase,
+    unitPriceMinor: unitPriceMinor ?? this.unitPriceMinor,
+    discountMinor: discountMinor ?? this.discountMinor,
+    lineTotalMinor: lineTotalMinor ?? this.lineTotalMinor,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+  );
+  SaleItemRow copyWithCompanion(SaleItemsCompanion data) {
+    return SaleItemRow(
+      id: data.id.present ? data.id.value : this.id,
+      saleId: data.saleId.present ? data.saleId.value : this.saleId,
+      productId: data.productId.present ? data.productId.value : this.productId,
+      productNameSnapshot: data.productNameSnapshot.present
+          ? data.productNameSnapshot.value
+          : this.productNameSnapshot,
+      skuSnapshot: data.skuSnapshot.present
+          ? data.skuSnapshot.value
+          : this.skuSnapshot,
+      barcodeSnapshot: data.barcodeSnapshot.present
+          ? data.barcodeSnapshot.value
+          : this.barcodeSnapshot,
+      unitSnapshot: data.unitSnapshot.present
+          ? data.unitSnapshot.value
+          : this.unitSnapshot,
+      quantityBase: data.quantityBase.present
+          ? data.quantityBase.value
+          : this.quantityBase,
+      quantityReturnedBase: data.quantityReturnedBase.present
+          ? data.quantityReturnedBase.value
+          : this.quantityReturnedBase,
+      unitPriceMinor: data.unitPriceMinor.present
+          ? data.unitPriceMinor.value
+          : this.unitPriceMinor,
+      discountMinor: data.discountMinor.present
+          ? data.discountMinor.value
+          : this.discountMinor,
+      lineTotalMinor: data.lineTotalMinor.present
+          ? data.lineTotalMinor.value
+          : this.lineTotalMinor,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SaleItemRow(')
+          ..write('id: $id, ')
+          ..write('saleId: $saleId, ')
+          ..write('productId: $productId, ')
+          ..write('productNameSnapshot: $productNameSnapshot, ')
+          ..write('skuSnapshot: $skuSnapshot, ')
+          ..write('barcodeSnapshot: $barcodeSnapshot, ')
+          ..write('unitSnapshot: $unitSnapshot, ')
+          ..write('quantityBase: $quantityBase, ')
+          ..write('quantityReturnedBase: $quantityReturnedBase, ')
+          ..write('unitPriceMinor: $unitPriceMinor, ')
+          ..write('discountMinor: $discountMinor, ')
+          ..write('lineTotalMinor: $lineTotalMinor, ')
+          ..write('createdAtMs: $createdAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    saleId,
+    productId,
+    productNameSnapshot,
+    skuSnapshot,
+    barcodeSnapshot,
+    unitSnapshot,
+    quantityBase,
+    quantityReturnedBase,
+    unitPriceMinor,
+    discountMinor,
+    lineTotalMinor,
+    createdAtMs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SaleItemRow &&
+          other.id == this.id &&
+          other.saleId == this.saleId &&
+          other.productId == this.productId &&
+          other.productNameSnapshot == this.productNameSnapshot &&
+          other.skuSnapshot == this.skuSnapshot &&
+          other.barcodeSnapshot == this.barcodeSnapshot &&
+          other.unitSnapshot == this.unitSnapshot &&
+          other.quantityBase == this.quantityBase &&
+          other.quantityReturnedBase == this.quantityReturnedBase &&
+          other.unitPriceMinor == this.unitPriceMinor &&
+          other.discountMinor == this.discountMinor &&
+          other.lineTotalMinor == this.lineTotalMinor &&
+          other.createdAtMs == this.createdAtMs);
+}
+
+class SaleItemsCompanion extends UpdateCompanion<SaleItemRow> {
+  final Value<String> id;
+  final Value<String> saleId;
+  final Value<String> productId;
+  final Value<String> productNameSnapshot;
+  final Value<String?> skuSnapshot;
+  final Value<String?> barcodeSnapshot;
+  final Value<String> unitSnapshot;
+  final Value<int> quantityBase;
+  final Value<int> quantityReturnedBase;
+  final Value<int> unitPriceMinor;
+  final Value<int> discountMinor;
+  final Value<int> lineTotalMinor;
+  final Value<int> createdAtMs;
+  final Value<int> rowid;
+  const SaleItemsCompanion({
+    this.id = const Value.absent(),
+    this.saleId = const Value.absent(),
+    this.productId = const Value.absent(),
+    this.productNameSnapshot = const Value.absent(),
+    this.skuSnapshot = const Value.absent(),
+    this.barcodeSnapshot = const Value.absent(),
+    this.unitSnapshot = const Value.absent(),
+    this.quantityBase = const Value.absent(),
+    this.quantityReturnedBase = const Value.absent(),
+    this.unitPriceMinor = const Value.absent(),
+    this.discountMinor = const Value.absent(),
+    this.lineTotalMinor = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SaleItemsCompanion.insert({
+    required String id,
+    required String saleId,
+    required String productId,
+    required String productNameSnapshot,
+    this.skuSnapshot = const Value.absent(),
+    this.barcodeSnapshot = const Value.absent(),
+    required String unitSnapshot,
+    required int quantityBase,
+    this.quantityReturnedBase = const Value.absent(),
+    required int unitPriceMinor,
+    this.discountMinor = const Value.absent(),
+    required int lineTotalMinor,
+    required int createdAtMs,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       saleId = Value(saleId),
+       productId = Value(productId),
+       productNameSnapshot = Value(productNameSnapshot),
+       unitSnapshot = Value(unitSnapshot),
+       quantityBase = Value(quantityBase),
+       unitPriceMinor = Value(unitPriceMinor),
+       lineTotalMinor = Value(lineTotalMinor),
+       createdAtMs = Value(createdAtMs);
+  static Insertable<SaleItemRow> custom({
+    Expression<String>? id,
+    Expression<String>? saleId,
+    Expression<String>? productId,
+    Expression<String>? productNameSnapshot,
+    Expression<String>? skuSnapshot,
+    Expression<String>? barcodeSnapshot,
+    Expression<String>? unitSnapshot,
+    Expression<int>? quantityBase,
+    Expression<int>? quantityReturnedBase,
+    Expression<int>? unitPriceMinor,
+    Expression<int>? discountMinor,
+    Expression<int>? lineTotalMinor,
+    Expression<int>? createdAtMs,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (saleId != null) 'sale_id': saleId,
+      if (productId != null) 'product_id': productId,
+      if (productNameSnapshot != null)
+        'product_name_snapshot': productNameSnapshot,
+      if (skuSnapshot != null) 'sku_snapshot': skuSnapshot,
+      if (barcodeSnapshot != null) 'barcode_snapshot': barcodeSnapshot,
+      if (unitSnapshot != null) 'unit_snapshot': unitSnapshot,
+      if (quantityBase != null) 'quantity_base': quantityBase,
+      if (quantityReturnedBase != null)
+        'quantity_returned_base': quantityReturnedBase,
+      if (unitPriceMinor != null) 'unit_price_minor': unitPriceMinor,
+      if (discountMinor != null) 'discount_minor': discountMinor,
+      if (lineTotalMinor != null) 'line_total_minor': lineTotalMinor,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SaleItemsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? saleId,
+    Value<String>? productId,
+    Value<String>? productNameSnapshot,
+    Value<String?>? skuSnapshot,
+    Value<String?>? barcodeSnapshot,
+    Value<String>? unitSnapshot,
+    Value<int>? quantityBase,
+    Value<int>? quantityReturnedBase,
+    Value<int>? unitPriceMinor,
+    Value<int>? discountMinor,
+    Value<int>? lineTotalMinor,
+    Value<int>? createdAtMs,
+    Value<int>? rowid,
+  }) {
+    return SaleItemsCompanion(
+      id: id ?? this.id,
+      saleId: saleId ?? this.saleId,
+      productId: productId ?? this.productId,
+      productNameSnapshot: productNameSnapshot ?? this.productNameSnapshot,
+      skuSnapshot: skuSnapshot ?? this.skuSnapshot,
+      barcodeSnapshot: barcodeSnapshot ?? this.barcodeSnapshot,
+      unitSnapshot: unitSnapshot ?? this.unitSnapshot,
+      quantityBase: quantityBase ?? this.quantityBase,
+      quantityReturnedBase: quantityReturnedBase ?? this.quantityReturnedBase,
+      unitPriceMinor: unitPriceMinor ?? this.unitPriceMinor,
+      discountMinor: discountMinor ?? this.discountMinor,
+      lineTotalMinor: lineTotalMinor ?? this.lineTotalMinor,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (saleId.present) {
+      map['sale_id'] = Variable<String>(saleId.value);
+    }
+    if (productId.present) {
+      map['product_id'] = Variable<String>(productId.value);
+    }
+    if (productNameSnapshot.present) {
+      map['product_name_snapshot'] = Variable<String>(
+        productNameSnapshot.value,
+      );
+    }
+    if (skuSnapshot.present) {
+      map['sku_snapshot'] = Variable<String>(skuSnapshot.value);
+    }
+    if (barcodeSnapshot.present) {
+      map['barcode_snapshot'] = Variable<String>(barcodeSnapshot.value);
+    }
+    if (unitSnapshot.present) {
+      map['unit_snapshot'] = Variable<String>(unitSnapshot.value);
+    }
+    if (quantityBase.present) {
+      map['quantity_base'] = Variable<int>(quantityBase.value);
+    }
+    if (quantityReturnedBase.present) {
+      map['quantity_returned_base'] = Variable<int>(quantityReturnedBase.value);
+    }
+    if (unitPriceMinor.present) {
+      map['unit_price_minor'] = Variable<int>(unitPriceMinor.value);
+    }
+    if (discountMinor.present) {
+      map['discount_minor'] = Variable<int>(discountMinor.value);
+    }
+    if (lineTotalMinor.present) {
+      map['line_total_minor'] = Variable<int>(lineTotalMinor.value);
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SaleItemsCompanion(')
+          ..write('id: $id, ')
+          ..write('saleId: $saleId, ')
+          ..write('productId: $productId, ')
+          ..write('productNameSnapshot: $productNameSnapshot, ')
+          ..write('skuSnapshot: $skuSnapshot, ')
+          ..write('barcodeSnapshot: $barcodeSnapshot, ')
+          ..write('unitSnapshot: $unitSnapshot, ')
+          ..write('quantityBase: $quantityBase, ')
+          ..write('quantityReturnedBase: $quantityReturnedBase, ')
+          ..write('unitPriceMinor: $unitPriceMinor, ')
+          ..write('discountMinor: $discountMinor, ')
+          ..write('lineTotalMinor: $lineTotalMinor, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SalePaymentsTable extends SalePayments
+    with TableInfo<$SalePaymentsTable, SalePaymentRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SalePaymentsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _saleIdMeta = const VerificationMeta('saleId');
+  @override
+  late final GeneratedColumn<String> saleId = GeneratedColumn<String>(
+    'sale_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES sales (id)',
+    ),
+  );
+  static const VerificationMeta _paymentMethodMeta = const VerificationMeta(
+    'paymentMethod',
+  );
+  @override
+  late final GeneratedColumn<String> paymentMethod = GeneratedColumn<String>(
+    'payment_method',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _amountMinorMeta = const VerificationMeta(
+    'amountMinor',
+  );
+  @override
+  late final GeneratedColumn<int> amountMinor = GeneratedColumn<int>(
+    'amount_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _referenceNumberMeta = const VerificationMeta(
+    'referenceNumber',
+  );
+  @override
+  late final GeneratedColumn<String> referenceNumber = GeneratedColumn<String>(
+    'reference_number',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+    'notes',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _idempotencyKeyMeta = const VerificationMeta(
+    'idempotencyKey',
+  );
+  @override
+  late final GeneratedColumn<String> idempotencyKey = GeneratedColumn<String>(
+    'idempotency_key',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    saleId,
+    paymentMethod,
+    amountMinor,
+    referenceNumber,
+    notes,
+    idempotencyKey,
+    createdAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'sale_payments';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SalePaymentRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('sale_id')) {
+      context.handle(
+        _saleIdMeta,
+        saleId.isAcceptableOrUnknown(data['sale_id']!, _saleIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_saleIdMeta);
+    }
+    if (data.containsKey('payment_method')) {
+      context.handle(
+        _paymentMethodMeta,
+        paymentMethod.isAcceptableOrUnknown(
+          data['payment_method']!,
+          _paymentMethodMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_paymentMethodMeta);
+    }
+    if (data.containsKey('amount_minor')) {
+      context.handle(
+        _amountMinorMeta,
+        amountMinor.isAcceptableOrUnknown(
+          data['amount_minor']!,
+          _amountMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_amountMinorMeta);
+    }
+    if (data.containsKey('reference_number')) {
+      context.handle(
+        _referenceNumberMeta,
+        referenceNumber.isAcceptableOrUnknown(
+          data['reference_number']!,
+          _referenceNumberMeta,
+        ),
+      );
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+        _notesMeta,
+        notes.isAcceptableOrUnknown(data['notes']!, _notesMeta),
+      );
+    }
+    if (data.containsKey('idempotency_key')) {
+      context.handle(
+        _idempotencyKeyMeta,
+        idempotencyKey.isAcceptableOrUnknown(
+          data['idempotency_key']!,
+          _idempotencyKeyMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_idempotencyKeyMeta);
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SalePaymentRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SalePaymentRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      saleId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sale_id'],
+      )!,
+      paymentMethod: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}payment_method'],
+      )!,
+      amountMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}amount_minor'],
+      )!,
+      referenceNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reference_number'],
+      ),
+      notes: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}notes'],
+      ),
+      idempotencyKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}idempotency_key'],
+      )!,
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+    );
+  }
+
+  @override
+  $SalePaymentsTable createAlias(String alias) {
+    return $SalePaymentsTable(attachedDatabase, alias);
+  }
+}
+
+class SalePaymentRow extends DataClass implements Insertable<SalePaymentRow> {
+  final String id;
+  final String saleId;
+  final String paymentMethod;
+  final int amountMinor;
+  final String? referenceNumber;
+  final String? notes;
+  final String idempotencyKey;
+  final int createdAtMs;
+  const SalePaymentRow({
+    required this.id,
+    required this.saleId,
+    required this.paymentMethod,
+    required this.amountMinor,
+    this.referenceNumber,
+    this.notes,
+    required this.idempotencyKey,
+    required this.createdAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['sale_id'] = Variable<String>(saleId);
+    map['payment_method'] = Variable<String>(paymentMethod);
+    map['amount_minor'] = Variable<int>(amountMinor);
+    if (!nullToAbsent || referenceNumber != null) {
+      map['reference_number'] = Variable<String>(referenceNumber);
+    }
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['idempotency_key'] = Variable<String>(idempotencyKey);
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    return map;
+  }
+
+  SalePaymentsCompanion toCompanion(bool nullToAbsent) {
+    return SalePaymentsCompanion(
+      id: Value(id),
+      saleId: Value(saleId),
+      paymentMethod: Value(paymentMethod),
+      amountMinor: Value(amountMinor),
+      referenceNumber: referenceNumber == null && nullToAbsent
+          ? const Value.absent()
+          : Value(referenceNumber),
+      notes: notes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(notes),
+      idempotencyKey: Value(idempotencyKey),
+      createdAtMs: Value(createdAtMs),
+    );
+  }
+
+  factory SalePaymentRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SalePaymentRow(
+      id: serializer.fromJson<String>(json['id']),
+      saleId: serializer.fromJson<String>(json['saleId']),
+      paymentMethod: serializer.fromJson<String>(json['paymentMethod']),
+      amountMinor: serializer.fromJson<int>(json['amountMinor']),
+      referenceNumber: serializer.fromJson<String?>(json['referenceNumber']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      idempotencyKey: serializer.fromJson<String>(json['idempotencyKey']),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'saleId': serializer.toJson<String>(saleId),
+      'paymentMethod': serializer.toJson<String>(paymentMethod),
+      'amountMinor': serializer.toJson<int>(amountMinor),
+      'referenceNumber': serializer.toJson<String?>(referenceNumber),
+      'notes': serializer.toJson<String?>(notes),
+      'idempotencyKey': serializer.toJson<String>(idempotencyKey),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+    };
+  }
+
+  SalePaymentRow copyWith({
+    String? id,
+    String? saleId,
+    String? paymentMethod,
+    int? amountMinor,
+    Value<String?> referenceNumber = const Value.absent(),
+    Value<String?> notes = const Value.absent(),
+    String? idempotencyKey,
+    int? createdAtMs,
+  }) => SalePaymentRow(
+    id: id ?? this.id,
+    saleId: saleId ?? this.saleId,
+    paymentMethod: paymentMethod ?? this.paymentMethod,
+    amountMinor: amountMinor ?? this.amountMinor,
+    referenceNumber: referenceNumber.present
+        ? referenceNumber.value
+        : this.referenceNumber,
+    notes: notes.present ? notes.value : this.notes,
+    idempotencyKey: idempotencyKey ?? this.idempotencyKey,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+  );
+  SalePaymentRow copyWithCompanion(SalePaymentsCompanion data) {
+    return SalePaymentRow(
+      id: data.id.present ? data.id.value : this.id,
+      saleId: data.saleId.present ? data.saleId.value : this.saleId,
+      paymentMethod: data.paymentMethod.present
+          ? data.paymentMethod.value
+          : this.paymentMethod,
+      amountMinor: data.amountMinor.present
+          ? data.amountMinor.value
+          : this.amountMinor,
+      referenceNumber: data.referenceNumber.present
+          ? data.referenceNumber.value
+          : this.referenceNumber,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      idempotencyKey: data.idempotencyKey.present
+          ? data.idempotencyKey.value
+          : this.idempotencyKey,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SalePaymentRow(')
+          ..write('id: $id, ')
+          ..write('saleId: $saleId, ')
+          ..write('paymentMethod: $paymentMethod, ')
+          ..write('amountMinor: $amountMinor, ')
+          ..write('referenceNumber: $referenceNumber, ')
+          ..write('notes: $notes, ')
+          ..write('idempotencyKey: $idempotencyKey, ')
+          ..write('createdAtMs: $createdAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    saleId,
+    paymentMethod,
+    amountMinor,
+    referenceNumber,
+    notes,
+    idempotencyKey,
+    createdAtMs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SalePaymentRow &&
+          other.id == this.id &&
+          other.saleId == this.saleId &&
+          other.paymentMethod == this.paymentMethod &&
+          other.amountMinor == this.amountMinor &&
+          other.referenceNumber == this.referenceNumber &&
+          other.notes == this.notes &&
+          other.idempotencyKey == this.idempotencyKey &&
+          other.createdAtMs == this.createdAtMs);
+}
+
+class SalePaymentsCompanion extends UpdateCompanion<SalePaymentRow> {
+  final Value<String> id;
+  final Value<String> saleId;
+  final Value<String> paymentMethod;
+  final Value<int> amountMinor;
+  final Value<String?> referenceNumber;
+  final Value<String?> notes;
+  final Value<String> idempotencyKey;
+  final Value<int> createdAtMs;
+  final Value<int> rowid;
+  const SalePaymentsCompanion({
+    this.id = const Value.absent(),
+    this.saleId = const Value.absent(),
+    this.paymentMethod = const Value.absent(),
+    this.amountMinor = const Value.absent(),
+    this.referenceNumber = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.idempotencyKey = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SalePaymentsCompanion.insert({
+    required String id,
+    required String saleId,
+    required String paymentMethod,
+    required int amountMinor,
+    this.referenceNumber = const Value.absent(),
+    this.notes = const Value.absent(),
+    required String idempotencyKey,
+    required int createdAtMs,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       saleId = Value(saleId),
+       paymentMethod = Value(paymentMethod),
+       amountMinor = Value(amountMinor),
+       idempotencyKey = Value(idempotencyKey),
+       createdAtMs = Value(createdAtMs);
+  static Insertable<SalePaymentRow> custom({
+    Expression<String>? id,
+    Expression<String>? saleId,
+    Expression<String>? paymentMethod,
+    Expression<int>? amountMinor,
+    Expression<String>? referenceNumber,
+    Expression<String>? notes,
+    Expression<String>? idempotencyKey,
+    Expression<int>? createdAtMs,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (saleId != null) 'sale_id': saleId,
+      if (paymentMethod != null) 'payment_method': paymentMethod,
+      if (amountMinor != null) 'amount_minor': amountMinor,
+      if (referenceNumber != null) 'reference_number': referenceNumber,
+      if (notes != null) 'notes': notes,
+      if (idempotencyKey != null) 'idempotency_key': idempotencyKey,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SalePaymentsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? saleId,
+    Value<String>? paymentMethod,
+    Value<int>? amountMinor,
+    Value<String?>? referenceNumber,
+    Value<String?>? notes,
+    Value<String>? idempotencyKey,
+    Value<int>? createdAtMs,
+    Value<int>? rowid,
+  }) {
+    return SalePaymentsCompanion(
+      id: id ?? this.id,
+      saleId: saleId ?? this.saleId,
+      paymentMethod: paymentMethod ?? this.paymentMethod,
+      amountMinor: amountMinor ?? this.amountMinor,
+      referenceNumber: referenceNumber ?? this.referenceNumber,
+      notes: notes ?? this.notes,
+      idempotencyKey: idempotencyKey ?? this.idempotencyKey,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (saleId.present) {
+      map['sale_id'] = Variable<String>(saleId.value);
+    }
+    if (paymentMethod.present) {
+      map['payment_method'] = Variable<String>(paymentMethod.value);
+    }
+    if (amountMinor.present) {
+      map['amount_minor'] = Variable<int>(amountMinor.value);
+    }
+    if (referenceNumber.present) {
+      map['reference_number'] = Variable<String>(referenceNumber.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (idempotencyKey.present) {
+      map['idempotency_key'] = Variable<String>(idempotencyKey.value);
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SalePaymentsCompanion(')
+          ..write('id: $id, ')
+          ..write('saleId: $saleId, ')
+          ..write('paymentMethod: $paymentMethod, ')
+          ..write('amountMinor: $amountMinor, ')
+          ..write('referenceNumber: $referenceNumber, ')
+          ..write('notes: $notes, ')
+          ..write('idempotencyKey: $idempotencyKey, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $CustomerLedgerEntriesTable extends CustomerLedgerEntries
+    with TableInfo<$CustomerLedgerEntriesTable, CustomerLedgerEntryRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $CustomerLedgerEntriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _customerIdMeta = const VerificationMeta(
+    'customerId',
+  );
+  @override
+  late final GeneratedColumn<String> customerId = GeneratedColumn<String>(
+    'customer_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES customers (id)',
+    ),
+  );
+  static const VerificationMeta _entryTypeMeta = const VerificationMeta(
+    'entryType',
+  );
+  @override
+  late final GeneratedColumn<String> entryType = GeneratedColumn<String>(
+    'entry_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _debitMinorMeta = const VerificationMeta(
+    'debitMinor',
+  );
+  @override
+  late final GeneratedColumn<int> debitMinor = GeneratedColumn<int>(
+    'debit_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _creditMinorMeta = const VerificationMeta(
+    'creditMinor',
+  );
+  @override
+  late final GeneratedColumn<int> creditMinor = GeneratedColumn<int>(
+    'credit_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _referenceTypeMeta = const VerificationMeta(
+    'referenceType',
+  );
+  @override
+  late final GeneratedColumn<String> referenceType = GeneratedColumn<String>(
+    'reference_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _referenceIdMeta = const VerificationMeta(
+    'referenceId',
+  );
+  @override
+  late final GeneratedColumn<String> referenceId = GeneratedColumn<String>(
+    'reference_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+    'notes',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    customerId,
+    entryType,
+    debitMinor,
+    creditMinor,
+    referenceType,
+    referenceId,
+    notes,
+    createdAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'customer_ledger_entries';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<CustomerLedgerEntryRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('customer_id')) {
+      context.handle(
+        _customerIdMeta,
+        customerId.isAcceptableOrUnknown(data['customer_id']!, _customerIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_customerIdMeta);
+    }
+    if (data.containsKey('entry_type')) {
+      context.handle(
+        _entryTypeMeta,
+        entryType.isAcceptableOrUnknown(data['entry_type']!, _entryTypeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_entryTypeMeta);
+    }
+    if (data.containsKey('debit_minor')) {
+      context.handle(
+        _debitMinorMeta,
+        debitMinor.isAcceptableOrUnknown(data['debit_minor']!, _debitMinorMeta),
+      );
+    }
+    if (data.containsKey('credit_minor')) {
+      context.handle(
+        _creditMinorMeta,
+        creditMinor.isAcceptableOrUnknown(
+          data['credit_minor']!,
+          _creditMinorMeta,
+        ),
+      );
+    }
+    if (data.containsKey('reference_type')) {
+      context.handle(
+        _referenceTypeMeta,
+        referenceType.isAcceptableOrUnknown(
+          data['reference_type']!,
+          _referenceTypeMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_referenceTypeMeta);
+    }
+    if (data.containsKey('reference_id')) {
+      context.handle(
+        _referenceIdMeta,
+        referenceId.isAcceptableOrUnknown(
+          data['reference_id']!,
+          _referenceIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_referenceIdMeta);
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+        _notesMeta,
+        notes.isAcceptableOrUnknown(data['notes']!, _notesMeta),
+      );
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  CustomerLedgerEntryRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return CustomerLedgerEntryRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      customerId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}customer_id'],
+      )!,
+      entryType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}entry_type'],
+      )!,
+      debitMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}debit_minor'],
+      )!,
+      creditMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}credit_minor'],
+      )!,
+      referenceType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reference_type'],
+      )!,
+      referenceId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reference_id'],
+      )!,
+      notes: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}notes'],
+      ),
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+    );
+  }
+
+  @override
+  $CustomerLedgerEntriesTable createAlias(String alias) {
+    return $CustomerLedgerEntriesTable(attachedDatabase, alias);
+  }
+}
+
+class CustomerLedgerEntryRow extends DataClass
+    implements Insertable<CustomerLedgerEntryRow> {
+  final String id;
+  final String customerId;
+  final String entryType;
+  final int debitMinor;
+  final int creditMinor;
+  final String referenceType;
+  final String referenceId;
+  final String? notes;
+  final int createdAtMs;
+  const CustomerLedgerEntryRow({
+    required this.id,
+    required this.customerId,
+    required this.entryType,
+    required this.debitMinor,
+    required this.creditMinor,
+    required this.referenceType,
+    required this.referenceId,
+    this.notes,
+    required this.createdAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['customer_id'] = Variable<String>(customerId);
+    map['entry_type'] = Variable<String>(entryType);
+    map['debit_minor'] = Variable<int>(debitMinor);
+    map['credit_minor'] = Variable<int>(creditMinor);
+    map['reference_type'] = Variable<String>(referenceType);
+    map['reference_id'] = Variable<String>(referenceId);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    return map;
+  }
+
+  CustomerLedgerEntriesCompanion toCompanion(bool nullToAbsent) {
+    return CustomerLedgerEntriesCompanion(
+      id: Value(id),
+      customerId: Value(customerId),
+      entryType: Value(entryType),
+      debitMinor: Value(debitMinor),
+      creditMinor: Value(creditMinor),
+      referenceType: Value(referenceType),
+      referenceId: Value(referenceId),
+      notes: notes == null && nullToAbsent
+          ? const Value.absent()
+          : Value(notes),
+      createdAtMs: Value(createdAtMs),
+    );
+  }
+
+  factory CustomerLedgerEntryRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return CustomerLedgerEntryRow(
+      id: serializer.fromJson<String>(json['id']),
+      customerId: serializer.fromJson<String>(json['customerId']),
+      entryType: serializer.fromJson<String>(json['entryType']),
+      debitMinor: serializer.fromJson<int>(json['debitMinor']),
+      creditMinor: serializer.fromJson<int>(json['creditMinor']),
+      referenceType: serializer.fromJson<String>(json['referenceType']),
+      referenceId: serializer.fromJson<String>(json['referenceId']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'customerId': serializer.toJson<String>(customerId),
+      'entryType': serializer.toJson<String>(entryType),
+      'debitMinor': serializer.toJson<int>(debitMinor),
+      'creditMinor': serializer.toJson<int>(creditMinor),
+      'referenceType': serializer.toJson<String>(referenceType),
+      'referenceId': serializer.toJson<String>(referenceId),
+      'notes': serializer.toJson<String?>(notes),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+    };
+  }
+
+  CustomerLedgerEntryRow copyWith({
+    String? id,
+    String? customerId,
+    String? entryType,
+    int? debitMinor,
+    int? creditMinor,
+    String? referenceType,
+    String? referenceId,
+    Value<String?> notes = const Value.absent(),
+    int? createdAtMs,
+  }) => CustomerLedgerEntryRow(
+    id: id ?? this.id,
+    customerId: customerId ?? this.customerId,
+    entryType: entryType ?? this.entryType,
+    debitMinor: debitMinor ?? this.debitMinor,
+    creditMinor: creditMinor ?? this.creditMinor,
+    referenceType: referenceType ?? this.referenceType,
+    referenceId: referenceId ?? this.referenceId,
+    notes: notes.present ? notes.value : this.notes,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+  );
+  CustomerLedgerEntryRow copyWithCompanion(
+    CustomerLedgerEntriesCompanion data,
+  ) {
+    return CustomerLedgerEntryRow(
+      id: data.id.present ? data.id.value : this.id,
+      customerId: data.customerId.present
+          ? data.customerId.value
+          : this.customerId,
+      entryType: data.entryType.present ? data.entryType.value : this.entryType,
+      debitMinor: data.debitMinor.present
+          ? data.debitMinor.value
+          : this.debitMinor,
+      creditMinor: data.creditMinor.present
+          ? data.creditMinor.value
+          : this.creditMinor,
+      referenceType: data.referenceType.present
+          ? data.referenceType.value
+          : this.referenceType,
+      referenceId: data.referenceId.present
+          ? data.referenceId.value
+          : this.referenceId,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CustomerLedgerEntryRow(')
+          ..write('id: $id, ')
+          ..write('customerId: $customerId, ')
+          ..write('entryType: $entryType, ')
+          ..write('debitMinor: $debitMinor, ')
+          ..write('creditMinor: $creditMinor, ')
+          ..write('referenceType: $referenceType, ')
+          ..write('referenceId: $referenceId, ')
+          ..write('notes: $notes, ')
+          ..write('createdAtMs: $createdAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    customerId,
+    entryType,
+    debitMinor,
+    creditMinor,
+    referenceType,
+    referenceId,
+    notes,
+    createdAtMs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is CustomerLedgerEntryRow &&
+          other.id == this.id &&
+          other.customerId == this.customerId &&
+          other.entryType == this.entryType &&
+          other.debitMinor == this.debitMinor &&
+          other.creditMinor == this.creditMinor &&
+          other.referenceType == this.referenceType &&
+          other.referenceId == this.referenceId &&
+          other.notes == this.notes &&
+          other.createdAtMs == this.createdAtMs);
+}
+
+class CustomerLedgerEntriesCompanion
+    extends UpdateCompanion<CustomerLedgerEntryRow> {
+  final Value<String> id;
+  final Value<String> customerId;
+  final Value<String> entryType;
+  final Value<int> debitMinor;
+  final Value<int> creditMinor;
+  final Value<String> referenceType;
+  final Value<String> referenceId;
+  final Value<String?> notes;
+  final Value<int> createdAtMs;
+  final Value<int> rowid;
+  const CustomerLedgerEntriesCompanion({
+    this.id = const Value.absent(),
+    this.customerId = const Value.absent(),
+    this.entryType = const Value.absent(),
+    this.debitMinor = const Value.absent(),
+    this.creditMinor = const Value.absent(),
+    this.referenceType = const Value.absent(),
+    this.referenceId = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  CustomerLedgerEntriesCompanion.insert({
+    required String id,
+    required String customerId,
+    required String entryType,
+    this.debitMinor = const Value.absent(),
+    this.creditMinor = const Value.absent(),
+    required String referenceType,
+    required String referenceId,
+    this.notes = const Value.absent(),
+    required int createdAtMs,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       customerId = Value(customerId),
+       entryType = Value(entryType),
+       referenceType = Value(referenceType),
+       referenceId = Value(referenceId),
+       createdAtMs = Value(createdAtMs);
+  static Insertable<CustomerLedgerEntryRow> custom({
+    Expression<String>? id,
+    Expression<String>? customerId,
+    Expression<String>? entryType,
+    Expression<int>? debitMinor,
+    Expression<int>? creditMinor,
+    Expression<String>? referenceType,
+    Expression<String>? referenceId,
+    Expression<String>? notes,
+    Expression<int>? createdAtMs,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (customerId != null) 'customer_id': customerId,
+      if (entryType != null) 'entry_type': entryType,
+      if (debitMinor != null) 'debit_minor': debitMinor,
+      if (creditMinor != null) 'credit_minor': creditMinor,
+      if (referenceType != null) 'reference_type': referenceType,
+      if (referenceId != null) 'reference_id': referenceId,
+      if (notes != null) 'notes': notes,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  CustomerLedgerEntriesCompanion copyWith({
+    Value<String>? id,
+    Value<String>? customerId,
+    Value<String>? entryType,
+    Value<int>? debitMinor,
+    Value<int>? creditMinor,
+    Value<String>? referenceType,
+    Value<String>? referenceId,
+    Value<String?>? notes,
+    Value<int>? createdAtMs,
+    Value<int>? rowid,
+  }) {
+    return CustomerLedgerEntriesCompanion(
+      id: id ?? this.id,
+      customerId: customerId ?? this.customerId,
+      entryType: entryType ?? this.entryType,
+      debitMinor: debitMinor ?? this.debitMinor,
+      creditMinor: creditMinor ?? this.creditMinor,
+      referenceType: referenceType ?? this.referenceType,
+      referenceId: referenceId ?? this.referenceId,
+      notes: notes ?? this.notes,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (customerId.present) {
+      map['customer_id'] = Variable<String>(customerId.value);
+    }
+    if (entryType.present) {
+      map['entry_type'] = Variable<String>(entryType.value);
+    }
+    if (debitMinor.present) {
+      map['debit_minor'] = Variable<int>(debitMinor.value);
+    }
+    if (creditMinor.present) {
+      map['credit_minor'] = Variable<int>(creditMinor.value);
+    }
+    if (referenceType.present) {
+      map['reference_type'] = Variable<String>(referenceType.value);
+    }
+    if (referenceId.present) {
+      map['reference_id'] = Variable<String>(referenceId.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('CustomerLedgerEntriesCompanion(')
+          ..write('id: $id, ')
+          ..write('customerId: $customerId, ')
+          ..write('entryType: $entryType, ')
+          ..write('debitMinor: $debitMinor, ')
+          ..write('creditMinor: $creditMinor, ')
+          ..write('referenceType: $referenceType, ')
+          ..write('referenceId: $referenceId, ')
+          ..write('notes: $notes, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SaleReturnsTable extends SaleReturns
+    with TableInfo<$SaleReturnsTable, SaleReturnRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SaleReturnsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _returnNumberMeta = const VerificationMeta(
+    'returnNumber',
+  );
+  @override
+  late final GeneratedColumn<String> returnNumber = GeneratedColumn<String>(
+    'return_number',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _saleIdMeta = const VerificationMeta('saleId');
+  @override
+  late final GeneratedColumn<String> saleId = GeneratedColumn<String>(
+    'sale_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES sales (id)',
+    ),
+  );
+  static const VerificationMeta _customerIdMeta = const VerificationMeta(
+    'customerId',
+  );
+  @override
+  late final GeneratedColumn<String> customerId = GeneratedColumn<String>(
+    'customer_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES customers (id)',
+    ),
+  );
+  static const VerificationMeta _reasonMeta = const VerificationMeta('reason');
+  @override
+  late final GeneratedColumn<String> reason = GeneratedColumn<String>(
+    'reason',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _totalMinorMeta = const VerificationMeta(
+    'totalMinor',
+  );
+  @override
+  late final GeneratedColumn<int> totalMinor = GeneratedColumn<int>(
+    'total_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _idempotencyKeyMeta = const VerificationMeta(
+    'idempotencyKey',
+  );
+  @override
+  late final GeneratedColumn<String> idempotencyKey = GeneratedColumn<String>(
+    'idempotency_key',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _completedAtMsMeta = const VerificationMeta(
+    'completedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> completedAtMs = GeneratedColumn<int>(
+    'completed_at_ms',
+    aliasedName,
+    true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    returnNumber,
+    saleId,
+    customerId,
+    reason,
+    totalMinor,
+    status,
+    idempotencyKey,
+    createdAtMs,
+    completedAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'sale_returns';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SaleReturnRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('return_number')) {
+      context.handle(
+        _returnNumberMeta,
+        returnNumber.isAcceptableOrUnknown(
+          data['return_number']!,
+          _returnNumberMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_returnNumberMeta);
+    }
+    if (data.containsKey('sale_id')) {
+      context.handle(
+        _saleIdMeta,
+        saleId.isAcceptableOrUnknown(data['sale_id']!, _saleIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_saleIdMeta);
+    }
+    if (data.containsKey('customer_id')) {
+      context.handle(
+        _customerIdMeta,
+        customerId.isAcceptableOrUnknown(data['customer_id']!, _customerIdMeta),
+      );
+    }
+    if (data.containsKey('reason')) {
+      context.handle(
+        _reasonMeta,
+        reason.isAcceptableOrUnknown(data['reason']!, _reasonMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_reasonMeta);
+    }
+    if (data.containsKey('total_minor')) {
+      context.handle(
+        _totalMinorMeta,
+        totalMinor.isAcceptableOrUnknown(data['total_minor']!, _totalMinorMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_totalMinorMeta);
+    }
+    if (data.containsKey('status')) {
+      context.handle(
+        _statusMeta,
+        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_statusMeta);
+    }
+    if (data.containsKey('idempotency_key')) {
+      context.handle(
+        _idempotencyKeyMeta,
+        idempotencyKey.isAcceptableOrUnknown(
+          data['idempotency_key']!,
+          _idempotencyKeyMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_idempotencyKeyMeta);
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    if (data.containsKey('completed_at_ms')) {
+      context.handle(
+        _completedAtMsMeta,
+        completedAtMs.isAcceptableOrUnknown(
+          data['completed_at_ms']!,
+          _completedAtMsMeta,
+        ),
+      );
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SaleReturnRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SaleReturnRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      returnNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}return_number'],
+      )!,
+      saleId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sale_id'],
+      )!,
+      customerId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}customer_id'],
+      ),
+      reason: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reason'],
+      )!,
+      totalMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}total_minor'],
+      )!,
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
+      idempotencyKey: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}idempotency_key'],
+      )!,
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+      completedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}completed_at_ms'],
+      ),
+    );
+  }
+
+  @override
+  $SaleReturnsTable createAlias(String alias) {
+    return $SaleReturnsTable(attachedDatabase, alias);
+  }
+}
+
+class SaleReturnRow extends DataClass implements Insertable<SaleReturnRow> {
+  final String id;
+  final String returnNumber;
+  final String saleId;
+  final String? customerId;
+  final String reason;
+  final int totalMinor;
+  final String status;
+  final String idempotencyKey;
+  final int createdAtMs;
+  final int? completedAtMs;
+  const SaleReturnRow({
+    required this.id,
+    required this.returnNumber,
+    required this.saleId,
+    this.customerId,
+    required this.reason,
+    required this.totalMinor,
+    required this.status,
+    required this.idempotencyKey,
+    required this.createdAtMs,
+    this.completedAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['return_number'] = Variable<String>(returnNumber);
+    map['sale_id'] = Variable<String>(saleId);
+    if (!nullToAbsent || customerId != null) {
+      map['customer_id'] = Variable<String>(customerId);
+    }
+    map['reason'] = Variable<String>(reason);
+    map['total_minor'] = Variable<int>(totalMinor);
+    map['status'] = Variable<String>(status);
+    map['idempotency_key'] = Variable<String>(idempotencyKey);
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    if (!nullToAbsent || completedAtMs != null) {
+      map['completed_at_ms'] = Variable<int>(completedAtMs);
+    }
+    return map;
+  }
+
+  SaleReturnsCompanion toCompanion(bool nullToAbsent) {
+    return SaleReturnsCompanion(
+      id: Value(id),
+      returnNumber: Value(returnNumber),
+      saleId: Value(saleId),
+      customerId: customerId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(customerId),
+      reason: Value(reason),
+      totalMinor: Value(totalMinor),
+      status: Value(status),
+      idempotencyKey: Value(idempotencyKey),
+      createdAtMs: Value(createdAtMs),
+      completedAtMs: completedAtMs == null && nullToAbsent
+          ? const Value.absent()
+          : Value(completedAtMs),
+    );
+  }
+
+  factory SaleReturnRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SaleReturnRow(
+      id: serializer.fromJson<String>(json['id']),
+      returnNumber: serializer.fromJson<String>(json['returnNumber']),
+      saleId: serializer.fromJson<String>(json['saleId']),
+      customerId: serializer.fromJson<String?>(json['customerId']),
+      reason: serializer.fromJson<String>(json['reason']),
+      totalMinor: serializer.fromJson<int>(json['totalMinor']),
+      status: serializer.fromJson<String>(json['status']),
+      idempotencyKey: serializer.fromJson<String>(json['idempotencyKey']),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+      completedAtMs: serializer.fromJson<int?>(json['completedAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'returnNumber': serializer.toJson<String>(returnNumber),
+      'saleId': serializer.toJson<String>(saleId),
+      'customerId': serializer.toJson<String?>(customerId),
+      'reason': serializer.toJson<String>(reason),
+      'totalMinor': serializer.toJson<int>(totalMinor),
+      'status': serializer.toJson<String>(status),
+      'idempotencyKey': serializer.toJson<String>(idempotencyKey),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+      'completedAtMs': serializer.toJson<int?>(completedAtMs),
+    };
+  }
+
+  SaleReturnRow copyWith({
+    String? id,
+    String? returnNumber,
+    String? saleId,
+    Value<String?> customerId = const Value.absent(),
+    String? reason,
+    int? totalMinor,
+    String? status,
+    String? idempotencyKey,
+    int? createdAtMs,
+    Value<int?> completedAtMs = const Value.absent(),
+  }) => SaleReturnRow(
+    id: id ?? this.id,
+    returnNumber: returnNumber ?? this.returnNumber,
+    saleId: saleId ?? this.saleId,
+    customerId: customerId.present ? customerId.value : this.customerId,
+    reason: reason ?? this.reason,
+    totalMinor: totalMinor ?? this.totalMinor,
+    status: status ?? this.status,
+    idempotencyKey: idempotencyKey ?? this.idempotencyKey,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+    completedAtMs: completedAtMs.present
+        ? completedAtMs.value
+        : this.completedAtMs,
+  );
+  SaleReturnRow copyWithCompanion(SaleReturnsCompanion data) {
+    return SaleReturnRow(
+      id: data.id.present ? data.id.value : this.id,
+      returnNumber: data.returnNumber.present
+          ? data.returnNumber.value
+          : this.returnNumber,
+      saleId: data.saleId.present ? data.saleId.value : this.saleId,
+      customerId: data.customerId.present
+          ? data.customerId.value
+          : this.customerId,
+      reason: data.reason.present ? data.reason.value : this.reason,
+      totalMinor: data.totalMinor.present
+          ? data.totalMinor.value
+          : this.totalMinor,
+      status: data.status.present ? data.status.value : this.status,
+      idempotencyKey: data.idempotencyKey.present
+          ? data.idempotencyKey.value
+          : this.idempotencyKey,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+      completedAtMs: data.completedAtMs.present
+          ? data.completedAtMs.value
+          : this.completedAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SaleReturnRow(')
+          ..write('id: $id, ')
+          ..write('returnNumber: $returnNumber, ')
+          ..write('saleId: $saleId, ')
+          ..write('customerId: $customerId, ')
+          ..write('reason: $reason, ')
+          ..write('totalMinor: $totalMinor, ')
+          ..write('status: $status, ')
+          ..write('idempotencyKey: $idempotencyKey, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('completedAtMs: $completedAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    returnNumber,
+    saleId,
+    customerId,
+    reason,
+    totalMinor,
+    status,
+    idempotencyKey,
+    createdAtMs,
+    completedAtMs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SaleReturnRow &&
+          other.id == this.id &&
+          other.returnNumber == this.returnNumber &&
+          other.saleId == this.saleId &&
+          other.customerId == this.customerId &&
+          other.reason == this.reason &&
+          other.totalMinor == this.totalMinor &&
+          other.status == this.status &&
+          other.idempotencyKey == this.idempotencyKey &&
+          other.createdAtMs == this.createdAtMs &&
+          other.completedAtMs == this.completedAtMs);
+}
+
+class SaleReturnsCompanion extends UpdateCompanion<SaleReturnRow> {
+  final Value<String> id;
+  final Value<String> returnNumber;
+  final Value<String> saleId;
+  final Value<String?> customerId;
+  final Value<String> reason;
+  final Value<int> totalMinor;
+  final Value<String> status;
+  final Value<String> idempotencyKey;
+  final Value<int> createdAtMs;
+  final Value<int?> completedAtMs;
+  final Value<int> rowid;
+  const SaleReturnsCompanion({
+    this.id = const Value.absent(),
+    this.returnNumber = const Value.absent(),
+    this.saleId = const Value.absent(),
+    this.customerId = const Value.absent(),
+    this.reason = const Value.absent(),
+    this.totalMinor = const Value.absent(),
+    this.status = const Value.absent(),
+    this.idempotencyKey = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.completedAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SaleReturnsCompanion.insert({
+    required String id,
+    required String returnNumber,
+    required String saleId,
+    this.customerId = const Value.absent(),
+    required String reason,
+    required int totalMinor,
+    required String status,
+    required String idempotencyKey,
+    required int createdAtMs,
+    this.completedAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       returnNumber = Value(returnNumber),
+       saleId = Value(saleId),
+       reason = Value(reason),
+       totalMinor = Value(totalMinor),
+       status = Value(status),
+       idempotencyKey = Value(idempotencyKey),
+       createdAtMs = Value(createdAtMs);
+  static Insertable<SaleReturnRow> custom({
+    Expression<String>? id,
+    Expression<String>? returnNumber,
+    Expression<String>? saleId,
+    Expression<String>? customerId,
+    Expression<String>? reason,
+    Expression<int>? totalMinor,
+    Expression<String>? status,
+    Expression<String>? idempotencyKey,
+    Expression<int>? createdAtMs,
+    Expression<int>? completedAtMs,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (returnNumber != null) 'return_number': returnNumber,
+      if (saleId != null) 'sale_id': saleId,
+      if (customerId != null) 'customer_id': customerId,
+      if (reason != null) 'reason': reason,
+      if (totalMinor != null) 'total_minor': totalMinor,
+      if (status != null) 'status': status,
+      if (idempotencyKey != null) 'idempotency_key': idempotencyKey,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (completedAtMs != null) 'completed_at_ms': completedAtMs,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SaleReturnsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? returnNumber,
+    Value<String>? saleId,
+    Value<String?>? customerId,
+    Value<String>? reason,
+    Value<int>? totalMinor,
+    Value<String>? status,
+    Value<String>? idempotencyKey,
+    Value<int>? createdAtMs,
+    Value<int?>? completedAtMs,
+    Value<int>? rowid,
+  }) {
+    return SaleReturnsCompanion(
+      id: id ?? this.id,
+      returnNumber: returnNumber ?? this.returnNumber,
+      saleId: saleId ?? this.saleId,
+      customerId: customerId ?? this.customerId,
+      reason: reason ?? this.reason,
+      totalMinor: totalMinor ?? this.totalMinor,
+      status: status ?? this.status,
+      idempotencyKey: idempotencyKey ?? this.idempotencyKey,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      completedAtMs: completedAtMs ?? this.completedAtMs,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (returnNumber.present) {
+      map['return_number'] = Variable<String>(returnNumber.value);
+    }
+    if (saleId.present) {
+      map['sale_id'] = Variable<String>(saleId.value);
+    }
+    if (customerId.present) {
+      map['customer_id'] = Variable<String>(customerId.value);
+    }
+    if (reason.present) {
+      map['reason'] = Variable<String>(reason.value);
+    }
+    if (totalMinor.present) {
+      map['total_minor'] = Variable<int>(totalMinor.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (idempotencyKey.present) {
+      map['idempotency_key'] = Variable<String>(idempotencyKey.value);
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (completedAtMs.present) {
+      map['completed_at_ms'] = Variable<int>(completedAtMs.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SaleReturnsCompanion(')
+          ..write('id: $id, ')
+          ..write('returnNumber: $returnNumber, ')
+          ..write('saleId: $saleId, ')
+          ..write('customerId: $customerId, ')
+          ..write('reason: $reason, ')
+          ..write('totalMinor: $totalMinor, ')
+          ..write('status: $status, ')
+          ..write('idempotencyKey: $idempotencyKey, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('completedAtMs: $completedAtMs, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $SaleReturnItemsTable extends SaleReturnItems
+    with TableInfo<$SaleReturnItemsTable, SaleReturnItemRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $SaleReturnItemsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _saleReturnIdMeta = const VerificationMeta(
+    'saleReturnId',
+  );
+  @override
+  late final GeneratedColumn<String> saleReturnId = GeneratedColumn<String>(
+    'sale_return_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES sale_returns (id)',
+    ),
+  );
+  static const VerificationMeta _saleItemIdMeta = const VerificationMeta(
+    'saleItemId',
+  );
+  @override
+  late final GeneratedColumn<String> saleItemId = GeneratedColumn<String>(
+    'sale_item_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES sale_items (id)',
+    ),
+  );
+  static const VerificationMeta _productIdMeta = const VerificationMeta(
+    'productId',
+  );
+  @override
+  late final GeneratedColumn<String> productId = GeneratedColumn<String>(
+    'product_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'REFERENCES products (id)',
+    ),
+  );
+  static const VerificationMeta _quantityBaseMeta = const VerificationMeta(
+    'quantityBase',
+  );
+  @override
+  late final GeneratedColumn<int> quantityBase = GeneratedColumn<int>(
+    'quantity_base',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _unitPriceMinorMeta = const VerificationMeta(
+    'unitPriceMinor',
+  );
+  @override
+  late final GeneratedColumn<int> unitPriceMinor = GeneratedColumn<int>(
+    'unit_price_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _lineTotalMinorMeta = const VerificationMeta(
+    'lineTotalMinor',
+  );
+  @override
+  late final GeneratedColumn<int> lineTotalMinor = GeneratedColumn<int>(
+    'line_total_minor',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    saleReturnId,
+    saleItemId,
+    productId,
+    quantityBase,
+    unitPriceMinor,
+    lineTotalMinor,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'sale_return_items';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<SaleReturnItemRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('sale_return_id')) {
+      context.handle(
+        _saleReturnIdMeta,
+        saleReturnId.isAcceptableOrUnknown(
+          data['sale_return_id']!,
+          _saleReturnIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_saleReturnIdMeta);
+    }
+    if (data.containsKey('sale_item_id')) {
+      context.handle(
+        _saleItemIdMeta,
+        saleItemId.isAcceptableOrUnknown(
+          data['sale_item_id']!,
+          _saleItemIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_saleItemIdMeta);
+    }
+    if (data.containsKey('product_id')) {
+      context.handle(
+        _productIdMeta,
+        productId.isAcceptableOrUnknown(data['product_id']!, _productIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_productIdMeta);
+    }
+    if (data.containsKey('quantity_base')) {
+      context.handle(
+        _quantityBaseMeta,
+        quantityBase.isAcceptableOrUnknown(
+          data['quantity_base']!,
+          _quantityBaseMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_quantityBaseMeta);
+    }
+    if (data.containsKey('unit_price_minor')) {
+      context.handle(
+        _unitPriceMinorMeta,
+        unitPriceMinor.isAcceptableOrUnknown(
+          data['unit_price_minor']!,
+          _unitPriceMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_unitPriceMinorMeta);
+    }
+    if (data.containsKey('line_total_minor')) {
+      context.handle(
+        _lineTotalMinorMeta,
+        lineTotalMinor.isAcceptableOrUnknown(
+          data['line_total_minor']!,
+          _lineTotalMinorMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_lineTotalMinorMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  SaleReturnItemRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return SaleReturnItemRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      saleReturnId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sale_return_id'],
+      )!,
+      saleItemId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}sale_item_id'],
+      )!,
+      productId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}product_id'],
+      )!,
+      quantityBase: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}quantity_base'],
+      )!,
+      unitPriceMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}unit_price_minor'],
+      )!,
+      lineTotalMinor: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}line_total_minor'],
+      )!,
+    );
+  }
+
+  @override
+  $SaleReturnItemsTable createAlias(String alias) {
+    return $SaleReturnItemsTable(attachedDatabase, alias);
+  }
+}
+
+class SaleReturnItemRow extends DataClass
+    implements Insertable<SaleReturnItemRow> {
+  final String id;
+  final String saleReturnId;
+  final String saleItemId;
+  final String productId;
+  final int quantityBase;
+  final int unitPriceMinor;
+  final int lineTotalMinor;
+  const SaleReturnItemRow({
+    required this.id,
+    required this.saleReturnId,
+    required this.saleItemId,
+    required this.productId,
+    required this.quantityBase,
+    required this.unitPriceMinor,
+    required this.lineTotalMinor,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['sale_return_id'] = Variable<String>(saleReturnId);
+    map['sale_item_id'] = Variable<String>(saleItemId);
+    map['product_id'] = Variable<String>(productId);
+    map['quantity_base'] = Variable<int>(quantityBase);
+    map['unit_price_minor'] = Variable<int>(unitPriceMinor);
+    map['line_total_minor'] = Variable<int>(lineTotalMinor);
+    return map;
+  }
+
+  SaleReturnItemsCompanion toCompanion(bool nullToAbsent) {
+    return SaleReturnItemsCompanion(
+      id: Value(id),
+      saleReturnId: Value(saleReturnId),
+      saleItemId: Value(saleItemId),
+      productId: Value(productId),
+      quantityBase: Value(quantityBase),
+      unitPriceMinor: Value(unitPriceMinor),
+      lineTotalMinor: Value(lineTotalMinor),
+    );
+  }
+
+  factory SaleReturnItemRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return SaleReturnItemRow(
+      id: serializer.fromJson<String>(json['id']),
+      saleReturnId: serializer.fromJson<String>(json['saleReturnId']),
+      saleItemId: serializer.fromJson<String>(json['saleItemId']),
+      productId: serializer.fromJson<String>(json['productId']),
+      quantityBase: serializer.fromJson<int>(json['quantityBase']),
+      unitPriceMinor: serializer.fromJson<int>(json['unitPriceMinor']),
+      lineTotalMinor: serializer.fromJson<int>(json['lineTotalMinor']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'saleReturnId': serializer.toJson<String>(saleReturnId),
+      'saleItemId': serializer.toJson<String>(saleItemId),
+      'productId': serializer.toJson<String>(productId),
+      'quantityBase': serializer.toJson<int>(quantityBase),
+      'unitPriceMinor': serializer.toJson<int>(unitPriceMinor),
+      'lineTotalMinor': serializer.toJson<int>(lineTotalMinor),
+    };
+  }
+
+  SaleReturnItemRow copyWith({
+    String? id,
+    String? saleReturnId,
+    String? saleItemId,
+    String? productId,
+    int? quantityBase,
+    int? unitPriceMinor,
+    int? lineTotalMinor,
+  }) => SaleReturnItemRow(
+    id: id ?? this.id,
+    saleReturnId: saleReturnId ?? this.saleReturnId,
+    saleItemId: saleItemId ?? this.saleItemId,
+    productId: productId ?? this.productId,
+    quantityBase: quantityBase ?? this.quantityBase,
+    unitPriceMinor: unitPriceMinor ?? this.unitPriceMinor,
+    lineTotalMinor: lineTotalMinor ?? this.lineTotalMinor,
+  );
+  SaleReturnItemRow copyWithCompanion(SaleReturnItemsCompanion data) {
+    return SaleReturnItemRow(
+      id: data.id.present ? data.id.value : this.id,
+      saleReturnId: data.saleReturnId.present
+          ? data.saleReturnId.value
+          : this.saleReturnId,
+      saleItemId: data.saleItemId.present
+          ? data.saleItemId.value
+          : this.saleItemId,
+      productId: data.productId.present ? data.productId.value : this.productId,
+      quantityBase: data.quantityBase.present
+          ? data.quantityBase.value
+          : this.quantityBase,
+      unitPriceMinor: data.unitPriceMinor.present
+          ? data.unitPriceMinor.value
+          : this.unitPriceMinor,
+      lineTotalMinor: data.lineTotalMinor.present
+          ? data.lineTotalMinor.value
+          : this.lineTotalMinor,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SaleReturnItemRow(')
+          ..write('id: $id, ')
+          ..write('saleReturnId: $saleReturnId, ')
+          ..write('saleItemId: $saleItemId, ')
+          ..write('productId: $productId, ')
+          ..write('quantityBase: $quantityBase, ')
+          ..write('unitPriceMinor: $unitPriceMinor, ')
+          ..write('lineTotalMinor: $lineTotalMinor')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    saleReturnId,
+    saleItemId,
+    productId,
+    quantityBase,
+    unitPriceMinor,
+    lineTotalMinor,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is SaleReturnItemRow &&
+          other.id == this.id &&
+          other.saleReturnId == this.saleReturnId &&
+          other.saleItemId == this.saleItemId &&
+          other.productId == this.productId &&
+          other.quantityBase == this.quantityBase &&
+          other.unitPriceMinor == this.unitPriceMinor &&
+          other.lineTotalMinor == this.lineTotalMinor);
+}
+
+class SaleReturnItemsCompanion extends UpdateCompanion<SaleReturnItemRow> {
+  final Value<String> id;
+  final Value<String> saleReturnId;
+  final Value<String> saleItemId;
+  final Value<String> productId;
+  final Value<int> quantityBase;
+  final Value<int> unitPriceMinor;
+  final Value<int> lineTotalMinor;
+  final Value<int> rowid;
+  const SaleReturnItemsCompanion({
+    this.id = const Value.absent(),
+    this.saleReturnId = const Value.absent(),
+    this.saleItemId = const Value.absent(),
+    this.productId = const Value.absent(),
+    this.quantityBase = const Value.absent(),
+    this.unitPriceMinor = const Value.absent(),
+    this.lineTotalMinor = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  SaleReturnItemsCompanion.insert({
+    required String id,
+    required String saleReturnId,
+    required String saleItemId,
+    required String productId,
+    required int quantityBase,
+    required int unitPriceMinor,
+    required int lineTotalMinor,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       saleReturnId = Value(saleReturnId),
+       saleItemId = Value(saleItemId),
+       productId = Value(productId),
+       quantityBase = Value(quantityBase),
+       unitPriceMinor = Value(unitPriceMinor),
+       lineTotalMinor = Value(lineTotalMinor);
+  static Insertable<SaleReturnItemRow> custom({
+    Expression<String>? id,
+    Expression<String>? saleReturnId,
+    Expression<String>? saleItemId,
+    Expression<String>? productId,
+    Expression<int>? quantityBase,
+    Expression<int>? unitPriceMinor,
+    Expression<int>? lineTotalMinor,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (saleReturnId != null) 'sale_return_id': saleReturnId,
+      if (saleItemId != null) 'sale_item_id': saleItemId,
+      if (productId != null) 'product_id': productId,
+      if (quantityBase != null) 'quantity_base': quantityBase,
+      if (unitPriceMinor != null) 'unit_price_minor': unitPriceMinor,
+      if (lineTotalMinor != null) 'line_total_minor': lineTotalMinor,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  SaleReturnItemsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? saleReturnId,
+    Value<String>? saleItemId,
+    Value<String>? productId,
+    Value<int>? quantityBase,
+    Value<int>? unitPriceMinor,
+    Value<int>? lineTotalMinor,
+    Value<int>? rowid,
+  }) {
+    return SaleReturnItemsCompanion(
+      id: id ?? this.id,
+      saleReturnId: saleReturnId ?? this.saleReturnId,
+      saleItemId: saleItemId ?? this.saleItemId,
+      productId: productId ?? this.productId,
+      quantityBase: quantityBase ?? this.quantityBase,
+      unitPriceMinor: unitPriceMinor ?? this.unitPriceMinor,
+      lineTotalMinor: lineTotalMinor ?? this.lineTotalMinor,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (saleReturnId.present) {
+      map['sale_return_id'] = Variable<String>(saleReturnId.value);
+    }
+    if (saleItemId.present) {
+      map['sale_item_id'] = Variable<String>(saleItemId.value);
+    }
+    if (productId.present) {
+      map['product_id'] = Variable<String>(productId.value);
+    }
+    if (quantityBase.present) {
+      map['quantity_base'] = Variable<int>(quantityBase.value);
+    }
+    if (unitPriceMinor.present) {
+      map['unit_price_minor'] = Variable<int>(unitPriceMinor.value);
+    }
+    if (lineTotalMinor.present) {
+      map['line_total_minor'] = Variable<int>(lineTotalMinor.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('SaleReturnItemsCompanion(')
+          ..write('id: $id, ')
+          ..write('saleReturnId: $saleReturnId, ')
+          ..write('saleItemId: $saleItemId, ')
+          ..write('productId: $productId, ')
+          ..write('quantityBase: $quantityBase, ')
+          ..write('unitPriceMinor: $unitPriceMinor, ')
+          ..write('lineTotalMinor: $lineTotalMinor, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -5680,6 +18352,37 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $InstallationProfileTable installationProfile =
       $InstallationProfileTable(this);
   late final $KnownBusinessesTable knownBusinesses = $KnownBusinessesTable(
+    this,
+  );
+  late final $ProductCategoriesTable productCategories =
+      $ProductCategoriesTable(this);
+  late final $ProductsTable products = $ProductsTable(this);
+  late final $InventoryBalancesTable inventoryBalances =
+      $InventoryBalancesTable(this);
+  late final $StockMovementsTable stockMovements = $StockMovementsTable(this);
+  late final $SuppliersTable suppliers = $SuppliersTable(this);
+  late final $DocumentSequencesTable documentSequences =
+      $DocumentSequencesTable(this);
+  late final $PurchasesTable purchases = $PurchasesTable(this);
+  late final $PurchaseItemsTable purchaseItems = $PurchaseItemsTable(this);
+  late final $PurchasePaymentsTable purchasePayments = $PurchasePaymentsTable(
+    this,
+  );
+  late final $SupplierLedgerEntriesTable supplierLedgerEntries =
+      $SupplierLedgerEntriesTable(this);
+  late final $PurchaseReturnsTable purchaseReturns = $PurchaseReturnsTable(
+    this,
+  );
+  late final $PurchaseReturnItemsTable purchaseReturnItems =
+      $PurchaseReturnItemsTable(this);
+  late final $CustomersTable customers = $CustomersTable(this);
+  late final $SalesTable sales = $SalesTable(this);
+  late final $SaleItemsTable saleItems = $SaleItemsTable(this);
+  late final $SalePaymentsTable salePayments = $SalePaymentsTable(this);
+  late final $CustomerLedgerEntriesTable customerLedgerEntries =
+      $CustomerLedgerEntriesTable(this);
+  late final $SaleReturnsTable saleReturns = $SaleReturnsTable(this);
+  late final $SaleReturnItemsTable saleReturnItems = $SaleReturnItemsTable(
     this,
   );
   late final Index syncOpsStatusCreated = Index(
@@ -5725,6 +18428,25 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     auditEvents,
     installationProfile,
     knownBusinesses,
+    productCategories,
+    products,
+    inventoryBalances,
+    stockMovements,
+    suppliers,
+    documentSequences,
+    purchases,
+    purchaseItems,
+    purchasePayments,
+    supplierLedgerEntries,
+    purchaseReturns,
+    purchaseReturnItems,
+    customers,
+    sales,
+    saleItems,
+    salePayments,
+    customerLedgerEntries,
+    saleReturns,
+    saleReturnItems,
     syncOpsStatusCreated,
     syncOpsEntity,
     syncOpsDependsOn,
@@ -10111,6 +22833,10871 @@ typedef $$KnownBusinessesTableProcessedTableManager =
       KnownBusinessRow,
       PrefetchHooks Function()
     >;
+typedef $$ProductCategoriesTableCreateCompanionBuilder =
+    ProductCategoriesCompanion Function({
+      required String id,
+      required String name,
+      required String normalizedName,
+      Value<String?> description,
+      Value<bool> isActive,
+      required int createdAtMs,
+      required int updatedAtMs,
+      Value<int?> archivedAtMs,
+      Value<int> rowid,
+    });
+typedef $$ProductCategoriesTableUpdateCompanionBuilder =
+    ProductCategoriesCompanion Function({
+      Value<String> id,
+      Value<String> name,
+      Value<String> normalizedName,
+      Value<String?> description,
+      Value<bool> isActive,
+      Value<int> createdAtMs,
+      Value<int> updatedAtMs,
+      Value<int?> archivedAtMs,
+      Value<int> rowid,
+    });
+
+final class $$ProductCategoriesTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $ProductCategoriesTable,
+          ProductCategoryRow
+        > {
+  $$ProductCategoriesTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static MultiTypedResultKey<$ProductsTable, List<ProductRow>>
+  _productsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.products,
+    aliasName: 'product_categories__id__products__category_id',
+  );
+
+  $$ProductsTableProcessedTableManager get productsRefs {
+    final manager = $$ProductsTableTableManager(
+      $_db,
+      $_db.products,
+    ).filter((f) => f.categoryId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_productsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$ProductCategoriesTableFilterComposer
+    extends Composer<_$AppDatabase, $ProductCategoriesTable> {
+  $$ProductCategoriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get normalizedName => $composableBuilder(
+    column: $table.normalizedName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+    column: $table.isActive,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get archivedAtMs => $composableBuilder(
+    column: $table.archivedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  Expression<bool> productsRefs(
+    Expression<bool> Function($$ProductsTableFilterComposer f) f,
+  ) {
+    final $$ProductsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.categoryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableFilterComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$ProductCategoriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $ProductCategoriesTable> {
+  $$ProductCategoriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get normalizedName => $composableBuilder(
+    column: $table.normalizedName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+    column: $table.isActive,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get archivedAtMs => $composableBuilder(
+    column: $table.archivedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ProductCategoriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ProductCategoriesTable> {
+  $$ProductCategoriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get normalizedName => $composableBuilder(
+    column: $table.normalizedName,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get archivedAtMs => $composableBuilder(
+    column: $table.archivedAtMs,
+    builder: (column) => column,
+  );
+
+  Expression<T> productsRefs<T extends Object>(
+    Expression<T> Function($$ProductsTableAnnotationComposer a) f,
+  ) {
+    final $$ProductsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.categoryId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$ProductCategoriesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ProductCategoriesTable,
+          ProductCategoryRow,
+          $$ProductCategoriesTableFilterComposer,
+          $$ProductCategoriesTableOrderingComposer,
+          $$ProductCategoriesTableAnnotationComposer,
+          $$ProductCategoriesTableCreateCompanionBuilder,
+          $$ProductCategoriesTableUpdateCompanionBuilder,
+          (ProductCategoryRow, $$ProductCategoriesTableReferences),
+          ProductCategoryRow,
+          PrefetchHooks Function({bool productsRefs})
+        > {
+  $$ProductCategoriesTableTableManager(
+    _$AppDatabase db,
+    $ProductCategoriesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ProductCategoriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ProductCategoriesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ProductCategoriesTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<String> normalizedName = const Value.absent(),
+                Value<String?> description = const Value.absent(),
+                Value<bool> isActive = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int> updatedAtMs = const Value.absent(),
+                Value<int?> archivedAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ProductCategoriesCompanion(
+                id: id,
+                name: name,
+                normalizedName: normalizedName,
+                description: description,
+                isActive: isActive,
+                createdAtMs: createdAtMs,
+                updatedAtMs: updatedAtMs,
+                archivedAtMs: archivedAtMs,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String name,
+                required String normalizedName,
+                Value<String?> description = const Value.absent(),
+                Value<bool> isActive = const Value.absent(),
+                required int createdAtMs,
+                required int updatedAtMs,
+                Value<int?> archivedAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ProductCategoriesCompanion.insert(
+                id: id,
+                name: name,
+                normalizedName: normalizedName,
+                description: description,
+                isActive: isActive,
+                createdAtMs: createdAtMs,
+                updatedAtMs: updatedAtMs,
+                archivedAtMs: archivedAtMs,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$ProductCategoriesTable, ProductCategoryRow>(
+                    table,
+                  ),
+                  $$ProductCategoriesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({productsRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [if (productsRefs) db.products],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (productsRefs)
+                    await $_getPrefetchedDataByColumns<
+                      ProductCategoryRow,
+                      $ProductCategoriesTable,
+                      ProductRow,
+                      $ProductsTable
+                    >(
+                      currentTable: table,
+                      referencedTable: $$ProductCategoriesTableReferences
+                          ._productsRefsTable(db),
+                      managerFromTypedResult: (p0) =>
+                          $$ProductCategoriesTableReferences(
+                            db,
+                            table,
+                            p0,
+                          ).productsRefs,
+                      currentColumn: 'id',
+                      referencedColumn: 'category_id',
+                      typedResults: items,
+                    ),
+                ];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$ProductCategoriesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ProductCategoriesTable,
+      ProductCategoryRow,
+      $$ProductCategoriesTableFilterComposer,
+      $$ProductCategoriesTableOrderingComposer,
+      $$ProductCategoriesTableAnnotationComposer,
+      $$ProductCategoriesTableCreateCompanionBuilder,
+      $$ProductCategoriesTableUpdateCompanionBuilder,
+      (ProductCategoryRow, $$ProductCategoriesTableReferences),
+      ProductCategoryRow,
+      PrefetchHooks Function({bool productsRefs})
+    >;
+typedef $$ProductsTableCreateCompanionBuilder = ProductsCompanion Function({
+  required String id,
+  required String name,
+  Value<String?> description,
+  Value<String?> sku,
+  Value<String?> skuNormalized,
+  Value<String?> barcode,
+  Value<String?> barcodeNormalized,
+  Value<String?> categoryId,
+  required int costPriceMinor,
+  required int sellingPriceMinor,
+  Value<String> unit,
+  Value<bool> isActive,
+  required int createdAtMs,
+  required int updatedAtMs,
+  Value<int?> archivedAtMs,
+  Value<int> rowid,
+});
+typedef $$ProductsTableUpdateCompanionBuilder = ProductsCompanion Function({
+  Value<String> id,
+  Value<String> name,
+  Value<String?> description,
+  Value<String?> sku,
+  Value<String?> skuNormalized,
+  Value<String?> barcode,
+  Value<String?> barcodeNormalized,
+  Value<String?> categoryId,
+  Value<int> costPriceMinor,
+  Value<int> sellingPriceMinor,
+  Value<String> unit,
+  Value<bool> isActive,
+  Value<int> createdAtMs,
+  Value<int> updatedAtMs,
+  Value<int?> archivedAtMs,
+  Value<int> rowid,
+});
+
+final class $$ProductsTableReferences
+    extends BaseReferences<_$AppDatabase, $ProductsTable, ProductRow> {
+  $$ProductsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $ProductCategoriesTable _categoryIdTable(_$AppDatabase db) => db
+      .productCategories
+      .createAlias('products__category_id__product_categories__id');
+
+  $$ProductCategoriesTableProcessedTableManager? get categoryId {
+    final $_column = $_itemColumn<String>('category_id');
+    if ($_column == null) return null;
+    final manager = $$ProductCategoriesTableTableManager(
+      $_db,
+      $_db.productCategories,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_categoryIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$InventoryBalancesTable, List<InventoryBalanceRow>>
+  _inventoryBalancesRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.inventoryBalances,
+        aliasName: 'products__id__inventory_balances__product_id',
+      );
+
+  $$InventoryBalancesTableProcessedTableManager get inventoryBalancesRefs {
+    final manager = $$InventoryBalancesTableTableManager(
+      $_db,
+      $_db.inventoryBalances,
+    ).filter((f) => f.productId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _inventoryBalancesRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$StockMovementsTable, List<StockMovementRow>>
+  _stockMovementsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.stockMovements,
+    aliasName: 'products__id__stock_movements__product_id',
+  );
+
+  $$StockMovementsTableProcessedTableManager get stockMovementsRefs {
+    final manager = $$StockMovementsTableTableManager(
+      $_db,
+      $_db.stockMovements,
+    ).filter((f) => f.productId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_stockMovementsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$PurchaseItemsTable, List<PurchaseItemRow>>
+  _purchaseItemsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.purchaseItems,
+    aliasName: 'products__id__purchase_items__product_id',
+  );
+
+  $$PurchaseItemsTableProcessedTableManager get purchaseItemsRefs {
+    final manager = $$PurchaseItemsTableTableManager(
+      $_db,
+      $_db.purchaseItems,
+    ).filter((f) => f.productId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_purchaseItemsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<
+    $PurchaseReturnItemsTable,
+    List<PurchaseReturnItemRow>
+  >
+  _purchaseReturnItemsRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.purchaseReturnItems,
+        aliasName: 'products__id__purchase_return_items__product_id',
+      );
+
+  $$PurchaseReturnItemsTableProcessedTableManager get purchaseReturnItemsRefs {
+    final manager = $$PurchaseReturnItemsTableTableManager(
+      $_db,
+      $_db.purchaseReturnItems,
+    ).filter((f) => f.productId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _purchaseReturnItemsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$SaleItemsTable, List<SaleItemRow>>
+  _saleItemsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.saleItems,
+    aliasName: 'products__id__sale_items__product_id',
+  );
+
+  $$SaleItemsTableProcessedTableManager get saleItemsRefs {
+    final manager = $$SaleItemsTableTableManager(
+      $_db,
+      $_db.saleItems,
+    ).filter((f) => f.productId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_saleItemsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$SaleReturnItemsTable, List<SaleReturnItemRow>>
+  _saleReturnItemsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.saleReturnItems,
+    aliasName: 'products__id__sale_return_items__product_id',
+  );
+
+  $$SaleReturnItemsTableProcessedTableManager get saleReturnItemsRefs {
+    final manager = $$SaleReturnItemsTableTableManager(
+      $_db,
+      $_db.saleReturnItems,
+    ).filter((f) => f.productId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _saleReturnItemsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$ProductsTableFilterComposer
+    extends Composer<_$AppDatabase, $ProductsTable> {
+  $$ProductsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get sku => $composableBuilder(
+    column: $table.sku,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get skuNormalized => $composableBuilder(
+    column: $table.skuNormalized,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get barcode => $composableBuilder(
+    column: $table.barcode,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get barcodeNormalized => $composableBuilder(
+    column: $table.barcodeNormalized,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get costPriceMinor => $composableBuilder(
+    column: $table.costPriceMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get sellingPriceMinor => $composableBuilder(
+    column: $table.sellingPriceMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get unit => $composableBuilder(
+    column: $table.unit,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+    column: $table.isActive,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get archivedAtMs => $composableBuilder(
+    column: $table.archivedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ProductCategoriesTableFilterComposer get categoryId {
+    final $$ProductCategoriesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.categoryId,
+      referencedTable: $db.productCategories,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductCategoriesTableFilterComposer(
+            $db: $db,
+            $table: $db.productCategories,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> inventoryBalancesRefs(
+    Expression<bool> Function($$InventoryBalancesTableFilterComposer f) f,
+  ) {
+    final $$InventoryBalancesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.inventoryBalances,
+      getReferencedColumn: (t) => t.productId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$InventoryBalancesTableFilterComposer(
+            $db: $db,
+            $table: $db.inventoryBalances,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> stockMovementsRefs(
+    Expression<bool> Function($$StockMovementsTableFilterComposer f) f,
+  ) {
+    final $$StockMovementsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.stockMovements,
+      getReferencedColumn: (t) => t.productId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$StockMovementsTableFilterComposer(
+            $db: $db,
+            $table: $db.stockMovements,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> purchaseItemsRefs(
+    Expression<bool> Function($$PurchaseItemsTableFilterComposer f) f,
+  ) {
+    final $$PurchaseItemsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.purchaseItems,
+      getReferencedColumn: (t) => t.productId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchaseItemsTableFilterComposer(
+            $db: $db,
+            $table: $db.purchaseItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> purchaseReturnItemsRefs(
+    Expression<bool> Function($$PurchaseReturnItemsTableFilterComposer f) f,
+  ) {
+    final $$PurchaseReturnItemsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.purchaseReturnItems,
+      getReferencedColumn: (t) => t.productId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchaseReturnItemsTableFilterComposer(
+            $db: $db,
+            $table: $db.purchaseReturnItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> saleItemsRefs(
+    Expression<bool> Function($$SaleItemsTableFilterComposer f) f,
+  ) {
+    final $$SaleItemsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.saleItems,
+      getReferencedColumn: (t) => t.productId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleItemsTableFilterComposer(
+            $db: $db,
+            $table: $db.saleItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> saleReturnItemsRefs(
+    Expression<bool> Function($$SaleReturnItemsTableFilterComposer f) f,
+  ) {
+    final $$SaleReturnItemsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.saleReturnItems,
+      getReferencedColumn: (t) => t.productId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleReturnItemsTableFilterComposer(
+            $db: $db,
+            $table: $db.saleReturnItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$ProductsTableOrderingComposer
+    extends Composer<_$AppDatabase, $ProductsTable> {
+  $$ProductsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get sku => $composableBuilder(
+    column: $table.sku,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get skuNormalized => $composableBuilder(
+    column: $table.skuNormalized,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get barcode => $composableBuilder(
+    column: $table.barcode,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get barcodeNormalized => $composableBuilder(
+    column: $table.barcodeNormalized,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get costPriceMinor => $composableBuilder(
+    column: $table.costPriceMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get sellingPriceMinor => $composableBuilder(
+    column: $table.sellingPriceMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get unit => $composableBuilder(
+    column: $table.unit,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+    column: $table.isActive,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get archivedAtMs => $composableBuilder(
+    column: $table.archivedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ProductCategoriesTableOrderingComposer get categoryId {
+    final $$ProductCategoriesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.categoryId,
+      referencedTable: $db.productCategories,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductCategoriesTableOrderingComposer(
+            $db: $db,
+            $table: $db.productCategories,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$ProductsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ProductsTable> {
+  $$ProductsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get description => $composableBuilder(
+    column: $table.description,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get sku =>
+      $composableBuilder(column: $table.sku, builder: (column) => column);
+
+  GeneratedColumn<String> get skuNormalized => $composableBuilder(
+    column: $table.skuNormalized,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get barcode =>
+      $composableBuilder(column: $table.barcode, builder: (column) => column);
+
+  GeneratedColumn<String> get barcodeNormalized => $composableBuilder(
+    column: $table.barcodeNormalized,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get costPriceMinor => $composableBuilder(
+    column: $table.costPriceMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get sellingPriceMinor => $composableBuilder(
+    column: $table.sellingPriceMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get unit =>
+      $composableBuilder(column: $table.unit, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get archivedAtMs => $composableBuilder(
+    column: $table.archivedAtMs,
+    builder: (column) => column,
+  );
+
+  $$ProductCategoriesTableAnnotationComposer get categoryId {
+    final $$ProductCategoriesTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.categoryId,
+          referencedTable: $db.productCategories,
+          getReferencedColumn: (t) => t.id,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$ProductCategoriesTableAnnotationComposer(
+                $db: $db,
+                $table: $db.productCategories,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return composer;
+  }
+
+  Expression<T> inventoryBalancesRefs<T extends Object>(
+    Expression<T> Function($$InventoryBalancesTableAnnotationComposer a) f,
+  ) {
+    final $$InventoryBalancesTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.inventoryBalances,
+          getReferencedColumn: (t) => t.productId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$InventoryBalancesTableAnnotationComposer(
+                $db: $db,
+                $table: $db.inventoryBalances,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+
+  Expression<T> stockMovementsRefs<T extends Object>(
+    Expression<T> Function($$StockMovementsTableAnnotationComposer a) f,
+  ) {
+    final $$StockMovementsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.stockMovements,
+      getReferencedColumn: (t) => t.productId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$StockMovementsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.stockMovements,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> purchaseItemsRefs<T extends Object>(
+    Expression<T> Function($$PurchaseItemsTableAnnotationComposer a) f,
+  ) {
+    final $$PurchaseItemsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.purchaseItems,
+      getReferencedColumn: (t) => t.productId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchaseItemsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.purchaseItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> purchaseReturnItemsRefs<T extends Object>(
+    Expression<T> Function($$PurchaseReturnItemsTableAnnotationComposer a) f,
+  ) {
+    final $$PurchaseReturnItemsTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.purchaseReturnItems,
+          getReferencedColumn: (t) => t.productId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$PurchaseReturnItemsTableAnnotationComposer(
+                $db: $db,
+                $table: $db.purchaseReturnItems,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+
+  Expression<T> saleItemsRefs<T extends Object>(
+    Expression<T> Function($$SaleItemsTableAnnotationComposer a) f,
+  ) {
+    final $$SaleItemsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.saleItems,
+      getReferencedColumn: (t) => t.productId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleItemsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.saleItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> saleReturnItemsRefs<T extends Object>(
+    Expression<T> Function($$SaleReturnItemsTableAnnotationComposer a) f,
+  ) {
+    final $$SaleReturnItemsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.saleReturnItems,
+      getReferencedColumn: (t) => t.productId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleReturnItemsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.saleReturnItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$ProductsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ProductsTable,
+          ProductRow,
+          $$ProductsTableFilterComposer,
+          $$ProductsTableOrderingComposer,
+          $$ProductsTableAnnotationComposer,
+          $$ProductsTableCreateCompanionBuilder,
+          $$ProductsTableUpdateCompanionBuilder,
+          (ProductRow, $$ProductsTableReferences),
+          ProductRow,
+          PrefetchHooks Function({
+            bool categoryId,
+            bool inventoryBalancesRefs,
+            bool stockMovementsRefs,
+            bool purchaseItemsRefs,
+            bool purchaseReturnItemsRefs,
+            bool saleItemsRefs,
+            bool saleReturnItemsRefs,
+          })
+        > {
+  $$ProductsTableTableManager(_$AppDatabase db, $ProductsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ProductsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ProductsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ProductsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<String?> description = const Value.absent(),
+                Value<String?> sku = const Value.absent(),
+                Value<String?> skuNormalized = const Value.absent(),
+                Value<String?> barcode = const Value.absent(),
+                Value<String?> barcodeNormalized = const Value.absent(),
+                Value<String?> categoryId = const Value.absent(),
+                Value<int> costPriceMinor = const Value.absent(),
+                Value<int> sellingPriceMinor = const Value.absent(),
+                Value<String> unit = const Value.absent(),
+                Value<bool> isActive = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int> updatedAtMs = const Value.absent(),
+                Value<int?> archivedAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ProductsCompanion(
+                id: id,
+                name: name,
+                description: description,
+                sku: sku,
+                skuNormalized: skuNormalized,
+                barcode: barcode,
+                barcodeNormalized: barcodeNormalized,
+                categoryId: categoryId,
+                costPriceMinor: costPriceMinor,
+                sellingPriceMinor: sellingPriceMinor,
+                unit: unit,
+                isActive: isActive,
+                createdAtMs: createdAtMs,
+                updatedAtMs: updatedAtMs,
+                archivedAtMs: archivedAtMs,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String name,
+                Value<String?> description = const Value.absent(),
+                Value<String?> sku = const Value.absent(),
+                Value<String?> skuNormalized = const Value.absent(),
+                Value<String?> barcode = const Value.absent(),
+                Value<String?> barcodeNormalized = const Value.absent(),
+                Value<String?> categoryId = const Value.absent(),
+                required int costPriceMinor,
+                required int sellingPriceMinor,
+                Value<String> unit = const Value.absent(),
+                Value<bool> isActive = const Value.absent(),
+                required int createdAtMs,
+                required int updatedAtMs,
+                Value<int?> archivedAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ProductsCompanion.insert(
+                id: id,
+                name: name,
+                description: description,
+                sku: sku,
+                skuNormalized: skuNormalized,
+                barcode: barcode,
+                barcodeNormalized: barcodeNormalized,
+                categoryId: categoryId,
+                costPriceMinor: costPriceMinor,
+                sellingPriceMinor: sellingPriceMinor,
+                unit: unit,
+                isActive: isActive,
+                createdAtMs: createdAtMs,
+                updatedAtMs: updatedAtMs,
+                archivedAtMs: archivedAtMs,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$ProductsTable, ProductRow>(table),
+                  $$ProductsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({
+                categoryId = false,
+                inventoryBalancesRefs = false,
+                stockMovementsRefs = false,
+                purchaseItemsRefs = false,
+                purchaseReturnItemsRefs = false,
+                saleItemsRefs = false,
+                saleReturnItemsRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (inventoryBalancesRefs) db.inventoryBalances,
+                    if (stockMovementsRefs) db.stockMovements,
+                    if (purchaseItemsRefs) db.purchaseItems,
+                    if (purchaseReturnItemsRefs) db.purchaseReturnItems,
+                    if (saleItemsRefs) db.saleItems,
+                    if (saleReturnItemsRefs) db.saleReturnItems,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (categoryId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.categoryId,
+                            referencedTable: $$ProductsTableReferences
+                                ._categoryIdTable(db),
+                            referencedColumn: $$ProductsTableReferences
+                                ._categoryIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (inventoryBalancesRefs)
+                        await $_getPrefetchedDataByColumns<
+                          ProductRow,
+                          $ProductsTable,
+                          InventoryBalanceRow,
+                          $InventoryBalancesTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ProductsTableReferences
+                              ._inventoryBalancesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProductsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).inventoryBalancesRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'product_id',
+                          typedResults: items,
+                        ),
+                      if (stockMovementsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          ProductRow,
+                          $ProductsTable,
+                          StockMovementRow,
+                          $StockMovementsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ProductsTableReferences
+                              ._stockMovementsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProductsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).stockMovementsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'product_id',
+                          typedResults: items,
+                        ),
+                      if (purchaseItemsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          ProductRow,
+                          $ProductsTable,
+                          PurchaseItemRow,
+                          $PurchaseItemsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ProductsTableReferences
+                              ._purchaseItemsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProductsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).purchaseItemsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'product_id',
+                          typedResults: items,
+                        ),
+                      if (purchaseReturnItemsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          ProductRow,
+                          $ProductsTable,
+                          PurchaseReturnItemRow,
+                          $PurchaseReturnItemsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ProductsTableReferences
+                              ._purchaseReturnItemsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProductsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).purchaseReturnItemsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'product_id',
+                          typedResults: items,
+                        ),
+                      if (saleItemsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          ProductRow,
+                          $ProductsTable,
+                          SaleItemRow,
+                          $SaleItemsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ProductsTableReferences
+                              ._saleItemsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProductsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).saleItemsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'product_id',
+                          typedResults: items,
+                        ),
+                      if (saleReturnItemsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          ProductRow,
+                          $ProductsTable,
+                          SaleReturnItemRow,
+                          $SaleReturnItemsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$ProductsTableReferences
+                              ._saleReturnItemsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$ProductsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).saleReturnItemsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'product_id',
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$ProductsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ProductsTable,
+      ProductRow,
+      $$ProductsTableFilterComposer,
+      $$ProductsTableOrderingComposer,
+      $$ProductsTableAnnotationComposer,
+      $$ProductsTableCreateCompanionBuilder,
+      $$ProductsTableUpdateCompanionBuilder,
+      (ProductRow, $$ProductsTableReferences),
+      ProductRow,
+      PrefetchHooks Function({
+        bool categoryId,
+        bool inventoryBalancesRefs,
+        bool stockMovementsRefs,
+        bool purchaseItemsRefs,
+        bool purchaseReturnItemsRefs,
+        bool saleItemsRefs,
+        bool saleReturnItemsRefs,
+      })
+    >;
+typedef $$InventoryBalancesTableCreateCompanionBuilder =
+    InventoryBalancesCompanion Function({
+      required String productId,
+      Value<int> quantityOnHandBase,
+      Value<int?> minimumStockBase,
+      required int updatedAtMs,
+      Value<int> rowid,
+    });
+typedef $$InventoryBalancesTableUpdateCompanionBuilder =
+    InventoryBalancesCompanion Function({
+      Value<String> productId,
+      Value<int> quantityOnHandBase,
+      Value<int?> minimumStockBase,
+      Value<int> updatedAtMs,
+      Value<int> rowid,
+    });
+
+final class $$InventoryBalancesTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $InventoryBalancesTable,
+          InventoryBalanceRow
+        > {
+  $$InventoryBalancesTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $ProductsTable _productIdTable(_$AppDatabase db) =>
+      db.products.createAlias('inventory_balances__product_id__products__id');
+
+  $$ProductsTableProcessedTableManager get productId {
+    final $_column = $_itemColumn<String>('product_id')!;
+
+    final manager = $$ProductsTableTableManager(
+      $_db,
+      $_db.products,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_productIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$InventoryBalancesTableFilterComposer
+    extends Composer<_$AppDatabase, $InventoryBalancesTable> {
+  $$InventoryBalancesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get quantityOnHandBase => $composableBuilder(
+    column: $table.quantityOnHandBase,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get minimumStockBase => $composableBuilder(
+    column: $table.minimumStockBase,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ProductsTableFilterComposer get productId {
+    final $$ProductsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableFilterComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$InventoryBalancesTableOrderingComposer
+    extends Composer<_$AppDatabase, $InventoryBalancesTable> {
+  $$InventoryBalancesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get quantityOnHandBase => $composableBuilder(
+    column: $table.quantityOnHandBase,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get minimumStockBase => $composableBuilder(
+    column: $table.minimumStockBase,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ProductsTableOrderingComposer get productId {
+    final $$ProductsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableOrderingComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$InventoryBalancesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $InventoryBalancesTable> {
+  $$InventoryBalancesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get quantityOnHandBase => $composableBuilder(
+    column: $table.quantityOnHandBase,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get minimumStockBase => $composableBuilder(
+    column: $table.minimumStockBase,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => column,
+  );
+
+  $$ProductsTableAnnotationComposer get productId {
+    final $$ProductsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$InventoryBalancesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $InventoryBalancesTable,
+          InventoryBalanceRow,
+          $$InventoryBalancesTableFilterComposer,
+          $$InventoryBalancesTableOrderingComposer,
+          $$InventoryBalancesTableAnnotationComposer,
+          $$InventoryBalancesTableCreateCompanionBuilder,
+          $$InventoryBalancesTableUpdateCompanionBuilder,
+          (InventoryBalanceRow, $$InventoryBalancesTableReferences),
+          InventoryBalanceRow,
+          PrefetchHooks Function({bool productId})
+        > {
+  $$InventoryBalancesTableTableManager(
+    _$AppDatabase db,
+    $InventoryBalancesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$InventoryBalancesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$InventoryBalancesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$InventoryBalancesTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> productId = const Value.absent(),
+                Value<int> quantityOnHandBase = const Value.absent(),
+                Value<int?> minimumStockBase = const Value.absent(),
+                Value<int> updatedAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => InventoryBalancesCompanion(
+                productId: productId,
+                quantityOnHandBase: quantityOnHandBase,
+                minimumStockBase: minimumStockBase,
+                updatedAtMs: updatedAtMs,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String productId,
+                Value<int> quantityOnHandBase = const Value.absent(),
+                Value<int?> minimumStockBase = const Value.absent(),
+                required int updatedAtMs,
+                Value<int> rowid = const Value.absent(),
+              }) => InventoryBalancesCompanion.insert(
+                productId: productId,
+                quantityOnHandBase: quantityOnHandBase,
+                minimumStockBase: minimumStockBase,
+                updatedAtMs: updatedAtMs,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$InventoryBalancesTable, InventoryBalanceRow>(
+                    table,
+                  ),
+                  $$InventoryBalancesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({productId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (productId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.productId,
+                        referencedTable: $$InventoryBalancesTableReferences
+                            ._productIdTable(db),
+                        referencedColumn: $$InventoryBalancesTableReferences
+                            ._productIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$InventoryBalancesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $InventoryBalancesTable,
+      InventoryBalanceRow,
+      $$InventoryBalancesTableFilterComposer,
+      $$InventoryBalancesTableOrderingComposer,
+      $$InventoryBalancesTableAnnotationComposer,
+      $$InventoryBalancesTableCreateCompanionBuilder,
+      $$InventoryBalancesTableUpdateCompanionBuilder,
+      (InventoryBalanceRow, $$InventoryBalancesTableReferences),
+      InventoryBalanceRow,
+      PrefetchHooks Function({bool productId})
+    >;
+typedef $$StockMovementsTableCreateCompanionBuilder =
+    StockMovementsCompanion Function({
+      required String id,
+      required String productId,
+      required String movementType,
+      required int quantityBase,
+      required int previousQuantityBase,
+      required int resultingQuantityBase,
+      Value<String?> referenceType,
+      Value<String?> referenceId,
+      Value<String?> reason,
+      Value<String?> notes,
+      Value<String?> createdBy,
+      required int createdAtMs,
+      Value<int> rowid,
+    });
+typedef $$StockMovementsTableUpdateCompanionBuilder =
+    StockMovementsCompanion Function({
+      Value<String> id,
+      Value<String> productId,
+      Value<String> movementType,
+      Value<int> quantityBase,
+      Value<int> previousQuantityBase,
+      Value<int> resultingQuantityBase,
+      Value<String?> referenceType,
+      Value<String?> referenceId,
+      Value<String?> reason,
+      Value<String?> notes,
+      Value<String?> createdBy,
+      Value<int> createdAtMs,
+      Value<int> rowid,
+    });
+
+final class $$StockMovementsTableReferences
+    extends
+        BaseReferences<_$AppDatabase, $StockMovementsTable, StockMovementRow> {
+  $$StockMovementsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $ProductsTable _productIdTable(_$AppDatabase db) =>
+      db.products.createAlias('stock_movements__product_id__products__id');
+
+  $$ProductsTableProcessedTableManager get productId {
+    final $_column = $_itemColumn<String>('product_id')!;
+
+    final manager = $$ProductsTableTableManager(
+      $_db,
+      $_db.products,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_productIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$StockMovementsTableFilterComposer
+    extends Composer<_$AppDatabase, $StockMovementsTable> {
+  $$StockMovementsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get movementType => $composableBuilder(
+    column: $table.movementType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get quantityBase => $composableBuilder(
+    column: $table.quantityBase,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get previousQuantityBase => $composableBuilder(
+    column: $table.previousQuantityBase,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get resultingQuantityBase => $composableBuilder(
+    column: $table.resultingQuantityBase,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get referenceType => $composableBuilder(
+    column: $table.referenceType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get referenceId => $composableBuilder(
+    column: $table.referenceId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get reason => $composableBuilder(
+    column: $table.reason,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get createdBy => $composableBuilder(
+    column: $table.createdBy,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$ProductsTableFilterComposer get productId {
+    final $$ProductsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableFilterComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$StockMovementsTableOrderingComposer
+    extends Composer<_$AppDatabase, $StockMovementsTable> {
+  $$StockMovementsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get movementType => $composableBuilder(
+    column: $table.movementType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get quantityBase => $composableBuilder(
+    column: $table.quantityBase,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get previousQuantityBase => $composableBuilder(
+    column: $table.previousQuantityBase,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get resultingQuantityBase => $composableBuilder(
+    column: $table.resultingQuantityBase,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get referenceType => $composableBuilder(
+    column: $table.referenceType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get referenceId => $composableBuilder(
+    column: $table.referenceId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get reason => $composableBuilder(
+    column: $table.reason,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get createdBy => $composableBuilder(
+    column: $table.createdBy,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$ProductsTableOrderingComposer get productId {
+    final $$ProductsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableOrderingComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$StockMovementsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $StockMovementsTable> {
+  $$StockMovementsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get movementType => $composableBuilder(
+    column: $table.movementType,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get quantityBase => $composableBuilder(
+    column: $table.quantityBase,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get previousQuantityBase => $composableBuilder(
+    column: $table.previousQuantityBase,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get resultingQuantityBase => $composableBuilder(
+    column: $table.resultingQuantityBase,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get referenceType => $composableBuilder(
+    column: $table.referenceType,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get referenceId => $composableBuilder(
+    column: $table.referenceId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get reason =>
+      $composableBuilder(column: $table.reason, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<String> get createdBy =>
+      $composableBuilder(column: $table.createdBy, builder: (column) => column);
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+
+  $$ProductsTableAnnotationComposer get productId {
+    final $$ProductsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$StockMovementsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $StockMovementsTable,
+          StockMovementRow,
+          $$StockMovementsTableFilterComposer,
+          $$StockMovementsTableOrderingComposer,
+          $$StockMovementsTableAnnotationComposer,
+          $$StockMovementsTableCreateCompanionBuilder,
+          $$StockMovementsTableUpdateCompanionBuilder,
+          (StockMovementRow, $$StockMovementsTableReferences),
+          StockMovementRow,
+          PrefetchHooks Function({bool productId})
+        > {
+  $$StockMovementsTableTableManager(
+    _$AppDatabase db,
+    $StockMovementsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$StockMovementsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$StockMovementsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$StockMovementsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> productId = const Value.absent(),
+                Value<String> movementType = const Value.absent(),
+                Value<int> quantityBase = const Value.absent(),
+                Value<int> previousQuantityBase = const Value.absent(),
+                Value<int> resultingQuantityBase = const Value.absent(),
+                Value<String?> referenceType = const Value.absent(),
+                Value<String?> referenceId = const Value.absent(),
+                Value<String?> reason = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<String?> createdBy = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => StockMovementsCompanion(
+                id: id,
+                productId: productId,
+                movementType: movementType,
+                quantityBase: quantityBase,
+                previousQuantityBase: previousQuantityBase,
+                resultingQuantityBase: resultingQuantityBase,
+                referenceType: referenceType,
+                referenceId: referenceId,
+                reason: reason,
+                notes: notes,
+                createdBy: createdBy,
+                createdAtMs: createdAtMs,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String productId,
+                required String movementType,
+                required int quantityBase,
+                required int previousQuantityBase,
+                required int resultingQuantityBase,
+                Value<String?> referenceType = const Value.absent(),
+                Value<String?> referenceId = const Value.absent(),
+                Value<String?> reason = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<String?> createdBy = const Value.absent(),
+                required int createdAtMs,
+                Value<int> rowid = const Value.absent(),
+              }) => StockMovementsCompanion.insert(
+                id: id,
+                productId: productId,
+                movementType: movementType,
+                quantityBase: quantityBase,
+                previousQuantityBase: previousQuantityBase,
+                resultingQuantityBase: resultingQuantityBase,
+                referenceType: referenceType,
+                referenceId: referenceId,
+                reason: reason,
+                notes: notes,
+                createdBy: createdBy,
+                createdAtMs: createdAtMs,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$StockMovementsTable, StockMovementRow>(table),
+                  $$StockMovementsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({productId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (productId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.productId,
+                        referencedTable: $$StockMovementsTableReferences
+                            ._productIdTable(db),
+                        referencedColumn: $$StockMovementsTableReferences
+                            ._productIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$StockMovementsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $StockMovementsTable,
+      StockMovementRow,
+      $$StockMovementsTableFilterComposer,
+      $$StockMovementsTableOrderingComposer,
+      $$StockMovementsTableAnnotationComposer,
+      $$StockMovementsTableCreateCompanionBuilder,
+      $$StockMovementsTableUpdateCompanionBuilder,
+      (StockMovementRow, $$StockMovementsTableReferences),
+      StockMovementRow,
+      PrefetchHooks Function({bool productId})
+    >;
+typedef $$SuppliersTableCreateCompanionBuilder = SuppliersCompanion Function({
+  required String id,
+  required String name,
+  required String normalizedName,
+  Value<String?> contactPerson,
+  Value<String?> phone,
+  Value<String?> email,
+  Value<String?> address,
+  Value<String?> taxRegistrationNumber,
+  Value<String?> notes,
+  Value<bool> isActive,
+  required int createdAtMs,
+  required int updatedAtMs,
+  Value<int?> archivedAtMs,
+  Value<int> rowid,
+});
+typedef $$SuppliersTableUpdateCompanionBuilder = SuppliersCompanion Function({
+  Value<String> id,
+  Value<String> name,
+  Value<String> normalizedName,
+  Value<String?> contactPerson,
+  Value<String?> phone,
+  Value<String?> email,
+  Value<String?> address,
+  Value<String?> taxRegistrationNumber,
+  Value<String?> notes,
+  Value<bool> isActive,
+  Value<int> createdAtMs,
+  Value<int> updatedAtMs,
+  Value<int?> archivedAtMs,
+  Value<int> rowid,
+});
+
+final class $$SuppliersTableReferences
+    extends BaseReferences<_$AppDatabase, $SuppliersTable, SupplierRow> {
+  $$SuppliersTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$PurchasesTable, List<PurchaseRow>>
+  _purchasesRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.purchases,
+    aliasName: 'suppliers__id__purchases__supplier_id',
+  );
+
+  $$PurchasesTableProcessedTableManager get purchasesRefs {
+    final manager = $$PurchasesTableTableManager(
+      $_db,
+      $_db.purchases,
+    ).filter((f) => f.supplierId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_purchasesRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<
+    $SupplierLedgerEntriesTable,
+    List<SupplierLedgerEntryRow>
+  >
+  _supplierLedgerEntriesRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.supplierLedgerEntries,
+        aliasName: 'suppliers__id__supplier_ledger_entries__supplier_id',
+      );
+
+  $$SupplierLedgerEntriesTableProcessedTableManager
+  get supplierLedgerEntriesRefs {
+    final manager = $$SupplierLedgerEntriesTableTableManager(
+      $_db,
+      $_db.supplierLedgerEntries,
+    ).filter((f) => f.supplierId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _supplierLedgerEntriesRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$PurchaseReturnsTable, List<PurchaseReturnRow>>
+  _purchaseReturnsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.purchaseReturns,
+    aliasName: 'suppliers__id__purchase_returns__supplier_id',
+  );
+
+  $$PurchaseReturnsTableProcessedTableManager get purchaseReturnsRefs {
+    final manager = $$PurchaseReturnsTableTableManager(
+      $_db,
+      $_db.purchaseReturns,
+    ).filter((f) => f.supplierId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _purchaseReturnsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$SuppliersTableFilterComposer
+    extends Composer<_$AppDatabase, $SuppliersTable> {
+  $$SuppliersTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get normalizedName => $composableBuilder(
+    column: $table.normalizedName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get contactPerson => $composableBuilder(
+    column: $table.contactPerson,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get phone => $composableBuilder(
+    column: $table.phone,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get email => $composableBuilder(
+    column: $table.email,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get address => $composableBuilder(
+    column: $table.address,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get taxRegistrationNumber => $composableBuilder(
+    column: $table.taxRegistrationNumber,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+    column: $table.isActive,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get archivedAtMs => $composableBuilder(
+    column: $table.archivedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  Expression<bool> purchasesRefs(
+    Expression<bool> Function($$PurchasesTableFilterComposer f) f,
+  ) {
+    final $$PurchasesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.purchases,
+      getReferencedColumn: (t) => t.supplierId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchasesTableFilterComposer(
+            $db: $db,
+            $table: $db.purchases,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> supplierLedgerEntriesRefs(
+    Expression<bool> Function($$SupplierLedgerEntriesTableFilterComposer f) f,
+  ) {
+    final $$SupplierLedgerEntriesTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.supplierLedgerEntries,
+          getReferencedColumn: (t) => t.supplierId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$SupplierLedgerEntriesTableFilterComposer(
+                $db: $db,
+                $table: $db.supplierLedgerEntries,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+
+  Expression<bool> purchaseReturnsRefs(
+    Expression<bool> Function($$PurchaseReturnsTableFilterComposer f) f,
+  ) {
+    final $$PurchaseReturnsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.purchaseReturns,
+      getReferencedColumn: (t) => t.supplierId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchaseReturnsTableFilterComposer(
+            $db: $db,
+            $table: $db.purchaseReturns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$SuppliersTableOrderingComposer
+    extends Composer<_$AppDatabase, $SuppliersTable> {
+  $$SuppliersTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get normalizedName => $composableBuilder(
+    column: $table.normalizedName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get contactPerson => $composableBuilder(
+    column: $table.contactPerson,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get phone => $composableBuilder(
+    column: $table.phone,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get email => $composableBuilder(
+    column: $table.email,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get address => $composableBuilder(
+    column: $table.address,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get taxRegistrationNumber => $composableBuilder(
+    column: $table.taxRegistrationNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+    column: $table.isActive,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get archivedAtMs => $composableBuilder(
+    column: $table.archivedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$SuppliersTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SuppliersTable> {
+  $$SuppliersTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get normalizedName => $composableBuilder(
+    column: $table.normalizedName,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get contactPerson => $composableBuilder(
+    column: $table.contactPerson,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get phone =>
+      $composableBuilder(column: $table.phone, builder: (column) => column);
+
+  GeneratedColumn<String> get email =>
+      $composableBuilder(column: $table.email, builder: (column) => column);
+
+  GeneratedColumn<String> get address =>
+      $composableBuilder(column: $table.address, builder: (column) => column);
+
+  GeneratedColumn<String> get taxRegistrationNumber => $composableBuilder(
+    column: $table.taxRegistrationNumber,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get archivedAtMs => $composableBuilder(
+    column: $table.archivedAtMs,
+    builder: (column) => column,
+  );
+
+  Expression<T> purchasesRefs<T extends Object>(
+    Expression<T> Function($$PurchasesTableAnnotationComposer a) f,
+  ) {
+    final $$PurchasesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.purchases,
+      getReferencedColumn: (t) => t.supplierId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchasesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.purchases,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> supplierLedgerEntriesRefs<T extends Object>(
+    Expression<T> Function($$SupplierLedgerEntriesTableAnnotationComposer a) f,
+  ) {
+    final $$SupplierLedgerEntriesTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.supplierLedgerEntries,
+          getReferencedColumn: (t) => t.supplierId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$SupplierLedgerEntriesTableAnnotationComposer(
+                $db: $db,
+                $table: $db.supplierLedgerEntries,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+
+  Expression<T> purchaseReturnsRefs<T extends Object>(
+    Expression<T> Function($$PurchaseReturnsTableAnnotationComposer a) f,
+  ) {
+    final $$PurchaseReturnsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.purchaseReturns,
+      getReferencedColumn: (t) => t.supplierId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchaseReturnsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.purchaseReturns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$SuppliersTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $SuppliersTable,
+          SupplierRow,
+          $$SuppliersTableFilterComposer,
+          $$SuppliersTableOrderingComposer,
+          $$SuppliersTableAnnotationComposer,
+          $$SuppliersTableCreateCompanionBuilder,
+          $$SuppliersTableUpdateCompanionBuilder,
+          (SupplierRow, $$SuppliersTableReferences),
+          SupplierRow,
+          PrefetchHooks Function({
+            bool purchasesRefs,
+            bool supplierLedgerEntriesRefs,
+            bool purchaseReturnsRefs,
+          })
+        > {
+  $$SuppliersTableTableManager(_$AppDatabase db, $SuppliersTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SuppliersTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SuppliersTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SuppliersTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<String> normalizedName = const Value.absent(),
+                Value<String?> contactPerson = const Value.absent(),
+                Value<String?> phone = const Value.absent(),
+                Value<String?> email = const Value.absent(),
+                Value<String?> address = const Value.absent(),
+                Value<String?> taxRegistrationNumber = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<bool> isActive = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int> updatedAtMs = const Value.absent(),
+                Value<int?> archivedAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SuppliersCompanion(
+                id: id,
+                name: name,
+                normalizedName: normalizedName,
+                contactPerson: contactPerson,
+                phone: phone,
+                email: email,
+                address: address,
+                taxRegistrationNumber: taxRegistrationNumber,
+                notes: notes,
+                isActive: isActive,
+                createdAtMs: createdAtMs,
+                updatedAtMs: updatedAtMs,
+                archivedAtMs: archivedAtMs,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String name,
+                required String normalizedName,
+                Value<String?> contactPerson = const Value.absent(),
+                Value<String?> phone = const Value.absent(),
+                Value<String?> email = const Value.absent(),
+                Value<String?> address = const Value.absent(),
+                Value<String?> taxRegistrationNumber = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<bool> isActive = const Value.absent(),
+                required int createdAtMs,
+                required int updatedAtMs,
+                Value<int?> archivedAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SuppliersCompanion.insert(
+                id: id,
+                name: name,
+                normalizedName: normalizedName,
+                contactPerson: contactPerson,
+                phone: phone,
+                email: email,
+                address: address,
+                taxRegistrationNumber: taxRegistrationNumber,
+                notes: notes,
+                isActive: isActive,
+                createdAtMs: createdAtMs,
+                updatedAtMs: updatedAtMs,
+                archivedAtMs: archivedAtMs,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$SuppliersTable, SupplierRow>(table),
+                  $$SuppliersTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({
+                purchasesRefs = false,
+                supplierLedgerEntriesRefs = false,
+                purchaseReturnsRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (purchasesRefs) db.purchases,
+                    if (supplierLedgerEntriesRefs) db.supplierLedgerEntries,
+                    if (purchaseReturnsRefs) db.purchaseReturns,
+                  ],
+                  addJoins: null,
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (purchasesRefs)
+                        await $_getPrefetchedDataByColumns<
+                          SupplierRow,
+                          $SuppliersTable,
+                          PurchaseRow,
+                          $PurchasesTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$SuppliersTableReferences
+                              ._purchasesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$SuppliersTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).purchasesRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'supplier_id',
+                          typedResults: items,
+                        ),
+                      if (supplierLedgerEntriesRefs)
+                        await $_getPrefetchedDataByColumns<
+                          SupplierRow,
+                          $SuppliersTable,
+                          SupplierLedgerEntryRow,
+                          $SupplierLedgerEntriesTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$SuppliersTableReferences
+                              ._supplierLedgerEntriesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$SuppliersTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).supplierLedgerEntriesRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'supplier_id',
+                          typedResults: items,
+                        ),
+                      if (purchaseReturnsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          SupplierRow,
+                          $SuppliersTable,
+                          PurchaseReturnRow,
+                          $PurchaseReturnsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$SuppliersTableReferences
+                              ._purchaseReturnsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$SuppliersTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).purchaseReturnsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'supplier_id',
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$SuppliersTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $SuppliersTable,
+      SupplierRow,
+      $$SuppliersTableFilterComposer,
+      $$SuppliersTableOrderingComposer,
+      $$SuppliersTableAnnotationComposer,
+      $$SuppliersTableCreateCompanionBuilder,
+      $$SuppliersTableUpdateCompanionBuilder,
+      (SupplierRow, $$SuppliersTableReferences),
+      SupplierRow,
+      PrefetchHooks Function({
+        bool purchasesRefs,
+        bool supplierLedgerEntriesRefs,
+        bool purchaseReturnsRefs,
+      })
+    >;
+typedef $$DocumentSequencesTableCreateCompanionBuilder =
+    DocumentSequencesCompanion Function({
+      required String sequenceKey,
+      required int nextNumber,
+      Value<int> rowid,
+    });
+typedef $$DocumentSequencesTableUpdateCompanionBuilder =
+    DocumentSequencesCompanion Function({
+      Value<String> sequenceKey,
+      Value<int> nextNumber,
+      Value<int> rowid,
+    });
+
+class $$DocumentSequencesTableFilterComposer
+    extends Composer<_$AppDatabase, $DocumentSequencesTable> {
+  $$DocumentSequencesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get sequenceKey => $composableBuilder(
+    column: $table.sequenceKey,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get nextNumber => $composableBuilder(
+    column: $table.nextNumber,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$DocumentSequencesTableOrderingComposer
+    extends Composer<_$AppDatabase, $DocumentSequencesTable> {
+  $$DocumentSequencesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get sequenceKey => $composableBuilder(
+    column: $table.sequenceKey,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get nextNumber => $composableBuilder(
+    column: $table.nextNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$DocumentSequencesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $DocumentSequencesTable> {
+  $$DocumentSequencesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get sequenceKey => $composableBuilder(
+    column: $table.sequenceKey,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get nextNumber => $composableBuilder(
+    column: $table.nextNumber,
+    builder: (column) => column,
+  );
+}
+
+class $$DocumentSequencesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $DocumentSequencesTable,
+          DocumentSequenceRow,
+          $$DocumentSequencesTableFilterComposer,
+          $$DocumentSequencesTableOrderingComposer,
+          $$DocumentSequencesTableAnnotationComposer,
+          $$DocumentSequencesTableCreateCompanionBuilder,
+          $$DocumentSequencesTableUpdateCompanionBuilder,
+          (
+            DocumentSequenceRow,
+            BaseReferences<
+              _$AppDatabase,
+              $DocumentSequencesTable,
+              DocumentSequenceRow
+            >,
+          ),
+          DocumentSequenceRow,
+          PrefetchHooks Function()
+        > {
+  $$DocumentSequencesTableTableManager(
+    _$AppDatabase db,
+    $DocumentSequencesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$DocumentSequencesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$DocumentSequencesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$DocumentSequencesTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> sequenceKey = const Value.absent(),
+                Value<int> nextNumber = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => DocumentSequencesCompanion(
+                sequenceKey: sequenceKey,
+                nextNumber: nextNumber,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String sequenceKey,
+                required int nextNumber,
+                Value<int> rowid = const Value.absent(),
+              }) => DocumentSequencesCompanion.insert(
+                sequenceKey: sequenceKey,
+                nextNumber: nextNumber,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$DocumentSequencesTable, DocumentSequenceRow>(
+                    table,
+                  ),
+                  BaseReferences<
+                    _$AppDatabase,
+                    $DocumentSequencesTable,
+                    DocumentSequenceRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$DocumentSequencesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $DocumentSequencesTable,
+      DocumentSequenceRow,
+      $$DocumentSequencesTableFilterComposer,
+      $$DocumentSequencesTableOrderingComposer,
+      $$DocumentSequencesTableAnnotationComposer,
+      $$DocumentSequencesTableCreateCompanionBuilder,
+      $$DocumentSequencesTableUpdateCompanionBuilder,
+      (
+        DocumentSequenceRow,
+        BaseReferences<
+          _$AppDatabase,
+          $DocumentSequencesTable,
+          DocumentSequenceRow
+        >,
+      ),
+      DocumentSequenceRow,
+      PrefetchHooks Function()
+    >;
+typedef $$PurchasesTableCreateCompanionBuilder = PurchasesCompanion Function({
+  required String id,
+  required String purchaseNumber,
+  Value<String?> supplierId,
+  required String supplierNameSnapshot,
+  Value<String?> supplierInvoiceNumber,
+  required String status,
+  required int subtotalMinor,
+  required int discountMinor,
+  required int taxMinor,
+  required int additionalChargesMinor,
+  required int totalMinor,
+  Value<int> amountPaidMinor,
+  required int amountDueMinor,
+  required String paymentStatus,
+  Value<String?> notes,
+  required int purchaseDateMs,
+  required int createdAtMs,
+  required int updatedAtMs,
+  Value<int?> receivedAtMs,
+  Value<int?> cancelledAtMs,
+  Value<String?> receiveIdempotencyKey,
+  Value<int> rowid,
+});
+typedef $$PurchasesTableUpdateCompanionBuilder = PurchasesCompanion Function({
+  Value<String> id,
+  Value<String> purchaseNumber,
+  Value<String?> supplierId,
+  Value<String> supplierNameSnapshot,
+  Value<String?> supplierInvoiceNumber,
+  Value<String> status,
+  Value<int> subtotalMinor,
+  Value<int> discountMinor,
+  Value<int> taxMinor,
+  Value<int> additionalChargesMinor,
+  Value<int> totalMinor,
+  Value<int> amountPaidMinor,
+  Value<int> amountDueMinor,
+  Value<String> paymentStatus,
+  Value<String?> notes,
+  Value<int> purchaseDateMs,
+  Value<int> createdAtMs,
+  Value<int> updatedAtMs,
+  Value<int?> receivedAtMs,
+  Value<int?> cancelledAtMs,
+  Value<String?> receiveIdempotencyKey,
+  Value<int> rowid,
+});
+
+final class $$PurchasesTableReferences
+    extends BaseReferences<_$AppDatabase, $PurchasesTable, PurchaseRow> {
+  $$PurchasesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $SuppliersTable _supplierIdTable(_$AppDatabase db) =>
+      db.suppliers.createAlias('purchases__supplier_id__suppliers__id');
+
+  $$SuppliersTableProcessedTableManager? get supplierId {
+    final $_column = $_itemColumn<String>('supplier_id');
+    if ($_column == null) return null;
+    final manager = $$SuppliersTableTableManager(
+      $_db,
+      $_db.suppliers,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_supplierIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$PurchaseItemsTable, List<PurchaseItemRow>>
+  _purchaseItemsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.purchaseItems,
+    aliasName: 'purchases__id__purchase_items__purchase_id',
+  );
+
+  $$PurchaseItemsTableProcessedTableManager get purchaseItemsRefs {
+    final manager = $$PurchaseItemsTableTableManager(
+      $_db,
+      $_db.purchaseItems,
+    ).filter((f) => f.purchaseId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_purchaseItemsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$PurchasePaymentsTable, List<PurchasePaymentRow>>
+  _purchasePaymentsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.purchasePayments,
+    aliasName: 'purchases__id__purchase_payments__purchase_id',
+  );
+
+  $$PurchasePaymentsTableProcessedTableManager get purchasePaymentsRefs {
+    final manager = $$PurchasePaymentsTableTableManager(
+      $_db,
+      $_db.purchasePayments,
+    ).filter((f) => f.purchaseId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _purchasePaymentsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$PurchaseReturnsTable, List<PurchaseReturnRow>>
+  _purchaseReturnsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.purchaseReturns,
+    aliasName: 'purchases__id__purchase_returns__purchase_id',
+  );
+
+  $$PurchaseReturnsTableProcessedTableManager get purchaseReturnsRefs {
+    final manager = $$PurchaseReturnsTableTableManager(
+      $_db,
+      $_db.purchaseReturns,
+    ).filter((f) => f.purchaseId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _purchaseReturnsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$PurchasesTableFilterComposer
+    extends Composer<_$AppDatabase, $PurchasesTable> {
+  $$PurchasesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get purchaseNumber => $composableBuilder(
+    column: $table.purchaseNumber,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get supplierNameSnapshot => $composableBuilder(
+    column: $table.supplierNameSnapshot,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get supplierInvoiceNumber => $composableBuilder(
+    column: $table.supplierInvoiceNumber,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get subtotalMinor => $composableBuilder(
+    column: $table.subtotalMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get discountMinor => $composableBuilder(
+    column: $table.discountMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get taxMinor => $composableBuilder(
+    column: $table.taxMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get additionalChargesMinor => $composableBuilder(
+    column: $table.additionalChargesMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get totalMinor => $composableBuilder(
+    column: $table.totalMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get amountPaidMinor => $composableBuilder(
+    column: $table.amountPaidMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get amountDueMinor => $composableBuilder(
+    column: $table.amountDueMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get paymentStatus => $composableBuilder(
+    column: $table.paymentStatus,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get purchaseDateMs => $composableBuilder(
+    column: $table.purchaseDateMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get receivedAtMs => $composableBuilder(
+    column: $table.receivedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get cancelledAtMs => $composableBuilder(
+    column: $table.cancelledAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get receiveIdempotencyKey => $composableBuilder(
+    column: $table.receiveIdempotencyKey,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$SuppliersTableFilterComposer get supplierId {
+    final $$SuppliersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.supplierId,
+      referencedTable: $db.suppliers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SuppliersTableFilterComposer(
+            $db: $db,
+            $table: $db.suppliers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> purchaseItemsRefs(
+    Expression<bool> Function($$PurchaseItemsTableFilterComposer f) f,
+  ) {
+    final $$PurchaseItemsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.purchaseItems,
+      getReferencedColumn: (t) => t.purchaseId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchaseItemsTableFilterComposer(
+            $db: $db,
+            $table: $db.purchaseItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> purchasePaymentsRefs(
+    Expression<bool> Function($$PurchasePaymentsTableFilterComposer f) f,
+  ) {
+    final $$PurchasePaymentsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.purchasePayments,
+      getReferencedColumn: (t) => t.purchaseId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchasePaymentsTableFilterComposer(
+            $db: $db,
+            $table: $db.purchasePayments,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> purchaseReturnsRefs(
+    Expression<bool> Function($$PurchaseReturnsTableFilterComposer f) f,
+  ) {
+    final $$PurchaseReturnsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.purchaseReturns,
+      getReferencedColumn: (t) => t.purchaseId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchaseReturnsTableFilterComposer(
+            $db: $db,
+            $table: $db.purchaseReturns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$PurchasesTableOrderingComposer
+    extends Composer<_$AppDatabase, $PurchasesTable> {
+  $$PurchasesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get purchaseNumber => $composableBuilder(
+    column: $table.purchaseNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get supplierNameSnapshot => $composableBuilder(
+    column: $table.supplierNameSnapshot,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get supplierInvoiceNumber => $composableBuilder(
+    column: $table.supplierInvoiceNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get subtotalMinor => $composableBuilder(
+    column: $table.subtotalMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get discountMinor => $composableBuilder(
+    column: $table.discountMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get taxMinor => $composableBuilder(
+    column: $table.taxMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get additionalChargesMinor => $composableBuilder(
+    column: $table.additionalChargesMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get totalMinor => $composableBuilder(
+    column: $table.totalMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get amountPaidMinor => $composableBuilder(
+    column: $table.amountPaidMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get amountDueMinor => $composableBuilder(
+    column: $table.amountDueMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get paymentStatus => $composableBuilder(
+    column: $table.paymentStatus,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get purchaseDateMs => $composableBuilder(
+    column: $table.purchaseDateMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get receivedAtMs => $composableBuilder(
+    column: $table.receivedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get cancelledAtMs => $composableBuilder(
+    column: $table.cancelledAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get receiveIdempotencyKey => $composableBuilder(
+    column: $table.receiveIdempotencyKey,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$SuppliersTableOrderingComposer get supplierId {
+    final $$SuppliersTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.supplierId,
+      referencedTable: $db.suppliers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SuppliersTableOrderingComposer(
+            $db: $db,
+            $table: $db.suppliers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PurchasesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PurchasesTable> {
+  $$PurchasesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get purchaseNumber => $composableBuilder(
+    column: $table.purchaseNumber,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get supplierNameSnapshot => $composableBuilder(
+    column: $table.supplierNameSnapshot,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get supplierInvoiceNumber => $composableBuilder(
+    column: $table.supplierInvoiceNumber,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<int> get subtotalMinor => $composableBuilder(
+    column: $table.subtotalMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get discountMinor => $composableBuilder(
+    column: $table.discountMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get taxMinor =>
+      $composableBuilder(column: $table.taxMinor, builder: (column) => column);
+
+  GeneratedColumn<int> get additionalChargesMinor => $composableBuilder(
+    column: $table.additionalChargesMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get totalMinor => $composableBuilder(
+    column: $table.totalMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get amountPaidMinor => $composableBuilder(
+    column: $table.amountPaidMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get amountDueMinor => $composableBuilder(
+    column: $table.amountDueMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get paymentStatus => $composableBuilder(
+    column: $table.paymentStatus,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<int> get purchaseDateMs => $composableBuilder(
+    column: $table.purchaseDateMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get receivedAtMs => $composableBuilder(
+    column: $table.receivedAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get cancelledAtMs => $composableBuilder(
+    column: $table.cancelledAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get receiveIdempotencyKey => $composableBuilder(
+    column: $table.receiveIdempotencyKey,
+    builder: (column) => column,
+  );
+
+  $$SuppliersTableAnnotationComposer get supplierId {
+    final $$SuppliersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.supplierId,
+      referencedTable: $db.suppliers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SuppliersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.suppliers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> purchaseItemsRefs<T extends Object>(
+    Expression<T> Function($$PurchaseItemsTableAnnotationComposer a) f,
+  ) {
+    final $$PurchaseItemsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.purchaseItems,
+      getReferencedColumn: (t) => t.purchaseId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchaseItemsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.purchaseItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> purchasePaymentsRefs<T extends Object>(
+    Expression<T> Function($$PurchasePaymentsTableAnnotationComposer a) f,
+  ) {
+    final $$PurchasePaymentsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.purchasePayments,
+      getReferencedColumn: (t) => t.purchaseId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchasePaymentsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.purchasePayments,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> purchaseReturnsRefs<T extends Object>(
+    Expression<T> Function($$PurchaseReturnsTableAnnotationComposer a) f,
+  ) {
+    final $$PurchaseReturnsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.purchaseReturns,
+      getReferencedColumn: (t) => t.purchaseId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchaseReturnsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.purchaseReturns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$PurchasesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $PurchasesTable,
+          PurchaseRow,
+          $$PurchasesTableFilterComposer,
+          $$PurchasesTableOrderingComposer,
+          $$PurchasesTableAnnotationComposer,
+          $$PurchasesTableCreateCompanionBuilder,
+          $$PurchasesTableUpdateCompanionBuilder,
+          (PurchaseRow, $$PurchasesTableReferences),
+          PurchaseRow,
+          PrefetchHooks Function({
+            bool supplierId,
+            bool purchaseItemsRefs,
+            bool purchasePaymentsRefs,
+            bool purchaseReturnsRefs,
+          })
+        > {
+  $$PurchasesTableTableManager(_$AppDatabase db, $PurchasesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PurchasesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PurchasesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PurchasesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> purchaseNumber = const Value.absent(),
+                Value<String?> supplierId = const Value.absent(),
+                Value<String> supplierNameSnapshot = const Value.absent(),
+                Value<String?> supplierInvoiceNumber = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<int> subtotalMinor = const Value.absent(),
+                Value<int> discountMinor = const Value.absent(),
+                Value<int> taxMinor = const Value.absent(),
+                Value<int> additionalChargesMinor = const Value.absent(),
+                Value<int> totalMinor = const Value.absent(),
+                Value<int> amountPaidMinor = const Value.absent(),
+                Value<int> amountDueMinor = const Value.absent(),
+                Value<String> paymentStatus = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<int> purchaseDateMs = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int> updatedAtMs = const Value.absent(),
+                Value<int?> receivedAtMs = const Value.absent(),
+                Value<int?> cancelledAtMs = const Value.absent(),
+                Value<String?> receiveIdempotencyKey = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PurchasesCompanion(
+                id: id,
+                purchaseNumber: purchaseNumber,
+                supplierId: supplierId,
+                supplierNameSnapshot: supplierNameSnapshot,
+                supplierInvoiceNumber: supplierInvoiceNumber,
+                status: status,
+                subtotalMinor: subtotalMinor,
+                discountMinor: discountMinor,
+                taxMinor: taxMinor,
+                additionalChargesMinor: additionalChargesMinor,
+                totalMinor: totalMinor,
+                amountPaidMinor: amountPaidMinor,
+                amountDueMinor: amountDueMinor,
+                paymentStatus: paymentStatus,
+                notes: notes,
+                purchaseDateMs: purchaseDateMs,
+                createdAtMs: createdAtMs,
+                updatedAtMs: updatedAtMs,
+                receivedAtMs: receivedAtMs,
+                cancelledAtMs: cancelledAtMs,
+                receiveIdempotencyKey: receiveIdempotencyKey,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String purchaseNumber,
+                Value<String?> supplierId = const Value.absent(),
+                required String supplierNameSnapshot,
+                Value<String?> supplierInvoiceNumber = const Value.absent(),
+                required String status,
+                required int subtotalMinor,
+                required int discountMinor,
+                required int taxMinor,
+                required int additionalChargesMinor,
+                required int totalMinor,
+                Value<int> amountPaidMinor = const Value.absent(),
+                required int amountDueMinor,
+                required String paymentStatus,
+                Value<String?> notes = const Value.absent(),
+                required int purchaseDateMs,
+                required int createdAtMs,
+                required int updatedAtMs,
+                Value<int?> receivedAtMs = const Value.absent(),
+                Value<int?> cancelledAtMs = const Value.absent(),
+                Value<String?> receiveIdempotencyKey = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PurchasesCompanion.insert(
+                id: id,
+                purchaseNumber: purchaseNumber,
+                supplierId: supplierId,
+                supplierNameSnapshot: supplierNameSnapshot,
+                supplierInvoiceNumber: supplierInvoiceNumber,
+                status: status,
+                subtotalMinor: subtotalMinor,
+                discountMinor: discountMinor,
+                taxMinor: taxMinor,
+                additionalChargesMinor: additionalChargesMinor,
+                totalMinor: totalMinor,
+                amountPaidMinor: amountPaidMinor,
+                amountDueMinor: amountDueMinor,
+                paymentStatus: paymentStatus,
+                notes: notes,
+                purchaseDateMs: purchaseDateMs,
+                createdAtMs: createdAtMs,
+                updatedAtMs: updatedAtMs,
+                receivedAtMs: receivedAtMs,
+                cancelledAtMs: cancelledAtMs,
+                receiveIdempotencyKey: receiveIdempotencyKey,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$PurchasesTable, PurchaseRow>(table),
+                  $$PurchasesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({
+                supplierId = false,
+                purchaseItemsRefs = false,
+                purchasePaymentsRefs = false,
+                purchaseReturnsRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (purchaseItemsRefs) db.purchaseItems,
+                    if (purchasePaymentsRefs) db.purchasePayments,
+                    if (purchaseReturnsRefs) db.purchaseReturns,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (supplierId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.supplierId,
+                            referencedTable: $$PurchasesTableReferences
+                                ._supplierIdTable(db),
+                            referencedColumn: $$PurchasesTableReferences
+                                ._supplierIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (purchaseItemsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          PurchaseRow,
+                          $PurchasesTable,
+                          PurchaseItemRow,
+                          $PurchaseItemsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$PurchasesTableReferences
+                              ._purchaseItemsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$PurchasesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).purchaseItemsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'purchase_id',
+                          typedResults: items,
+                        ),
+                      if (purchasePaymentsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          PurchaseRow,
+                          $PurchasesTable,
+                          PurchasePaymentRow,
+                          $PurchasePaymentsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$PurchasesTableReferences
+                              ._purchasePaymentsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$PurchasesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).purchasePaymentsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'purchase_id',
+                          typedResults: items,
+                        ),
+                      if (purchaseReturnsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          PurchaseRow,
+                          $PurchasesTable,
+                          PurchaseReturnRow,
+                          $PurchaseReturnsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$PurchasesTableReferences
+                              ._purchaseReturnsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$PurchasesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).purchaseReturnsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'purchase_id',
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$PurchasesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $PurchasesTable,
+      PurchaseRow,
+      $$PurchasesTableFilterComposer,
+      $$PurchasesTableOrderingComposer,
+      $$PurchasesTableAnnotationComposer,
+      $$PurchasesTableCreateCompanionBuilder,
+      $$PurchasesTableUpdateCompanionBuilder,
+      (PurchaseRow, $$PurchasesTableReferences),
+      PurchaseRow,
+      PrefetchHooks Function({
+        bool supplierId,
+        bool purchaseItemsRefs,
+        bool purchasePaymentsRefs,
+        bool purchaseReturnsRefs,
+      })
+    >;
+typedef $$PurchaseItemsTableCreateCompanionBuilder =
+    PurchaseItemsCompanion Function({
+      required String id,
+      required String purchaseId,
+      required String productId,
+      required String productNameSnapshot,
+      Value<String?> skuSnapshot,
+      required String unitSnapshot,
+      required int quantityBase,
+      Value<int> quantityReceivedBase,
+      Value<int> quantityReturnedBase,
+      required int unitCostMinor,
+      Value<int> discountMinor,
+      Value<int> taxMinor,
+      required int lineTotalMinor,
+      required int createdAtMs,
+      Value<int> rowid,
+    });
+typedef $$PurchaseItemsTableUpdateCompanionBuilder =
+    PurchaseItemsCompanion Function({
+      Value<String> id,
+      Value<String> purchaseId,
+      Value<String> productId,
+      Value<String> productNameSnapshot,
+      Value<String?> skuSnapshot,
+      Value<String> unitSnapshot,
+      Value<int> quantityBase,
+      Value<int> quantityReceivedBase,
+      Value<int> quantityReturnedBase,
+      Value<int> unitCostMinor,
+      Value<int> discountMinor,
+      Value<int> taxMinor,
+      Value<int> lineTotalMinor,
+      Value<int> createdAtMs,
+      Value<int> rowid,
+    });
+
+final class $$PurchaseItemsTableReferences
+    extends
+        BaseReferences<_$AppDatabase, $PurchaseItemsTable, PurchaseItemRow> {
+  $$PurchaseItemsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $PurchasesTable _purchaseIdTable(_$AppDatabase db) =>
+      db.purchases.createAlias('purchase_items__purchase_id__purchases__id');
+
+  $$PurchasesTableProcessedTableManager get purchaseId {
+    final $_column = $_itemColumn<String>('purchase_id')!;
+
+    final manager = $$PurchasesTableTableManager(
+      $_db,
+      $_db.purchases,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_purchaseIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $ProductsTable _productIdTable(_$AppDatabase db) =>
+      db.products.createAlias('purchase_items__product_id__products__id');
+
+  $$ProductsTableProcessedTableManager get productId {
+    final $_column = $_itemColumn<String>('product_id')!;
+
+    final manager = $$ProductsTableTableManager(
+      $_db,
+      $_db.products,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_productIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<
+    $PurchaseReturnItemsTable,
+    List<PurchaseReturnItemRow>
+  >
+  _purchaseReturnItemsRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.purchaseReturnItems,
+        aliasName:
+            'purchase_items__id__purchase_return_items__purchase_item_id',
+      );
+
+  $$PurchaseReturnItemsTableProcessedTableManager get purchaseReturnItemsRefs {
+    final manager = $$PurchaseReturnItemsTableTableManager(
+      $_db,
+      $_db.purchaseReturnItems,
+    ).filter((f) => f.purchaseItemId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _purchaseReturnItemsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$PurchaseItemsTableFilterComposer
+    extends Composer<_$AppDatabase, $PurchaseItemsTable> {
+  $$PurchaseItemsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get productNameSnapshot => $composableBuilder(
+    column: $table.productNameSnapshot,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get skuSnapshot => $composableBuilder(
+    column: $table.skuSnapshot,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get unitSnapshot => $composableBuilder(
+    column: $table.unitSnapshot,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get quantityBase => $composableBuilder(
+    column: $table.quantityBase,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get quantityReceivedBase => $composableBuilder(
+    column: $table.quantityReceivedBase,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get quantityReturnedBase => $composableBuilder(
+    column: $table.quantityReturnedBase,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get unitCostMinor => $composableBuilder(
+    column: $table.unitCostMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get discountMinor => $composableBuilder(
+    column: $table.discountMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get taxMinor => $composableBuilder(
+    column: $table.taxMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get lineTotalMinor => $composableBuilder(
+    column: $table.lineTotalMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$PurchasesTableFilterComposer get purchaseId {
+    final $$PurchasesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.purchaseId,
+      referencedTable: $db.purchases,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchasesTableFilterComposer(
+            $db: $db,
+            $table: $db.purchases,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductsTableFilterComposer get productId {
+    final $$ProductsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableFilterComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> purchaseReturnItemsRefs(
+    Expression<bool> Function($$PurchaseReturnItemsTableFilterComposer f) f,
+  ) {
+    final $$PurchaseReturnItemsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.purchaseReturnItems,
+      getReferencedColumn: (t) => t.purchaseItemId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchaseReturnItemsTableFilterComposer(
+            $db: $db,
+            $table: $db.purchaseReturnItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$PurchaseItemsTableOrderingComposer
+    extends Composer<_$AppDatabase, $PurchaseItemsTable> {
+  $$PurchaseItemsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get productNameSnapshot => $composableBuilder(
+    column: $table.productNameSnapshot,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get skuSnapshot => $composableBuilder(
+    column: $table.skuSnapshot,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get unitSnapshot => $composableBuilder(
+    column: $table.unitSnapshot,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get quantityBase => $composableBuilder(
+    column: $table.quantityBase,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get quantityReceivedBase => $composableBuilder(
+    column: $table.quantityReceivedBase,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get quantityReturnedBase => $composableBuilder(
+    column: $table.quantityReturnedBase,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get unitCostMinor => $composableBuilder(
+    column: $table.unitCostMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get discountMinor => $composableBuilder(
+    column: $table.discountMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get taxMinor => $composableBuilder(
+    column: $table.taxMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get lineTotalMinor => $composableBuilder(
+    column: $table.lineTotalMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$PurchasesTableOrderingComposer get purchaseId {
+    final $$PurchasesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.purchaseId,
+      referencedTable: $db.purchases,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchasesTableOrderingComposer(
+            $db: $db,
+            $table: $db.purchases,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductsTableOrderingComposer get productId {
+    final $$ProductsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableOrderingComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PurchaseItemsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PurchaseItemsTable> {
+  $$PurchaseItemsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get productNameSnapshot => $composableBuilder(
+    column: $table.productNameSnapshot,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get skuSnapshot => $composableBuilder(
+    column: $table.skuSnapshot,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get unitSnapshot => $composableBuilder(
+    column: $table.unitSnapshot,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get quantityBase => $composableBuilder(
+    column: $table.quantityBase,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get quantityReceivedBase => $composableBuilder(
+    column: $table.quantityReceivedBase,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get quantityReturnedBase => $composableBuilder(
+    column: $table.quantityReturnedBase,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get unitCostMinor => $composableBuilder(
+    column: $table.unitCostMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get discountMinor => $composableBuilder(
+    column: $table.discountMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get taxMinor =>
+      $composableBuilder(column: $table.taxMinor, builder: (column) => column);
+
+  GeneratedColumn<int> get lineTotalMinor => $composableBuilder(
+    column: $table.lineTotalMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+
+  $$PurchasesTableAnnotationComposer get purchaseId {
+    final $$PurchasesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.purchaseId,
+      referencedTable: $db.purchases,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchasesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.purchases,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductsTableAnnotationComposer get productId {
+    final $$ProductsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> purchaseReturnItemsRefs<T extends Object>(
+    Expression<T> Function($$PurchaseReturnItemsTableAnnotationComposer a) f,
+  ) {
+    final $$PurchaseReturnItemsTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.purchaseReturnItems,
+          getReferencedColumn: (t) => t.purchaseItemId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$PurchaseReturnItemsTableAnnotationComposer(
+                $db: $db,
+                $table: $db.purchaseReturnItems,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+}
+
+class $$PurchaseItemsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $PurchaseItemsTable,
+          PurchaseItemRow,
+          $$PurchaseItemsTableFilterComposer,
+          $$PurchaseItemsTableOrderingComposer,
+          $$PurchaseItemsTableAnnotationComposer,
+          $$PurchaseItemsTableCreateCompanionBuilder,
+          $$PurchaseItemsTableUpdateCompanionBuilder,
+          (PurchaseItemRow, $$PurchaseItemsTableReferences),
+          PurchaseItemRow,
+          PrefetchHooks Function({
+            bool purchaseId,
+            bool productId,
+            bool purchaseReturnItemsRefs,
+          })
+        > {
+  $$PurchaseItemsTableTableManager(_$AppDatabase db, $PurchaseItemsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PurchaseItemsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PurchaseItemsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PurchaseItemsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> purchaseId = const Value.absent(),
+                Value<String> productId = const Value.absent(),
+                Value<String> productNameSnapshot = const Value.absent(),
+                Value<String?> skuSnapshot = const Value.absent(),
+                Value<String> unitSnapshot = const Value.absent(),
+                Value<int> quantityBase = const Value.absent(),
+                Value<int> quantityReceivedBase = const Value.absent(),
+                Value<int> quantityReturnedBase = const Value.absent(),
+                Value<int> unitCostMinor = const Value.absent(),
+                Value<int> discountMinor = const Value.absent(),
+                Value<int> taxMinor = const Value.absent(),
+                Value<int> lineTotalMinor = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PurchaseItemsCompanion(
+                id: id,
+                purchaseId: purchaseId,
+                productId: productId,
+                productNameSnapshot: productNameSnapshot,
+                skuSnapshot: skuSnapshot,
+                unitSnapshot: unitSnapshot,
+                quantityBase: quantityBase,
+                quantityReceivedBase: quantityReceivedBase,
+                quantityReturnedBase: quantityReturnedBase,
+                unitCostMinor: unitCostMinor,
+                discountMinor: discountMinor,
+                taxMinor: taxMinor,
+                lineTotalMinor: lineTotalMinor,
+                createdAtMs: createdAtMs,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String purchaseId,
+                required String productId,
+                required String productNameSnapshot,
+                Value<String?> skuSnapshot = const Value.absent(),
+                required String unitSnapshot,
+                required int quantityBase,
+                Value<int> quantityReceivedBase = const Value.absent(),
+                Value<int> quantityReturnedBase = const Value.absent(),
+                required int unitCostMinor,
+                Value<int> discountMinor = const Value.absent(),
+                Value<int> taxMinor = const Value.absent(),
+                required int lineTotalMinor,
+                required int createdAtMs,
+                Value<int> rowid = const Value.absent(),
+              }) => PurchaseItemsCompanion.insert(
+                id: id,
+                purchaseId: purchaseId,
+                productId: productId,
+                productNameSnapshot: productNameSnapshot,
+                skuSnapshot: skuSnapshot,
+                unitSnapshot: unitSnapshot,
+                quantityBase: quantityBase,
+                quantityReceivedBase: quantityReceivedBase,
+                quantityReturnedBase: quantityReturnedBase,
+                unitCostMinor: unitCostMinor,
+                discountMinor: discountMinor,
+                taxMinor: taxMinor,
+                lineTotalMinor: lineTotalMinor,
+                createdAtMs: createdAtMs,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$PurchaseItemsTable, PurchaseItemRow>(table),
+                  $$PurchaseItemsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({
+                purchaseId = false,
+                productId = false,
+                purchaseReturnItemsRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (purchaseReturnItemsRefs) db.purchaseReturnItems,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (purchaseId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.purchaseId,
+                            referencedTable: $$PurchaseItemsTableReferences
+                                ._purchaseIdTable(db),
+                            referencedColumn: $$PurchaseItemsTableReferences
+                                ._purchaseIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+                        if (productId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.productId,
+                            referencedTable: $$PurchaseItemsTableReferences
+                                ._productIdTable(db),
+                            referencedColumn: $$PurchaseItemsTableReferences
+                                ._productIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (purchaseReturnItemsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          PurchaseItemRow,
+                          $PurchaseItemsTable,
+                          PurchaseReturnItemRow,
+                          $PurchaseReturnItemsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$PurchaseItemsTableReferences
+                              ._purchaseReturnItemsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$PurchaseItemsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).purchaseReturnItemsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'purchase_item_id',
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$PurchaseItemsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $PurchaseItemsTable,
+      PurchaseItemRow,
+      $$PurchaseItemsTableFilterComposer,
+      $$PurchaseItemsTableOrderingComposer,
+      $$PurchaseItemsTableAnnotationComposer,
+      $$PurchaseItemsTableCreateCompanionBuilder,
+      $$PurchaseItemsTableUpdateCompanionBuilder,
+      (PurchaseItemRow, $$PurchaseItemsTableReferences),
+      PurchaseItemRow,
+      PrefetchHooks Function({
+        bool purchaseId,
+        bool productId,
+        bool purchaseReturnItemsRefs,
+      })
+    >;
+typedef $$PurchasePaymentsTableCreateCompanionBuilder =
+    PurchasePaymentsCompanion Function({
+      required String id,
+      required String purchaseId,
+      required String paymentMethod,
+      required int amountMinor,
+      Value<String?> referenceNumber,
+      Value<String?> notes,
+      required String idempotencyKey,
+      required int createdAtMs,
+      Value<int> rowid,
+    });
+typedef $$PurchasePaymentsTableUpdateCompanionBuilder =
+    PurchasePaymentsCompanion Function({
+      Value<String> id,
+      Value<String> purchaseId,
+      Value<String> paymentMethod,
+      Value<int> amountMinor,
+      Value<String?> referenceNumber,
+      Value<String?> notes,
+      Value<String> idempotencyKey,
+      Value<int> createdAtMs,
+      Value<int> rowid,
+    });
+
+final class $$PurchasePaymentsTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $PurchasePaymentsTable,
+          PurchasePaymentRow
+        > {
+  $$PurchasePaymentsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $PurchasesTable _purchaseIdTable(_$AppDatabase db) =>
+      db.purchases.createAlias('purchase_payments__purchase_id__purchases__id');
+
+  $$PurchasesTableProcessedTableManager get purchaseId {
+    final $_column = $_itemColumn<String>('purchase_id')!;
+
+    final manager = $$PurchasesTableTableManager(
+      $_db,
+      $_db.purchases,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_purchaseIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$PurchasePaymentsTableFilterComposer
+    extends Composer<_$AppDatabase, $PurchasePaymentsTable> {
+  $$PurchasePaymentsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get paymentMethod => $composableBuilder(
+    column: $table.paymentMethod,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get amountMinor => $composableBuilder(
+    column: $table.amountMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get referenceNumber => $composableBuilder(
+    column: $table.referenceNumber,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get idempotencyKey => $composableBuilder(
+    column: $table.idempotencyKey,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$PurchasesTableFilterComposer get purchaseId {
+    final $$PurchasesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.purchaseId,
+      referencedTable: $db.purchases,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchasesTableFilterComposer(
+            $db: $db,
+            $table: $db.purchases,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PurchasePaymentsTableOrderingComposer
+    extends Composer<_$AppDatabase, $PurchasePaymentsTable> {
+  $$PurchasePaymentsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get paymentMethod => $composableBuilder(
+    column: $table.paymentMethod,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get amountMinor => $composableBuilder(
+    column: $table.amountMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get referenceNumber => $composableBuilder(
+    column: $table.referenceNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get idempotencyKey => $composableBuilder(
+    column: $table.idempotencyKey,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$PurchasesTableOrderingComposer get purchaseId {
+    final $$PurchasesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.purchaseId,
+      referencedTable: $db.purchases,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchasesTableOrderingComposer(
+            $db: $db,
+            $table: $db.purchases,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PurchasePaymentsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PurchasePaymentsTable> {
+  $$PurchasePaymentsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get paymentMethod => $composableBuilder(
+    column: $table.paymentMethod,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get amountMinor => $composableBuilder(
+    column: $table.amountMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get referenceNumber => $composableBuilder(
+    column: $table.referenceNumber,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<String> get idempotencyKey => $composableBuilder(
+    column: $table.idempotencyKey,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+
+  $$PurchasesTableAnnotationComposer get purchaseId {
+    final $$PurchasesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.purchaseId,
+      referencedTable: $db.purchases,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchasesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.purchases,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PurchasePaymentsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $PurchasePaymentsTable,
+          PurchasePaymentRow,
+          $$PurchasePaymentsTableFilterComposer,
+          $$PurchasePaymentsTableOrderingComposer,
+          $$PurchasePaymentsTableAnnotationComposer,
+          $$PurchasePaymentsTableCreateCompanionBuilder,
+          $$PurchasePaymentsTableUpdateCompanionBuilder,
+          (PurchasePaymentRow, $$PurchasePaymentsTableReferences),
+          PurchasePaymentRow,
+          PrefetchHooks Function({bool purchaseId})
+        > {
+  $$PurchasePaymentsTableTableManager(
+    _$AppDatabase db,
+    $PurchasePaymentsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PurchasePaymentsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PurchasePaymentsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PurchasePaymentsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> purchaseId = const Value.absent(),
+                Value<String> paymentMethod = const Value.absent(),
+                Value<int> amountMinor = const Value.absent(),
+                Value<String?> referenceNumber = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<String> idempotencyKey = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PurchasePaymentsCompanion(
+                id: id,
+                purchaseId: purchaseId,
+                paymentMethod: paymentMethod,
+                amountMinor: amountMinor,
+                referenceNumber: referenceNumber,
+                notes: notes,
+                idempotencyKey: idempotencyKey,
+                createdAtMs: createdAtMs,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String purchaseId,
+                required String paymentMethod,
+                required int amountMinor,
+                Value<String?> referenceNumber = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                required String idempotencyKey,
+                required int createdAtMs,
+                Value<int> rowid = const Value.absent(),
+              }) => PurchasePaymentsCompanion.insert(
+                id: id,
+                purchaseId: purchaseId,
+                paymentMethod: paymentMethod,
+                amountMinor: amountMinor,
+                referenceNumber: referenceNumber,
+                notes: notes,
+                idempotencyKey: idempotencyKey,
+                createdAtMs: createdAtMs,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$PurchasePaymentsTable, PurchasePaymentRow>(
+                    table,
+                  ),
+                  $$PurchasePaymentsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({purchaseId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (purchaseId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.purchaseId,
+                        referencedTable: $$PurchasePaymentsTableReferences
+                            ._purchaseIdTable(db),
+                        referencedColumn: $$PurchasePaymentsTableReferences
+                            ._purchaseIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$PurchasePaymentsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $PurchasePaymentsTable,
+      PurchasePaymentRow,
+      $$PurchasePaymentsTableFilterComposer,
+      $$PurchasePaymentsTableOrderingComposer,
+      $$PurchasePaymentsTableAnnotationComposer,
+      $$PurchasePaymentsTableCreateCompanionBuilder,
+      $$PurchasePaymentsTableUpdateCompanionBuilder,
+      (PurchasePaymentRow, $$PurchasePaymentsTableReferences),
+      PurchasePaymentRow,
+      PrefetchHooks Function({bool purchaseId})
+    >;
+typedef $$SupplierLedgerEntriesTableCreateCompanionBuilder =
+    SupplierLedgerEntriesCompanion Function({
+      required String id,
+      required String supplierId,
+      required String entryType,
+      Value<int> debitMinor,
+      Value<int> creditMinor,
+      required String referenceType,
+      required String referenceId,
+      Value<String?> notes,
+      required int createdAtMs,
+      Value<int> rowid,
+    });
+typedef $$SupplierLedgerEntriesTableUpdateCompanionBuilder =
+    SupplierLedgerEntriesCompanion Function({
+      Value<String> id,
+      Value<String> supplierId,
+      Value<String> entryType,
+      Value<int> debitMinor,
+      Value<int> creditMinor,
+      Value<String> referenceType,
+      Value<String> referenceId,
+      Value<String?> notes,
+      Value<int> createdAtMs,
+      Value<int> rowid,
+    });
+
+final class $$SupplierLedgerEntriesTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $SupplierLedgerEntriesTable,
+          SupplierLedgerEntryRow
+        > {
+  $$SupplierLedgerEntriesTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $SuppliersTable _supplierIdTable(_$AppDatabase db) => db.suppliers
+      .createAlias('supplier_ledger_entries__supplier_id__suppliers__id');
+
+  $$SuppliersTableProcessedTableManager get supplierId {
+    final $_column = $_itemColumn<String>('supplier_id')!;
+
+    final manager = $$SuppliersTableTableManager(
+      $_db,
+      $_db.suppliers,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_supplierIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$SupplierLedgerEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $SupplierLedgerEntriesTable> {
+  $$SupplierLedgerEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get entryType => $composableBuilder(
+    column: $table.entryType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get debitMinor => $composableBuilder(
+    column: $table.debitMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get creditMinor => $composableBuilder(
+    column: $table.creditMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get referenceType => $composableBuilder(
+    column: $table.referenceType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get referenceId => $composableBuilder(
+    column: $table.referenceId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$SuppliersTableFilterComposer get supplierId {
+    final $$SuppliersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.supplierId,
+      referencedTable: $db.suppliers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SuppliersTableFilterComposer(
+            $db: $db,
+            $table: $db.suppliers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SupplierLedgerEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $SupplierLedgerEntriesTable> {
+  $$SupplierLedgerEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get entryType => $composableBuilder(
+    column: $table.entryType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get debitMinor => $composableBuilder(
+    column: $table.debitMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get creditMinor => $composableBuilder(
+    column: $table.creditMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get referenceType => $composableBuilder(
+    column: $table.referenceType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get referenceId => $composableBuilder(
+    column: $table.referenceId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$SuppliersTableOrderingComposer get supplierId {
+    final $$SuppliersTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.supplierId,
+      referencedTable: $db.suppliers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SuppliersTableOrderingComposer(
+            $db: $db,
+            $table: $db.suppliers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SupplierLedgerEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SupplierLedgerEntriesTable> {
+  $$SupplierLedgerEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get entryType =>
+      $composableBuilder(column: $table.entryType, builder: (column) => column);
+
+  GeneratedColumn<int> get debitMinor => $composableBuilder(
+    column: $table.debitMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get creditMinor => $composableBuilder(
+    column: $table.creditMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get referenceType => $composableBuilder(
+    column: $table.referenceType,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get referenceId => $composableBuilder(
+    column: $table.referenceId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+
+  $$SuppliersTableAnnotationComposer get supplierId {
+    final $$SuppliersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.supplierId,
+      referencedTable: $db.suppliers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SuppliersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.suppliers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SupplierLedgerEntriesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $SupplierLedgerEntriesTable,
+          SupplierLedgerEntryRow,
+          $$SupplierLedgerEntriesTableFilterComposer,
+          $$SupplierLedgerEntriesTableOrderingComposer,
+          $$SupplierLedgerEntriesTableAnnotationComposer,
+          $$SupplierLedgerEntriesTableCreateCompanionBuilder,
+          $$SupplierLedgerEntriesTableUpdateCompanionBuilder,
+          (SupplierLedgerEntryRow, $$SupplierLedgerEntriesTableReferences),
+          SupplierLedgerEntryRow,
+          PrefetchHooks Function({bool supplierId})
+        > {
+  $$SupplierLedgerEntriesTableTableManager(
+    _$AppDatabase db,
+    $SupplierLedgerEntriesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SupplierLedgerEntriesTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer: () =>
+              $$SupplierLedgerEntriesTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$SupplierLedgerEntriesTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> supplierId = const Value.absent(),
+                Value<String> entryType = const Value.absent(),
+                Value<int> debitMinor = const Value.absent(),
+                Value<int> creditMinor = const Value.absent(),
+                Value<String> referenceType = const Value.absent(),
+                Value<String> referenceId = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SupplierLedgerEntriesCompanion(
+                id: id,
+                supplierId: supplierId,
+                entryType: entryType,
+                debitMinor: debitMinor,
+                creditMinor: creditMinor,
+                referenceType: referenceType,
+                referenceId: referenceId,
+                notes: notes,
+                createdAtMs: createdAtMs,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String supplierId,
+                required String entryType,
+                Value<int> debitMinor = const Value.absent(),
+                Value<int> creditMinor = const Value.absent(),
+                required String referenceType,
+                required String referenceId,
+                Value<String?> notes = const Value.absent(),
+                required int createdAtMs,
+                Value<int> rowid = const Value.absent(),
+              }) => SupplierLedgerEntriesCompanion.insert(
+                id: id,
+                supplierId: supplierId,
+                entryType: entryType,
+                debitMinor: debitMinor,
+                creditMinor: creditMinor,
+                referenceType: referenceType,
+                referenceId: referenceId,
+                notes: notes,
+                createdAtMs: createdAtMs,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<
+                    $SupplierLedgerEntriesTable,
+                    SupplierLedgerEntryRow
+                  >(table),
+                  $$SupplierLedgerEntriesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({supplierId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (supplierId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.supplierId,
+                        referencedTable: $$SupplierLedgerEntriesTableReferences
+                            ._supplierIdTable(db),
+                        referencedColumn: $$SupplierLedgerEntriesTableReferences
+                            ._supplierIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$SupplierLedgerEntriesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $SupplierLedgerEntriesTable,
+      SupplierLedgerEntryRow,
+      $$SupplierLedgerEntriesTableFilterComposer,
+      $$SupplierLedgerEntriesTableOrderingComposer,
+      $$SupplierLedgerEntriesTableAnnotationComposer,
+      $$SupplierLedgerEntriesTableCreateCompanionBuilder,
+      $$SupplierLedgerEntriesTableUpdateCompanionBuilder,
+      (SupplierLedgerEntryRow, $$SupplierLedgerEntriesTableReferences),
+      SupplierLedgerEntryRow,
+      PrefetchHooks Function({bool supplierId})
+    >;
+typedef $$PurchaseReturnsTableCreateCompanionBuilder =
+    PurchaseReturnsCompanion Function({
+      required String id,
+      required String returnNumber,
+      required String purchaseId,
+      required String supplierId,
+      required String reason,
+      required int totalMinor,
+      required String status,
+      required String idempotencyKey,
+      required int createdAtMs,
+      Value<int?> completedAtMs,
+      Value<int> rowid,
+    });
+typedef $$PurchaseReturnsTableUpdateCompanionBuilder =
+    PurchaseReturnsCompanion Function({
+      Value<String> id,
+      Value<String> returnNumber,
+      Value<String> purchaseId,
+      Value<String> supplierId,
+      Value<String> reason,
+      Value<int> totalMinor,
+      Value<String> status,
+      Value<String> idempotencyKey,
+      Value<int> createdAtMs,
+      Value<int?> completedAtMs,
+      Value<int> rowid,
+    });
+
+final class $$PurchaseReturnsTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $PurchaseReturnsTable,
+          PurchaseReturnRow
+        > {
+  $$PurchaseReturnsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $PurchasesTable _purchaseIdTable(_$AppDatabase db) =>
+      db.purchases.createAlias('purchase_returns__purchase_id__purchases__id');
+
+  $$PurchasesTableProcessedTableManager get purchaseId {
+    final $_column = $_itemColumn<String>('purchase_id')!;
+
+    final manager = $$PurchasesTableTableManager(
+      $_db,
+      $_db.purchases,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_purchaseIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $SuppliersTable _supplierIdTable(_$AppDatabase db) =>
+      db.suppliers.createAlias('purchase_returns__supplier_id__suppliers__id');
+
+  $$SuppliersTableProcessedTableManager get supplierId {
+    final $_column = $_itemColumn<String>('supplier_id')!;
+
+    final manager = $$SuppliersTableTableManager(
+      $_db,
+      $_db.suppliers,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_supplierIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<
+    $PurchaseReturnItemsTable,
+    List<PurchaseReturnItemRow>
+  >
+  _purchaseReturnItemsRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.purchaseReturnItems,
+        aliasName:
+            'purchase_returns__id__purchase_return_items__purchase_return_id',
+      );
+
+  $$PurchaseReturnItemsTableProcessedTableManager get purchaseReturnItemsRefs {
+    final manager =
+        $$PurchaseReturnItemsTableTableManager(
+          $_db,
+          $_db.purchaseReturnItems,
+        ).filter(
+          (f) => f.purchaseReturnId.id.sqlEquals($_itemColumn<String>('id')!),
+        );
+
+    final cache = $_typedResult.readTableOrNull(
+      _purchaseReturnItemsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$PurchaseReturnsTableFilterComposer
+    extends Composer<_$AppDatabase, $PurchaseReturnsTable> {
+  $$PurchaseReturnsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get returnNumber => $composableBuilder(
+    column: $table.returnNumber,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get reason => $composableBuilder(
+    column: $table.reason,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get totalMinor => $composableBuilder(
+    column: $table.totalMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get idempotencyKey => $composableBuilder(
+    column: $table.idempotencyKey,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get completedAtMs => $composableBuilder(
+    column: $table.completedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$PurchasesTableFilterComposer get purchaseId {
+    final $$PurchasesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.purchaseId,
+      referencedTable: $db.purchases,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchasesTableFilterComposer(
+            $db: $db,
+            $table: $db.purchases,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$SuppliersTableFilterComposer get supplierId {
+    final $$SuppliersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.supplierId,
+      referencedTable: $db.suppliers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SuppliersTableFilterComposer(
+            $db: $db,
+            $table: $db.suppliers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> purchaseReturnItemsRefs(
+    Expression<bool> Function($$PurchaseReturnItemsTableFilterComposer f) f,
+  ) {
+    final $$PurchaseReturnItemsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.purchaseReturnItems,
+      getReferencedColumn: (t) => t.purchaseReturnId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchaseReturnItemsTableFilterComposer(
+            $db: $db,
+            $table: $db.purchaseReturnItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$PurchaseReturnsTableOrderingComposer
+    extends Composer<_$AppDatabase, $PurchaseReturnsTable> {
+  $$PurchaseReturnsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get returnNumber => $composableBuilder(
+    column: $table.returnNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get reason => $composableBuilder(
+    column: $table.reason,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get totalMinor => $composableBuilder(
+    column: $table.totalMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get idempotencyKey => $composableBuilder(
+    column: $table.idempotencyKey,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get completedAtMs => $composableBuilder(
+    column: $table.completedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$PurchasesTableOrderingComposer get purchaseId {
+    final $$PurchasesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.purchaseId,
+      referencedTable: $db.purchases,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchasesTableOrderingComposer(
+            $db: $db,
+            $table: $db.purchases,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$SuppliersTableOrderingComposer get supplierId {
+    final $$SuppliersTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.supplierId,
+      referencedTable: $db.suppliers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SuppliersTableOrderingComposer(
+            $db: $db,
+            $table: $db.suppliers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PurchaseReturnsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PurchaseReturnsTable> {
+  $$PurchaseReturnsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get returnNumber => $composableBuilder(
+    column: $table.returnNumber,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get reason =>
+      $composableBuilder(column: $table.reason, builder: (column) => column);
+
+  GeneratedColumn<int> get totalMinor => $composableBuilder(
+    column: $table.totalMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<String> get idempotencyKey => $composableBuilder(
+    column: $table.idempotencyKey,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get completedAtMs => $composableBuilder(
+    column: $table.completedAtMs,
+    builder: (column) => column,
+  );
+
+  $$PurchasesTableAnnotationComposer get purchaseId {
+    final $$PurchasesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.purchaseId,
+      referencedTable: $db.purchases,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchasesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.purchases,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$SuppliersTableAnnotationComposer get supplierId {
+    final $$SuppliersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.supplierId,
+      referencedTable: $db.suppliers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SuppliersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.suppliers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> purchaseReturnItemsRefs<T extends Object>(
+    Expression<T> Function($$PurchaseReturnItemsTableAnnotationComposer a) f,
+  ) {
+    final $$PurchaseReturnItemsTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.purchaseReturnItems,
+          getReferencedColumn: (t) => t.purchaseReturnId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$PurchaseReturnItemsTableAnnotationComposer(
+                $db: $db,
+                $table: $db.purchaseReturnItems,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+}
+
+class $$PurchaseReturnsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $PurchaseReturnsTable,
+          PurchaseReturnRow,
+          $$PurchaseReturnsTableFilterComposer,
+          $$PurchaseReturnsTableOrderingComposer,
+          $$PurchaseReturnsTableAnnotationComposer,
+          $$PurchaseReturnsTableCreateCompanionBuilder,
+          $$PurchaseReturnsTableUpdateCompanionBuilder,
+          (PurchaseReturnRow, $$PurchaseReturnsTableReferences),
+          PurchaseReturnRow,
+          PrefetchHooks Function({
+            bool purchaseId,
+            bool supplierId,
+            bool purchaseReturnItemsRefs,
+          })
+        > {
+  $$PurchaseReturnsTableTableManager(
+    _$AppDatabase db,
+    $PurchaseReturnsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PurchaseReturnsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PurchaseReturnsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PurchaseReturnsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> returnNumber = const Value.absent(),
+                Value<String> purchaseId = const Value.absent(),
+                Value<String> supplierId = const Value.absent(),
+                Value<String> reason = const Value.absent(),
+                Value<int> totalMinor = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<String> idempotencyKey = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int?> completedAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PurchaseReturnsCompanion(
+                id: id,
+                returnNumber: returnNumber,
+                purchaseId: purchaseId,
+                supplierId: supplierId,
+                reason: reason,
+                totalMinor: totalMinor,
+                status: status,
+                idempotencyKey: idempotencyKey,
+                createdAtMs: createdAtMs,
+                completedAtMs: completedAtMs,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String returnNumber,
+                required String purchaseId,
+                required String supplierId,
+                required String reason,
+                required int totalMinor,
+                required String status,
+                required String idempotencyKey,
+                required int createdAtMs,
+                Value<int?> completedAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PurchaseReturnsCompanion.insert(
+                id: id,
+                returnNumber: returnNumber,
+                purchaseId: purchaseId,
+                supplierId: supplierId,
+                reason: reason,
+                totalMinor: totalMinor,
+                status: status,
+                idempotencyKey: idempotencyKey,
+                createdAtMs: createdAtMs,
+                completedAtMs: completedAtMs,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$PurchaseReturnsTable, PurchaseReturnRow>(table),
+                  $$PurchaseReturnsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({
+                purchaseId = false,
+                supplierId = false,
+                purchaseReturnItemsRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (purchaseReturnItemsRefs) db.purchaseReturnItems,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (purchaseId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.purchaseId,
+                            referencedTable: $$PurchaseReturnsTableReferences
+                                ._purchaseIdTable(db),
+                            referencedColumn: $$PurchaseReturnsTableReferences
+                                ._purchaseIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+                        if (supplierId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.supplierId,
+                            referencedTable: $$PurchaseReturnsTableReferences
+                                ._supplierIdTable(db),
+                            referencedColumn: $$PurchaseReturnsTableReferences
+                                ._supplierIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (purchaseReturnItemsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          PurchaseReturnRow,
+                          $PurchaseReturnsTable,
+                          PurchaseReturnItemRow,
+                          $PurchaseReturnItemsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$PurchaseReturnsTableReferences
+                              ._purchaseReturnItemsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$PurchaseReturnsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).purchaseReturnItemsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'purchase_return_id',
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$PurchaseReturnsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $PurchaseReturnsTable,
+      PurchaseReturnRow,
+      $$PurchaseReturnsTableFilterComposer,
+      $$PurchaseReturnsTableOrderingComposer,
+      $$PurchaseReturnsTableAnnotationComposer,
+      $$PurchaseReturnsTableCreateCompanionBuilder,
+      $$PurchaseReturnsTableUpdateCompanionBuilder,
+      (PurchaseReturnRow, $$PurchaseReturnsTableReferences),
+      PurchaseReturnRow,
+      PrefetchHooks Function({
+        bool purchaseId,
+        bool supplierId,
+        bool purchaseReturnItemsRefs,
+      })
+    >;
+typedef $$PurchaseReturnItemsTableCreateCompanionBuilder =
+    PurchaseReturnItemsCompanion Function({
+      required String id,
+      required String purchaseReturnId,
+      required String purchaseItemId,
+      required String productId,
+      required int quantityBase,
+      required int unitCostMinor,
+      required int lineTotalMinor,
+      Value<int> rowid,
+    });
+typedef $$PurchaseReturnItemsTableUpdateCompanionBuilder =
+    PurchaseReturnItemsCompanion Function({
+      Value<String> id,
+      Value<String> purchaseReturnId,
+      Value<String> purchaseItemId,
+      Value<String> productId,
+      Value<int> quantityBase,
+      Value<int> unitCostMinor,
+      Value<int> lineTotalMinor,
+      Value<int> rowid,
+    });
+
+final class $$PurchaseReturnItemsTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $PurchaseReturnItemsTable,
+          PurchaseReturnItemRow
+        > {
+  $$PurchaseReturnItemsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $PurchaseReturnsTable _purchaseReturnIdTable(_$AppDatabase db) =>
+      db.purchaseReturns.createAlias(
+        'purchase_return_items__purchase_return_id__purchase_returns__id',
+      );
+
+  $$PurchaseReturnsTableProcessedTableManager get purchaseReturnId {
+    final $_column = $_itemColumn<String>('purchase_return_id')!;
+
+    final manager = $$PurchaseReturnsTableTableManager(
+      $_db,
+      $_db.purchaseReturns,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_purchaseReturnIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $PurchaseItemsTable _purchaseItemIdTable(_$AppDatabase db) =>
+      db.purchaseItems.createAlias(
+        'purchase_return_items__purchase_item_id__purchase_items__id',
+      );
+
+  $$PurchaseItemsTableProcessedTableManager get purchaseItemId {
+    final $_column = $_itemColumn<String>('purchase_item_id')!;
+
+    final manager = $$PurchaseItemsTableTableManager(
+      $_db,
+      $_db.purchaseItems,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_purchaseItemIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $ProductsTable _productIdTable(_$AppDatabase db) => db.products
+      .createAlias('purchase_return_items__product_id__products__id');
+
+  $$ProductsTableProcessedTableManager get productId {
+    final $_column = $_itemColumn<String>('product_id')!;
+
+    final manager = $$ProductsTableTableManager(
+      $_db,
+      $_db.products,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_productIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$PurchaseReturnItemsTableFilterComposer
+    extends Composer<_$AppDatabase, $PurchaseReturnItemsTable> {
+  $$PurchaseReturnItemsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get quantityBase => $composableBuilder(
+    column: $table.quantityBase,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get unitCostMinor => $composableBuilder(
+    column: $table.unitCostMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get lineTotalMinor => $composableBuilder(
+    column: $table.lineTotalMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$PurchaseReturnsTableFilterComposer get purchaseReturnId {
+    final $$PurchaseReturnsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.purchaseReturnId,
+      referencedTable: $db.purchaseReturns,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchaseReturnsTableFilterComposer(
+            $db: $db,
+            $table: $db.purchaseReturns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$PurchaseItemsTableFilterComposer get purchaseItemId {
+    final $$PurchaseItemsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.purchaseItemId,
+      referencedTable: $db.purchaseItems,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchaseItemsTableFilterComposer(
+            $db: $db,
+            $table: $db.purchaseItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductsTableFilterComposer get productId {
+    final $$ProductsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableFilterComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PurchaseReturnItemsTableOrderingComposer
+    extends Composer<_$AppDatabase, $PurchaseReturnItemsTable> {
+  $$PurchaseReturnItemsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get quantityBase => $composableBuilder(
+    column: $table.quantityBase,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get unitCostMinor => $composableBuilder(
+    column: $table.unitCostMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get lineTotalMinor => $composableBuilder(
+    column: $table.lineTotalMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$PurchaseReturnsTableOrderingComposer get purchaseReturnId {
+    final $$PurchaseReturnsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.purchaseReturnId,
+      referencedTable: $db.purchaseReturns,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchaseReturnsTableOrderingComposer(
+            $db: $db,
+            $table: $db.purchaseReturns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$PurchaseItemsTableOrderingComposer get purchaseItemId {
+    final $$PurchaseItemsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.purchaseItemId,
+      referencedTable: $db.purchaseItems,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchaseItemsTableOrderingComposer(
+            $db: $db,
+            $table: $db.purchaseItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductsTableOrderingComposer get productId {
+    final $$ProductsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableOrderingComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PurchaseReturnItemsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PurchaseReturnItemsTable> {
+  $$PurchaseReturnItemsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get quantityBase => $composableBuilder(
+    column: $table.quantityBase,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get unitCostMinor => $composableBuilder(
+    column: $table.unitCostMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get lineTotalMinor => $composableBuilder(
+    column: $table.lineTotalMinor,
+    builder: (column) => column,
+  );
+
+  $$PurchaseReturnsTableAnnotationComposer get purchaseReturnId {
+    final $$PurchaseReturnsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.purchaseReturnId,
+      referencedTable: $db.purchaseReturns,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchaseReturnsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.purchaseReturns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$PurchaseItemsTableAnnotationComposer get purchaseItemId {
+    final $$PurchaseItemsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.purchaseItemId,
+      referencedTable: $db.purchaseItems,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$PurchaseItemsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.purchaseItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductsTableAnnotationComposer get productId {
+    final $$ProductsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$PurchaseReturnItemsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $PurchaseReturnItemsTable,
+          PurchaseReturnItemRow,
+          $$PurchaseReturnItemsTableFilterComposer,
+          $$PurchaseReturnItemsTableOrderingComposer,
+          $$PurchaseReturnItemsTableAnnotationComposer,
+          $$PurchaseReturnItemsTableCreateCompanionBuilder,
+          $$PurchaseReturnItemsTableUpdateCompanionBuilder,
+          (PurchaseReturnItemRow, $$PurchaseReturnItemsTableReferences),
+          PurchaseReturnItemRow,
+          PrefetchHooks Function({
+            bool purchaseReturnId,
+            bool purchaseItemId,
+            bool productId,
+          })
+        > {
+  $$PurchaseReturnItemsTableTableManager(
+    _$AppDatabase db,
+    $PurchaseReturnItemsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PurchaseReturnItemsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PurchaseReturnItemsTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$PurchaseReturnItemsTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> purchaseReturnId = const Value.absent(),
+                Value<String> purchaseItemId = const Value.absent(),
+                Value<String> productId = const Value.absent(),
+                Value<int> quantityBase = const Value.absent(),
+                Value<int> unitCostMinor = const Value.absent(),
+                Value<int> lineTotalMinor = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PurchaseReturnItemsCompanion(
+                id: id,
+                purchaseReturnId: purchaseReturnId,
+                purchaseItemId: purchaseItemId,
+                productId: productId,
+                quantityBase: quantityBase,
+                unitCostMinor: unitCostMinor,
+                lineTotalMinor: lineTotalMinor,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String purchaseReturnId,
+                required String purchaseItemId,
+                required String productId,
+                required int quantityBase,
+                required int unitCostMinor,
+                required int lineTotalMinor,
+                Value<int> rowid = const Value.absent(),
+              }) => PurchaseReturnItemsCompanion.insert(
+                id: id,
+                purchaseReturnId: purchaseReturnId,
+                purchaseItemId: purchaseItemId,
+                productId: productId,
+                quantityBase: quantityBase,
+                unitCostMinor: unitCostMinor,
+                lineTotalMinor: lineTotalMinor,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$PurchaseReturnItemsTable, PurchaseReturnItemRow>(
+                    table,
+                  ),
+                  $$PurchaseReturnItemsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({
+                purchaseReturnId = false,
+                purchaseItemId = false,
+                productId = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (purchaseReturnId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.purchaseReturnId,
+                            referencedTable:
+                                $$PurchaseReturnItemsTableReferences
+                                    ._purchaseReturnIdTable(db),
+                            referencedColumn:
+                                $$PurchaseReturnItemsTableReferences
+                                    ._purchaseReturnIdTable(db)
+                                    .id,
+                          ) as T;
+                        }
+                        if (purchaseItemId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.purchaseItemId,
+                            referencedTable:
+                                $$PurchaseReturnItemsTableReferences
+                                    ._purchaseItemIdTable(db),
+                            referencedColumn:
+                                $$PurchaseReturnItemsTableReferences
+                                    ._purchaseItemIdTable(db)
+                                    .id,
+                          ) as T;
+                        }
+                        if (productId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.productId,
+                            referencedTable:
+                                $$PurchaseReturnItemsTableReferences
+                                    ._productIdTable(db),
+                            referencedColumn:
+                                $$PurchaseReturnItemsTableReferences
+                                    ._productIdTable(db)
+                                    .id,
+                          ) as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$PurchaseReturnItemsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $PurchaseReturnItemsTable,
+      PurchaseReturnItemRow,
+      $$PurchaseReturnItemsTableFilterComposer,
+      $$PurchaseReturnItemsTableOrderingComposer,
+      $$PurchaseReturnItemsTableAnnotationComposer,
+      $$PurchaseReturnItemsTableCreateCompanionBuilder,
+      $$PurchaseReturnItemsTableUpdateCompanionBuilder,
+      (PurchaseReturnItemRow, $$PurchaseReturnItemsTableReferences),
+      PurchaseReturnItemRow,
+      PrefetchHooks Function({
+        bool purchaseReturnId,
+        bool purchaseItemId,
+        bool productId,
+      })
+    >;
+typedef $$CustomersTableCreateCompanionBuilder = CustomersCompanion Function({
+  required String id,
+  required String name,
+  required String normalizedName,
+  Value<String?> phone,
+  Value<String?> phoneNormalized,
+  Value<String?> address,
+  Value<String?> notes,
+  Value<bool> isActive,
+  required int createdAtMs,
+  required int updatedAtMs,
+  Value<int?> archivedAtMs,
+  Value<int> rowid,
+});
+typedef $$CustomersTableUpdateCompanionBuilder = CustomersCompanion Function({
+  Value<String> id,
+  Value<String> name,
+  Value<String> normalizedName,
+  Value<String?> phone,
+  Value<String?> phoneNormalized,
+  Value<String?> address,
+  Value<String?> notes,
+  Value<bool> isActive,
+  Value<int> createdAtMs,
+  Value<int> updatedAtMs,
+  Value<int?> archivedAtMs,
+  Value<int> rowid,
+});
+
+final class $$CustomersTableReferences
+    extends BaseReferences<_$AppDatabase, $CustomersTable, CustomerRow> {
+  $$CustomersTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$SalesTable, List<SaleRow>> _salesRefsTable(
+    _$AppDatabase db,
+  ) => MultiTypedResultKey.fromTable(
+    db.sales,
+    aliasName: 'customers__id__sales__customer_id',
+  );
+
+  $$SalesTableProcessedTableManager get salesRefs {
+    final manager = $$SalesTableTableManager(
+      $_db,
+      $_db.sales,
+    ).filter((f) => f.customerId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_salesRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<
+    $CustomerLedgerEntriesTable,
+    List<CustomerLedgerEntryRow>
+  >
+  _customerLedgerEntriesRefsTable(_$AppDatabase db) =>
+      MultiTypedResultKey.fromTable(
+        db.customerLedgerEntries,
+        aliasName: 'customers__id__customer_ledger_entries__customer_id',
+      );
+
+  $$CustomerLedgerEntriesTableProcessedTableManager
+  get customerLedgerEntriesRefs {
+    final manager = $$CustomerLedgerEntriesTableTableManager(
+      $_db,
+      $_db.customerLedgerEntries,
+    ).filter((f) => f.customerId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _customerLedgerEntriesRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$SaleReturnsTable, List<SaleReturnRow>>
+  _saleReturnsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.saleReturns,
+    aliasName: 'customers__id__sale_returns__customer_id',
+  );
+
+  $$SaleReturnsTableProcessedTableManager get saleReturnsRefs {
+    final manager = $$SaleReturnsTableTableManager(
+      $_db,
+      $_db.saleReturns,
+    ).filter((f) => f.customerId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_saleReturnsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$CustomersTableFilterComposer
+    extends Composer<_$AppDatabase, $CustomersTable> {
+  $$CustomersTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get normalizedName => $composableBuilder(
+    column: $table.normalizedName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get phone => $composableBuilder(
+    column: $table.phone,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get phoneNormalized => $composableBuilder(
+    column: $table.phoneNormalized,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get address => $composableBuilder(
+    column: $table.address,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get isActive => $composableBuilder(
+    column: $table.isActive,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get archivedAtMs => $composableBuilder(
+    column: $table.archivedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  Expression<bool> salesRefs(
+    Expression<bool> Function($$SalesTableFilterComposer f) f,
+  ) {
+    final $$SalesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.sales,
+      getReferencedColumn: (t) => t.customerId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SalesTableFilterComposer(
+            $db: $db,
+            $table: $db.sales,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> customerLedgerEntriesRefs(
+    Expression<bool> Function($$CustomerLedgerEntriesTableFilterComposer f) f,
+  ) {
+    final $$CustomerLedgerEntriesTableFilterComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.customerLedgerEntries,
+          getReferencedColumn: (t) => t.customerId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$CustomerLedgerEntriesTableFilterComposer(
+                $db: $db,
+                $table: $db.customerLedgerEntries,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+
+  Expression<bool> saleReturnsRefs(
+    Expression<bool> Function($$SaleReturnsTableFilterComposer f) f,
+  ) {
+    final $$SaleReturnsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.saleReturns,
+      getReferencedColumn: (t) => t.customerId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleReturnsTableFilterComposer(
+            $db: $db,
+            $table: $db.saleReturns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$CustomersTableOrderingComposer
+    extends Composer<_$AppDatabase, $CustomersTable> {
+  $$CustomersTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get name => $composableBuilder(
+    column: $table.name,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get normalizedName => $composableBuilder(
+    column: $table.normalizedName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get phone => $composableBuilder(
+    column: $table.phone,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get phoneNormalized => $composableBuilder(
+    column: $table.phoneNormalized,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get address => $composableBuilder(
+    column: $table.address,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get isActive => $composableBuilder(
+    column: $table.isActive,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get archivedAtMs => $composableBuilder(
+    column: $table.archivedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$CustomersTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CustomersTable> {
+  $$CustomersTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get normalizedName => $composableBuilder(
+    column: $table.normalizedName,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get phone =>
+      $composableBuilder(column: $table.phone, builder: (column) => column);
+
+  GeneratedColumn<String> get phoneNormalized => $composableBuilder(
+    column: $table.phoneNormalized,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get address =>
+      $composableBuilder(column: $table.address, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<bool> get isActive =>
+      $composableBuilder(column: $table.isActive, builder: (column) => column);
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get archivedAtMs => $composableBuilder(
+    column: $table.archivedAtMs,
+    builder: (column) => column,
+  );
+
+  Expression<T> salesRefs<T extends Object>(
+    Expression<T> Function($$SalesTableAnnotationComposer a) f,
+  ) {
+    final $$SalesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.sales,
+      getReferencedColumn: (t) => t.customerId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SalesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.sales,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> customerLedgerEntriesRefs<T extends Object>(
+    Expression<T> Function($$CustomerLedgerEntriesTableAnnotationComposer a) f,
+  ) {
+    final $$CustomerLedgerEntriesTableAnnotationComposer composer =
+        $composerBuilder(
+          composer: this,
+          getCurrentColumn: (t) => t.id,
+          referencedTable: $db.customerLedgerEntries,
+          getReferencedColumn: (t) => t.customerId,
+          builder:
+              (
+                joinBuilder, {
+                $addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer,
+              }) => $$CustomerLedgerEntriesTableAnnotationComposer(
+                $db: $db,
+                $table: $db.customerLedgerEntries,
+                $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+                joinBuilder: joinBuilder,
+                $removeJoinBuilderFromRootComposer:
+                    $removeJoinBuilderFromRootComposer,
+              ),
+        );
+    return f(composer);
+  }
+
+  Expression<T> saleReturnsRefs<T extends Object>(
+    Expression<T> Function($$SaleReturnsTableAnnotationComposer a) f,
+  ) {
+    final $$SaleReturnsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.saleReturns,
+      getReferencedColumn: (t) => t.customerId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleReturnsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.saleReturns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$CustomersTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $CustomersTable,
+          CustomerRow,
+          $$CustomersTableFilterComposer,
+          $$CustomersTableOrderingComposer,
+          $$CustomersTableAnnotationComposer,
+          $$CustomersTableCreateCompanionBuilder,
+          $$CustomersTableUpdateCompanionBuilder,
+          (CustomerRow, $$CustomersTableReferences),
+          CustomerRow,
+          PrefetchHooks Function({
+            bool salesRefs,
+            bool customerLedgerEntriesRefs,
+            bool saleReturnsRefs,
+          })
+        > {
+  $$CustomersTableTableManager(_$AppDatabase db, $CustomersTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CustomersTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$CustomersTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$CustomersTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> name = const Value.absent(),
+                Value<String> normalizedName = const Value.absent(),
+                Value<String?> phone = const Value.absent(),
+                Value<String?> phoneNormalized = const Value.absent(),
+                Value<String?> address = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<bool> isActive = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int> updatedAtMs = const Value.absent(),
+                Value<int?> archivedAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => CustomersCompanion(
+                id: id,
+                name: name,
+                normalizedName: normalizedName,
+                phone: phone,
+                phoneNormalized: phoneNormalized,
+                address: address,
+                notes: notes,
+                isActive: isActive,
+                createdAtMs: createdAtMs,
+                updatedAtMs: updatedAtMs,
+                archivedAtMs: archivedAtMs,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String name,
+                required String normalizedName,
+                Value<String?> phone = const Value.absent(),
+                Value<String?> phoneNormalized = const Value.absent(),
+                Value<String?> address = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<bool> isActive = const Value.absent(),
+                required int createdAtMs,
+                required int updatedAtMs,
+                Value<int?> archivedAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => CustomersCompanion.insert(
+                id: id,
+                name: name,
+                normalizedName: normalizedName,
+                phone: phone,
+                phoneNormalized: phoneNormalized,
+                address: address,
+                notes: notes,
+                isActive: isActive,
+                createdAtMs: createdAtMs,
+                updatedAtMs: updatedAtMs,
+                archivedAtMs: archivedAtMs,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$CustomersTable, CustomerRow>(table),
+                  $$CustomersTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({
+                salesRefs = false,
+                customerLedgerEntriesRefs = false,
+                saleReturnsRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (salesRefs) db.sales,
+                    if (customerLedgerEntriesRefs) db.customerLedgerEntries,
+                    if (saleReturnsRefs) db.saleReturns,
+                  ],
+                  addJoins: null,
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (salesRefs)
+                        await $_getPrefetchedDataByColumns<
+                          CustomerRow,
+                          $CustomersTable,
+                          SaleRow,
+                          $SalesTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CustomersTableReferences
+                              ._salesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CustomersTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).salesRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'customer_id',
+                          typedResults: items,
+                        ),
+                      if (customerLedgerEntriesRefs)
+                        await $_getPrefetchedDataByColumns<
+                          CustomerRow,
+                          $CustomersTable,
+                          CustomerLedgerEntryRow,
+                          $CustomerLedgerEntriesTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CustomersTableReferences
+                              ._customerLedgerEntriesRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CustomersTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).customerLedgerEntriesRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'customer_id',
+                          typedResults: items,
+                        ),
+                      if (saleReturnsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          CustomerRow,
+                          $CustomersTable,
+                          SaleReturnRow,
+                          $SaleReturnsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$CustomersTableReferences
+                              ._saleReturnsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$CustomersTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).saleReturnsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'customer_id',
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$CustomersTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $CustomersTable,
+      CustomerRow,
+      $$CustomersTableFilterComposer,
+      $$CustomersTableOrderingComposer,
+      $$CustomersTableAnnotationComposer,
+      $$CustomersTableCreateCompanionBuilder,
+      $$CustomersTableUpdateCompanionBuilder,
+      (CustomerRow, $$CustomersTableReferences),
+      CustomerRow,
+      PrefetchHooks Function({
+        bool salesRefs,
+        bool customerLedgerEntriesRefs,
+        bool saleReturnsRefs,
+      })
+    >;
+typedef $$SalesTableCreateCompanionBuilder = SalesCompanion Function({
+  required String id,
+  required String saleNumber,
+  Value<String?> customerId,
+  Value<String?> customerNameSnapshot,
+  required String status,
+  required int subtotalMinor,
+  required int discountMinor,
+  required int totalMinor,
+  Value<int> amountPaidMinor,
+  required int amountDueMinor,
+  Value<String?> notes,
+  Value<String?> checkoutIdempotencyKey,
+  required int createdAtMs,
+  required int updatedAtMs,
+  Value<int?> completedAtMs,
+  Value<int?> cancelledAtMs,
+  Value<int> rowid,
+});
+typedef $$SalesTableUpdateCompanionBuilder = SalesCompanion Function({
+  Value<String> id,
+  Value<String> saleNumber,
+  Value<String?> customerId,
+  Value<String?> customerNameSnapshot,
+  Value<String> status,
+  Value<int> subtotalMinor,
+  Value<int> discountMinor,
+  Value<int> totalMinor,
+  Value<int> amountPaidMinor,
+  Value<int> amountDueMinor,
+  Value<String?> notes,
+  Value<String?> checkoutIdempotencyKey,
+  Value<int> createdAtMs,
+  Value<int> updatedAtMs,
+  Value<int?> completedAtMs,
+  Value<int?> cancelledAtMs,
+  Value<int> rowid,
+});
+
+final class $$SalesTableReferences
+    extends BaseReferences<_$AppDatabase, $SalesTable, SaleRow> {
+  $$SalesTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $CustomersTable _customerIdTable(_$AppDatabase db) =>
+      db.customers.createAlias('sales__customer_id__customers__id');
+
+  $$CustomersTableProcessedTableManager? get customerId {
+    final $_column = $_itemColumn<String>('customer_id');
+    if ($_column == null) return null;
+    final manager = $$CustomersTableTableManager(
+      $_db,
+      $_db.customers,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_customerIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$SaleItemsTable, List<SaleItemRow>>
+  _saleItemsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.saleItems,
+    aliasName: 'sales__id__sale_items__sale_id',
+  );
+
+  $$SaleItemsTableProcessedTableManager get saleItemsRefs {
+    final manager = $$SaleItemsTableTableManager(
+      $_db,
+      $_db.saleItems,
+    ).filter((f) => f.saleId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_saleItemsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$SalePaymentsTable, List<SalePaymentRow>>
+  _salePaymentsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.salePayments,
+    aliasName: 'sales__id__sale_payments__sale_id',
+  );
+
+  $$SalePaymentsTableProcessedTableManager get salePaymentsRefs {
+    final manager = $$SalePaymentsTableTableManager(
+      $_db,
+      $_db.salePayments,
+    ).filter((f) => f.saleId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_salePaymentsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+
+  static MultiTypedResultKey<$SaleReturnsTable, List<SaleReturnRow>>
+  _saleReturnsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.saleReturns,
+    aliasName: 'sales__id__sale_returns__sale_id',
+  );
+
+  $$SaleReturnsTableProcessedTableManager get saleReturnsRefs {
+    final manager = $$SaleReturnsTableTableManager(
+      $_db,
+      $_db.saleReturns,
+    ).filter((f) => f.saleId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_saleReturnsRefsTable($_db));
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$SalesTableFilterComposer extends Composer<_$AppDatabase, $SalesTable> {
+  $$SalesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get saleNumber => $composableBuilder(
+    column: $table.saleNumber,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get customerNameSnapshot => $composableBuilder(
+    column: $table.customerNameSnapshot,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get subtotalMinor => $composableBuilder(
+    column: $table.subtotalMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get discountMinor => $composableBuilder(
+    column: $table.discountMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get totalMinor => $composableBuilder(
+    column: $table.totalMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get amountPaidMinor => $composableBuilder(
+    column: $table.amountPaidMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get amountDueMinor => $composableBuilder(
+    column: $table.amountDueMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get checkoutIdempotencyKey => $composableBuilder(
+    column: $table.checkoutIdempotencyKey,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get completedAtMs => $composableBuilder(
+    column: $table.completedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get cancelledAtMs => $composableBuilder(
+    column: $table.cancelledAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$CustomersTableFilterComposer get customerId {
+    final $$CustomersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.customerId,
+      referencedTable: $db.customers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CustomersTableFilterComposer(
+            $db: $db,
+            $table: $db.customers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> saleItemsRefs(
+    Expression<bool> Function($$SaleItemsTableFilterComposer f) f,
+  ) {
+    final $$SaleItemsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.saleItems,
+      getReferencedColumn: (t) => t.saleId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleItemsTableFilterComposer(
+            $db: $db,
+            $table: $db.saleItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> salePaymentsRefs(
+    Expression<bool> Function($$SalePaymentsTableFilterComposer f) f,
+  ) {
+    final $$SalePaymentsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.salePayments,
+      getReferencedColumn: (t) => t.saleId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SalePaymentsTableFilterComposer(
+            $db: $db,
+            $table: $db.salePayments,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<bool> saleReturnsRefs(
+    Expression<bool> Function($$SaleReturnsTableFilterComposer f) f,
+  ) {
+    final $$SaleReturnsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.saleReturns,
+      getReferencedColumn: (t) => t.saleId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleReturnsTableFilterComposer(
+            $db: $db,
+            $table: $db.saleReturns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$SalesTableOrderingComposer
+    extends Composer<_$AppDatabase, $SalesTable> {
+  $$SalesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get saleNumber => $composableBuilder(
+    column: $table.saleNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get customerNameSnapshot => $composableBuilder(
+    column: $table.customerNameSnapshot,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get subtotalMinor => $composableBuilder(
+    column: $table.subtotalMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get discountMinor => $composableBuilder(
+    column: $table.discountMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get totalMinor => $composableBuilder(
+    column: $table.totalMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get amountPaidMinor => $composableBuilder(
+    column: $table.amountPaidMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get amountDueMinor => $composableBuilder(
+    column: $table.amountDueMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get checkoutIdempotencyKey => $composableBuilder(
+    column: $table.checkoutIdempotencyKey,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get completedAtMs => $composableBuilder(
+    column: $table.completedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get cancelledAtMs => $composableBuilder(
+    column: $table.cancelledAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$CustomersTableOrderingComposer get customerId {
+    final $$CustomersTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.customerId,
+      referencedTable: $db.customers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CustomersTableOrderingComposer(
+            $db: $db,
+            $table: $db.customers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SalesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SalesTable> {
+  $$SalesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get saleNumber => $composableBuilder(
+    column: $table.saleNumber,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get customerNameSnapshot => $composableBuilder(
+    column: $table.customerNameSnapshot,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<int> get subtotalMinor => $composableBuilder(
+    column: $table.subtotalMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get discountMinor => $composableBuilder(
+    column: $table.discountMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get totalMinor => $composableBuilder(
+    column: $table.totalMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get amountPaidMinor => $composableBuilder(
+    column: $table.amountPaidMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get amountDueMinor => $composableBuilder(
+    column: $table.amountDueMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<String> get checkoutIdempotencyKey => $composableBuilder(
+    column: $table.checkoutIdempotencyKey,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get completedAtMs => $composableBuilder(
+    column: $table.completedAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get cancelledAtMs => $composableBuilder(
+    column: $table.cancelledAtMs,
+    builder: (column) => column,
+  );
+
+  $$CustomersTableAnnotationComposer get customerId {
+    final $$CustomersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.customerId,
+      referencedTable: $db.customers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CustomersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.customers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> saleItemsRefs<T extends Object>(
+    Expression<T> Function($$SaleItemsTableAnnotationComposer a) f,
+  ) {
+    final $$SaleItemsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.saleItems,
+      getReferencedColumn: (t) => t.saleId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleItemsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.saleItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> salePaymentsRefs<T extends Object>(
+    Expression<T> Function($$SalePaymentsTableAnnotationComposer a) f,
+  ) {
+    final $$SalePaymentsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.salePayments,
+      getReferencedColumn: (t) => t.saleId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SalePaymentsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.salePayments,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+
+  Expression<T> saleReturnsRefs<T extends Object>(
+    Expression<T> Function($$SaleReturnsTableAnnotationComposer a) f,
+  ) {
+    final $$SaleReturnsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.saleReturns,
+      getReferencedColumn: (t) => t.saleId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleReturnsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.saleReturns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$SalesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $SalesTable,
+          SaleRow,
+          $$SalesTableFilterComposer,
+          $$SalesTableOrderingComposer,
+          $$SalesTableAnnotationComposer,
+          $$SalesTableCreateCompanionBuilder,
+          $$SalesTableUpdateCompanionBuilder,
+          (SaleRow, $$SalesTableReferences),
+          SaleRow,
+          PrefetchHooks Function({
+            bool customerId,
+            bool saleItemsRefs,
+            bool salePaymentsRefs,
+            bool saleReturnsRefs,
+          })
+        > {
+  $$SalesTableTableManager(_$AppDatabase db, $SalesTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SalesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SalesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SalesTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> saleNumber = const Value.absent(),
+                Value<String?> customerId = const Value.absent(),
+                Value<String?> customerNameSnapshot = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<int> subtotalMinor = const Value.absent(),
+                Value<int> discountMinor = const Value.absent(),
+                Value<int> totalMinor = const Value.absent(),
+                Value<int> amountPaidMinor = const Value.absent(),
+                Value<int> amountDueMinor = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<String?> checkoutIdempotencyKey = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int> updatedAtMs = const Value.absent(),
+                Value<int?> completedAtMs = const Value.absent(),
+                Value<int?> cancelledAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SalesCompanion(
+                id: id,
+                saleNumber: saleNumber,
+                customerId: customerId,
+                customerNameSnapshot: customerNameSnapshot,
+                status: status,
+                subtotalMinor: subtotalMinor,
+                discountMinor: discountMinor,
+                totalMinor: totalMinor,
+                amountPaidMinor: amountPaidMinor,
+                amountDueMinor: amountDueMinor,
+                notes: notes,
+                checkoutIdempotencyKey: checkoutIdempotencyKey,
+                createdAtMs: createdAtMs,
+                updatedAtMs: updatedAtMs,
+                completedAtMs: completedAtMs,
+                cancelledAtMs: cancelledAtMs,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String saleNumber,
+                Value<String?> customerId = const Value.absent(),
+                Value<String?> customerNameSnapshot = const Value.absent(),
+                required String status,
+                required int subtotalMinor,
+                required int discountMinor,
+                required int totalMinor,
+                Value<int> amountPaidMinor = const Value.absent(),
+                required int amountDueMinor,
+                Value<String?> notes = const Value.absent(),
+                Value<String?> checkoutIdempotencyKey = const Value.absent(),
+                required int createdAtMs,
+                required int updatedAtMs,
+                Value<int?> completedAtMs = const Value.absent(),
+                Value<int?> cancelledAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SalesCompanion.insert(
+                id: id,
+                saleNumber: saleNumber,
+                customerId: customerId,
+                customerNameSnapshot: customerNameSnapshot,
+                status: status,
+                subtotalMinor: subtotalMinor,
+                discountMinor: discountMinor,
+                totalMinor: totalMinor,
+                amountPaidMinor: amountPaidMinor,
+                amountDueMinor: amountDueMinor,
+                notes: notes,
+                checkoutIdempotencyKey: checkoutIdempotencyKey,
+                createdAtMs: createdAtMs,
+                updatedAtMs: updatedAtMs,
+                completedAtMs: completedAtMs,
+                cancelledAtMs: cancelledAtMs,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$SalesTable, SaleRow>(table),
+                  $$SalesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({
+                customerId = false,
+                saleItemsRefs = false,
+                salePaymentsRefs = false,
+                saleReturnsRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (saleItemsRefs) db.saleItems,
+                    if (salePaymentsRefs) db.salePayments,
+                    if (saleReturnsRefs) db.saleReturns,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (customerId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.customerId,
+                            referencedTable: $$SalesTableReferences
+                                ._customerIdTable(db),
+                            referencedColumn: $$SalesTableReferences
+                                ._customerIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (saleItemsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          SaleRow,
+                          $SalesTable,
+                          SaleItemRow,
+                          $SaleItemsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$SalesTableReferences
+                              ._saleItemsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$SalesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).saleItemsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'sale_id',
+                          typedResults: items,
+                        ),
+                      if (salePaymentsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          SaleRow,
+                          $SalesTable,
+                          SalePaymentRow,
+                          $SalePaymentsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$SalesTableReferences
+                              ._salePaymentsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$SalesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).salePaymentsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'sale_id',
+                          typedResults: items,
+                        ),
+                      if (saleReturnsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          SaleRow,
+                          $SalesTable,
+                          SaleReturnRow,
+                          $SaleReturnsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$SalesTableReferences
+                              ._saleReturnsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$SalesTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).saleReturnsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'sale_id',
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$SalesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $SalesTable,
+      SaleRow,
+      $$SalesTableFilterComposer,
+      $$SalesTableOrderingComposer,
+      $$SalesTableAnnotationComposer,
+      $$SalesTableCreateCompanionBuilder,
+      $$SalesTableUpdateCompanionBuilder,
+      (SaleRow, $$SalesTableReferences),
+      SaleRow,
+      PrefetchHooks Function({
+        bool customerId,
+        bool saleItemsRefs,
+        bool salePaymentsRefs,
+        bool saleReturnsRefs,
+      })
+    >;
+typedef $$SaleItemsTableCreateCompanionBuilder = SaleItemsCompanion Function({
+  required String id,
+  required String saleId,
+  required String productId,
+  required String productNameSnapshot,
+  Value<String?> skuSnapshot,
+  Value<String?> barcodeSnapshot,
+  required String unitSnapshot,
+  required int quantityBase,
+  Value<int> quantityReturnedBase,
+  required int unitPriceMinor,
+  Value<int> discountMinor,
+  required int lineTotalMinor,
+  required int createdAtMs,
+  Value<int> rowid,
+});
+typedef $$SaleItemsTableUpdateCompanionBuilder = SaleItemsCompanion Function({
+  Value<String> id,
+  Value<String> saleId,
+  Value<String> productId,
+  Value<String> productNameSnapshot,
+  Value<String?> skuSnapshot,
+  Value<String?> barcodeSnapshot,
+  Value<String> unitSnapshot,
+  Value<int> quantityBase,
+  Value<int> quantityReturnedBase,
+  Value<int> unitPriceMinor,
+  Value<int> discountMinor,
+  Value<int> lineTotalMinor,
+  Value<int> createdAtMs,
+  Value<int> rowid,
+});
+
+final class $$SaleItemsTableReferences
+    extends BaseReferences<_$AppDatabase, $SaleItemsTable, SaleItemRow> {
+  $$SaleItemsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $SalesTable _saleIdTable(_$AppDatabase db) =>
+      db.sales.createAlias('sale_items__sale_id__sales__id');
+
+  $$SalesTableProcessedTableManager get saleId {
+    final $_column = $_itemColumn<String>('sale_id')!;
+
+    final manager = $$SalesTableTableManager(
+      $_db,
+      $_db.sales,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_saleIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $ProductsTable _productIdTable(_$AppDatabase db) =>
+      db.products.createAlias('sale_items__product_id__products__id');
+
+  $$ProductsTableProcessedTableManager get productId {
+    final $_column = $_itemColumn<String>('product_id')!;
+
+    final manager = $$ProductsTableTableManager(
+      $_db,
+      $_db.products,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_productIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$SaleReturnItemsTable, List<SaleReturnItemRow>>
+  _saleReturnItemsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.saleReturnItems,
+    aliasName: 'sale_items__id__sale_return_items__sale_item_id',
+  );
+
+  $$SaleReturnItemsTableProcessedTableManager get saleReturnItemsRefs {
+    final manager = $$SaleReturnItemsTableTableManager(
+      $_db,
+      $_db.saleReturnItems,
+    ).filter((f) => f.saleItemId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _saleReturnItemsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$SaleItemsTableFilterComposer
+    extends Composer<_$AppDatabase, $SaleItemsTable> {
+  $$SaleItemsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get productNameSnapshot => $composableBuilder(
+    column: $table.productNameSnapshot,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get skuSnapshot => $composableBuilder(
+    column: $table.skuSnapshot,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get barcodeSnapshot => $composableBuilder(
+    column: $table.barcodeSnapshot,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get unitSnapshot => $composableBuilder(
+    column: $table.unitSnapshot,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get quantityBase => $composableBuilder(
+    column: $table.quantityBase,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get quantityReturnedBase => $composableBuilder(
+    column: $table.quantityReturnedBase,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get unitPriceMinor => $composableBuilder(
+    column: $table.unitPriceMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get discountMinor => $composableBuilder(
+    column: $table.discountMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get lineTotalMinor => $composableBuilder(
+    column: $table.lineTotalMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$SalesTableFilterComposer get saleId {
+    final $$SalesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.saleId,
+      referencedTable: $db.sales,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SalesTableFilterComposer(
+            $db: $db,
+            $table: $db.sales,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductsTableFilterComposer get productId {
+    final $$ProductsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableFilterComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> saleReturnItemsRefs(
+    Expression<bool> Function($$SaleReturnItemsTableFilterComposer f) f,
+  ) {
+    final $$SaleReturnItemsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.saleReturnItems,
+      getReferencedColumn: (t) => t.saleItemId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleReturnItemsTableFilterComposer(
+            $db: $db,
+            $table: $db.saleReturnItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$SaleItemsTableOrderingComposer
+    extends Composer<_$AppDatabase, $SaleItemsTable> {
+  $$SaleItemsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get productNameSnapshot => $composableBuilder(
+    column: $table.productNameSnapshot,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get skuSnapshot => $composableBuilder(
+    column: $table.skuSnapshot,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get barcodeSnapshot => $composableBuilder(
+    column: $table.barcodeSnapshot,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get unitSnapshot => $composableBuilder(
+    column: $table.unitSnapshot,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get quantityBase => $composableBuilder(
+    column: $table.quantityBase,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get quantityReturnedBase => $composableBuilder(
+    column: $table.quantityReturnedBase,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get unitPriceMinor => $composableBuilder(
+    column: $table.unitPriceMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get discountMinor => $composableBuilder(
+    column: $table.discountMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get lineTotalMinor => $composableBuilder(
+    column: $table.lineTotalMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$SalesTableOrderingComposer get saleId {
+    final $$SalesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.saleId,
+      referencedTable: $db.sales,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SalesTableOrderingComposer(
+            $db: $db,
+            $table: $db.sales,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductsTableOrderingComposer get productId {
+    final $$ProductsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableOrderingComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SaleItemsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SaleItemsTable> {
+  $$SaleItemsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get productNameSnapshot => $composableBuilder(
+    column: $table.productNameSnapshot,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get skuSnapshot => $composableBuilder(
+    column: $table.skuSnapshot,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get barcodeSnapshot => $composableBuilder(
+    column: $table.barcodeSnapshot,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get unitSnapshot => $composableBuilder(
+    column: $table.unitSnapshot,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get quantityBase => $composableBuilder(
+    column: $table.quantityBase,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get quantityReturnedBase => $composableBuilder(
+    column: $table.quantityReturnedBase,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get unitPriceMinor => $composableBuilder(
+    column: $table.unitPriceMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get discountMinor => $composableBuilder(
+    column: $table.discountMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get lineTotalMinor => $composableBuilder(
+    column: $table.lineTotalMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+
+  $$SalesTableAnnotationComposer get saleId {
+    final $$SalesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.saleId,
+      referencedTable: $db.sales,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SalesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.sales,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductsTableAnnotationComposer get productId {
+    final $$ProductsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> saleReturnItemsRefs<T extends Object>(
+    Expression<T> Function($$SaleReturnItemsTableAnnotationComposer a) f,
+  ) {
+    final $$SaleReturnItemsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.saleReturnItems,
+      getReferencedColumn: (t) => t.saleItemId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleReturnItemsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.saleReturnItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$SaleItemsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $SaleItemsTable,
+          SaleItemRow,
+          $$SaleItemsTableFilterComposer,
+          $$SaleItemsTableOrderingComposer,
+          $$SaleItemsTableAnnotationComposer,
+          $$SaleItemsTableCreateCompanionBuilder,
+          $$SaleItemsTableUpdateCompanionBuilder,
+          (SaleItemRow, $$SaleItemsTableReferences),
+          SaleItemRow,
+          PrefetchHooks Function({
+            bool saleId,
+            bool productId,
+            bool saleReturnItemsRefs,
+          })
+        > {
+  $$SaleItemsTableTableManager(_$AppDatabase db, $SaleItemsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SaleItemsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SaleItemsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SaleItemsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> saleId = const Value.absent(),
+                Value<String> productId = const Value.absent(),
+                Value<String> productNameSnapshot = const Value.absent(),
+                Value<String?> skuSnapshot = const Value.absent(),
+                Value<String?> barcodeSnapshot = const Value.absent(),
+                Value<String> unitSnapshot = const Value.absent(),
+                Value<int> quantityBase = const Value.absent(),
+                Value<int> quantityReturnedBase = const Value.absent(),
+                Value<int> unitPriceMinor = const Value.absent(),
+                Value<int> discountMinor = const Value.absent(),
+                Value<int> lineTotalMinor = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SaleItemsCompanion(
+                id: id,
+                saleId: saleId,
+                productId: productId,
+                productNameSnapshot: productNameSnapshot,
+                skuSnapshot: skuSnapshot,
+                barcodeSnapshot: barcodeSnapshot,
+                unitSnapshot: unitSnapshot,
+                quantityBase: quantityBase,
+                quantityReturnedBase: quantityReturnedBase,
+                unitPriceMinor: unitPriceMinor,
+                discountMinor: discountMinor,
+                lineTotalMinor: lineTotalMinor,
+                createdAtMs: createdAtMs,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String saleId,
+                required String productId,
+                required String productNameSnapshot,
+                Value<String?> skuSnapshot = const Value.absent(),
+                Value<String?> barcodeSnapshot = const Value.absent(),
+                required String unitSnapshot,
+                required int quantityBase,
+                Value<int> quantityReturnedBase = const Value.absent(),
+                required int unitPriceMinor,
+                Value<int> discountMinor = const Value.absent(),
+                required int lineTotalMinor,
+                required int createdAtMs,
+                Value<int> rowid = const Value.absent(),
+              }) => SaleItemsCompanion.insert(
+                id: id,
+                saleId: saleId,
+                productId: productId,
+                productNameSnapshot: productNameSnapshot,
+                skuSnapshot: skuSnapshot,
+                barcodeSnapshot: barcodeSnapshot,
+                unitSnapshot: unitSnapshot,
+                quantityBase: quantityBase,
+                quantityReturnedBase: quantityReturnedBase,
+                unitPriceMinor: unitPriceMinor,
+                discountMinor: discountMinor,
+                lineTotalMinor: lineTotalMinor,
+                createdAtMs: createdAtMs,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$SaleItemsTable, SaleItemRow>(table),
+                  $$SaleItemsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({
+                saleId = false,
+                productId = false,
+                saleReturnItemsRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (saleReturnItemsRefs) db.saleReturnItems,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (saleId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.saleId,
+                            referencedTable: $$SaleItemsTableReferences
+                                ._saleIdTable(db),
+                            referencedColumn: $$SaleItemsTableReferences
+                                ._saleIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+                        if (productId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.productId,
+                            referencedTable: $$SaleItemsTableReferences
+                                ._productIdTable(db),
+                            referencedColumn: $$SaleItemsTableReferences
+                                ._productIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (saleReturnItemsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          SaleItemRow,
+                          $SaleItemsTable,
+                          SaleReturnItemRow,
+                          $SaleReturnItemsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$SaleItemsTableReferences
+                              ._saleReturnItemsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$SaleItemsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).saleReturnItemsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'sale_item_id',
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$SaleItemsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $SaleItemsTable,
+      SaleItemRow,
+      $$SaleItemsTableFilterComposer,
+      $$SaleItemsTableOrderingComposer,
+      $$SaleItemsTableAnnotationComposer,
+      $$SaleItemsTableCreateCompanionBuilder,
+      $$SaleItemsTableUpdateCompanionBuilder,
+      (SaleItemRow, $$SaleItemsTableReferences),
+      SaleItemRow,
+      PrefetchHooks Function({
+        bool saleId,
+        bool productId,
+        bool saleReturnItemsRefs,
+      })
+    >;
+typedef $$SalePaymentsTableCreateCompanionBuilder =
+    SalePaymentsCompanion Function({
+      required String id,
+      required String saleId,
+      required String paymentMethod,
+      required int amountMinor,
+      Value<String?> referenceNumber,
+      Value<String?> notes,
+      required String idempotencyKey,
+      required int createdAtMs,
+      Value<int> rowid,
+    });
+typedef $$SalePaymentsTableUpdateCompanionBuilder =
+    SalePaymentsCompanion Function({
+      Value<String> id,
+      Value<String> saleId,
+      Value<String> paymentMethod,
+      Value<int> amountMinor,
+      Value<String?> referenceNumber,
+      Value<String?> notes,
+      Value<String> idempotencyKey,
+      Value<int> createdAtMs,
+      Value<int> rowid,
+    });
+
+final class $$SalePaymentsTableReferences
+    extends BaseReferences<_$AppDatabase, $SalePaymentsTable, SalePaymentRow> {
+  $$SalePaymentsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $SalesTable _saleIdTable(_$AppDatabase db) =>
+      db.sales.createAlias('sale_payments__sale_id__sales__id');
+
+  $$SalesTableProcessedTableManager get saleId {
+    final $_column = $_itemColumn<String>('sale_id')!;
+
+    final manager = $$SalesTableTableManager(
+      $_db,
+      $_db.sales,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_saleIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$SalePaymentsTableFilterComposer
+    extends Composer<_$AppDatabase, $SalePaymentsTable> {
+  $$SalePaymentsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get paymentMethod => $composableBuilder(
+    column: $table.paymentMethod,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get amountMinor => $composableBuilder(
+    column: $table.amountMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get referenceNumber => $composableBuilder(
+    column: $table.referenceNumber,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get idempotencyKey => $composableBuilder(
+    column: $table.idempotencyKey,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$SalesTableFilterComposer get saleId {
+    final $$SalesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.saleId,
+      referencedTable: $db.sales,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SalesTableFilterComposer(
+            $db: $db,
+            $table: $db.sales,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SalePaymentsTableOrderingComposer
+    extends Composer<_$AppDatabase, $SalePaymentsTable> {
+  $$SalePaymentsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get paymentMethod => $composableBuilder(
+    column: $table.paymentMethod,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get amountMinor => $composableBuilder(
+    column: $table.amountMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get referenceNumber => $composableBuilder(
+    column: $table.referenceNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get idempotencyKey => $composableBuilder(
+    column: $table.idempotencyKey,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$SalesTableOrderingComposer get saleId {
+    final $$SalesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.saleId,
+      referencedTable: $db.sales,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SalesTableOrderingComposer(
+            $db: $db,
+            $table: $db.sales,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SalePaymentsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SalePaymentsTable> {
+  $$SalePaymentsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get paymentMethod => $composableBuilder(
+    column: $table.paymentMethod,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get amountMinor => $composableBuilder(
+    column: $table.amountMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get referenceNumber => $composableBuilder(
+    column: $table.referenceNumber,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<String> get idempotencyKey => $composableBuilder(
+    column: $table.idempotencyKey,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+
+  $$SalesTableAnnotationComposer get saleId {
+    final $$SalesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.saleId,
+      referencedTable: $db.sales,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SalesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.sales,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SalePaymentsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $SalePaymentsTable,
+          SalePaymentRow,
+          $$SalePaymentsTableFilterComposer,
+          $$SalePaymentsTableOrderingComposer,
+          $$SalePaymentsTableAnnotationComposer,
+          $$SalePaymentsTableCreateCompanionBuilder,
+          $$SalePaymentsTableUpdateCompanionBuilder,
+          (SalePaymentRow, $$SalePaymentsTableReferences),
+          SalePaymentRow,
+          PrefetchHooks Function({bool saleId})
+        > {
+  $$SalePaymentsTableTableManager(_$AppDatabase db, $SalePaymentsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SalePaymentsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SalePaymentsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SalePaymentsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> saleId = const Value.absent(),
+                Value<String> paymentMethod = const Value.absent(),
+                Value<int> amountMinor = const Value.absent(),
+                Value<String?> referenceNumber = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<String> idempotencyKey = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SalePaymentsCompanion(
+                id: id,
+                saleId: saleId,
+                paymentMethod: paymentMethod,
+                amountMinor: amountMinor,
+                referenceNumber: referenceNumber,
+                notes: notes,
+                idempotencyKey: idempotencyKey,
+                createdAtMs: createdAtMs,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String saleId,
+                required String paymentMethod,
+                required int amountMinor,
+                Value<String?> referenceNumber = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                required String idempotencyKey,
+                required int createdAtMs,
+                Value<int> rowid = const Value.absent(),
+              }) => SalePaymentsCompanion.insert(
+                id: id,
+                saleId: saleId,
+                paymentMethod: paymentMethod,
+                amountMinor: amountMinor,
+                referenceNumber: referenceNumber,
+                notes: notes,
+                idempotencyKey: idempotencyKey,
+                createdAtMs: createdAtMs,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$SalePaymentsTable, SalePaymentRow>(table),
+                  $$SalePaymentsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({saleId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (saleId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.saleId,
+                        referencedTable: $$SalePaymentsTableReferences
+                            ._saleIdTable(db),
+                        referencedColumn: $$SalePaymentsTableReferences
+                            ._saleIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$SalePaymentsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $SalePaymentsTable,
+      SalePaymentRow,
+      $$SalePaymentsTableFilterComposer,
+      $$SalePaymentsTableOrderingComposer,
+      $$SalePaymentsTableAnnotationComposer,
+      $$SalePaymentsTableCreateCompanionBuilder,
+      $$SalePaymentsTableUpdateCompanionBuilder,
+      (SalePaymentRow, $$SalePaymentsTableReferences),
+      SalePaymentRow,
+      PrefetchHooks Function({bool saleId})
+    >;
+typedef $$CustomerLedgerEntriesTableCreateCompanionBuilder =
+    CustomerLedgerEntriesCompanion Function({
+      required String id,
+      required String customerId,
+      required String entryType,
+      Value<int> debitMinor,
+      Value<int> creditMinor,
+      required String referenceType,
+      required String referenceId,
+      Value<String?> notes,
+      required int createdAtMs,
+      Value<int> rowid,
+    });
+typedef $$CustomerLedgerEntriesTableUpdateCompanionBuilder =
+    CustomerLedgerEntriesCompanion Function({
+      Value<String> id,
+      Value<String> customerId,
+      Value<String> entryType,
+      Value<int> debitMinor,
+      Value<int> creditMinor,
+      Value<String> referenceType,
+      Value<String> referenceId,
+      Value<String?> notes,
+      Value<int> createdAtMs,
+      Value<int> rowid,
+    });
+
+final class $$CustomerLedgerEntriesTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $CustomerLedgerEntriesTable,
+          CustomerLedgerEntryRow
+        > {
+  $$CustomerLedgerEntriesTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $CustomersTable _customerIdTable(_$AppDatabase db) => db.customers
+      .createAlias('customer_ledger_entries__customer_id__customers__id');
+
+  $$CustomersTableProcessedTableManager get customerId {
+    final $_column = $_itemColumn<String>('customer_id')!;
+
+    final manager = $$CustomersTableTableManager(
+      $_db,
+      $_db.customers,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_customerIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$CustomerLedgerEntriesTableFilterComposer
+    extends Composer<_$AppDatabase, $CustomerLedgerEntriesTable> {
+  $$CustomerLedgerEntriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get entryType => $composableBuilder(
+    column: $table.entryType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get debitMinor => $composableBuilder(
+    column: $table.debitMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get creditMinor => $composableBuilder(
+    column: $table.creditMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get referenceType => $composableBuilder(
+    column: $table.referenceType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get referenceId => $composableBuilder(
+    column: $table.referenceId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$CustomersTableFilterComposer get customerId {
+    final $$CustomersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.customerId,
+      referencedTable: $db.customers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CustomersTableFilterComposer(
+            $db: $db,
+            $table: $db.customers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$CustomerLedgerEntriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $CustomerLedgerEntriesTable> {
+  $$CustomerLedgerEntriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get entryType => $composableBuilder(
+    column: $table.entryType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get debitMinor => $composableBuilder(
+    column: $table.debitMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get creditMinor => $composableBuilder(
+    column: $table.creditMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get referenceType => $composableBuilder(
+    column: $table.referenceType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get referenceId => $composableBuilder(
+    column: $table.referenceId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+    column: $table.notes,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$CustomersTableOrderingComposer get customerId {
+    final $$CustomersTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.customerId,
+      referencedTable: $db.customers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CustomersTableOrderingComposer(
+            $db: $db,
+            $table: $db.customers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$CustomerLedgerEntriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $CustomerLedgerEntriesTable> {
+  $$CustomerLedgerEntriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get entryType =>
+      $composableBuilder(column: $table.entryType, builder: (column) => column);
+
+  GeneratedColumn<int> get debitMinor => $composableBuilder(
+    column: $table.debitMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get creditMinor => $composableBuilder(
+    column: $table.creditMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get referenceType => $composableBuilder(
+    column: $table.referenceType,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get referenceId => $composableBuilder(
+    column: $table.referenceId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+
+  $$CustomersTableAnnotationComposer get customerId {
+    final $$CustomersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.customerId,
+      referencedTable: $db.customers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CustomersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.customers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$CustomerLedgerEntriesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $CustomerLedgerEntriesTable,
+          CustomerLedgerEntryRow,
+          $$CustomerLedgerEntriesTableFilterComposer,
+          $$CustomerLedgerEntriesTableOrderingComposer,
+          $$CustomerLedgerEntriesTableAnnotationComposer,
+          $$CustomerLedgerEntriesTableCreateCompanionBuilder,
+          $$CustomerLedgerEntriesTableUpdateCompanionBuilder,
+          (CustomerLedgerEntryRow, $$CustomerLedgerEntriesTableReferences),
+          CustomerLedgerEntryRow,
+          PrefetchHooks Function({bool customerId})
+        > {
+  $$CustomerLedgerEntriesTableTableManager(
+    _$AppDatabase db,
+    $CustomerLedgerEntriesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$CustomerLedgerEntriesTableFilterComposer(
+                $db: db,
+                $table: table,
+              ),
+          createOrderingComposer: () =>
+              $$CustomerLedgerEntriesTableOrderingComposer(
+                $db: db,
+                $table: table,
+              ),
+          createComputedFieldComposer: () =>
+              $$CustomerLedgerEntriesTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> customerId = const Value.absent(),
+                Value<String> entryType = const Value.absent(),
+                Value<int> debitMinor = const Value.absent(),
+                Value<int> creditMinor = const Value.absent(),
+                Value<String> referenceType = const Value.absent(),
+                Value<String> referenceId = const Value.absent(),
+                Value<String?> notes = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => CustomerLedgerEntriesCompanion(
+                id: id,
+                customerId: customerId,
+                entryType: entryType,
+                debitMinor: debitMinor,
+                creditMinor: creditMinor,
+                referenceType: referenceType,
+                referenceId: referenceId,
+                notes: notes,
+                createdAtMs: createdAtMs,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String customerId,
+                required String entryType,
+                Value<int> debitMinor = const Value.absent(),
+                Value<int> creditMinor = const Value.absent(),
+                required String referenceType,
+                required String referenceId,
+                Value<String?> notes = const Value.absent(),
+                required int createdAtMs,
+                Value<int> rowid = const Value.absent(),
+              }) => CustomerLedgerEntriesCompanion.insert(
+                id: id,
+                customerId: customerId,
+                entryType: entryType,
+                debitMinor: debitMinor,
+                creditMinor: creditMinor,
+                referenceType: referenceType,
+                referenceId: referenceId,
+                notes: notes,
+                createdAtMs: createdAtMs,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<
+                    $CustomerLedgerEntriesTable,
+                    CustomerLedgerEntryRow
+                  >(table),
+                  $$CustomerLedgerEntriesTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: ({customerId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins:
+                  <
+                    T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic
+                    >
+                  >(state) {
+                    if (customerId) {
+                      state = state.withJoin(
+                        currentTable: table,
+                        currentColumn: table.customerId,
+                        referencedTable: $$CustomerLedgerEntriesTableReferences
+                            ._customerIdTable(db),
+                        referencedColumn: $$CustomerLedgerEntriesTableReferences
+                            ._customerIdTable(db)
+                            .id,
+                      ) as T;
+                    }
+
+                    return state;
+                  },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ),
+      );
+}
+
+typedef $$CustomerLedgerEntriesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $CustomerLedgerEntriesTable,
+      CustomerLedgerEntryRow,
+      $$CustomerLedgerEntriesTableFilterComposer,
+      $$CustomerLedgerEntriesTableOrderingComposer,
+      $$CustomerLedgerEntriesTableAnnotationComposer,
+      $$CustomerLedgerEntriesTableCreateCompanionBuilder,
+      $$CustomerLedgerEntriesTableUpdateCompanionBuilder,
+      (CustomerLedgerEntryRow, $$CustomerLedgerEntriesTableReferences),
+      CustomerLedgerEntryRow,
+      PrefetchHooks Function({bool customerId})
+    >;
+typedef $$SaleReturnsTableCreateCompanionBuilder =
+    SaleReturnsCompanion Function({
+      required String id,
+      required String returnNumber,
+      required String saleId,
+      Value<String?> customerId,
+      required String reason,
+      required int totalMinor,
+      required String status,
+      required String idempotencyKey,
+      required int createdAtMs,
+      Value<int?> completedAtMs,
+      Value<int> rowid,
+    });
+typedef $$SaleReturnsTableUpdateCompanionBuilder =
+    SaleReturnsCompanion Function({
+      Value<String> id,
+      Value<String> returnNumber,
+      Value<String> saleId,
+      Value<String?> customerId,
+      Value<String> reason,
+      Value<int> totalMinor,
+      Value<String> status,
+      Value<String> idempotencyKey,
+      Value<int> createdAtMs,
+      Value<int?> completedAtMs,
+      Value<int> rowid,
+    });
+
+final class $$SaleReturnsTableReferences
+    extends BaseReferences<_$AppDatabase, $SaleReturnsTable, SaleReturnRow> {
+  $$SaleReturnsTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static $SalesTable _saleIdTable(_$AppDatabase db) =>
+      db.sales.createAlias('sale_returns__sale_id__sales__id');
+
+  $$SalesTableProcessedTableManager get saleId {
+    final $_column = $_itemColumn<String>('sale_id')!;
+
+    final manager = $$SalesTableTableManager(
+      $_db,
+      $_db.sales,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_saleIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $CustomersTable _customerIdTable(_$AppDatabase db) =>
+      db.customers.createAlias('sale_returns__customer_id__customers__id');
+
+  $$CustomersTableProcessedTableManager? get customerId {
+    final $_column = $_itemColumn<String>('customer_id');
+    if ($_column == null) return null;
+    final manager = $$CustomersTableTableManager(
+      $_db,
+      $_db.customers,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_customerIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static MultiTypedResultKey<$SaleReturnItemsTable, List<SaleReturnItemRow>>
+  _saleReturnItemsRefsTable(_$AppDatabase db) => MultiTypedResultKey.fromTable(
+    db.saleReturnItems,
+    aliasName: 'sale_returns__id__sale_return_items__sale_return_id',
+  );
+
+  $$SaleReturnItemsTableProcessedTableManager get saleReturnItemsRefs {
+    final manager = $$SaleReturnItemsTableTableManager(
+      $_db,
+      $_db.saleReturnItems,
+    ).filter((f) => f.saleReturnId.id.sqlEquals($_itemColumn<String>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(
+      _saleReturnItemsRefsTable($_db),
+    );
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: cache),
+    );
+  }
+}
+
+class $$SaleReturnsTableFilterComposer
+    extends Composer<_$AppDatabase, $SaleReturnsTable> {
+  $$SaleReturnsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get returnNumber => $composableBuilder(
+    column: $table.returnNumber,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get reason => $composableBuilder(
+    column: $table.reason,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get totalMinor => $composableBuilder(
+    column: $table.totalMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get idempotencyKey => $composableBuilder(
+    column: $table.idempotencyKey,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get completedAtMs => $composableBuilder(
+    column: $table.completedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$SalesTableFilterComposer get saleId {
+    final $$SalesTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.saleId,
+      referencedTable: $db.sales,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SalesTableFilterComposer(
+            $db: $db,
+            $table: $db.sales,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$CustomersTableFilterComposer get customerId {
+    final $$CustomersTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.customerId,
+      referencedTable: $db.customers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CustomersTableFilterComposer(
+            $db: $db,
+            $table: $db.customers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<bool> saleReturnItemsRefs(
+    Expression<bool> Function($$SaleReturnItemsTableFilterComposer f) f,
+  ) {
+    final $$SaleReturnItemsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.saleReturnItems,
+      getReferencedColumn: (t) => t.saleReturnId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleReturnItemsTableFilterComposer(
+            $db: $db,
+            $table: $db.saleReturnItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$SaleReturnsTableOrderingComposer
+    extends Composer<_$AppDatabase, $SaleReturnsTable> {
+  $$SaleReturnsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get returnNumber => $composableBuilder(
+    column: $table.returnNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get reason => $composableBuilder(
+    column: $table.reason,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get totalMinor => $composableBuilder(
+    column: $table.totalMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get idempotencyKey => $composableBuilder(
+    column: $table.idempotencyKey,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get completedAtMs => $composableBuilder(
+    column: $table.completedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$SalesTableOrderingComposer get saleId {
+    final $$SalesTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.saleId,
+      referencedTable: $db.sales,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SalesTableOrderingComposer(
+            $db: $db,
+            $table: $db.sales,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$CustomersTableOrderingComposer get customerId {
+    final $$CustomersTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.customerId,
+      referencedTable: $db.customers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CustomersTableOrderingComposer(
+            $db: $db,
+            $table: $db.customers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SaleReturnsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SaleReturnsTable> {
+  $$SaleReturnsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get returnNumber => $composableBuilder(
+    column: $table.returnNumber,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get reason =>
+      $composableBuilder(column: $table.reason, builder: (column) => column);
+
+  GeneratedColumn<int> get totalMinor => $composableBuilder(
+    column: $table.totalMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<String> get idempotencyKey => $composableBuilder(
+    column: $table.idempotencyKey,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get completedAtMs => $composableBuilder(
+    column: $table.completedAtMs,
+    builder: (column) => column,
+  );
+
+  $$SalesTableAnnotationComposer get saleId {
+    final $$SalesTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.saleId,
+      referencedTable: $db.sales,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SalesTableAnnotationComposer(
+            $db: $db,
+            $table: $db.sales,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$CustomersTableAnnotationComposer get customerId {
+    final $$CustomersTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.customerId,
+      referencedTable: $db.customers,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$CustomersTableAnnotationComposer(
+            $db: $db,
+            $table: $db.customers,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  Expression<T> saleReturnItemsRefs<T extends Object>(
+    Expression<T> Function($$SaleReturnItemsTableAnnotationComposer a) f,
+  ) {
+    final $$SaleReturnItemsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.id,
+      referencedTable: $db.saleReturnItems,
+      getReferencedColumn: (t) => t.saleReturnId,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleReturnItemsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.saleReturnItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return f(composer);
+  }
+}
+
+class $$SaleReturnsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $SaleReturnsTable,
+          SaleReturnRow,
+          $$SaleReturnsTableFilterComposer,
+          $$SaleReturnsTableOrderingComposer,
+          $$SaleReturnsTableAnnotationComposer,
+          $$SaleReturnsTableCreateCompanionBuilder,
+          $$SaleReturnsTableUpdateCompanionBuilder,
+          (SaleReturnRow, $$SaleReturnsTableReferences),
+          SaleReturnRow,
+          PrefetchHooks Function({
+            bool saleId,
+            bool customerId,
+            bool saleReturnItemsRefs,
+          })
+        > {
+  $$SaleReturnsTableTableManager(_$AppDatabase db, $SaleReturnsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SaleReturnsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SaleReturnsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SaleReturnsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> returnNumber = const Value.absent(),
+                Value<String> saleId = const Value.absent(),
+                Value<String?> customerId = const Value.absent(),
+                Value<String> reason = const Value.absent(),
+                Value<int> totalMinor = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<String> idempotencyKey = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int?> completedAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SaleReturnsCompanion(
+                id: id,
+                returnNumber: returnNumber,
+                saleId: saleId,
+                customerId: customerId,
+                reason: reason,
+                totalMinor: totalMinor,
+                status: status,
+                idempotencyKey: idempotencyKey,
+                createdAtMs: createdAtMs,
+                completedAtMs: completedAtMs,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String returnNumber,
+                required String saleId,
+                Value<String?> customerId = const Value.absent(),
+                required String reason,
+                required int totalMinor,
+                required String status,
+                required String idempotencyKey,
+                required int createdAtMs,
+                Value<int?> completedAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SaleReturnsCompanion.insert(
+                id: id,
+                returnNumber: returnNumber,
+                saleId: saleId,
+                customerId: customerId,
+                reason: reason,
+                totalMinor: totalMinor,
+                status: status,
+                idempotencyKey: idempotencyKey,
+                createdAtMs: createdAtMs,
+                completedAtMs: completedAtMs,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$SaleReturnsTable, SaleReturnRow>(table),
+                  $$SaleReturnsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({
+                saleId = false,
+                customerId = false,
+                saleReturnItemsRefs = false,
+              }) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [
+                    if (saleReturnItemsRefs) db.saleReturnItems,
+                  ],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (saleId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.saleId,
+                            referencedTable: $$SaleReturnsTableReferences
+                                ._saleIdTable(db),
+                            referencedColumn: $$SaleReturnsTableReferences
+                                ._saleIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+                        if (customerId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.customerId,
+                            referencedTable: $$SaleReturnsTableReferences
+                                ._customerIdTable(db),
+                            referencedColumn: $$SaleReturnsTableReferences
+                                ._customerIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [
+                      if (saleReturnItemsRefs)
+                        await $_getPrefetchedDataByColumns<
+                          SaleReturnRow,
+                          $SaleReturnsTable,
+                          SaleReturnItemRow,
+                          $SaleReturnItemsTable
+                        >(
+                          currentTable: table,
+                          referencedTable: $$SaleReturnsTableReferences
+                              ._saleReturnItemsRefsTable(db),
+                          managerFromTypedResult: (p0) =>
+                              $$SaleReturnsTableReferences(
+                                db,
+                                table,
+                                p0,
+                              ).saleReturnItemsRefs,
+                          currentColumn: 'id',
+                          referencedColumn: 'sale_return_id',
+                          typedResults: items,
+                        ),
+                    ];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$SaleReturnsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $SaleReturnsTable,
+      SaleReturnRow,
+      $$SaleReturnsTableFilterComposer,
+      $$SaleReturnsTableOrderingComposer,
+      $$SaleReturnsTableAnnotationComposer,
+      $$SaleReturnsTableCreateCompanionBuilder,
+      $$SaleReturnsTableUpdateCompanionBuilder,
+      (SaleReturnRow, $$SaleReturnsTableReferences),
+      SaleReturnRow,
+      PrefetchHooks Function({
+        bool saleId,
+        bool customerId,
+        bool saleReturnItemsRefs,
+      })
+    >;
+typedef $$SaleReturnItemsTableCreateCompanionBuilder =
+    SaleReturnItemsCompanion Function({
+      required String id,
+      required String saleReturnId,
+      required String saleItemId,
+      required String productId,
+      required int quantityBase,
+      required int unitPriceMinor,
+      required int lineTotalMinor,
+      Value<int> rowid,
+    });
+typedef $$SaleReturnItemsTableUpdateCompanionBuilder =
+    SaleReturnItemsCompanion Function({
+      Value<String> id,
+      Value<String> saleReturnId,
+      Value<String> saleItemId,
+      Value<String> productId,
+      Value<int> quantityBase,
+      Value<int> unitPriceMinor,
+      Value<int> lineTotalMinor,
+      Value<int> rowid,
+    });
+
+final class $$SaleReturnItemsTableReferences
+    extends
+        BaseReferences<
+          _$AppDatabase,
+          $SaleReturnItemsTable,
+          SaleReturnItemRow
+        > {
+  $$SaleReturnItemsTableReferences(
+    super.$_db,
+    super.$_table,
+    super.$_typedResult,
+  );
+
+  static $SaleReturnsTable _saleReturnIdTable(_$AppDatabase db) => db
+      .saleReturns
+      .createAlias('sale_return_items__sale_return_id__sale_returns__id');
+
+  $$SaleReturnsTableProcessedTableManager get saleReturnId {
+    final $_column = $_itemColumn<String>('sale_return_id')!;
+
+    final manager = $$SaleReturnsTableTableManager(
+      $_db,
+      $_db.saleReturns,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_saleReturnIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $SaleItemsTable _saleItemIdTable(_$AppDatabase db) => db.saleItems
+      .createAlias('sale_return_items__sale_item_id__sale_items__id');
+
+  $$SaleItemsTableProcessedTableManager get saleItemId {
+    final $_column = $_itemColumn<String>('sale_item_id')!;
+
+    final manager = $$SaleItemsTableTableManager(
+      $_db,
+      $_db.saleItems,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_saleItemIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+
+  static $ProductsTable _productIdTable(_$AppDatabase db) =>
+      db.products.createAlias('sale_return_items__product_id__products__id');
+
+  $$ProductsTableProcessedTableManager get productId {
+    final $_column = $_itemColumn<String>('product_id')!;
+
+    final manager = $$ProductsTableTableManager(
+      $_db,
+      $_db.products,
+    ).filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_productIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+      manager.$state.copyWith(prefetchedData: [item]),
+    );
+  }
+}
+
+class $$SaleReturnItemsTableFilterComposer
+    extends Composer<_$AppDatabase, $SaleReturnItemsTable> {
+  $$SaleReturnItemsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get quantityBase => $composableBuilder(
+    column: $table.quantityBase,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get unitPriceMinor => $composableBuilder(
+    column: $table.unitPriceMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get lineTotalMinor => $composableBuilder(
+    column: $table.lineTotalMinor,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  $$SaleReturnsTableFilterComposer get saleReturnId {
+    final $$SaleReturnsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.saleReturnId,
+      referencedTable: $db.saleReturns,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleReturnsTableFilterComposer(
+            $db: $db,
+            $table: $db.saleReturns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$SaleItemsTableFilterComposer get saleItemId {
+    final $$SaleItemsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.saleItemId,
+      referencedTable: $db.saleItems,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleItemsTableFilterComposer(
+            $db: $db,
+            $table: $db.saleItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductsTableFilterComposer get productId {
+    final $$ProductsTableFilterComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableFilterComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SaleReturnItemsTableOrderingComposer
+    extends Composer<_$AppDatabase, $SaleReturnItemsTable> {
+  $$SaleReturnItemsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get quantityBase => $composableBuilder(
+    column: $table.quantityBase,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get unitPriceMinor => $composableBuilder(
+    column: $table.unitPriceMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get lineTotalMinor => $composableBuilder(
+    column: $table.lineTotalMinor,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  $$SaleReturnsTableOrderingComposer get saleReturnId {
+    final $$SaleReturnsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.saleReturnId,
+      referencedTable: $db.saleReturns,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleReturnsTableOrderingComposer(
+            $db: $db,
+            $table: $db.saleReturns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$SaleItemsTableOrderingComposer get saleItemId {
+    final $$SaleItemsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.saleItemId,
+      referencedTable: $db.saleItems,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleItemsTableOrderingComposer(
+            $db: $db,
+            $table: $db.saleItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductsTableOrderingComposer get productId {
+    final $$ProductsTableOrderingComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableOrderingComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SaleReturnItemsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $SaleReturnItemsTable> {
+  $$SaleReturnItemsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<int> get quantityBase => $composableBuilder(
+    column: $table.quantityBase,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get unitPriceMinor => $composableBuilder(
+    column: $table.unitPriceMinor,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get lineTotalMinor => $composableBuilder(
+    column: $table.lineTotalMinor,
+    builder: (column) => column,
+  );
+
+  $$SaleReturnsTableAnnotationComposer get saleReturnId {
+    final $$SaleReturnsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.saleReturnId,
+      referencedTable: $db.saleReturns,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleReturnsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.saleReturns,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$SaleItemsTableAnnotationComposer get saleItemId {
+    final $$SaleItemsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.saleItemId,
+      referencedTable: $db.saleItems,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$SaleItemsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.saleItems,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+
+  $$ProductsTableAnnotationComposer get productId {
+    final $$ProductsTableAnnotationComposer composer = $composerBuilder(
+      composer: this,
+      getCurrentColumn: (t) => t.productId,
+      referencedTable: $db.products,
+      getReferencedColumn: (t) => t.id,
+      builder:
+          (
+            joinBuilder, {
+            $addJoinBuilderToRootComposer,
+            $removeJoinBuilderFromRootComposer,
+          }) => $$ProductsTableAnnotationComposer(
+            $db: $db,
+            $table: $db.products,
+            $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+            joinBuilder: joinBuilder,
+            $removeJoinBuilderFromRootComposer:
+                $removeJoinBuilderFromRootComposer,
+          ),
+    );
+    return composer;
+  }
+}
+
+class $$SaleReturnItemsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $SaleReturnItemsTable,
+          SaleReturnItemRow,
+          $$SaleReturnItemsTableFilterComposer,
+          $$SaleReturnItemsTableOrderingComposer,
+          $$SaleReturnItemsTableAnnotationComposer,
+          $$SaleReturnItemsTableCreateCompanionBuilder,
+          $$SaleReturnItemsTableUpdateCompanionBuilder,
+          (SaleReturnItemRow, $$SaleReturnItemsTableReferences),
+          SaleReturnItemRow,
+          PrefetchHooks Function({
+            bool saleReturnId,
+            bool saleItemId,
+            bool productId,
+          })
+        > {
+  $$SaleReturnItemsTableTableManager(
+    _$AppDatabase db,
+    $SaleReturnItemsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$SaleReturnItemsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$SaleReturnItemsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$SaleReturnItemsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> saleReturnId = const Value.absent(),
+                Value<String> saleItemId = const Value.absent(),
+                Value<String> productId = const Value.absent(),
+                Value<int> quantityBase = const Value.absent(),
+                Value<int> unitPriceMinor = const Value.absent(),
+                Value<int> lineTotalMinor = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => SaleReturnItemsCompanion(
+                id: id,
+                saleReturnId: saleReturnId,
+                saleItemId: saleItemId,
+                productId: productId,
+                quantityBase: quantityBase,
+                unitPriceMinor: unitPriceMinor,
+                lineTotalMinor: lineTotalMinor,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String saleReturnId,
+                required String saleItemId,
+                required String productId,
+                required int quantityBase,
+                required int unitPriceMinor,
+                required int lineTotalMinor,
+                Value<int> rowid = const Value.absent(),
+              }) => SaleReturnItemsCompanion.insert(
+                id: id,
+                saleReturnId: saleReturnId,
+                saleItemId: saleItemId,
+                productId: productId,
+                quantityBase: quantityBase,
+                unitPriceMinor: unitPriceMinor,
+                lineTotalMinor: lineTotalMinor,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$SaleReturnItemsTable, SaleReturnItemRow>(table),
+                  $$SaleReturnItemsTableReferences(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback:
+              ({saleReturnId = false, saleItemId = false, productId = false}) {
+                return PrefetchHooks(
+                  db: db,
+                  explicitlyWatchedTables: [],
+                  addJoins:
+                      <
+                        T extends TableManagerState<
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic,
+                          dynamic
+                        >
+                      >(state) {
+                        if (saleReturnId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.saleReturnId,
+                            referencedTable: $$SaleReturnItemsTableReferences
+                                ._saleReturnIdTable(db),
+                            referencedColumn: $$SaleReturnItemsTableReferences
+                                ._saleReturnIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+                        if (saleItemId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.saleItemId,
+                            referencedTable: $$SaleReturnItemsTableReferences
+                                ._saleItemIdTable(db),
+                            referencedColumn: $$SaleReturnItemsTableReferences
+                                ._saleItemIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+                        if (productId) {
+                          state = state.withJoin(
+                            currentTable: table,
+                            currentColumn: table.productId,
+                            referencedTable: $$SaleReturnItemsTableReferences
+                                ._productIdTable(db),
+                            referencedColumn: $$SaleReturnItemsTableReferences
+                                ._productIdTable(db)
+                                .id,
+                          ) as T;
+                        }
+
+                        return state;
+                      },
+                  getPrefetchedDataCallback: (items) async {
+                    return [];
+                  },
+                );
+              },
+        ),
+      );
+}
+
+typedef $$SaleReturnItemsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $SaleReturnItemsTable,
+      SaleReturnItemRow,
+      $$SaleReturnItemsTableFilterComposer,
+      $$SaleReturnItemsTableOrderingComposer,
+      $$SaleReturnItemsTableAnnotationComposer,
+      $$SaleReturnItemsTableCreateCompanionBuilder,
+      $$SaleReturnItemsTableUpdateCompanionBuilder,
+      (SaleReturnItemRow, $$SaleReturnItemsTableReferences),
+      SaleReturnItemRow,
+      PrefetchHooks Function({
+        bool saleReturnId,
+        bool saleItemId,
+        bool productId,
+      })
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -10135,4 +33722,42 @@ class $AppDatabaseManager {
       $$InstallationProfileTableTableManager(_db, _db.installationProfile);
   $$KnownBusinessesTableTableManager get knownBusinesses =>
       $$KnownBusinessesTableTableManager(_db, _db.knownBusinesses);
+  $$ProductCategoriesTableTableManager get productCategories =>
+      $$ProductCategoriesTableTableManager(_db, _db.productCategories);
+  $$ProductsTableTableManager get products =>
+      $$ProductsTableTableManager(_db, _db.products);
+  $$InventoryBalancesTableTableManager get inventoryBalances =>
+      $$InventoryBalancesTableTableManager(_db, _db.inventoryBalances);
+  $$StockMovementsTableTableManager get stockMovements =>
+      $$StockMovementsTableTableManager(_db, _db.stockMovements);
+  $$SuppliersTableTableManager get suppliers =>
+      $$SuppliersTableTableManager(_db, _db.suppliers);
+  $$DocumentSequencesTableTableManager get documentSequences =>
+      $$DocumentSequencesTableTableManager(_db, _db.documentSequences);
+  $$PurchasesTableTableManager get purchases =>
+      $$PurchasesTableTableManager(_db, _db.purchases);
+  $$PurchaseItemsTableTableManager get purchaseItems =>
+      $$PurchaseItemsTableTableManager(_db, _db.purchaseItems);
+  $$PurchasePaymentsTableTableManager get purchasePayments =>
+      $$PurchasePaymentsTableTableManager(_db, _db.purchasePayments);
+  $$SupplierLedgerEntriesTableTableManager get supplierLedgerEntries =>
+      $$SupplierLedgerEntriesTableTableManager(_db, _db.supplierLedgerEntries);
+  $$PurchaseReturnsTableTableManager get purchaseReturns =>
+      $$PurchaseReturnsTableTableManager(_db, _db.purchaseReturns);
+  $$PurchaseReturnItemsTableTableManager get purchaseReturnItems =>
+      $$PurchaseReturnItemsTableTableManager(_db, _db.purchaseReturnItems);
+  $$CustomersTableTableManager get customers =>
+      $$CustomersTableTableManager(_db, _db.customers);
+  $$SalesTableTableManager get sales =>
+      $$SalesTableTableManager(_db, _db.sales);
+  $$SaleItemsTableTableManager get saleItems =>
+      $$SaleItemsTableTableManager(_db, _db.saleItems);
+  $$SalePaymentsTableTableManager get salePayments =>
+      $$SalePaymentsTableTableManager(_db, _db.salePayments);
+  $$CustomerLedgerEntriesTableTableManager get customerLedgerEntries =>
+      $$CustomerLedgerEntriesTableTableManager(_db, _db.customerLedgerEntries);
+  $$SaleReturnsTableTableManager get saleReturns =>
+      $$SaleReturnsTableTableManager(_db, _db.saleReturns);
+  $$SaleReturnItemsTableTableManager get saleReturnItems =>
+      $$SaleReturnItemsTableTableManager(_db, _db.saleReturnItems);
 }

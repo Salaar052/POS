@@ -1,5 +1,5 @@
-// Pak POS cloud database — business models land in Phase 4+.
-// Phase 1: validate tooling only; do not run migrations against production.
+// Pak POS cloud identity schema — Phase 4.3 foundation.
+// Apply migrations only in controlled environments (not via CI against Neon).
 
 generator client {
   provider = "prisma-client-js"
@@ -8,4 +8,184 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+enum BusinessStatus {
+  ACTIVE
+  SUSPENDED
+  CLOSED
+}
+
+enum UserStatus {
+  ACTIVE
+  SUSPENDED
+  PENDING_VERIFICATION
+}
+
+enum MembershipRole {
+  OWNER
+  ADMIN
+  MANAGER
+  CASHIER
+}
+
+enum MembershipStatus {
+  ACTIVE
+  INVITED
+  SUSPENDED
+}
+
+enum DevicePlatform {
+  ANDROID
+  WINDOWS
+  IOS
+  MACOS
+  LINUX
+  OTHER
+}
+
+enum DeviceStatus {
+  PENDING
+  ACTIVE
+  REVOKED
+  SUSPENDED
+}
+
+enum RefreshTokenStatus {
+  ACTIVE
+  REVOKED
+  REPLACED
+}
+
+model Business {
+  id           String         @id @default(uuid()) @db.Uuid
+  name         String
+  legalName    String?
+  phone        String?
+  email        String?
+  currencyCode String         @default("PKR")
+  timezone     String         @default("Asia/Karachi")
+  status       BusinessStatus @default(ACTIVE)
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  memberships   BusinessMembership[]
+  devices       Device[]
+  refreshTokens RefreshToken[]
+  auditLogs     AuditLog[]
+
+  @@index([status])
+}
+
+model User {
+  id              String     @id @default(uuid()) @db.Uuid
+  name            String
+  email           String
+  normalizedEmail String     @unique
+  passwordHash    String
+  status          UserStatus @default(PENDING_VERIFICATION)
+  emailVerifiedAt DateTime?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  memberships           BusinessMembership[]
+  registeredDevices     Device[]       @relation("DeviceRegisteredBy")
+  refreshTokens RefreshToken[]
+  auditLogs     AuditLog[]     @relation("AuditActorUser")
+
+  @@index([status])
+}
+
+model BusinessMembership {
+  id         String           @id @default(uuid()) @db.Uuid
+  businessId String           @db.Uuid
+  userId     String           @db.Uuid
+  role       MembershipRole
+  status     MembershipStatus @default(INVITED)
+  createdAt  DateTime         @default(now())
+  updatedAt  DateTime         @updatedAt
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Restrict)
+  user     User     @relation(fields: [userId], references: [id], onDelete: Restrict)
+
+  @@unique([businessId, userId])
+  @@index([userId, status])
+  @@index([businessId, status])
+}
+
+model Device {
+  id                   String         @id @default(uuid()) @db.Uuid
+  businessId           String         @db.Uuid
+  registeredByUserId   String?        @db.Uuid
+  deviceName           String
+  platform             DevicePlatform
+  deviceIdentifierHash String
+  status               DeviceStatus   @default(PENDING)
+  activatedAt          DateTime?
+  lastSeenAt           DateTime?
+  revokedAt            DateTime?
+  createdAt            DateTime       @default(now())
+  updatedAt            DateTime       @updatedAt
+
+  business         Business       @relation(fields: [businessId], references: [id], onDelete: Restrict)
+  registeredByUser User?          @relation("DeviceRegisteredBy", fields: [registeredByUserId], references: [id], onDelete: SetNull)
+  refreshTokens    RefreshToken[]
+  auditLogs        AuditLog[]
+
+  @@unique([businessId, deviceIdentifierHash])
+  @@index([businessId, status])
+}
+
+model RefreshToken {
+  id                String             @id @default(uuid()) @db.Uuid
+  userId            String             @db.Uuid
+  businessId        String?            @db.Uuid
+  deviceId          String?            @db.Uuid
+  tokenHash         String             @unique
+  tokenFamilyId     String             @db.Uuid
+  status            RefreshTokenStatus @default(ACTIVE)
+  expiresAt         DateTime
+  revokedAt         DateTime?
+  replacedByTokenId String?            @db.Uuid
+  createdAt         DateTime           @default(now())
+  lastUsedAt        DateTime?
+
+  user            User          @relation(fields: [userId], references: [id], onDelete: Restrict)
+  business        Business?     @relation(fields: [businessId], references: [id], onDelete: Restrict)
+  device          Device?       @relation(fields: [deviceId], references: [id], onDelete: SetNull)
+  replacedByToken RefreshToken? @relation("TokenRotation", fields: [replacedByTokenId], references: [id], onDelete: SetNull)
+  replacedTokens  RefreshToken[] @relation("TokenRotation")
+
+  @@index([userId, status])
+  @@index([tokenFamilyId, status])
+  @@index([expiresAt])
+  @@index([deviceId, status])
+}
+
+/// Distributed login rate-limit buckets (shared PostgreSQL; not in-memory).
+model LoginRateLimitBucket {
+  clientKey       String   @id
+  windowStartedAt DateTime
+  attemptCount    Int      @default(0)
+  updatedAt       DateTime @updatedAt
+}
+
+model AuditLog {
+  id           String   @id @default(uuid()) @db.Uuid
+  businessId   String?  @db.Uuid
+  actorUserId  String?  @db.Uuid
+  deviceId     String?  @db.Uuid
+  eventType    String
+  entityType   String
+  entityId     String?
+  metadata     Json     @default("{}")
+  createdAt    DateTime @default(now())
+
+  business    Business? @relation(fields: [businessId], references: [id], onDelete: Restrict)
+  actorUser   User?     @relation("AuditActorUser", fields: [actorUserId], references: [id], onDelete: Restrict)
+  device      Device?   @relation(fields: [deviceId], references: [id], onDelete: SetNull)
+
+  @@index([businessId, createdAt])
+  @@index([eventType, createdAt])
+  @@index([entityType, entityId])
 }

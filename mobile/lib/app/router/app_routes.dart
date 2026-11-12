@@ -2,9 +2,22 @@ import 'package:flutter/material.dart';
 
 /// Named routes and paths for GoRouter.
 abstract final class AppRoutes {
+  static const onboardingWelcome = '/onboarding';
+  static const onboardingRegister = '/onboarding/register';
+  static const onboardingComplete = '/onboarding/complete';
+  static const onboardingRecover = '/onboarding/recover';
+  static const onboardingLegacyAccess = '/onboarding/legacy-access';
+  static const onboardingLogin = '/onboarding/login';
+  static const onboardingLocalDatabaseRecovery = '/onboarding/local-database';
+  static const onboardingSnapshotError = '/onboarding/snapshot-error';
+  static const onboardingSecureStorageError =
+      '/onboarding/secure-storage-error';
+  static const launchResolving = '/launch-resolving';
+
   static const dashboard = '/';
   static const pos = '/pos';
   static const products = '/products';
+  static const productCategories = '/products/categories';
   static const inventory = '/inventory';
   static const customers = '/customers';
   static const suppliers = '/suppliers';
@@ -16,6 +29,7 @@ abstract final class AppRoutes {
   static const dashboardName = 'dashboard';
   static const posName = 'pos';
   static const productsName = 'products';
+  static const productCategoriesName = 'productCategories';
   static const inventoryName = 'inventory';
   static const customersName = 'customers';
   static const suppliersName = 'suppliers';

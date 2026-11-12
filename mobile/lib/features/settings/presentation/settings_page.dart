@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pos_mobile/app/bootstrap/app_runtime.dart';
+import 'package:pos_mobile/app/providers/app_launch_provider.dart';
+import 'package:pos_mobile/app/providers/auth_providers.dart';
 import 'package:pos_mobile/app/providers/theme_provider.dart';
 import 'package:pos_mobile/app/theme/app_spacing.dart';
 
@@ -27,6 +30,34 @@ class SettingsPage extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: AppSpacing.lg),
+            Card(
+              child: ListTile(
+                title: const Text('Sign out'),
+                subtitle: const Text(
+                  'Revokes this device sign-in and returns to the login screen.',
+                ),
+                trailing: const Icon(Icons.logout),
+                onTap: () async {
+                  final messenger = ScaffoldMessenger.of(context);
+                  final serverRevoked = await ref
+                      .read(authSessionControllerProvider)
+                      .logout();
+                  await AppRuntime.switchToBootstrap();
+                  ref.invalidate(appLaunchResolutionProvider);
+                  messenger.showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        serverRevoked
+                            ? 'Signed out.'
+                            : 'Signed out on this device. Server revocation '
+                                  'could not be confirmed.',
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+            const SizedBox(height: AppSpacing.md),
             Card(
               child: Padding(
                 padding: const EdgeInsets.symmetric(

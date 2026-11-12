@@ -159,9 +159,9 @@ void main() {
         storageDirectoryOverride: storageRoot,
       );
       try {
-        await (bootstrap.database.update(bootstrap.database.knownBusinesses)
-              ..where((t) => t.businessId.equals(businessId)))
-            .write(
+        await (bootstrap.database.update(
+          bootstrap.database.knownBusinesses,
+        )..where((t) => t.businessId.equals(businessId))).write(
           const KnownBusinessesCompanion(
             provisioningStatus: Value(ProvisioningStatus.provisioning),
           ),
