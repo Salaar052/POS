@@ -46,10 +46,15 @@ Future<void> runSalePrint(
   WidgetRef ref, {
   required String saleId,
   required ReceiptPrintType printType,
+  bool forceSystemPdf = false,
 }) async {
   final outcome = await ref
       .read(receiptPrintServiceProvider)
-      .printSaleReceipt(saleId: saleId, printType: printType);
+      .printSaleReceipt(
+        saleId: saleId,
+        printType: printType,
+        forceSystemPdf: forceSystemPdf,
+      );
   if (!context.mounted) {
     return;
   }
@@ -62,22 +67,43 @@ Future<void> runSalePrint(
           'Print may have succeeded — verify the printer before reprinting.',
   };
   final retry = outcome.result != ReceiptPrintResult.success;
+  if (!retry) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
+    return;
+  }
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Text(message),
-      action: retry
-          ? SnackBarAction(
-              label: 'Retry',
-              onPressed: () => runSalePrint(
-                context,
-                ref,
-                saleId: saleId,
-                printType: printType,
-              ),
-            )
-          : null,
+      action: SnackBarAction(
+        label: 'Retry',
+        onPressed: () => runSalePrint(
+          context,
+          ref,
+          saleId: saleId,
+          printType: printType,
+          forceSystemPdf: forceSystemPdf,
+        ),
+      ),
     ),
   );
+  if (!forceSystemPdf) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text('Try system PDF if native printing failed.'),
+        action: SnackBarAction(
+          label: 'Use PDF',
+          onPressed: () => runSalePrint(
+            context,
+            ref,
+            saleId: saleId,
+            printType: printType,
+            forceSystemPdf: true,
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 Future<void> runReturnPrint(

@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pos_mobile/app/providers/business_status_provider.dart';
 import 'package:pos_mobile/app/providers/database_providers.dart';
-import 'package:pos_mobile/app/providers/sales_providers.dart';
-import 'package:pos_mobile/features/catalog/domain/money_amount.dart';
 import 'package:pos_mobile/features/products/presentation/catalog_access_gate.dart';
+import 'package:pos_mobile/features/reporting/presentation/dashboard_reporting_body.dart';
 import 'package:pos_mobile/app/theme/app_colors.dart';
 import 'package:pos_mobile/app/theme/app_spacing.dart';
 
@@ -27,8 +26,7 @@ class DashboardPage extends ConsumerWidget {
             Text('Welcome to Pak POS', style: theme.textTheme.headlineSmall),
             const SizedBox(height: AppSpacing.xs),
             Text(
-              'Offline-first point of sale for Pakistan. '
-              'This dashboard reflects local database health only — no sales metrics yet.',
+              'Business overview from your offline database (Pakistan business days, PKR).',
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -80,7 +78,7 @@ class DashboardPage extends ConsumerWidget {
             ),
             const SizedBox(height: AppSpacing.lg),
             if (service.businessId != null)
-              const CatalogAccessGate(child: _TodaySalesSummary()),
+              const CatalogAccessGate(child: DashboardReportingBody()),
             if (service.businessId != null)
               const SizedBox(height: AppSpacing.md),
             Card(
@@ -91,76 +89,6 @@ class DashboardPage extends ConsumerWidget {
                   style: theme.textTheme.bodyMedium,
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _TodaySalesSummary extends ConsumerStatefulWidget {
-  const _TodaySalesSummary();
-
-  @override
-  ConsumerState<_TodaySalesSummary> createState() => _TodaySalesSummaryState();
-}
-
-class _TodaySalesSummaryState extends ConsumerState<_TodaySalesSummary> {
-  bool _loading = true;
-  int _salesMinor = 0;
-  int _saleCount = 0;
-  int _receivablesMinor = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _load();
-  }
-
-  Future<void> _load() async {
-    final summary = await ref
-        .read(salesRepositoryProvider)
-        .salesSummaryForToday();
-    if (!mounted) {
-      return;
-    }
-    setState(() {
-      _salesMinor = summary.todayCompletedSalesMinor;
-      _saleCount = summary.todayCompletedSaleCount;
-      _receivablesMinor = summary.outstandingReceivablesMinor;
-      _loading = false;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (_loading) {
-      return const Card(
-        child: Padding(
-          padding: EdgeInsets.all(AppSpacing.lg),
-          child: Text('Loading today’s sales…'),
-        ),
-      );
-    }
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(AppSpacing.lg),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Today’s sales',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
-            const SizedBox(height: AppSpacing.xs),
-            Text(
-              '${MoneyAmount.formatPkrFromMinor(_salesMinor)} PKR revenue · '
-              '$_saleCount sale(s)',
-            ),
-            Text(
-              'Outstanding receivables: '
-              '${MoneyAmount.formatPkrFromMinor(_receivablesMinor)} PKR',
             ),
           ],
         ),

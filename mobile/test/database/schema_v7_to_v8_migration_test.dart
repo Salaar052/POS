@@ -19,7 +19,9 @@ void main() {
 
     final v6 = v6db.LegacyV6AppDatabase(NativeDatabase(File(path)));
     await v6.customStatement('PRAGMA foreign_keys = ON');
-    await v6.into(v6.sales).insert(
+    await v6
+        .into(v6.sales)
+        .insert(
           v6db.SalesCompanion.insert(
             id: saleId,
             saleNumber: 'SO-000099',

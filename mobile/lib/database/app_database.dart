@@ -156,9 +156,7 @@ extension on AppDatabase {
       return;
     }
     final now = DateTime.now().toUtc().millisecondsSinceEpoch;
-    await into(
-      receiptSettings,
-    ).insert(
+    await into(receiptSettings).insert(
       ReceiptSettingsCompanion.insert(
         singletonId: const Value(1),
         updatedAtMs: now,

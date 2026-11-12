@@ -8,6 +8,7 @@ import 'package:pos_mobile/data/repositories/receipt_settings_repository.dart';
 import 'package:pos_mobile/data/repositories/sales_repository.dart';
 import 'package:pos_mobile/database/app_database.dart';
 import 'package:pos_mobile/features/sales/domain/sales_enums.dart';
+
 void main() {
   late AppDatabase db;
   late DatabaseRunner runner;

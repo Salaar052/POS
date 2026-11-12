@@ -3,13 +3,14 @@ import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:printing/printing.dart';
 import 'package:pos_mobile/features/receipts/application/thermal_printer_service.dart';
+import 'package:pos_mobile/features/receipts/domain/printer_capabilities.dart';
 import 'package:pos_mobile/features/receipts/domain/printer_models.dart';
 import 'package:pos_mobile/features/receipts/domain/receipt_enums.dart';
 import 'package:pos_mobile/features/receipts/domain/receipt_pdf_builder.dart';
 
 /// Uses the OS print dialog (Windows spooler / Android print framework).
 ///
-/// Raw ESC/POS, USB direct, and Bluetooth Classic are not implemented here.
+/// PDF/system dialog only — native ESC/POS uses [CompositeThermalPrinterService].
 class SystemQueuePrinterService implements ThermalPrinterService {
   PrinterConnectionState _state = PrinterConnectionState.disconnected;
   PrinterConfiguration? _config;
@@ -21,7 +22,21 @@ class SystemQueuePrinterService implements ThermalPrinterService {
   PrinterConfiguration? get activeConfiguration => _config;
 
   @override
-  Future<List<DiscoveredPrinter>> discoverPrinters() async {
+  PrinterCapabilities? get activeCapabilities =>
+      _config == null ? null : PrinterCapabilities.systemPdfOnly;
+
+  @override
+  ReceiptOutputChannel get activeOutputChannel =>
+      ReceiptOutputChannel.systemPdf;
+
+  @override
+  Future<List<DiscoveredPrinter>> discoverPrinters({
+    PrinterConnectionType? transportFilter,
+  }) async {
+    if (transportFilter != null &&
+        transportFilter != PrinterConnectionType.systemQueue) {
+      return [];
+    }
     try {
       final printers = await Printing.listPrinters();
       if (printers.isEmpty) {
@@ -102,5 +117,17 @@ class SystemQueuePrinterService implements ThermalPrinterService {
         message: e.toString(),
       );
     }
+  }
+
+  @override
+  Future<PrintOutcome> printEscPos({
+    required Uint8List escPosBytes,
+    required String jobName,
+    required int copyCount,
+  }) async {
+    return const PrintOutcome(
+      result: ReceiptPrintResult.failed,
+      message: 'System PDF transport cannot send ESC/POS bytes',
+    );
   }
 }

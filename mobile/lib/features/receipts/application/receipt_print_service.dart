@@ -6,6 +6,7 @@ import 'package:pos_mobile/features/receipts/application/receipt_data_service.da
 import 'package:pos_mobile/features/receipts/application/thermal_printer_service.dart';
 import 'package:pos_mobile/features/receipts/domain/printer_models.dart';
 import 'package:pos_mobile/features/receipts/domain/receipt_enums.dart';
+import 'package:pos_mobile/features/receipts/domain/receipt_esc_pos_encoder.dart';
 import 'package:pos_mobile/features/receipts/domain/receipt_models.dart';
 import 'package:pos_mobile/features/receipts/domain/receipt_pdf_builder.dart';
 
@@ -31,17 +32,38 @@ class ReceiptPrintService {
   Future<PrintOutcome> printSaleReceipt({
     required String saleId,
     required ReceiptPrintType printType,
+    bool forceSystemPdf = false,
   }) async {
     final loaded = await _data.loadSaleReceipt(
       saleId: saleId,
       isReprint: printType == ReceiptPrintType.reprint,
     );
+    final useEscPos =
+        !forceSystemPdf &&
+        _printer.activeOutputChannel == ReceiptOutputChannel.nativeEscPos;
+
+    if (useEscPos) {
+      final escPos = await ReceiptEscPosEncoder.encodeSale(
+        business: loaded.business,
+        sale: loaded.document,
+        options: loaded.options,
+      );
+      return _deliverAndLog(
+        escPos: escPos,
+        referenceType: refTypeSale,
+        referenceId: saleId,
+        documentNumber: loaded.document.invoiceNumber,
+        printType: printType,
+        paperWidthMm: loaded.options.paperWidth.mm,
+      );
+    }
+
     final pdf = await ReceiptPdfBuilder.buildSalePdf(
       business: loaded.business,
       sale: loaded.document,
       options: loaded.options,
     );
-    return _printAndLog(
+    return _deliverAndLog(
       pdf: pdf,
       referenceType: refTypeSale,
       referenceId: saleId,
@@ -54,17 +76,38 @@ class ReceiptPrintService {
   Future<PrintOutcome> printReturnReceipt({
     required String saleReturnId,
     required ReceiptPrintType printType,
+    bool forceSystemPdf = false,
   }) async {
     final loaded = await _data.loadReturnReceipt(
       saleReturnId: saleReturnId,
       isReprint: printType == ReceiptPrintType.reprint,
     );
+    final useEscPos =
+        !forceSystemPdf &&
+        _printer.activeOutputChannel == ReceiptOutputChannel.nativeEscPos;
+
+    if (useEscPos) {
+      final escPos = await ReceiptEscPosEncoder.encodeReturn(
+        business: loaded.business,
+        doc: loaded.document,
+        paperWidth: loaded.paperWidth,
+      );
+      return _deliverAndLog(
+        escPos: escPos,
+        referenceType: refTypeReturn,
+        referenceId: saleReturnId,
+        documentNumber: loaded.document.returnNumber,
+        printType: printType,
+        paperWidthMm: loaded.paperWidth.mm,
+      );
+    }
+
     final pdf = await ReceiptPdfBuilder.buildReturnPdf(
       business: loaded.business,
       doc: loaded.document,
       paperWidth: loaded.paperWidth,
     );
-    return _printAndLog(
+    return _deliverAndLog(
       pdf: pdf,
       referenceType: refTypeReturn,
       referenceId: saleReturnId,
@@ -74,7 +117,7 @@ class ReceiptPrintService {
     );
   }
 
-  Future<PrintOutcome> printTestReceipt() async {
+  Future<PrintOutcome> printTestReceipt({bool forceSystemPdf = false}) async {
     final settings = await _settings.getSettings();
     final paper = ReceiptPaperWidth.fromMm(settings.paperWidthMm);
     final testHeader = ReceiptBusinessHeader(
@@ -86,11 +129,30 @@ class ReceiptPrintService {
       footerText: settings.footerText,
       currencyDisplay: settings.currencyDisplay,
     );
+    final useEscPos =
+        !forceSystemPdf &&
+        _printer.activeOutputChannel == ReceiptOutputChannel.nativeEscPos;
+
+    if (useEscPos) {
+      final escPos = await ReceiptEscPosEncoder.encodeTest(
+        business: testHeader,
+        paperWidth: paper,
+      );
+      return _deliverAndLog(
+        escPos: escPos,
+        referenceType: 'TEST',
+        referenceId: 'test',
+        documentNumber: 'TEST',
+        printType: ReceiptPrintType.test,
+        paperWidthMm: paper.mm,
+      );
+    }
+
     final pdf = await ReceiptPdfBuilder.buildTestPdf(
       business: testHeader,
       paperWidth: paper,
     );
-    return _printAndLog(
+    return _deliverAndLog(
       pdf: pdf,
       referenceType: 'TEST',
       referenceId: 'test',
@@ -100,8 +162,9 @@ class ReceiptPrintService {
     );
   }
 
-  Future<PrintOutcome> _printAndLog({
-    required Uint8List pdf,
+  Future<PrintOutcome> _deliverAndLog({
+    Uint8List? pdf,
+    Uint8List? escPos,
     required String referenceType,
     required String referenceId,
     required String documentNumber,
@@ -113,11 +176,25 @@ class ReceiptPrintService {
     final printerId =
         _printer.activeConfiguration?.printerId ?? settings.selectedPrinterId;
 
-    final outcome = await _printer.printPdf(
-      pdfBytes: pdf,
-      jobName: documentNumber,
-      copyCount: copies,
-    );
+    final PrintOutcome outcome;
+    if (escPos != null) {
+      outcome = await _printer.printEscPos(
+        escPosBytes: escPos,
+        jobName: documentNumber,
+        copyCount: copies,
+      );
+    } else if (pdf != null) {
+      outcome = await _printer.printPdf(
+        pdfBytes: pdf,
+        jobName: documentNumber,
+        copyCount: copies,
+      );
+    } else {
+      outcome = const PrintOutcome(
+        result: ReceiptPrintResult.failed,
+        message: 'No receipt payload',
+      );
+    }
 
     await _printAttempts.logAttempt(
       referenceType: referenceType,

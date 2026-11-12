@@ -2,9 +2,7 @@ import 'package:drift/drift.dart';
 import 'package:pos_mobile/database/app_database.dart';
 
 Future<void> addSaleInvoiceNumberColumnIfNeeded(AppDatabase db) async {
-  final columns = await db
-      .customSelect('PRAGMA table_info(sales)')
-      .get();
+  final columns = await db.customSelect('PRAGMA table_info(sales)').get();
   final names = columns.map((r) => r.data['name'] as String).toList();
   if (names.contains('invoice_number')) {
     return;

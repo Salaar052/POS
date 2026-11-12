@@ -5,11 +5,11 @@ import 'package:pos_mobile/data/repositories/receipt_settings_repository.dart';
 import 'package:pos_mobile/features/receipts/application/fake_thermal_printer_service.dart';
 import 'package:pos_mobile/features/receipts/application/receipt_data_service.dart';
 import 'package:pos_mobile/features/receipts/application/receipt_print_service.dart';
-import 'package:pos_mobile/features/receipts/application/system_queue_printer_service.dart';
+import 'package:pos_mobile/features/receipts/application/composite_thermal_printer_service.dart';
 import 'package:pos_mobile/features/receipts/application/thermal_printer_service.dart';
 
 final thermalPrinterServiceProvider = Provider<ThermalPrinterService>((ref) {
-  return SystemQueuePrinterService();
+  return CompositeThermalPrinterService();
 });
 
 final receiptSettingsRepositoryProvider = Provider<ReceiptSettingsRepository>(

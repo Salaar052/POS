@@ -21,11 +21,19 @@ class _PrinterManagementPageState extends ConsumerState<PrinterManagementPage> {
   bool _discovering = false;
   String? _error;
   int _paperWidth = 58;
+  PrinterConnectionType? _transportFilter;
+  final _manualSerialController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     _bootstrap();
+  }
+
+  @override
+  void dispose() {
+    _manualSerialController.dispose();
+    super.dispose();
   }
 
   Future<void> _bootstrap() async {
@@ -58,7 +66,7 @@ class _PrinterManagementPageState extends ConsumerState<PrinterManagementPage> {
     try {
       final list = await ref
           .read(thermalPrinterServiceProvider)
-          .discoverPrinters();
+          .discoverPrinters(transportFilter: _transportFilter);
       setState(() {
         _printers = list;
         _discovering = false;
@@ -107,10 +115,10 @@ class _PrinterManagementPageState extends ConsumerState<PrinterManagementPage> {
     }
   }
 
-  Future<void> _testPrint() async {
+  Future<void> _testPrint({bool forceSystemPdf = false}) async {
     final outcome = await ref
         .read(receiptPrintServiceProvider)
-        .printTestReceipt();
+        .printTestReceipt(forceSystemPdf: forceSystemPdf);
     if (!mounted) {
       return;
     }
@@ -160,8 +168,8 @@ class _PrinterManagementPageState extends ConsumerState<PrinterManagementPage> {
             ),
             const SizedBox(height: AppSpacing.sm),
             Text(
-              'Uses the system print dialog (Windows spooler / Android print). '
-              'Raw ESC/POS USB or Bluetooth is not available in this build.',
+              'Choose System PDF for the OS print dialog, or a native transport '
+              'for raw ESC/POS. You can always fall back to PDF if native printing fails.',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
@@ -176,8 +184,50 @@ class _PrinterManagementPageState extends ConsumerState<PrinterManagementPage> {
                       : null,
                 ),
                 title: Text(connected ? 'Connected' : 'Not connected'),
-                subtitle: Text(active?.displayName ?? 'No printer selected'),
+                subtitle: Text(
+                  active == null
+                      ? 'No printer selected'
+                      : '${active.displayName} · ${printer.activeOutputChannel.storage}',
+                ),
               ),
+            ),
+            if (printer.activeCapabilities != null)
+              Card(
+                child: ListTile(
+                  title: const Text('Capabilities'),
+                  subtitle: Text(
+                    'ESC/POS: ${printer.activeCapabilities!.supportsEscPos} · '
+                    'PDF: ${printer.activeCapabilities!.supportsPdf} · '
+                    'Encoding: ${printer.activeCapabilities!.characterEncoding}',
+                  ),
+                ),
+              ),
+            DropdownButtonFormField<PrinterConnectionType?>(
+              value: _transportFilter,
+              decoration: const InputDecoration(labelText: 'Transport filter'),
+              items: const [
+                DropdownMenuItem(value: null, child: Text('All transports')),
+                DropdownMenuItem(
+                  value: PrinterConnectionType.systemQueue,
+                  child: Text('System PDF'),
+                ),
+                DropdownMenuItem(
+                  value: PrinterConnectionType.windowsRawQueue,
+                  child: Text('Windows RAW queue'),
+                ),
+                DropdownMenuItem(
+                  value: PrinterConnectionType.windowsSerial,
+                  child: Text('Windows serial (COM)'),
+                ),
+                DropdownMenuItem(
+                  value: PrinterConnectionType.bluetoothClassic,
+                  child: Text('Bluetooth Classic'),
+                ),
+              ],
+              onChanged: (v) async {
+                setState(() => _transportFilter = v);
+                await _discover();
+              },
             ),
             DropdownButtonFormField<int>(
               value: _paperWidth,
@@ -241,10 +291,42 @@ class _PrinterManagementPageState extends ConsumerState<PrinterManagementPage> {
                 ),
               ),
             ),
+            const SizedBox(height: AppSpacing.md),
+            TextField(
+              controller: _manualSerialController,
+              decoration: const InputDecoration(
+                labelText: 'Manual COM port (e.g. COM4)',
+                helperText:
+                    'Discover serial ports or enter a port name manually.',
+              ),
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            OutlinedButton(
+              onPressed: () {
+                final port = _manualSerialController.text.trim();
+                if (port.isEmpty) {
+                  return;
+                }
+                _selectPrinter(
+                  DiscoveredPrinter(
+                    id: port,
+                    displayName: 'Serial $port',
+                    connectionType: PrinterConnectionType.windowsSerial,
+                    supportsEscPos: true,
+                  ),
+                );
+              },
+              child: const Text('Connect manual serial'),
+            ),
             const SizedBox(height: AppSpacing.lg),
             FilledButton(
-              onPressed: connected ? _testPrint : null,
-              child: const Text('Print test receipt'),
+              onPressed: connected ? () => _testPrint() : null,
+              child: const Text('Print test (active transport)'),
+            ),
+            const SizedBox(height: AppSpacing.sm),
+            OutlinedButton(
+              onPressed: () => _testPrint(forceSystemPdf: true),
+              child: const Text('Print test using PDF fallback'),
             ),
           ],
         ),
