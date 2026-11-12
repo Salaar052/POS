@@ -7,6 +7,9 @@ class Sales extends Table {
 
   TextColumn get saleNumber => text()();
 
+  /// Permanent invoice number assigned atomically at checkout (not on drafts).
+  TextColumn get invoiceNumber => text().nullable()();
+
   TextColumn get customerId => text().nullable().references(Customers, #id)();
 
   TextColumn get customerNameSnapshot => text().nullable()();

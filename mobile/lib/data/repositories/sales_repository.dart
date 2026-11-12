@@ -5,6 +5,7 @@ import 'package:pos_mobile/data/repositories/database_runner.dart';
 import 'package:pos_mobile/data/repositories/document_sequence_repository.dart';
 import 'package:pos_mobile/data/repositories/inventory_repository.dart';
 import 'package:pos_mobile/data/repositories/product_repository.dart';
+import 'package:pos_mobile/data/repositories/receipt_settings_repository.dart';
 import 'package:pos_mobile/database/app_database.dart';
 import 'package:pos_mobile/features/catalog/domain/money_amount.dart';
 import 'package:pos_mobile/features/inventory/domain/stock_movement_type.dart';
@@ -63,11 +64,13 @@ class SalesRepository {
     DocumentSequenceRepository? sequences,
     CustomerRepository? customers,
     ProductRepository? products,
+    ReceiptSettingsRepository? receiptSettings,
   }) : _inventory = inventory ?? InventoryRepository(_runner),
        _ledger = ledger ?? CustomerLedgerRepository(_runner),
        _sequences = sequences ?? DocumentSequenceRepository(_runner),
        _customers = customers ?? CustomerRepository(_runner),
-       _products = products ?? ProductRepository(_runner);
+       _products = products ?? ProductRepository(_runner),
+       _receiptSettings = receiptSettings ?? ReceiptSettingsRepository(_runner);
 
   final DatabaseRunner _runner;
   final InventoryRepository _inventory;
@@ -75,6 +78,7 @@ class SalesRepository {
   final DocumentSequenceRepository _sequences;
   final CustomerRepository _customers;
   final ProductRepository _products;
+  final ReceiptSettingsRepository _receiptSettings;
   static const _uuid = Uuid();
   static const refTypeSaleCheckout = 'SALE_CHECKOUT';
   static const refTypeSalePayment = 'SALE_PAYMENT';
@@ -425,6 +429,16 @@ class SalesRepository {
       }
 
       final amountDue = totalMinor - paid;
+      final receiptSettings = await _receiptSettings.getSettingsInTransaction();
+      final existingInvoice = refreshed.invoiceNumber;
+      final invoiceNumber =
+          (existingInvoice != null && existingInvoice.isNotEmpty)
+          ? existingInvoice
+          : await _sequences.nextInvoiceNumberInTransaction(
+              prefix: receiptSettings.invoicePrefix,
+              completedAtMs: now,
+              sequenceStart: receiptSettings.invoiceSequenceStart,
+            );
       await (_runner.database.update(
         _runner.database.sales,
       )..where((t) => t.id.equals(saleId))).write(
@@ -433,6 +447,7 @@ class SalesRepository {
           amountPaidMinor: Value(paid),
           amountDueMinor: Value(amountDue),
           checkoutIdempotencyKey: Value(checkoutIdempotencyKey),
+          invoiceNumber: Value(invoiceNumber),
           completedAtMs: Value(now),
           updatedAtMs: Value(now),
         ),

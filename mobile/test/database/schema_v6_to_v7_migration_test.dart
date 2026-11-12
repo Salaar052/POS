@@ -58,7 +58,7 @@ void main() {
     final versionAfter = await migrated
         .customSelect('PRAGMA user_version')
         .getSingle();
-    expect(versionAfter.data['user_version'], 7);
+    expect(versionAfter.data['user_version'], 8);
 
     final afterColumns = await migrated
         .customSelect('PRAGMA table_info(customer_ledger_entries)')

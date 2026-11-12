@@ -14312,6 +14312,17 @@ class $SalesTable extends Sales with TableInfo<$SalesTable, SaleRow> {
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _invoiceNumberMeta = const VerificationMeta(
+    'invoiceNumber',
+  );
+  @override
+  late final GeneratedColumn<String> invoiceNumber = GeneratedColumn<String>(
+    'invoice_number',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _customerIdMeta = const VerificationMeta(
     'customerId',
   );
@@ -14470,6 +14481,7 @@ class $SalesTable extends Sales with TableInfo<$SalesTable, SaleRow> {
   List<GeneratedColumn> get $columns => [
     id,
     saleNumber,
+    invoiceNumber,
     customerId,
     customerNameSnapshot,
     status,
@@ -14509,6 +14521,15 @@ class $SalesTable extends Sales with TableInfo<$SalesTable, SaleRow> {
       );
     } else if (isInserting) {
       context.missing(_saleNumberMeta);
+    }
+    if (data.containsKey('invoice_number')) {
+      context.handle(
+        _invoiceNumberMeta,
+        invoiceNumber.isAcceptableOrUnknown(
+          data['invoice_number']!,
+          _invoiceNumberMeta,
+        ),
+      );
     }
     if (data.containsKey('customer_id')) {
       context.handle(
@@ -14655,6 +14676,10 @@ class $SalesTable extends Sales with TableInfo<$SalesTable, SaleRow> {
         DriftSqlType.string,
         data['${effectivePrefix}sale_number'],
       )!,
+      invoiceNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}invoice_number'],
+      ),
       customerId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}customer_id'],
@@ -14723,6 +14748,9 @@ class $SalesTable extends Sales with TableInfo<$SalesTable, SaleRow> {
 class SaleRow extends DataClass implements Insertable<SaleRow> {
   final String id;
   final String saleNumber;
+
+  /// Permanent invoice number assigned atomically at checkout (not on drafts).
+  final String? invoiceNumber;
   final String? customerId;
   final String? customerNameSnapshot;
   final String status;
@@ -14740,6 +14768,7 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
   const SaleRow({
     required this.id,
     required this.saleNumber,
+    this.invoiceNumber,
     this.customerId,
     this.customerNameSnapshot,
     required this.status,
@@ -14760,6 +14789,9 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
     map['sale_number'] = Variable<String>(saleNumber);
+    if (!nullToAbsent || invoiceNumber != null) {
+      map['invoice_number'] = Variable<String>(invoiceNumber);
+    }
     if (!nullToAbsent || customerId != null) {
       map['customer_id'] = Variable<String>(customerId);
     }
@@ -14795,6 +14827,9 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
     return SalesCompanion(
       id: Value(id),
       saleNumber: Value(saleNumber),
+      invoiceNumber: invoiceNumber == null && nullToAbsent
+          ? const Value.absent()
+          : Value(invoiceNumber),
       customerId: customerId == null && nullToAbsent
           ? const Value.absent()
           : Value(customerId),
@@ -14832,6 +14867,7 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
     return SaleRow(
       id: serializer.fromJson<String>(json['id']),
       saleNumber: serializer.fromJson<String>(json['saleNumber']),
+      invoiceNumber: serializer.fromJson<String?>(json['invoiceNumber']),
       customerId: serializer.fromJson<String?>(json['customerId']),
       customerNameSnapshot: serializer.fromJson<String?>(
         json['customerNameSnapshot'],
@@ -14858,6 +14894,7 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'saleNumber': serializer.toJson<String>(saleNumber),
+      'invoiceNumber': serializer.toJson<String?>(invoiceNumber),
       'customerId': serializer.toJson<String?>(customerId),
       'customerNameSnapshot': serializer.toJson<String?>(customerNameSnapshot),
       'status': serializer.toJson<String>(status),
@@ -14880,6 +14917,7 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
   SaleRow copyWith({
     String? id,
     String? saleNumber,
+    Value<String?> invoiceNumber = const Value.absent(),
     Value<String?> customerId = const Value.absent(),
     Value<String?> customerNameSnapshot = const Value.absent(),
     String? status,
@@ -14897,6 +14935,9 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
   }) => SaleRow(
     id: id ?? this.id,
     saleNumber: saleNumber ?? this.saleNumber,
+    invoiceNumber: invoiceNumber.present
+        ? invoiceNumber.value
+        : this.invoiceNumber,
     customerId: customerId.present ? customerId.value : this.customerId,
     customerNameSnapshot: customerNameSnapshot.present
         ? customerNameSnapshot.value
@@ -14926,6 +14967,9 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
       saleNumber: data.saleNumber.present
           ? data.saleNumber.value
           : this.saleNumber,
+      invoiceNumber: data.invoiceNumber.present
+          ? data.invoiceNumber.value
+          : this.invoiceNumber,
       customerId: data.customerId.present
           ? data.customerId.value
           : this.customerId,
@@ -14972,6 +15016,7 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
     return (StringBuffer('SaleRow(')
           ..write('id: $id, ')
           ..write('saleNumber: $saleNumber, ')
+          ..write('invoiceNumber: $invoiceNumber, ')
           ..write('customerId: $customerId, ')
           ..write('customerNameSnapshot: $customerNameSnapshot, ')
           ..write('status: $status, ')
@@ -14994,6 +15039,7 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
   int get hashCode => Object.hash(
     id,
     saleNumber,
+    invoiceNumber,
     customerId,
     customerNameSnapshot,
     status,
@@ -15015,6 +15061,7 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
       (other is SaleRow &&
           other.id == this.id &&
           other.saleNumber == this.saleNumber &&
+          other.invoiceNumber == this.invoiceNumber &&
           other.customerId == this.customerId &&
           other.customerNameSnapshot == this.customerNameSnapshot &&
           other.status == this.status &&
@@ -15034,6 +15081,7 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
 class SalesCompanion extends UpdateCompanion<SaleRow> {
   final Value<String> id;
   final Value<String> saleNumber;
+  final Value<String?> invoiceNumber;
   final Value<String?> customerId;
   final Value<String?> customerNameSnapshot;
   final Value<String> status;
@@ -15052,6 +15100,7 @@ class SalesCompanion extends UpdateCompanion<SaleRow> {
   const SalesCompanion({
     this.id = const Value.absent(),
     this.saleNumber = const Value.absent(),
+    this.invoiceNumber = const Value.absent(),
     this.customerId = const Value.absent(),
     this.customerNameSnapshot = const Value.absent(),
     this.status = const Value.absent(),
@@ -15071,6 +15120,7 @@ class SalesCompanion extends UpdateCompanion<SaleRow> {
   SalesCompanion.insert({
     required String id,
     required String saleNumber,
+    this.invoiceNumber = const Value.absent(),
     this.customerId = const Value.absent(),
     this.customerNameSnapshot = const Value.absent(),
     required String status,
@@ -15098,6 +15148,7 @@ class SalesCompanion extends UpdateCompanion<SaleRow> {
   static Insertable<SaleRow> custom({
     Expression<String>? id,
     Expression<String>? saleNumber,
+    Expression<String>? invoiceNumber,
     Expression<String>? customerId,
     Expression<String>? customerNameSnapshot,
     Expression<String>? status,
@@ -15117,6 +15168,7 @@ class SalesCompanion extends UpdateCompanion<SaleRow> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (saleNumber != null) 'sale_number': saleNumber,
+      if (invoiceNumber != null) 'invoice_number': invoiceNumber,
       if (customerId != null) 'customer_id': customerId,
       if (customerNameSnapshot != null)
         'customer_name_snapshot': customerNameSnapshot,
@@ -15140,6 +15192,7 @@ class SalesCompanion extends UpdateCompanion<SaleRow> {
   SalesCompanion copyWith({
     Value<String>? id,
     Value<String>? saleNumber,
+    Value<String?>? invoiceNumber,
     Value<String?>? customerId,
     Value<String?>? customerNameSnapshot,
     Value<String>? status,
@@ -15159,6 +15212,7 @@ class SalesCompanion extends UpdateCompanion<SaleRow> {
     return SalesCompanion(
       id: id ?? this.id,
       saleNumber: saleNumber ?? this.saleNumber,
+      invoiceNumber: invoiceNumber ?? this.invoiceNumber,
       customerId: customerId ?? this.customerId,
       customerNameSnapshot: customerNameSnapshot ?? this.customerNameSnapshot,
       status: status ?? this.status,
@@ -15186,6 +15240,9 @@ class SalesCompanion extends UpdateCompanion<SaleRow> {
     }
     if (saleNumber.present) {
       map['sale_number'] = Variable<String>(saleNumber.value);
+    }
+    if (invoiceNumber.present) {
+      map['invoice_number'] = Variable<String>(invoiceNumber.value);
     }
     if (customerId.present) {
       map['customer_id'] = Variable<String>(customerId.value);
@@ -15244,6 +15301,7 @@ class SalesCompanion extends UpdateCompanion<SaleRow> {
     return (StringBuffer('SalesCompanion(')
           ..write('id: $id, ')
           ..write('saleNumber: $saleNumber, ')
+          ..write('invoiceNumber: $invoiceNumber, ')
           ..write('customerId: $customerId, ')
           ..write('customerNameSnapshot: $customerNameSnapshot, ')
           ..write('status: $status, ')
@@ -30330,6 +30388,7 @@ typedef $$CustomersTableProcessedTableManager =
 typedef $$SalesTableCreateCompanionBuilder = SalesCompanion Function({
   required String id,
   required String saleNumber,
+  Value<String?> invoiceNumber,
   Value<String?> customerId,
   Value<String?> customerNameSnapshot,
   required String status,
@@ -30349,6 +30408,7 @@ typedef $$SalesTableCreateCompanionBuilder = SalesCompanion Function({
 typedef $$SalesTableUpdateCompanionBuilder = SalesCompanion Function({
   Value<String> id,
   Value<String> saleNumber,
+  Value<String?> invoiceNumber,
   Value<String?> customerId,
   Value<String?> customerNameSnapshot,
   Value<String> status,
@@ -30461,6 +30521,11 @@ class $$SalesTableFilterComposer
 
   ColumnFilters<String> get saleNumber => $composableBuilder(
     column: $table.saleNumber,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get invoiceNumber => $composableBuilder(
+    column: $table.invoiceNumber,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -30647,6 +30712,11 @@ class $$SalesTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get invoiceNumber => $composableBuilder(
+    column: $table.invoiceNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get customerNameSnapshot => $composableBuilder(
     column: $table.customerNameSnapshot,
     builder: (column) => ColumnOrderings(column),
@@ -30750,6 +30820,11 @@ class $$SalesTableAnnotationComposer
 
   GeneratedColumn<String> get saleNumber => $composableBuilder(
     column: $table.saleNumber,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get invoiceNumber => $composableBuilder(
+    column: $table.invoiceNumber,
     builder: (column) => column,
   );
 
@@ -30948,6 +31023,7 @@ class $$SalesTableTableManager
               ({
                 Value<String> id = const Value.absent(),
                 Value<String> saleNumber = const Value.absent(),
+                Value<String?> invoiceNumber = const Value.absent(),
                 Value<String?> customerId = const Value.absent(),
                 Value<String?> customerNameSnapshot = const Value.absent(),
                 Value<String> status = const Value.absent(),
@@ -30966,6 +31042,7 @@ class $$SalesTableTableManager
               }) => SalesCompanion(
                 id: id,
                 saleNumber: saleNumber,
+                invoiceNumber: invoiceNumber,
                 customerId: customerId,
                 customerNameSnapshot: customerNameSnapshot,
                 status: status,
@@ -30986,6 +31063,7 @@ class $$SalesTableTableManager
               ({
                 required String id,
                 required String saleNumber,
+                Value<String?> invoiceNumber = const Value.absent(),
                 Value<String?> customerId = const Value.absent(),
                 Value<String?> customerNameSnapshot = const Value.absent(),
                 required String status,
@@ -31004,6 +31082,7 @@ class $$SalesTableTableManager
               }) => SalesCompanion.insert(
                 id: id,
                 saleNumber: saleNumber,
+                invoiceNumber: invoiceNumber,
                 customerId: customerId,
                 customerNameSnapshot: customerNameSnapshot,
                 status: status,

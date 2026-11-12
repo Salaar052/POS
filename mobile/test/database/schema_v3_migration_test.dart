@@ -34,7 +34,7 @@ void main() {
     final versionAfter = await migrated
         .customSelect('PRAGMA user_version')
         .getSingle();
-    expect(versionAfter.data['user_version'], 7);
+    expect(versionAfter.data['user_version'], 8);
 
     final tables = await migrated
         .customSelect(

@@ -25,6 +25,8 @@ abstract final class AppRoutes {
   static const expenses = '/expenses';
   static const reports = '/reports';
   static const settings = '/settings';
+  static const receiptSettings = '/settings/receipt';
+  static const printerManagement = '/settings/printer';
 
   static const dashboardName = 'dashboard';
   static const posName = 'pos';
@@ -37,6 +39,8 @@ abstract final class AppRoutes {
   static const expensesName = 'expenses';
   static const reportsName = 'reports';
   static const settingsName = 'settings';
+  static const receiptSettingsName = 'receiptSettings';
+  static const printerManagementName = 'printerManagement';
 }
 
 class AppNavDestination {

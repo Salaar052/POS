@@ -35,6 +35,9 @@ import 'package:pos_mobile/database/tables/sale_items.dart';
 import 'package:pos_mobile/database/tables/sale_payments.dart';
 import 'package:pos_mobile/database/tables/sale_returns.dart';
 import 'package:pos_mobile/database/tables/sale_return_items.dart';
+import 'package:pos_mobile/database/tables/receipt_settings.dart';
+import 'package:pos_mobile/database/tables/print_attempts.dart';
+import 'package:pos_mobile/database/migrations/receipt_migration_helpers.dart';
 
 part 'app_database.g.dart';
 
@@ -69,13 +72,15 @@ part 'app_database.g.dart';
     CustomerLedgerEntries,
     SaleReturns,
     SaleReturnItems,
+    ReceiptSettings,
+    PrintAttempts,
   ],
 )
 class AppDatabase extends _$AppDatabase {
   AppDatabase(super.e);
 
   @override
-  int get schemaVersion => 7;
+  int get schemaVersion => 8;
 
   @override
   MigrationStrategy get migration => MigrationStrategy(
@@ -89,6 +94,8 @@ class AppDatabase extends _$AppDatabase {
       await applyInventoryIndexes(this);
       await applyPurchasingIndexes(this);
       await applySalesIndexes(this);
+      await applyReceiptIndexes(this);
+      await _seedDefaultReceiptSettings();
     },
     onUpgrade: (Migrator m, int from, int to) async {
       if (from < 2 && to >= 2) {
@@ -130,6 +137,32 @@ class AppDatabase extends _$AppDatabase {
       if (from < 7 && to >= 7) {
         await addCustomerLedgerPaymentColumnsIfNeeded(this);
       }
+      if (from < 8 && to >= 8) {
+        await addSaleInvoiceNumberColumnIfNeeded(this);
+        await m.createTable(receiptSettings);
+        await m.createTable(printAttempts);
+        await backfillLegacySaleInvoices(this);
+        await applyReceiptIndexes(this);
+        await _seedDefaultReceiptSettings();
+      }
     },
   );
+}
+
+extension on AppDatabase {
+  Future<void> _seedDefaultReceiptSettings() async {
+    final existing = await select(receiptSettings).getSingleOrNull();
+    if (existing != null) {
+      return;
+    }
+    final now = DateTime.now().toUtc().millisecondsSinceEpoch;
+    await into(
+      receiptSettings,
+    ).insert(
+      ReceiptSettingsCompanion.insert(
+        singletonId: const Value(1),
+        updatedAtMs: now,
+      ),
+    );
+  }
 }

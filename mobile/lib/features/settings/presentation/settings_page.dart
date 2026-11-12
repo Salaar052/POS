@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:pos_mobile/app/router/app_routes.dart';
 import 'package:pos_mobile/app/bootstrap/app_runtime.dart';
 import 'package:pos_mobile/app/providers/app_launch_provider.dart';
 import 'package:pos_mobile/app/providers/auth_providers.dart';
@@ -24,12 +26,36 @@ class SettingsPage extends ConsumerWidget {
             Text('Settings', style: Theme.of(context).textTheme.headlineSmall),
             const SizedBox(height: AppSpacing.xs),
             Text(
-              'Appearance and device preferences. Business and account settings are not available in this phase.',
+              'Receipts, printers, and device preferences.',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                 color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
             const SizedBox(height: AppSpacing.lg),
+            Card(
+              child: Column(
+                children: [
+                  ListTile(
+                    title: const Text('Receipt settings'),
+                    subtitle: const Text(
+                      'Business header, invoice format, and receipt layout',
+                    ),
+                    trailing: const Icon(Icons.receipt_long_outlined),
+                    onTap: () => context.push(AppRoutes.receiptSettings),
+                  ),
+                  const Divider(height: 1),
+                  ListTile(
+                    title: const Text('Printer'),
+                    subtitle: const Text(
+                      'Select printer, paper width, and test print',
+                    ),
+                    trailing: const Icon(Icons.print_outlined),
+                    onTap: () => context.push(AppRoutes.printerManagement),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: AppSpacing.md),
             Card(
               child: ListTile(
                 title: const Text('Sign out'),

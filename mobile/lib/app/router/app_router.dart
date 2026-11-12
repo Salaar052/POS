@@ -23,6 +23,8 @@ import 'package:pos_mobile/features/products/presentation/product_categories_pag
 import 'package:pos_mobile/features/products/presentation/products_page.dart';
 import 'package:pos_mobile/features/purchases/presentation/purchases_page.dart';
 import 'package:pos_mobile/features/reports/presentation/reports_page.dart';
+import 'package:pos_mobile/features/receipts/presentation/printer_management_page.dart';
+import 'package:pos_mobile/features/receipts/presentation/receipt_settings_page.dart';
 import 'package:pos_mobile/features/settings/presentation/settings_page.dart';
 import 'package:pos_mobile/features/suppliers/presentation/suppliers_page.dart';
 import 'package:pos_mobile/shared/widgets/placeholder_feature_body.dart';
@@ -296,6 +298,20 @@ final routerProvider = Provider<GoRouter>((ref) {
             name: AppRoutes.settingsName,
             pageBuilder: (context, state) =>
                 const NoTransitionPage(child: SettingsPage()),
+            routes: [
+              GoRoute(
+                path: 'receipt',
+                name: AppRoutes.receiptSettingsName,
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: ReceiptSettingsPage()),
+              ),
+              GoRoute(
+                path: 'printer',
+                name: AppRoutes.printerManagementName,
+                pageBuilder: (context, state) =>
+                    const NoTransitionPage(child: PrinterManagementPage()),
+              ),
+            ],
           ),
         ],
       ),

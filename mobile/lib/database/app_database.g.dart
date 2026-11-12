@@ -14312,6 +14312,17 @@ class $SalesTable extends Sales with TableInfo<$SalesTable, SaleRow> {
     type: DriftSqlType.string,
     requiredDuringInsert: true,
   );
+  static const VerificationMeta _invoiceNumberMeta = const VerificationMeta(
+    'invoiceNumber',
+  );
+  @override
+  late final GeneratedColumn<String> invoiceNumber = GeneratedColumn<String>(
+    'invoice_number',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
   static const VerificationMeta _customerIdMeta = const VerificationMeta(
     'customerId',
   );
@@ -14470,6 +14481,7 @@ class $SalesTable extends Sales with TableInfo<$SalesTable, SaleRow> {
   List<GeneratedColumn> get $columns => [
     id,
     saleNumber,
+    invoiceNumber,
     customerId,
     customerNameSnapshot,
     status,
@@ -14509,6 +14521,15 @@ class $SalesTable extends Sales with TableInfo<$SalesTable, SaleRow> {
       );
     } else if (isInserting) {
       context.missing(_saleNumberMeta);
+    }
+    if (data.containsKey('invoice_number')) {
+      context.handle(
+        _invoiceNumberMeta,
+        invoiceNumber.isAcceptableOrUnknown(
+          data['invoice_number']!,
+          _invoiceNumberMeta,
+        ),
+      );
     }
     if (data.containsKey('customer_id')) {
       context.handle(
@@ -14655,6 +14676,10 @@ class $SalesTable extends Sales with TableInfo<$SalesTable, SaleRow> {
         DriftSqlType.string,
         data['${effectivePrefix}sale_number'],
       )!,
+      invoiceNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}invoice_number'],
+      ),
       customerId: attachedDatabase.typeMapping.read(
         DriftSqlType.string,
         data['${effectivePrefix}customer_id'],
@@ -14723,6 +14748,9 @@ class $SalesTable extends Sales with TableInfo<$SalesTable, SaleRow> {
 class SaleRow extends DataClass implements Insertable<SaleRow> {
   final String id;
   final String saleNumber;
+
+  /// Permanent invoice number assigned atomically at checkout (not on drafts).
+  final String? invoiceNumber;
   final String? customerId;
   final String? customerNameSnapshot;
   final String status;
@@ -14740,6 +14768,7 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
   const SaleRow({
     required this.id,
     required this.saleNumber,
+    this.invoiceNumber,
     this.customerId,
     this.customerNameSnapshot,
     required this.status,
@@ -14760,6 +14789,9 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
     final map = <String, Expression>{};
     map['id'] = Variable<String>(id);
     map['sale_number'] = Variable<String>(saleNumber);
+    if (!nullToAbsent || invoiceNumber != null) {
+      map['invoice_number'] = Variable<String>(invoiceNumber);
+    }
     if (!nullToAbsent || customerId != null) {
       map['customer_id'] = Variable<String>(customerId);
     }
@@ -14795,6 +14827,9 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
     return SalesCompanion(
       id: Value(id),
       saleNumber: Value(saleNumber),
+      invoiceNumber: invoiceNumber == null && nullToAbsent
+          ? const Value.absent()
+          : Value(invoiceNumber),
       customerId: customerId == null && nullToAbsent
           ? const Value.absent()
           : Value(customerId),
@@ -14832,6 +14867,7 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
     return SaleRow(
       id: serializer.fromJson<String>(json['id']),
       saleNumber: serializer.fromJson<String>(json['saleNumber']),
+      invoiceNumber: serializer.fromJson<String?>(json['invoiceNumber']),
       customerId: serializer.fromJson<String?>(json['customerId']),
       customerNameSnapshot: serializer.fromJson<String?>(
         json['customerNameSnapshot'],
@@ -14858,6 +14894,7 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
     return <String, dynamic>{
       'id': serializer.toJson<String>(id),
       'saleNumber': serializer.toJson<String>(saleNumber),
+      'invoiceNumber': serializer.toJson<String?>(invoiceNumber),
       'customerId': serializer.toJson<String?>(customerId),
       'customerNameSnapshot': serializer.toJson<String?>(customerNameSnapshot),
       'status': serializer.toJson<String>(status),
@@ -14880,6 +14917,7 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
   SaleRow copyWith({
     String? id,
     String? saleNumber,
+    Value<String?> invoiceNumber = const Value.absent(),
     Value<String?> customerId = const Value.absent(),
     Value<String?> customerNameSnapshot = const Value.absent(),
     String? status,
@@ -14897,6 +14935,9 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
   }) => SaleRow(
     id: id ?? this.id,
     saleNumber: saleNumber ?? this.saleNumber,
+    invoiceNumber: invoiceNumber.present
+        ? invoiceNumber.value
+        : this.invoiceNumber,
     customerId: customerId.present ? customerId.value : this.customerId,
     customerNameSnapshot: customerNameSnapshot.present
         ? customerNameSnapshot.value
@@ -14926,6 +14967,9 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
       saleNumber: data.saleNumber.present
           ? data.saleNumber.value
           : this.saleNumber,
+      invoiceNumber: data.invoiceNumber.present
+          ? data.invoiceNumber.value
+          : this.invoiceNumber,
       customerId: data.customerId.present
           ? data.customerId.value
           : this.customerId,
@@ -14972,6 +15016,7 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
     return (StringBuffer('SaleRow(')
           ..write('id: $id, ')
           ..write('saleNumber: $saleNumber, ')
+          ..write('invoiceNumber: $invoiceNumber, ')
           ..write('customerId: $customerId, ')
           ..write('customerNameSnapshot: $customerNameSnapshot, ')
           ..write('status: $status, ')
@@ -14994,6 +15039,7 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
   int get hashCode => Object.hash(
     id,
     saleNumber,
+    invoiceNumber,
     customerId,
     customerNameSnapshot,
     status,
@@ -15015,6 +15061,7 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
       (other is SaleRow &&
           other.id == this.id &&
           other.saleNumber == this.saleNumber &&
+          other.invoiceNumber == this.invoiceNumber &&
           other.customerId == this.customerId &&
           other.customerNameSnapshot == this.customerNameSnapshot &&
           other.status == this.status &&
@@ -15034,6 +15081,7 @@ class SaleRow extends DataClass implements Insertable<SaleRow> {
 class SalesCompanion extends UpdateCompanion<SaleRow> {
   final Value<String> id;
   final Value<String> saleNumber;
+  final Value<String?> invoiceNumber;
   final Value<String?> customerId;
   final Value<String?> customerNameSnapshot;
   final Value<String> status;
@@ -15052,6 +15100,7 @@ class SalesCompanion extends UpdateCompanion<SaleRow> {
   const SalesCompanion({
     this.id = const Value.absent(),
     this.saleNumber = const Value.absent(),
+    this.invoiceNumber = const Value.absent(),
     this.customerId = const Value.absent(),
     this.customerNameSnapshot = const Value.absent(),
     this.status = const Value.absent(),
@@ -15071,6 +15120,7 @@ class SalesCompanion extends UpdateCompanion<SaleRow> {
   SalesCompanion.insert({
     required String id,
     required String saleNumber,
+    this.invoiceNumber = const Value.absent(),
     this.customerId = const Value.absent(),
     this.customerNameSnapshot = const Value.absent(),
     required String status,
@@ -15098,6 +15148,7 @@ class SalesCompanion extends UpdateCompanion<SaleRow> {
   static Insertable<SaleRow> custom({
     Expression<String>? id,
     Expression<String>? saleNumber,
+    Expression<String>? invoiceNumber,
     Expression<String>? customerId,
     Expression<String>? customerNameSnapshot,
     Expression<String>? status,
@@ -15117,6 +15168,7 @@ class SalesCompanion extends UpdateCompanion<SaleRow> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (saleNumber != null) 'sale_number': saleNumber,
+      if (invoiceNumber != null) 'invoice_number': invoiceNumber,
       if (customerId != null) 'customer_id': customerId,
       if (customerNameSnapshot != null)
         'customer_name_snapshot': customerNameSnapshot,
@@ -15140,6 +15192,7 @@ class SalesCompanion extends UpdateCompanion<SaleRow> {
   SalesCompanion copyWith({
     Value<String>? id,
     Value<String>? saleNumber,
+    Value<String?>? invoiceNumber,
     Value<String?>? customerId,
     Value<String?>? customerNameSnapshot,
     Value<String>? status,
@@ -15159,6 +15212,7 @@ class SalesCompanion extends UpdateCompanion<SaleRow> {
     return SalesCompanion(
       id: id ?? this.id,
       saleNumber: saleNumber ?? this.saleNumber,
+      invoiceNumber: invoiceNumber ?? this.invoiceNumber,
       customerId: customerId ?? this.customerId,
       customerNameSnapshot: customerNameSnapshot ?? this.customerNameSnapshot,
       status: status ?? this.status,
@@ -15186,6 +15240,9 @@ class SalesCompanion extends UpdateCompanion<SaleRow> {
     }
     if (saleNumber.present) {
       map['sale_number'] = Variable<String>(saleNumber.value);
+    }
+    if (invoiceNumber.present) {
+      map['invoice_number'] = Variable<String>(invoiceNumber.value);
     }
     if (customerId.present) {
       map['customer_id'] = Variable<String>(customerId.value);
@@ -15244,6 +15301,7 @@ class SalesCompanion extends UpdateCompanion<SaleRow> {
     return (StringBuffer('SalesCompanion(')
           ..write('id: $id, ')
           ..write('saleNumber: $saleNumber, ')
+          ..write('invoiceNumber: $invoiceNumber, ')
           ..write('customerId: $customerId, ')
           ..write('customerNameSnapshot: $customerNameSnapshot, ')
           ..write('status: $status, ')
@@ -18450,6 +18508,1860 @@ class SaleReturnItemsCompanion extends UpdateCompanion<SaleReturnItemRow> {
   }
 }
 
+class $ReceiptSettingsTable extends ReceiptSettings
+    with TableInfo<$ReceiptSettingsTable, ReceiptSettingsRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ReceiptSettingsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _singletonIdMeta = const VerificationMeta(
+    'singletonId',
+  );
+  @override
+  late final GeneratedColumn<int> singletonId = GeneratedColumn<int>(
+    'singleton_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _businessDisplayNameMeta =
+      const VerificationMeta('businessDisplayName');
+  @override
+  late final GeneratedColumn<String> businessDisplayName =
+      GeneratedColumn<String>(
+        'business_display_name',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _businessAddressMeta = const VerificationMeta(
+    'businessAddress',
+  );
+  @override
+  late final GeneratedColumn<String> businessAddress = GeneratedColumn<String>(
+    'business_address',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _businessPhoneMeta = const VerificationMeta(
+    'businessPhone',
+  );
+  @override
+  late final GeneratedColumn<String> businessPhone = GeneratedColumn<String>(
+    'business_phone',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _taxRegistrationIdMeta = const VerificationMeta(
+    'taxRegistrationId',
+  );
+  @override
+  late final GeneratedColumn<String> taxRegistrationId =
+      GeneratedColumn<String>(
+        'tax_registration_id',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _headerTextMeta = const VerificationMeta(
+    'headerText',
+  );
+  @override
+  late final GeneratedColumn<String> headerText = GeneratedColumn<String>(
+    'header_text',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _footerTextMeta = const VerificationMeta(
+    'footerText',
+  );
+  @override
+  late final GeneratedColumn<String> footerText = GeneratedColumn<String>(
+    'footer_text',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _currencyDisplayMeta = const VerificationMeta(
+    'currencyDisplay',
+  );
+  @override
+  late final GeneratedColumn<String> currencyDisplay = GeneratedColumn<String>(
+    'currency_display',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('PKR'),
+  );
+  static const VerificationMeta _invoicePrefixMeta = const VerificationMeta(
+    'invoicePrefix',
+  );
+  @override
+  late final GeneratedColumn<String> invoicePrefix = GeneratedColumn<String>(
+    'invoice_prefix',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+    defaultValue: const Constant('INV'),
+  );
+  static const VerificationMeta _invoiceSequenceStartMeta =
+      const VerificationMeta('invoiceSequenceStart');
+  @override
+  late final GeneratedColumn<int> invoiceSequenceStart = GeneratedColumn<int>(
+    'invoice_sequence_start',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _paperWidthMmMeta = const VerificationMeta(
+    'paperWidthMm',
+  );
+  @override
+  late final GeneratedColumn<int> paperWidthMm = GeneratedColumn<int>(
+    'paper_width_mm',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(58),
+  );
+  static const VerificationMeta _showLogoMeta = const VerificationMeta(
+    'showLogo',
+  );
+  @override
+  late final GeneratedColumn<bool> showLogo = GeneratedColumn<bool>(
+    'show_logo',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("show_logo" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _showCustomerDetailsMeta =
+      const VerificationMeta('showCustomerDetails');
+  @override
+  late final GeneratedColumn<bool> showCustomerDetails = GeneratedColumn<bool>(
+    'show_customer_details',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("show_customer_details" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
+  );
+  static const VerificationMeta _showPaymentBreakdownMeta =
+      const VerificationMeta('showPaymentBreakdown');
+  @override
+  late final GeneratedColumn<bool> showPaymentBreakdown = GeneratedColumn<bool>(
+    'show_payment_breakdown',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("show_payment_breakdown" IN (0, 1))',
+    ),
+    defaultValue: const Constant(true),
+  );
+  static const VerificationMeta _showItemSkuMeta = const VerificationMeta(
+    'showItemSku',
+  );
+  @override
+  late final GeneratedColumn<bool> showItemSku = GeneratedColumn<bool>(
+    'show_item_sku',
+    aliasedName,
+    false,
+    type: DriftSqlType.bool,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'CHECK ("show_item_sku" IN (0, 1))',
+    ),
+    defaultValue: const Constant(false),
+  );
+  static const VerificationMeta _defaultCopyCountMeta = const VerificationMeta(
+    'defaultCopyCount',
+  );
+  @override
+  late final GeneratedColumn<int> defaultCopyCount = GeneratedColumn<int>(
+    'default_copy_count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(1),
+  );
+  static const VerificationMeta _selectedPrinterIdMeta = const VerificationMeta(
+    'selectedPrinterId',
+  );
+  @override
+  late final GeneratedColumn<String> selectedPrinterId =
+      GeneratedColumn<String>(
+        'selected_printer_id',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _printerConnectionTypeMeta =
+      const VerificationMeta('printerConnectionType');
+  @override
+  late final GeneratedColumn<String> printerConnectionType =
+      GeneratedColumn<String>(
+        'printer_connection_type',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _printerDisplayNameMeta =
+      const VerificationMeta('printerDisplayName');
+  @override
+  late final GeneratedColumn<String> printerDisplayName =
+      GeneratedColumn<String>(
+        'printer_display_name',
+        aliasedName,
+        true,
+        type: DriftSqlType.string,
+        requiredDuringInsert: false,
+      );
+  static const VerificationMeta _updatedAtMsMeta = const VerificationMeta(
+    'updatedAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> updatedAtMs = GeneratedColumn<int>(
+    'updated_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    singletonId,
+    businessDisplayName,
+    businessAddress,
+    businessPhone,
+    taxRegistrationId,
+    headerText,
+    footerText,
+    currencyDisplay,
+    invoicePrefix,
+    invoiceSequenceStart,
+    paperWidthMm,
+    showLogo,
+    showCustomerDetails,
+    showPaymentBreakdown,
+    showItemSku,
+    defaultCopyCount,
+    selectedPrinterId,
+    printerConnectionType,
+    printerDisplayName,
+    updatedAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'receipt_settings';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ReceiptSettingsRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('singleton_id')) {
+      context.handle(
+        _singletonIdMeta,
+        singletonId.isAcceptableOrUnknown(
+          data['singleton_id']!,
+          _singletonIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('business_display_name')) {
+      context.handle(
+        _businessDisplayNameMeta,
+        businessDisplayName.isAcceptableOrUnknown(
+          data['business_display_name']!,
+          _businessDisplayNameMeta,
+        ),
+      );
+    }
+    if (data.containsKey('business_address')) {
+      context.handle(
+        _businessAddressMeta,
+        businessAddress.isAcceptableOrUnknown(
+          data['business_address']!,
+          _businessAddressMeta,
+        ),
+      );
+    }
+    if (data.containsKey('business_phone')) {
+      context.handle(
+        _businessPhoneMeta,
+        businessPhone.isAcceptableOrUnknown(
+          data['business_phone']!,
+          _businessPhoneMeta,
+        ),
+      );
+    }
+    if (data.containsKey('tax_registration_id')) {
+      context.handle(
+        _taxRegistrationIdMeta,
+        taxRegistrationId.isAcceptableOrUnknown(
+          data['tax_registration_id']!,
+          _taxRegistrationIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('header_text')) {
+      context.handle(
+        _headerTextMeta,
+        headerText.isAcceptableOrUnknown(data['header_text']!, _headerTextMeta),
+      );
+    }
+    if (data.containsKey('footer_text')) {
+      context.handle(
+        _footerTextMeta,
+        footerText.isAcceptableOrUnknown(data['footer_text']!, _footerTextMeta),
+      );
+    }
+    if (data.containsKey('currency_display')) {
+      context.handle(
+        _currencyDisplayMeta,
+        currencyDisplay.isAcceptableOrUnknown(
+          data['currency_display']!,
+          _currencyDisplayMeta,
+        ),
+      );
+    }
+    if (data.containsKey('invoice_prefix')) {
+      context.handle(
+        _invoicePrefixMeta,
+        invoicePrefix.isAcceptableOrUnknown(
+          data['invoice_prefix']!,
+          _invoicePrefixMeta,
+        ),
+      );
+    }
+    if (data.containsKey('invoice_sequence_start')) {
+      context.handle(
+        _invoiceSequenceStartMeta,
+        invoiceSequenceStart.isAcceptableOrUnknown(
+          data['invoice_sequence_start']!,
+          _invoiceSequenceStartMeta,
+        ),
+      );
+    }
+    if (data.containsKey('paper_width_mm')) {
+      context.handle(
+        _paperWidthMmMeta,
+        paperWidthMm.isAcceptableOrUnknown(
+          data['paper_width_mm']!,
+          _paperWidthMmMeta,
+        ),
+      );
+    }
+    if (data.containsKey('show_logo')) {
+      context.handle(
+        _showLogoMeta,
+        showLogo.isAcceptableOrUnknown(data['show_logo']!, _showLogoMeta),
+      );
+    }
+    if (data.containsKey('show_customer_details')) {
+      context.handle(
+        _showCustomerDetailsMeta,
+        showCustomerDetails.isAcceptableOrUnknown(
+          data['show_customer_details']!,
+          _showCustomerDetailsMeta,
+        ),
+      );
+    }
+    if (data.containsKey('show_payment_breakdown')) {
+      context.handle(
+        _showPaymentBreakdownMeta,
+        showPaymentBreakdown.isAcceptableOrUnknown(
+          data['show_payment_breakdown']!,
+          _showPaymentBreakdownMeta,
+        ),
+      );
+    }
+    if (data.containsKey('show_item_sku')) {
+      context.handle(
+        _showItemSkuMeta,
+        showItemSku.isAcceptableOrUnknown(
+          data['show_item_sku']!,
+          _showItemSkuMeta,
+        ),
+      );
+    }
+    if (data.containsKey('default_copy_count')) {
+      context.handle(
+        _defaultCopyCountMeta,
+        defaultCopyCount.isAcceptableOrUnknown(
+          data['default_copy_count']!,
+          _defaultCopyCountMeta,
+        ),
+      );
+    }
+    if (data.containsKey('selected_printer_id')) {
+      context.handle(
+        _selectedPrinterIdMeta,
+        selectedPrinterId.isAcceptableOrUnknown(
+          data['selected_printer_id']!,
+          _selectedPrinterIdMeta,
+        ),
+      );
+    }
+    if (data.containsKey('printer_connection_type')) {
+      context.handle(
+        _printerConnectionTypeMeta,
+        printerConnectionType.isAcceptableOrUnknown(
+          data['printer_connection_type']!,
+          _printerConnectionTypeMeta,
+        ),
+      );
+    }
+    if (data.containsKey('printer_display_name')) {
+      context.handle(
+        _printerDisplayNameMeta,
+        printerDisplayName.isAcceptableOrUnknown(
+          data['printer_display_name']!,
+          _printerDisplayNameMeta,
+        ),
+      );
+    }
+    if (data.containsKey('updated_at_ms')) {
+      context.handle(
+        _updatedAtMsMeta,
+        updatedAtMs.isAcceptableOrUnknown(
+          data['updated_at_ms']!,
+          _updatedAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_updatedAtMsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {singletonId};
+  @override
+  ReceiptSettingsRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ReceiptSettingsRow(
+      singletonId: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}singleton_id'],
+      )!,
+      businessDisplayName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}business_display_name'],
+      ),
+      businessAddress: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}business_address'],
+      ),
+      businessPhone: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}business_phone'],
+      ),
+      taxRegistrationId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}tax_registration_id'],
+      ),
+      headerText: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}header_text'],
+      ),
+      footerText: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}footer_text'],
+      ),
+      currencyDisplay: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}currency_display'],
+      )!,
+      invoicePrefix: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}invoice_prefix'],
+      )!,
+      invoiceSequenceStart: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}invoice_sequence_start'],
+      )!,
+      paperWidthMm: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}paper_width_mm'],
+      )!,
+      showLogo: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}show_logo'],
+      )!,
+      showCustomerDetails: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}show_customer_details'],
+      )!,
+      showPaymentBreakdown: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}show_payment_breakdown'],
+      )!,
+      showItemSku: attachedDatabase.typeMapping.read(
+        DriftSqlType.bool,
+        data['${effectivePrefix}show_item_sku'],
+      )!,
+      defaultCopyCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}default_copy_count'],
+      )!,
+      selectedPrinterId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}selected_printer_id'],
+      ),
+      printerConnectionType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}printer_connection_type'],
+      ),
+      printerDisplayName: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}printer_display_name'],
+      ),
+      updatedAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}updated_at_ms'],
+      )!,
+    );
+  }
+
+  @override
+  $ReceiptSettingsTable createAlias(String alias) {
+    return $ReceiptSettingsTable(attachedDatabase, alias);
+  }
+}
+
+class ReceiptSettingsRow extends DataClass
+    implements Insertable<ReceiptSettingsRow> {
+  final int singletonId;
+  final String? businessDisplayName;
+  final String? businessAddress;
+  final String? businessPhone;
+  final String? taxRegistrationId;
+  final String? headerText;
+  final String? footerText;
+  final String currencyDisplay;
+  final String invoicePrefix;
+  final int invoiceSequenceStart;
+  final int paperWidthMm;
+  final bool showLogo;
+  final bool showCustomerDetails;
+  final bool showPaymentBreakdown;
+  final bool showItemSku;
+  final int defaultCopyCount;
+  final String? selectedPrinterId;
+  final String? printerConnectionType;
+  final String? printerDisplayName;
+  final int updatedAtMs;
+  const ReceiptSettingsRow({
+    required this.singletonId,
+    this.businessDisplayName,
+    this.businessAddress,
+    this.businessPhone,
+    this.taxRegistrationId,
+    this.headerText,
+    this.footerText,
+    required this.currencyDisplay,
+    required this.invoicePrefix,
+    required this.invoiceSequenceStart,
+    required this.paperWidthMm,
+    required this.showLogo,
+    required this.showCustomerDetails,
+    required this.showPaymentBreakdown,
+    required this.showItemSku,
+    required this.defaultCopyCount,
+    this.selectedPrinterId,
+    this.printerConnectionType,
+    this.printerDisplayName,
+    required this.updatedAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['singleton_id'] = Variable<int>(singletonId);
+    if (!nullToAbsent || businessDisplayName != null) {
+      map['business_display_name'] = Variable<String>(businessDisplayName);
+    }
+    if (!nullToAbsent || businessAddress != null) {
+      map['business_address'] = Variable<String>(businessAddress);
+    }
+    if (!nullToAbsent || businessPhone != null) {
+      map['business_phone'] = Variable<String>(businessPhone);
+    }
+    if (!nullToAbsent || taxRegistrationId != null) {
+      map['tax_registration_id'] = Variable<String>(taxRegistrationId);
+    }
+    if (!nullToAbsent || headerText != null) {
+      map['header_text'] = Variable<String>(headerText);
+    }
+    if (!nullToAbsent || footerText != null) {
+      map['footer_text'] = Variable<String>(footerText);
+    }
+    map['currency_display'] = Variable<String>(currencyDisplay);
+    map['invoice_prefix'] = Variable<String>(invoicePrefix);
+    map['invoice_sequence_start'] = Variable<int>(invoiceSequenceStart);
+    map['paper_width_mm'] = Variable<int>(paperWidthMm);
+    map['show_logo'] = Variable<bool>(showLogo);
+    map['show_customer_details'] = Variable<bool>(showCustomerDetails);
+    map['show_payment_breakdown'] = Variable<bool>(showPaymentBreakdown);
+    map['show_item_sku'] = Variable<bool>(showItemSku);
+    map['default_copy_count'] = Variable<int>(defaultCopyCount);
+    if (!nullToAbsent || selectedPrinterId != null) {
+      map['selected_printer_id'] = Variable<String>(selectedPrinterId);
+    }
+    if (!nullToAbsent || printerConnectionType != null) {
+      map['printer_connection_type'] = Variable<String>(printerConnectionType);
+    }
+    if (!nullToAbsent || printerDisplayName != null) {
+      map['printer_display_name'] = Variable<String>(printerDisplayName);
+    }
+    map['updated_at_ms'] = Variable<int>(updatedAtMs);
+    return map;
+  }
+
+  ReceiptSettingsCompanion toCompanion(bool nullToAbsent) {
+    return ReceiptSettingsCompanion(
+      singletonId: Value(singletonId),
+      businessDisplayName: businessDisplayName == null && nullToAbsent
+          ? const Value.absent()
+          : Value(businessDisplayName),
+      businessAddress: businessAddress == null && nullToAbsent
+          ? const Value.absent()
+          : Value(businessAddress),
+      businessPhone: businessPhone == null && nullToAbsent
+          ? const Value.absent()
+          : Value(businessPhone),
+      taxRegistrationId: taxRegistrationId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(taxRegistrationId),
+      headerText: headerText == null && nullToAbsent
+          ? const Value.absent()
+          : Value(headerText),
+      footerText: footerText == null && nullToAbsent
+          ? const Value.absent()
+          : Value(footerText),
+      currencyDisplay: Value(currencyDisplay),
+      invoicePrefix: Value(invoicePrefix),
+      invoiceSequenceStart: Value(invoiceSequenceStart),
+      paperWidthMm: Value(paperWidthMm),
+      showLogo: Value(showLogo),
+      showCustomerDetails: Value(showCustomerDetails),
+      showPaymentBreakdown: Value(showPaymentBreakdown),
+      showItemSku: Value(showItemSku),
+      defaultCopyCount: Value(defaultCopyCount),
+      selectedPrinterId: selectedPrinterId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(selectedPrinterId),
+      printerConnectionType: printerConnectionType == null && nullToAbsent
+          ? const Value.absent()
+          : Value(printerConnectionType),
+      printerDisplayName: printerDisplayName == null && nullToAbsent
+          ? const Value.absent()
+          : Value(printerDisplayName),
+      updatedAtMs: Value(updatedAtMs),
+    );
+  }
+
+  factory ReceiptSettingsRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ReceiptSettingsRow(
+      singletonId: serializer.fromJson<int>(json['singletonId']),
+      businessDisplayName: serializer.fromJson<String?>(
+        json['businessDisplayName'],
+      ),
+      businessAddress: serializer.fromJson<String?>(json['businessAddress']),
+      businessPhone: serializer.fromJson<String?>(json['businessPhone']),
+      taxRegistrationId: serializer.fromJson<String?>(
+        json['taxRegistrationId'],
+      ),
+      headerText: serializer.fromJson<String?>(json['headerText']),
+      footerText: serializer.fromJson<String?>(json['footerText']),
+      currencyDisplay: serializer.fromJson<String>(json['currencyDisplay']),
+      invoicePrefix: serializer.fromJson<String>(json['invoicePrefix']),
+      invoiceSequenceStart: serializer.fromJson<int>(
+        json['invoiceSequenceStart'],
+      ),
+      paperWidthMm: serializer.fromJson<int>(json['paperWidthMm']),
+      showLogo: serializer.fromJson<bool>(json['showLogo']),
+      showCustomerDetails: serializer.fromJson<bool>(
+        json['showCustomerDetails'],
+      ),
+      showPaymentBreakdown: serializer.fromJson<bool>(
+        json['showPaymentBreakdown'],
+      ),
+      showItemSku: serializer.fromJson<bool>(json['showItemSku']),
+      defaultCopyCount: serializer.fromJson<int>(json['defaultCopyCount']),
+      selectedPrinterId: serializer.fromJson<String?>(
+        json['selectedPrinterId'],
+      ),
+      printerConnectionType: serializer.fromJson<String?>(
+        json['printerConnectionType'],
+      ),
+      printerDisplayName: serializer.fromJson<String?>(
+        json['printerDisplayName'],
+      ),
+      updatedAtMs: serializer.fromJson<int>(json['updatedAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'singletonId': serializer.toJson<int>(singletonId),
+      'businessDisplayName': serializer.toJson<String?>(businessDisplayName),
+      'businessAddress': serializer.toJson<String?>(businessAddress),
+      'businessPhone': serializer.toJson<String?>(businessPhone),
+      'taxRegistrationId': serializer.toJson<String?>(taxRegistrationId),
+      'headerText': serializer.toJson<String?>(headerText),
+      'footerText': serializer.toJson<String?>(footerText),
+      'currencyDisplay': serializer.toJson<String>(currencyDisplay),
+      'invoicePrefix': serializer.toJson<String>(invoicePrefix),
+      'invoiceSequenceStart': serializer.toJson<int>(invoiceSequenceStart),
+      'paperWidthMm': serializer.toJson<int>(paperWidthMm),
+      'showLogo': serializer.toJson<bool>(showLogo),
+      'showCustomerDetails': serializer.toJson<bool>(showCustomerDetails),
+      'showPaymentBreakdown': serializer.toJson<bool>(showPaymentBreakdown),
+      'showItemSku': serializer.toJson<bool>(showItemSku),
+      'defaultCopyCount': serializer.toJson<int>(defaultCopyCount),
+      'selectedPrinterId': serializer.toJson<String?>(selectedPrinterId),
+      'printerConnectionType': serializer.toJson<String?>(
+        printerConnectionType,
+      ),
+      'printerDisplayName': serializer.toJson<String?>(printerDisplayName),
+      'updatedAtMs': serializer.toJson<int>(updatedAtMs),
+    };
+  }
+
+  ReceiptSettingsRow copyWith({
+    int? singletonId,
+    Value<String?> businessDisplayName = const Value.absent(),
+    Value<String?> businessAddress = const Value.absent(),
+    Value<String?> businessPhone = const Value.absent(),
+    Value<String?> taxRegistrationId = const Value.absent(),
+    Value<String?> headerText = const Value.absent(),
+    Value<String?> footerText = const Value.absent(),
+    String? currencyDisplay,
+    String? invoicePrefix,
+    int? invoiceSequenceStart,
+    int? paperWidthMm,
+    bool? showLogo,
+    bool? showCustomerDetails,
+    bool? showPaymentBreakdown,
+    bool? showItemSku,
+    int? defaultCopyCount,
+    Value<String?> selectedPrinterId = const Value.absent(),
+    Value<String?> printerConnectionType = const Value.absent(),
+    Value<String?> printerDisplayName = const Value.absent(),
+    int? updatedAtMs,
+  }) => ReceiptSettingsRow(
+    singletonId: singletonId ?? this.singletonId,
+    businessDisplayName: businessDisplayName.present
+        ? businessDisplayName.value
+        : this.businessDisplayName,
+    businessAddress: businessAddress.present
+        ? businessAddress.value
+        : this.businessAddress,
+    businessPhone: businessPhone.present
+        ? businessPhone.value
+        : this.businessPhone,
+    taxRegistrationId: taxRegistrationId.present
+        ? taxRegistrationId.value
+        : this.taxRegistrationId,
+    headerText: headerText.present ? headerText.value : this.headerText,
+    footerText: footerText.present ? footerText.value : this.footerText,
+    currencyDisplay: currencyDisplay ?? this.currencyDisplay,
+    invoicePrefix: invoicePrefix ?? this.invoicePrefix,
+    invoiceSequenceStart: invoiceSequenceStart ?? this.invoiceSequenceStart,
+    paperWidthMm: paperWidthMm ?? this.paperWidthMm,
+    showLogo: showLogo ?? this.showLogo,
+    showCustomerDetails: showCustomerDetails ?? this.showCustomerDetails,
+    showPaymentBreakdown: showPaymentBreakdown ?? this.showPaymentBreakdown,
+    showItemSku: showItemSku ?? this.showItemSku,
+    defaultCopyCount: defaultCopyCount ?? this.defaultCopyCount,
+    selectedPrinterId: selectedPrinterId.present
+        ? selectedPrinterId.value
+        : this.selectedPrinterId,
+    printerConnectionType: printerConnectionType.present
+        ? printerConnectionType.value
+        : this.printerConnectionType,
+    printerDisplayName: printerDisplayName.present
+        ? printerDisplayName.value
+        : this.printerDisplayName,
+    updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+  );
+  ReceiptSettingsRow copyWithCompanion(ReceiptSettingsCompanion data) {
+    return ReceiptSettingsRow(
+      singletonId: data.singletonId.present
+          ? data.singletonId.value
+          : this.singletonId,
+      businessDisplayName: data.businessDisplayName.present
+          ? data.businessDisplayName.value
+          : this.businessDisplayName,
+      businessAddress: data.businessAddress.present
+          ? data.businessAddress.value
+          : this.businessAddress,
+      businessPhone: data.businessPhone.present
+          ? data.businessPhone.value
+          : this.businessPhone,
+      taxRegistrationId: data.taxRegistrationId.present
+          ? data.taxRegistrationId.value
+          : this.taxRegistrationId,
+      headerText: data.headerText.present
+          ? data.headerText.value
+          : this.headerText,
+      footerText: data.footerText.present
+          ? data.footerText.value
+          : this.footerText,
+      currencyDisplay: data.currencyDisplay.present
+          ? data.currencyDisplay.value
+          : this.currencyDisplay,
+      invoicePrefix: data.invoicePrefix.present
+          ? data.invoicePrefix.value
+          : this.invoicePrefix,
+      invoiceSequenceStart: data.invoiceSequenceStart.present
+          ? data.invoiceSequenceStart.value
+          : this.invoiceSequenceStart,
+      paperWidthMm: data.paperWidthMm.present
+          ? data.paperWidthMm.value
+          : this.paperWidthMm,
+      showLogo: data.showLogo.present ? data.showLogo.value : this.showLogo,
+      showCustomerDetails: data.showCustomerDetails.present
+          ? data.showCustomerDetails.value
+          : this.showCustomerDetails,
+      showPaymentBreakdown: data.showPaymentBreakdown.present
+          ? data.showPaymentBreakdown.value
+          : this.showPaymentBreakdown,
+      showItemSku: data.showItemSku.present
+          ? data.showItemSku.value
+          : this.showItemSku,
+      defaultCopyCount: data.defaultCopyCount.present
+          ? data.defaultCopyCount.value
+          : this.defaultCopyCount,
+      selectedPrinterId: data.selectedPrinterId.present
+          ? data.selectedPrinterId.value
+          : this.selectedPrinterId,
+      printerConnectionType: data.printerConnectionType.present
+          ? data.printerConnectionType.value
+          : this.printerConnectionType,
+      printerDisplayName: data.printerDisplayName.present
+          ? data.printerDisplayName.value
+          : this.printerDisplayName,
+      updatedAtMs: data.updatedAtMs.present
+          ? data.updatedAtMs.value
+          : this.updatedAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReceiptSettingsRow(')
+          ..write('singletonId: $singletonId, ')
+          ..write('businessDisplayName: $businessDisplayName, ')
+          ..write('businessAddress: $businessAddress, ')
+          ..write('businessPhone: $businessPhone, ')
+          ..write('taxRegistrationId: $taxRegistrationId, ')
+          ..write('headerText: $headerText, ')
+          ..write('footerText: $footerText, ')
+          ..write('currencyDisplay: $currencyDisplay, ')
+          ..write('invoicePrefix: $invoicePrefix, ')
+          ..write('invoiceSequenceStart: $invoiceSequenceStart, ')
+          ..write('paperWidthMm: $paperWidthMm, ')
+          ..write('showLogo: $showLogo, ')
+          ..write('showCustomerDetails: $showCustomerDetails, ')
+          ..write('showPaymentBreakdown: $showPaymentBreakdown, ')
+          ..write('showItemSku: $showItemSku, ')
+          ..write('defaultCopyCount: $defaultCopyCount, ')
+          ..write('selectedPrinterId: $selectedPrinterId, ')
+          ..write('printerConnectionType: $printerConnectionType, ')
+          ..write('printerDisplayName: $printerDisplayName, ')
+          ..write('updatedAtMs: $updatedAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    singletonId,
+    businessDisplayName,
+    businessAddress,
+    businessPhone,
+    taxRegistrationId,
+    headerText,
+    footerText,
+    currencyDisplay,
+    invoicePrefix,
+    invoiceSequenceStart,
+    paperWidthMm,
+    showLogo,
+    showCustomerDetails,
+    showPaymentBreakdown,
+    showItemSku,
+    defaultCopyCount,
+    selectedPrinterId,
+    printerConnectionType,
+    printerDisplayName,
+    updatedAtMs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ReceiptSettingsRow &&
+          other.singletonId == this.singletonId &&
+          other.businessDisplayName == this.businessDisplayName &&
+          other.businessAddress == this.businessAddress &&
+          other.businessPhone == this.businessPhone &&
+          other.taxRegistrationId == this.taxRegistrationId &&
+          other.headerText == this.headerText &&
+          other.footerText == this.footerText &&
+          other.currencyDisplay == this.currencyDisplay &&
+          other.invoicePrefix == this.invoicePrefix &&
+          other.invoiceSequenceStart == this.invoiceSequenceStart &&
+          other.paperWidthMm == this.paperWidthMm &&
+          other.showLogo == this.showLogo &&
+          other.showCustomerDetails == this.showCustomerDetails &&
+          other.showPaymentBreakdown == this.showPaymentBreakdown &&
+          other.showItemSku == this.showItemSku &&
+          other.defaultCopyCount == this.defaultCopyCount &&
+          other.selectedPrinterId == this.selectedPrinterId &&
+          other.printerConnectionType == this.printerConnectionType &&
+          other.printerDisplayName == this.printerDisplayName &&
+          other.updatedAtMs == this.updatedAtMs);
+}
+
+class ReceiptSettingsCompanion extends UpdateCompanion<ReceiptSettingsRow> {
+  final Value<int> singletonId;
+  final Value<String?> businessDisplayName;
+  final Value<String?> businessAddress;
+  final Value<String?> businessPhone;
+  final Value<String?> taxRegistrationId;
+  final Value<String?> headerText;
+  final Value<String?> footerText;
+  final Value<String> currencyDisplay;
+  final Value<String> invoicePrefix;
+  final Value<int> invoiceSequenceStart;
+  final Value<int> paperWidthMm;
+  final Value<bool> showLogo;
+  final Value<bool> showCustomerDetails;
+  final Value<bool> showPaymentBreakdown;
+  final Value<bool> showItemSku;
+  final Value<int> defaultCopyCount;
+  final Value<String?> selectedPrinterId;
+  final Value<String?> printerConnectionType;
+  final Value<String?> printerDisplayName;
+  final Value<int> updatedAtMs;
+  const ReceiptSettingsCompanion({
+    this.singletonId = const Value.absent(),
+    this.businessDisplayName = const Value.absent(),
+    this.businessAddress = const Value.absent(),
+    this.businessPhone = const Value.absent(),
+    this.taxRegistrationId = const Value.absent(),
+    this.headerText = const Value.absent(),
+    this.footerText = const Value.absent(),
+    this.currencyDisplay = const Value.absent(),
+    this.invoicePrefix = const Value.absent(),
+    this.invoiceSequenceStart = const Value.absent(),
+    this.paperWidthMm = const Value.absent(),
+    this.showLogo = const Value.absent(),
+    this.showCustomerDetails = const Value.absent(),
+    this.showPaymentBreakdown = const Value.absent(),
+    this.showItemSku = const Value.absent(),
+    this.defaultCopyCount = const Value.absent(),
+    this.selectedPrinterId = const Value.absent(),
+    this.printerConnectionType = const Value.absent(),
+    this.printerDisplayName = const Value.absent(),
+    this.updatedAtMs = const Value.absent(),
+  });
+  ReceiptSettingsCompanion.insert({
+    this.singletonId = const Value.absent(),
+    this.businessDisplayName = const Value.absent(),
+    this.businessAddress = const Value.absent(),
+    this.businessPhone = const Value.absent(),
+    this.taxRegistrationId = const Value.absent(),
+    this.headerText = const Value.absent(),
+    this.footerText = const Value.absent(),
+    this.currencyDisplay = const Value.absent(),
+    this.invoicePrefix = const Value.absent(),
+    this.invoiceSequenceStart = const Value.absent(),
+    this.paperWidthMm = const Value.absent(),
+    this.showLogo = const Value.absent(),
+    this.showCustomerDetails = const Value.absent(),
+    this.showPaymentBreakdown = const Value.absent(),
+    this.showItemSku = const Value.absent(),
+    this.defaultCopyCount = const Value.absent(),
+    this.selectedPrinterId = const Value.absent(),
+    this.printerConnectionType = const Value.absent(),
+    this.printerDisplayName = const Value.absent(),
+    required int updatedAtMs,
+  }) : updatedAtMs = Value(updatedAtMs);
+  static Insertable<ReceiptSettingsRow> custom({
+    Expression<int>? singletonId,
+    Expression<String>? businessDisplayName,
+    Expression<String>? businessAddress,
+    Expression<String>? businessPhone,
+    Expression<String>? taxRegistrationId,
+    Expression<String>? headerText,
+    Expression<String>? footerText,
+    Expression<String>? currencyDisplay,
+    Expression<String>? invoicePrefix,
+    Expression<int>? invoiceSequenceStart,
+    Expression<int>? paperWidthMm,
+    Expression<bool>? showLogo,
+    Expression<bool>? showCustomerDetails,
+    Expression<bool>? showPaymentBreakdown,
+    Expression<bool>? showItemSku,
+    Expression<int>? defaultCopyCount,
+    Expression<String>? selectedPrinterId,
+    Expression<String>? printerConnectionType,
+    Expression<String>? printerDisplayName,
+    Expression<int>? updatedAtMs,
+  }) {
+    return RawValuesInsertable({
+      if (singletonId != null) 'singleton_id': singletonId,
+      if (businessDisplayName != null)
+        'business_display_name': businessDisplayName,
+      if (businessAddress != null) 'business_address': businessAddress,
+      if (businessPhone != null) 'business_phone': businessPhone,
+      if (taxRegistrationId != null) 'tax_registration_id': taxRegistrationId,
+      if (headerText != null) 'header_text': headerText,
+      if (footerText != null) 'footer_text': footerText,
+      if (currencyDisplay != null) 'currency_display': currencyDisplay,
+      if (invoicePrefix != null) 'invoice_prefix': invoicePrefix,
+      if (invoiceSequenceStart != null)
+        'invoice_sequence_start': invoiceSequenceStart,
+      if (paperWidthMm != null) 'paper_width_mm': paperWidthMm,
+      if (showLogo != null) 'show_logo': showLogo,
+      if (showCustomerDetails != null)
+        'show_customer_details': showCustomerDetails,
+      if (showPaymentBreakdown != null)
+        'show_payment_breakdown': showPaymentBreakdown,
+      if (showItemSku != null) 'show_item_sku': showItemSku,
+      if (defaultCopyCount != null) 'default_copy_count': defaultCopyCount,
+      if (selectedPrinterId != null) 'selected_printer_id': selectedPrinterId,
+      if (printerConnectionType != null)
+        'printer_connection_type': printerConnectionType,
+      if (printerDisplayName != null)
+        'printer_display_name': printerDisplayName,
+      if (updatedAtMs != null) 'updated_at_ms': updatedAtMs,
+    });
+  }
+
+  ReceiptSettingsCompanion copyWith({
+    Value<int>? singletonId,
+    Value<String?>? businessDisplayName,
+    Value<String?>? businessAddress,
+    Value<String?>? businessPhone,
+    Value<String?>? taxRegistrationId,
+    Value<String?>? headerText,
+    Value<String?>? footerText,
+    Value<String>? currencyDisplay,
+    Value<String>? invoicePrefix,
+    Value<int>? invoiceSequenceStart,
+    Value<int>? paperWidthMm,
+    Value<bool>? showLogo,
+    Value<bool>? showCustomerDetails,
+    Value<bool>? showPaymentBreakdown,
+    Value<bool>? showItemSku,
+    Value<int>? defaultCopyCount,
+    Value<String?>? selectedPrinterId,
+    Value<String?>? printerConnectionType,
+    Value<String?>? printerDisplayName,
+    Value<int>? updatedAtMs,
+  }) {
+    return ReceiptSettingsCompanion(
+      singletonId: singletonId ?? this.singletonId,
+      businessDisplayName: businessDisplayName ?? this.businessDisplayName,
+      businessAddress: businessAddress ?? this.businessAddress,
+      businessPhone: businessPhone ?? this.businessPhone,
+      taxRegistrationId: taxRegistrationId ?? this.taxRegistrationId,
+      headerText: headerText ?? this.headerText,
+      footerText: footerText ?? this.footerText,
+      currencyDisplay: currencyDisplay ?? this.currencyDisplay,
+      invoicePrefix: invoicePrefix ?? this.invoicePrefix,
+      invoiceSequenceStart: invoiceSequenceStart ?? this.invoiceSequenceStart,
+      paperWidthMm: paperWidthMm ?? this.paperWidthMm,
+      showLogo: showLogo ?? this.showLogo,
+      showCustomerDetails: showCustomerDetails ?? this.showCustomerDetails,
+      showPaymentBreakdown: showPaymentBreakdown ?? this.showPaymentBreakdown,
+      showItemSku: showItemSku ?? this.showItemSku,
+      defaultCopyCount: defaultCopyCount ?? this.defaultCopyCount,
+      selectedPrinterId: selectedPrinterId ?? this.selectedPrinterId,
+      printerConnectionType:
+          printerConnectionType ?? this.printerConnectionType,
+      printerDisplayName: printerDisplayName ?? this.printerDisplayName,
+      updatedAtMs: updatedAtMs ?? this.updatedAtMs,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (singletonId.present) {
+      map['singleton_id'] = Variable<int>(singletonId.value);
+    }
+    if (businessDisplayName.present) {
+      map['business_display_name'] = Variable<String>(
+        businessDisplayName.value,
+      );
+    }
+    if (businessAddress.present) {
+      map['business_address'] = Variable<String>(businessAddress.value);
+    }
+    if (businessPhone.present) {
+      map['business_phone'] = Variable<String>(businessPhone.value);
+    }
+    if (taxRegistrationId.present) {
+      map['tax_registration_id'] = Variable<String>(taxRegistrationId.value);
+    }
+    if (headerText.present) {
+      map['header_text'] = Variable<String>(headerText.value);
+    }
+    if (footerText.present) {
+      map['footer_text'] = Variable<String>(footerText.value);
+    }
+    if (currencyDisplay.present) {
+      map['currency_display'] = Variable<String>(currencyDisplay.value);
+    }
+    if (invoicePrefix.present) {
+      map['invoice_prefix'] = Variable<String>(invoicePrefix.value);
+    }
+    if (invoiceSequenceStart.present) {
+      map['invoice_sequence_start'] = Variable<int>(invoiceSequenceStart.value);
+    }
+    if (paperWidthMm.present) {
+      map['paper_width_mm'] = Variable<int>(paperWidthMm.value);
+    }
+    if (showLogo.present) {
+      map['show_logo'] = Variable<bool>(showLogo.value);
+    }
+    if (showCustomerDetails.present) {
+      map['show_customer_details'] = Variable<bool>(showCustomerDetails.value);
+    }
+    if (showPaymentBreakdown.present) {
+      map['show_payment_breakdown'] = Variable<bool>(
+        showPaymentBreakdown.value,
+      );
+    }
+    if (showItemSku.present) {
+      map['show_item_sku'] = Variable<bool>(showItemSku.value);
+    }
+    if (defaultCopyCount.present) {
+      map['default_copy_count'] = Variable<int>(defaultCopyCount.value);
+    }
+    if (selectedPrinterId.present) {
+      map['selected_printer_id'] = Variable<String>(selectedPrinterId.value);
+    }
+    if (printerConnectionType.present) {
+      map['printer_connection_type'] = Variable<String>(
+        printerConnectionType.value,
+      );
+    }
+    if (printerDisplayName.present) {
+      map['printer_display_name'] = Variable<String>(printerDisplayName.value);
+    }
+    if (updatedAtMs.present) {
+      map['updated_at_ms'] = Variable<int>(updatedAtMs.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReceiptSettingsCompanion(')
+          ..write('singletonId: $singletonId, ')
+          ..write('businessDisplayName: $businessDisplayName, ')
+          ..write('businessAddress: $businessAddress, ')
+          ..write('businessPhone: $businessPhone, ')
+          ..write('taxRegistrationId: $taxRegistrationId, ')
+          ..write('headerText: $headerText, ')
+          ..write('footerText: $footerText, ')
+          ..write('currencyDisplay: $currencyDisplay, ')
+          ..write('invoicePrefix: $invoicePrefix, ')
+          ..write('invoiceSequenceStart: $invoiceSequenceStart, ')
+          ..write('paperWidthMm: $paperWidthMm, ')
+          ..write('showLogo: $showLogo, ')
+          ..write('showCustomerDetails: $showCustomerDetails, ')
+          ..write('showPaymentBreakdown: $showPaymentBreakdown, ')
+          ..write('showItemSku: $showItemSku, ')
+          ..write('defaultCopyCount: $defaultCopyCount, ')
+          ..write('selectedPrinterId: $selectedPrinterId, ')
+          ..write('printerConnectionType: $printerConnectionType, ')
+          ..write('printerDisplayName: $printerDisplayName, ')
+          ..write('updatedAtMs: $updatedAtMs')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $PrintAttemptsTable extends PrintAttempts
+    with TableInfo<$PrintAttemptsTable, PrintAttemptRow> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PrintAttemptsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String> id = GeneratedColumn<String>(
+    'id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _referenceTypeMeta = const VerificationMeta(
+    'referenceType',
+  );
+  @override
+  late final GeneratedColumn<String> referenceType = GeneratedColumn<String>(
+    'reference_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _referenceIdMeta = const VerificationMeta(
+    'referenceId',
+  );
+  @override
+  late final GeneratedColumn<String> referenceId = GeneratedColumn<String>(
+    'reference_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _documentNumberMeta = const VerificationMeta(
+    'documentNumber',
+  );
+  @override
+  late final GeneratedColumn<String> documentNumber = GeneratedColumn<String>(
+    'document_number',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _printerIdMeta = const VerificationMeta(
+    'printerId',
+  );
+  @override
+  late final GeneratedColumn<String> printerId = GeneratedColumn<String>(
+    'printer_id',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _paperWidthMmMeta = const VerificationMeta(
+    'paperWidthMm',
+  );
+  @override
+  late final GeneratedColumn<int> paperWidthMm = GeneratedColumn<int>(
+    'paper_width_mm',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _printTypeMeta = const VerificationMeta(
+    'printType',
+  );
+  @override
+  late final GeneratedColumn<String> printType = GeneratedColumn<String>(
+    'print_type',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _resultMeta = const VerificationMeta('result');
+  @override
+  late final GeneratedColumn<String> result = GeneratedColumn<String>(
+    'result',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _errorDetailMeta = const VerificationMeta(
+    'errorDetail',
+  );
+  @override
+  late final GeneratedColumn<String> errorDetail = GeneratedColumn<String>(
+    'error_detail',
+    aliasedName,
+    true,
+    type: DriftSqlType.string,
+    requiredDuringInsert: false,
+  );
+  static const VerificationMeta _createdAtMsMeta = const VerificationMeta(
+    'createdAtMs',
+  );
+  @override
+  late final GeneratedColumn<int> createdAtMs = GeneratedColumn<int>(
+    'created_at_ms',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    id,
+    referenceType,
+    referenceId,
+    documentNumber,
+    printerId,
+    paperWidthMm,
+    printType,
+    result,
+    errorDetail,
+    createdAtMs,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'print_attempts';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<PrintAttemptRow> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    } else if (isInserting) {
+      context.missing(_idMeta);
+    }
+    if (data.containsKey('reference_type')) {
+      context.handle(
+        _referenceTypeMeta,
+        referenceType.isAcceptableOrUnknown(
+          data['reference_type']!,
+          _referenceTypeMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_referenceTypeMeta);
+    }
+    if (data.containsKey('reference_id')) {
+      context.handle(
+        _referenceIdMeta,
+        referenceId.isAcceptableOrUnknown(
+          data['reference_id']!,
+          _referenceIdMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_referenceIdMeta);
+    }
+    if (data.containsKey('document_number')) {
+      context.handle(
+        _documentNumberMeta,
+        documentNumber.isAcceptableOrUnknown(
+          data['document_number']!,
+          _documentNumberMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_documentNumberMeta);
+    }
+    if (data.containsKey('printer_id')) {
+      context.handle(
+        _printerIdMeta,
+        printerId.isAcceptableOrUnknown(data['printer_id']!, _printerIdMeta),
+      );
+    }
+    if (data.containsKey('paper_width_mm')) {
+      context.handle(
+        _paperWidthMmMeta,
+        paperWidthMm.isAcceptableOrUnknown(
+          data['paper_width_mm']!,
+          _paperWidthMmMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_paperWidthMmMeta);
+    }
+    if (data.containsKey('print_type')) {
+      context.handle(
+        _printTypeMeta,
+        printType.isAcceptableOrUnknown(data['print_type']!, _printTypeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_printTypeMeta);
+    }
+    if (data.containsKey('result')) {
+      context.handle(
+        _resultMeta,
+        result.isAcceptableOrUnknown(data['result']!, _resultMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_resultMeta);
+    }
+    if (data.containsKey('error_detail')) {
+      context.handle(
+        _errorDetailMeta,
+        errorDetail.isAcceptableOrUnknown(
+          data['error_detail']!,
+          _errorDetailMeta,
+        ),
+      );
+    }
+    if (data.containsKey('created_at_ms')) {
+      context.handle(
+        _createdAtMsMeta,
+        createdAtMs.isAcceptableOrUnknown(
+          data['created_at_ms']!,
+          _createdAtMsMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_createdAtMsMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PrintAttemptRow map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PrintAttemptRow(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}id'],
+      )!,
+      referenceType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reference_type'],
+      )!,
+      referenceId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}reference_id'],
+      )!,
+      documentNumber: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}document_number'],
+      )!,
+      printerId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}printer_id'],
+      ),
+      paperWidthMm: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}paper_width_mm'],
+      )!,
+      printType: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}print_type'],
+      )!,
+      result: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}result'],
+      )!,
+      errorDetail: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}error_detail'],
+      ),
+      createdAtMs: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}created_at_ms'],
+      )!,
+    );
+  }
+
+  @override
+  $PrintAttemptsTable createAlias(String alias) {
+    return $PrintAttemptsTable(attachedDatabase, alias);
+  }
+}
+
+class PrintAttemptRow extends DataClass implements Insertable<PrintAttemptRow> {
+  final String id;
+  final String referenceType;
+  final String referenceId;
+  final String documentNumber;
+  final String? printerId;
+  final int paperWidthMm;
+  final String printType;
+  final String result;
+  final String? errorDetail;
+  final int createdAtMs;
+  const PrintAttemptRow({
+    required this.id,
+    required this.referenceType,
+    required this.referenceId,
+    required this.documentNumber,
+    this.printerId,
+    required this.paperWidthMm,
+    required this.printType,
+    required this.result,
+    this.errorDetail,
+    required this.createdAtMs,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['reference_type'] = Variable<String>(referenceType);
+    map['reference_id'] = Variable<String>(referenceId);
+    map['document_number'] = Variable<String>(documentNumber);
+    if (!nullToAbsent || printerId != null) {
+      map['printer_id'] = Variable<String>(printerId);
+    }
+    map['paper_width_mm'] = Variable<int>(paperWidthMm);
+    map['print_type'] = Variable<String>(printType);
+    map['result'] = Variable<String>(result);
+    if (!nullToAbsent || errorDetail != null) {
+      map['error_detail'] = Variable<String>(errorDetail);
+    }
+    map['created_at_ms'] = Variable<int>(createdAtMs);
+    return map;
+  }
+
+  PrintAttemptsCompanion toCompanion(bool nullToAbsent) {
+    return PrintAttemptsCompanion(
+      id: Value(id),
+      referenceType: Value(referenceType),
+      referenceId: Value(referenceId),
+      documentNumber: Value(documentNumber),
+      printerId: printerId == null && nullToAbsent
+          ? const Value.absent()
+          : Value(printerId),
+      paperWidthMm: Value(paperWidthMm),
+      printType: Value(printType),
+      result: Value(result),
+      errorDetail: errorDetail == null && nullToAbsent
+          ? const Value.absent()
+          : Value(errorDetail),
+      createdAtMs: Value(createdAtMs),
+    );
+  }
+
+  factory PrintAttemptRow.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PrintAttemptRow(
+      id: serializer.fromJson<String>(json['id']),
+      referenceType: serializer.fromJson<String>(json['referenceType']),
+      referenceId: serializer.fromJson<String>(json['referenceId']),
+      documentNumber: serializer.fromJson<String>(json['documentNumber']),
+      printerId: serializer.fromJson<String?>(json['printerId']),
+      paperWidthMm: serializer.fromJson<int>(json['paperWidthMm']),
+      printType: serializer.fromJson<String>(json['printType']),
+      result: serializer.fromJson<String>(json['result']),
+      errorDetail: serializer.fromJson<String?>(json['errorDetail']),
+      createdAtMs: serializer.fromJson<int>(json['createdAtMs']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'referenceType': serializer.toJson<String>(referenceType),
+      'referenceId': serializer.toJson<String>(referenceId),
+      'documentNumber': serializer.toJson<String>(documentNumber),
+      'printerId': serializer.toJson<String?>(printerId),
+      'paperWidthMm': serializer.toJson<int>(paperWidthMm),
+      'printType': serializer.toJson<String>(printType),
+      'result': serializer.toJson<String>(result),
+      'errorDetail': serializer.toJson<String?>(errorDetail),
+      'createdAtMs': serializer.toJson<int>(createdAtMs),
+    };
+  }
+
+  PrintAttemptRow copyWith({
+    String? id,
+    String? referenceType,
+    String? referenceId,
+    String? documentNumber,
+    Value<String?> printerId = const Value.absent(),
+    int? paperWidthMm,
+    String? printType,
+    String? result,
+    Value<String?> errorDetail = const Value.absent(),
+    int? createdAtMs,
+  }) => PrintAttemptRow(
+    id: id ?? this.id,
+    referenceType: referenceType ?? this.referenceType,
+    referenceId: referenceId ?? this.referenceId,
+    documentNumber: documentNumber ?? this.documentNumber,
+    printerId: printerId.present ? printerId.value : this.printerId,
+    paperWidthMm: paperWidthMm ?? this.paperWidthMm,
+    printType: printType ?? this.printType,
+    result: result ?? this.result,
+    errorDetail: errorDetail.present ? errorDetail.value : this.errorDetail,
+    createdAtMs: createdAtMs ?? this.createdAtMs,
+  );
+  PrintAttemptRow copyWithCompanion(PrintAttemptsCompanion data) {
+    return PrintAttemptRow(
+      id: data.id.present ? data.id.value : this.id,
+      referenceType: data.referenceType.present
+          ? data.referenceType.value
+          : this.referenceType,
+      referenceId: data.referenceId.present
+          ? data.referenceId.value
+          : this.referenceId,
+      documentNumber: data.documentNumber.present
+          ? data.documentNumber.value
+          : this.documentNumber,
+      printerId: data.printerId.present ? data.printerId.value : this.printerId,
+      paperWidthMm: data.paperWidthMm.present
+          ? data.paperWidthMm.value
+          : this.paperWidthMm,
+      printType: data.printType.present ? data.printType.value : this.printType,
+      result: data.result.present ? data.result.value : this.result,
+      errorDetail: data.errorDetail.present
+          ? data.errorDetail.value
+          : this.errorDetail,
+      createdAtMs: data.createdAtMs.present
+          ? data.createdAtMs.value
+          : this.createdAtMs,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PrintAttemptRow(')
+          ..write('id: $id, ')
+          ..write('referenceType: $referenceType, ')
+          ..write('referenceId: $referenceId, ')
+          ..write('documentNumber: $documentNumber, ')
+          ..write('printerId: $printerId, ')
+          ..write('paperWidthMm: $paperWidthMm, ')
+          ..write('printType: $printType, ')
+          ..write('result: $result, ')
+          ..write('errorDetail: $errorDetail, ')
+          ..write('createdAtMs: $createdAtMs')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    id,
+    referenceType,
+    referenceId,
+    documentNumber,
+    printerId,
+    paperWidthMm,
+    printType,
+    result,
+    errorDetail,
+    createdAtMs,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PrintAttemptRow &&
+          other.id == this.id &&
+          other.referenceType == this.referenceType &&
+          other.referenceId == this.referenceId &&
+          other.documentNumber == this.documentNumber &&
+          other.printerId == this.printerId &&
+          other.paperWidthMm == this.paperWidthMm &&
+          other.printType == this.printType &&
+          other.result == this.result &&
+          other.errorDetail == this.errorDetail &&
+          other.createdAtMs == this.createdAtMs);
+}
+
+class PrintAttemptsCompanion extends UpdateCompanion<PrintAttemptRow> {
+  final Value<String> id;
+  final Value<String> referenceType;
+  final Value<String> referenceId;
+  final Value<String> documentNumber;
+  final Value<String?> printerId;
+  final Value<int> paperWidthMm;
+  final Value<String> printType;
+  final Value<String> result;
+  final Value<String?> errorDetail;
+  final Value<int> createdAtMs;
+  final Value<int> rowid;
+  const PrintAttemptsCompanion({
+    this.id = const Value.absent(),
+    this.referenceType = const Value.absent(),
+    this.referenceId = const Value.absent(),
+    this.documentNumber = const Value.absent(),
+    this.printerId = const Value.absent(),
+    this.paperWidthMm = const Value.absent(),
+    this.printType = const Value.absent(),
+    this.result = const Value.absent(),
+    this.errorDetail = const Value.absent(),
+    this.createdAtMs = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  PrintAttemptsCompanion.insert({
+    required String id,
+    required String referenceType,
+    required String referenceId,
+    required String documentNumber,
+    this.printerId = const Value.absent(),
+    required int paperWidthMm,
+    required String printType,
+    required String result,
+    this.errorDetail = const Value.absent(),
+    required int createdAtMs,
+    this.rowid = const Value.absent(),
+  }) : id = Value(id),
+       referenceType = Value(referenceType),
+       referenceId = Value(referenceId),
+       documentNumber = Value(documentNumber),
+       paperWidthMm = Value(paperWidthMm),
+       printType = Value(printType),
+       result = Value(result),
+       createdAtMs = Value(createdAtMs);
+  static Insertable<PrintAttemptRow> custom({
+    Expression<String>? id,
+    Expression<String>? referenceType,
+    Expression<String>? referenceId,
+    Expression<String>? documentNumber,
+    Expression<String>? printerId,
+    Expression<int>? paperWidthMm,
+    Expression<String>? printType,
+    Expression<String>? result,
+    Expression<String>? errorDetail,
+    Expression<int>? createdAtMs,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (referenceType != null) 'reference_type': referenceType,
+      if (referenceId != null) 'reference_id': referenceId,
+      if (documentNumber != null) 'document_number': documentNumber,
+      if (printerId != null) 'printer_id': printerId,
+      if (paperWidthMm != null) 'paper_width_mm': paperWidthMm,
+      if (printType != null) 'print_type': printType,
+      if (result != null) 'result': result,
+      if (errorDetail != null) 'error_detail': errorDetail,
+      if (createdAtMs != null) 'created_at_ms': createdAtMs,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  PrintAttemptsCompanion copyWith({
+    Value<String>? id,
+    Value<String>? referenceType,
+    Value<String>? referenceId,
+    Value<String>? documentNumber,
+    Value<String?>? printerId,
+    Value<int>? paperWidthMm,
+    Value<String>? printType,
+    Value<String>? result,
+    Value<String?>? errorDetail,
+    Value<int>? createdAtMs,
+    Value<int>? rowid,
+  }) {
+    return PrintAttemptsCompanion(
+      id: id ?? this.id,
+      referenceType: referenceType ?? this.referenceType,
+      referenceId: referenceId ?? this.referenceId,
+      documentNumber: documentNumber ?? this.documentNumber,
+      printerId: printerId ?? this.printerId,
+      paperWidthMm: paperWidthMm ?? this.paperWidthMm,
+      printType: printType ?? this.printType,
+      result: result ?? this.result,
+      errorDetail: errorDetail ?? this.errorDetail,
+      createdAtMs: createdAtMs ?? this.createdAtMs,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (referenceType.present) {
+      map['reference_type'] = Variable<String>(referenceType.value);
+    }
+    if (referenceId.present) {
+      map['reference_id'] = Variable<String>(referenceId.value);
+    }
+    if (documentNumber.present) {
+      map['document_number'] = Variable<String>(documentNumber.value);
+    }
+    if (printerId.present) {
+      map['printer_id'] = Variable<String>(printerId.value);
+    }
+    if (paperWidthMm.present) {
+      map['paper_width_mm'] = Variable<int>(paperWidthMm.value);
+    }
+    if (printType.present) {
+      map['print_type'] = Variable<String>(printType.value);
+    }
+    if (result.present) {
+      map['result'] = Variable<String>(result.value);
+    }
+    if (errorDetail.present) {
+      map['error_detail'] = Variable<String>(errorDetail.value);
+    }
+    if (createdAtMs.present) {
+      map['created_at_ms'] = Variable<int>(createdAtMs.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PrintAttemptsCompanion(')
+          ..write('id: $id, ')
+          ..write('referenceType: $referenceType, ')
+          ..write('referenceId: $referenceId, ')
+          ..write('documentNumber: $documentNumber, ')
+          ..write('printerId: $printerId, ')
+          ..write('paperWidthMm: $paperWidthMm, ')
+          ..write('printType: $printType, ')
+          ..write('result: $result, ')
+          ..write('errorDetail: $errorDetail, ')
+          ..write('createdAtMs: $createdAtMs, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -18497,6 +20409,10 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $SaleReturnItemsTable saleReturnItems = $SaleReturnItemsTable(
     this,
   );
+  late final $ReceiptSettingsTable receiptSettings = $ReceiptSettingsTable(
+    this,
+  );
+  late final $PrintAttemptsTable printAttempts = $PrintAttemptsTable(this);
   late final Index syncOpsStatusCreated = Index(
     'sync_ops_status_created',
     'CREATE INDEX sync_ops_status_created ON sync_operations (status, created_at_ms)',
@@ -18559,6 +20475,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     customerLedgerEntries,
     saleReturns,
     saleReturnItems,
+    receiptSettings,
+    printAttempts,
     syncOpsStatusCreated,
     syncOpsEntity,
     syncOpsDependsOn,
@@ -30344,6 +32262,7 @@ typedef $$CustomersTableProcessedTableManager =
 typedef $$SalesTableCreateCompanionBuilder = SalesCompanion Function({
   required String id,
   required String saleNumber,
+  Value<String?> invoiceNumber,
   Value<String?> customerId,
   Value<String?> customerNameSnapshot,
   required String status,
@@ -30363,6 +32282,7 @@ typedef $$SalesTableCreateCompanionBuilder = SalesCompanion Function({
 typedef $$SalesTableUpdateCompanionBuilder = SalesCompanion Function({
   Value<String> id,
   Value<String> saleNumber,
+  Value<String?> invoiceNumber,
   Value<String?> customerId,
   Value<String?> customerNameSnapshot,
   Value<String> status,
@@ -30471,6 +32391,11 @@ class $$SalesTableFilterComposer extends Composer<_$AppDatabase, $SalesTable> {
 
   ColumnFilters<String> get saleNumber => $composableBuilder(
     column: $table.saleNumber,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get invoiceNumber => $composableBuilder(
+    column: $table.invoiceNumber,
     builder: (column) => ColumnFilters(column),
   );
 
@@ -30657,6 +32582,11 @@ class $$SalesTableOrderingComposer
     builder: (column) => ColumnOrderings(column),
   );
 
+  ColumnOrderings<String> get invoiceNumber => $composableBuilder(
+    column: $table.invoiceNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+
   ColumnOrderings<String> get customerNameSnapshot => $composableBuilder(
     column: $table.customerNameSnapshot,
     builder: (column) => ColumnOrderings(column),
@@ -30760,6 +32690,11 @@ class $$SalesTableAnnotationComposer
 
   GeneratedColumn<String> get saleNumber => $composableBuilder(
     column: $table.saleNumber,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get invoiceNumber => $composableBuilder(
+    column: $table.invoiceNumber,
     builder: (column) => column,
   );
 
@@ -30958,6 +32893,7 @@ class $$SalesTableTableManager
               ({
                 Value<String> id = const Value.absent(),
                 Value<String> saleNumber = const Value.absent(),
+                Value<String?> invoiceNumber = const Value.absent(),
                 Value<String?> customerId = const Value.absent(),
                 Value<String?> customerNameSnapshot = const Value.absent(),
                 Value<String> status = const Value.absent(),
@@ -30976,6 +32912,7 @@ class $$SalesTableTableManager
               }) => SalesCompanion(
                 id: id,
                 saleNumber: saleNumber,
+                invoiceNumber: invoiceNumber,
                 customerId: customerId,
                 customerNameSnapshot: customerNameSnapshot,
                 status: status,
@@ -30996,6 +32933,7 @@ class $$SalesTableTableManager
               ({
                 required String id,
                 required String saleNumber,
+                Value<String?> invoiceNumber = const Value.absent(),
                 Value<String?> customerId = const Value.absent(),
                 Value<String?> customerNameSnapshot = const Value.absent(),
                 required String status,
@@ -31014,6 +32952,7 @@ class $$SalesTableTableManager
               }) => SalesCompanion.insert(
                 id: id,
                 saleNumber: saleNumber,
+                invoiceNumber: invoiceNumber,
                 customerId: customerId,
                 customerNameSnapshot: customerNameSnapshot,
                 status: status,
@@ -33852,6 +35791,858 @@ typedef $$SaleReturnItemsTableProcessedTableManager =
         bool productId,
       })
     >;
+typedef $$ReceiptSettingsTableCreateCompanionBuilder =
+    ReceiptSettingsCompanion Function({
+      Value<int> singletonId,
+      Value<String?> businessDisplayName,
+      Value<String?> businessAddress,
+      Value<String?> businessPhone,
+      Value<String?> taxRegistrationId,
+      Value<String?> headerText,
+      Value<String?> footerText,
+      Value<String> currencyDisplay,
+      Value<String> invoicePrefix,
+      Value<int> invoiceSequenceStart,
+      Value<int> paperWidthMm,
+      Value<bool> showLogo,
+      Value<bool> showCustomerDetails,
+      Value<bool> showPaymentBreakdown,
+      Value<bool> showItemSku,
+      Value<int> defaultCopyCount,
+      Value<String?> selectedPrinterId,
+      Value<String?> printerConnectionType,
+      Value<String?> printerDisplayName,
+      required int updatedAtMs,
+    });
+typedef $$ReceiptSettingsTableUpdateCompanionBuilder =
+    ReceiptSettingsCompanion Function({
+      Value<int> singletonId,
+      Value<String?> businessDisplayName,
+      Value<String?> businessAddress,
+      Value<String?> businessPhone,
+      Value<String?> taxRegistrationId,
+      Value<String?> headerText,
+      Value<String?> footerText,
+      Value<String> currencyDisplay,
+      Value<String> invoicePrefix,
+      Value<int> invoiceSequenceStart,
+      Value<int> paperWidthMm,
+      Value<bool> showLogo,
+      Value<bool> showCustomerDetails,
+      Value<bool> showPaymentBreakdown,
+      Value<bool> showItemSku,
+      Value<int> defaultCopyCount,
+      Value<String?> selectedPrinterId,
+      Value<String?> printerConnectionType,
+      Value<String?> printerDisplayName,
+      Value<int> updatedAtMs,
+    });
+
+class $$ReceiptSettingsTableFilterComposer
+    extends Composer<_$AppDatabase, $ReceiptSettingsTable> {
+  $$ReceiptSettingsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get singletonId => $composableBuilder(
+    column: $table.singletonId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get businessDisplayName => $composableBuilder(
+    column: $table.businessDisplayName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get businessAddress => $composableBuilder(
+    column: $table.businessAddress,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get businessPhone => $composableBuilder(
+    column: $table.businessPhone,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get taxRegistrationId => $composableBuilder(
+    column: $table.taxRegistrationId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get headerText => $composableBuilder(
+    column: $table.headerText,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get footerText => $composableBuilder(
+    column: $table.footerText,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get currencyDisplay => $composableBuilder(
+    column: $table.currencyDisplay,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get invoicePrefix => $composableBuilder(
+    column: $table.invoicePrefix,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get invoiceSequenceStart => $composableBuilder(
+    column: $table.invoiceSequenceStart,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get paperWidthMm => $composableBuilder(
+    column: $table.paperWidthMm,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get showLogo => $composableBuilder(
+    column: $table.showLogo,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get showCustomerDetails => $composableBuilder(
+    column: $table.showCustomerDetails,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get showPaymentBreakdown => $composableBuilder(
+    column: $table.showPaymentBreakdown,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<bool> get showItemSku => $composableBuilder(
+    column: $table.showItemSku,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get defaultCopyCount => $composableBuilder(
+    column: $table.defaultCopyCount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get selectedPrinterId => $composableBuilder(
+    column: $table.selectedPrinterId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get printerConnectionType => $composableBuilder(
+    column: $table.printerConnectionType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get printerDisplayName => $composableBuilder(
+    column: $table.printerDisplayName,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$ReceiptSettingsTableOrderingComposer
+    extends Composer<_$AppDatabase, $ReceiptSettingsTable> {
+  $$ReceiptSettingsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get singletonId => $composableBuilder(
+    column: $table.singletonId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get businessDisplayName => $composableBuilder(
+    column: $table.businessDisplayName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get businessAddress => $composableBuilder(
+    column: $table.businessAddress,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get businessPhone => $composableBuilder(
+    column: $table.businessPhone,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get taxRegistrationId => $composableBuilder(
+    column: $table.taxRegistrationId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get headerText => $composableBuilder(
+    column: $table.headerText,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get footerText => $composableBuilder(
+    column: $table.footerText,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get currencyDisplay => $composableBuilder(
+    column: $table.currencyDisplay,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get invoicePrefix => $composableBuilder(
+    column: $table.invoicePrefix,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get invoiceSequenceStart => $composableBuilder(
+    column: $table.invoiceSequenceStart,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get paperWidthMm => $composableBuilder(
+    column: $table.paperWidthMm,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get showLogo => $composableBuilder(
+    column: $table.showLogo,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get showCustomerDetails => $composableBuilder(
+    column: $table.showCustomerDetails,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get showPaymentBreakdown => $composableBuilder(
+    column: $table.showPaymentBreakdown,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<bool> get showItemSku => $composableBuilder(
+    column: $table.showItemSku,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get defaultCopyCount => $composableBuilder(
+    column: $table.defaultCopyCount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get selectedPrinterId => $composableBuilder(
+    column: $table.selectedPrinterId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get printerConnectionType => $composableBuilder(
+    column: $table.printerConnectionType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get printerDisplayName => $composableBuilder(
+    column: $table.printerDisplayName,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ReceiptSettingsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ReceiptSettingsTable> {
+  $$ReceiptSettingsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get singletonId => $composableBuilder(
+    column: $table.singletonId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get businessDisplayName => $composableBuilder(
+    column: $table.businessDisplayName,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get businessAddress => $composableBuilder(
+    column: $table.businessAddress,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get businessPhone => $composableBuilder(
+    column: $table.businessPhone,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get taxRegistrationId => $composableBuilder(
+    column: $table.taxRegistrationId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get headerText => $composableBuilder(
+    column: $table.headerText,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get footerText => $composableBuilder(
+    column: $table.footerText,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get currencyDisplay => $composableBuilder(
+    column: $table.currencyDisplay,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get invoicePrefix => $composableBuilder(
+    column: $table.invoicePrefix,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get invoiceSequenceStart => $composableBuilder(
+    column: $table.invoiceSequenceStart,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get paperWidthMm => $composableBuilder(
+    column: $table.paperWidthMm,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get showLogo =>
+      $composableBuilder(column: $table.showLogo, builder: (column) => column);
+
+  GeneratedColumn<bool> get showCustomerDetails => $composableBuilder(
+    column: $table.showCustomerDetails,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get showPaymentBreakdown => $composableBuilder(
+    column: $table.showPaymentBreakdown,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<bool> get showItemSku => $composableBuilder(
+    column: $table.showItemSku,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get defaultCopyCount => $composableBuilder(
+    column: $table.defaultCopyCount,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get selectedPrinterId => $composableBuilder(
+    column: $table.selectedPrinterId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get printerConnectionType => $composableBuilder(
+    column: $table.printerConnectionType,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get printerDisplayName => $composableBuilder(
+    column: $table.printerDisplayName,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get updatedAtMs => $composableBuilder(
+    column: $table.updatedAtMs,
+    builder: (column) => column,
+  );
+}
+
+class $$ReceiptSettingsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ReceiptSettingsTable,
+          ReceiptSettingsRow,
+          $$ReceiptSettingsTableFilterComposer,
+          $$ReceiptSettingsTableOrderingComposer,
+          $$ReceiptSettingsTableAnnotationComposer,
+          $$ReceiptSettingsTableCreateCompanionBuilder,
+          $$ReceiptSettingsTableUpdateCompanionBuilder,
+          (
+            ReceiptSettingsRow,
+            BaseReferences<
+              _$AppDatabase,
+              $ReceiptSettingsTable,
+              ReceiptSettingsRow
+            >,
+          ),
+          ReceiptSettingsRow,
+          PrefetchHooks Function()
+        > {
+  $$ReceiptSettingsTableTableManager(
+    _$AppDatabase db,
+    $ReceiptSettingsTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ReceiptSettingsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ReceiptSettingsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ReceiptSettingsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<int> singletonId = const Value.absent(),
+                Value<String?> businessDisplayName = const Value.absent(),
+                Value<String?> businessAddress = const Value.absent(),
+                Value<String?> businessPhone = const Value.absent(),
+                Value<String?> taxRegistrationId = const Value.absent(),
+                Value<String?> headerText = const Value.absent(),
+                Value<String?> footerText = const Value.absent(),
+                Value<String> currencyDisplay = const Value.absent(),
+                Value<String> invoicePrefix = const Value.absent(),
+                Value<int> invoiceSequenceStart = const Value.absent(),
+                Value<int> paperWidthMm = const Value.absent(),
+                Value<bool> showLogo = const Value.absent(),
+                Value<bool> showCustomerDetails = const Value.absent(),
+                Value<bool> showPaymentBreakdown = const Value.absent(),
+                Value<bool> showItemSku = const Value.absent(),
+                Value<int> defaultCopyCount = const Value.absent(),
+                Value<String?> selectedPrinterId = const Value.absent(),
+                Value<String?> printerConnectionType = const Value.absent(),
+                Value<String?> printerDisplayName = const Value.absent(),
+                Value<int> updatedAtMs = const Value.absent(),
+              }) => ReceiptSettingsCompanion(
+                singletonId: singletonId,
+                businessDisplayName: businessDisplayName,
+                businessAddress: businessAddress,
+                businessPhone: businessPhone,
+                taxRegistrationId: taxRegistrationId,
+                headerText: headerText,
+                footerText: footerText,
+                currencyDisplay: currencyDisplay,
+                invoicePrefix: invoicePrefix,
+                invoiceSequenceStart: invoiceSequenceStart,
+                paperWidthMm: paperWidthMm,
+                showLogo: showLogo,
+                showCustomerDetails: showCustomerDetails,
+                showPaymentBreakdown: showPaymentBreakdown,
+                showItemSku: showItemSku,
+                defaultCopyCount: defaultCopyCount,
+                selectedPrinterId: selectedPrinterId,
+                printerConnectionType: printerConnectionType,
+                printerDisplayName: printerDisplayName,
+                updatedAtMs: updatedAtMs,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> singletonId = const Value.absent(),
+                Value<String?> businessDisplayName = const Value.absent(),
+                Value<String?> businessAddress = const Value.absent(),
+                Value<String?> businessPhone = const Value.absent(),
+                Value<String?> taxRegistrationId = const Value.absent(),
+                Value<String?> headerText = const Value.absent(),
+                Value<String?> footerText = const Value.absent(),
+                Value<String> currencyDisplay = const Value.absent(),
+                Value<String> invoicePrefix = const Value.absent(),
+                Value<int> invoiceSequenceStart = const Value.absent(),
+                Value<int> paperWidthMm = const Value.absent(),
+                Value<bool> showLogo = const Value.absent(),
+                Value<bool> showCustomerDetails = const Value.absent(),
+                Value<bool> showPaymentBreakdown = const Value.absent(),
+                Value<bool> showItemSku = const Value.absent(),
+                Value<int> defaultCopyCount = const Value.absent(),
+                Value<String?> selectedPrinterId = const Value.absent(),
+                Value<String?> printerConnectionType = const Value.absent(),
+                Value<String?> printerDisplayName = const Value.absent(),
+                required int updatedAtMs,
+              }) => ReceiptSettingsCompanion.insert(
+                singletonId: singletonId,
+                businessDisplayName: businessDisplayName,
+                businessAddress: businessAddress,
+                businessPhone: businessPhone,
+                taxRegistrationId: taxRegistrationId,
+                headerText: headerText,
+                footerText: footerText,
+                currencyDisplay: currencyDisplay,
+                invoicePrefix: invoicePrefix,
+                invoiceSequenceStart: invoiceSequenceStart,
+                paperWidthMm: paperWidthMm,
+                showLogo: showLogo,
+                showCustomerDetails: showCustomerDetails,
+                showPaymentBreakdown: showPaymentBreakdown,
+                showItemSku: showItemSku,
+                defaultCopyCount: defaultCopyCount,
+                selectedPrinterId: selectedPrinterId,
+                printerConnectionType: printerConnectionType,
+                printerDisplayName: printerDisplayName,
+                updatedAtMs: updatedAtMs,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$ReceiptSettingsTable, ReceiptSettingsRow>(table),
+                  BaseReferences<
+                    _$AppDatabase,
+                    $ReceiptSettingsTable,
+                    ReceiptSettingsRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ReceiptSettingsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ReceiptSettingsTable,
+      ReceiptSettingsRow,
+      $$ReceiptSettingsTableFilterComposer,
+      $$ReceiptSettingsTableOrderingComposer,
+      $$ReceiptSettingsTableAnnotationComposer,
+      $$ReceiptSettingsTableCreateCompanionBuilder,
+      $$ReceiptSettingsTableUpdateCompanionBuilder,
+      (
+        ReceiptSettingsRow,
+        BaseReferences<
+          _$AppDatabase,
+          $ReceiptSettingsTable,
+          ReceiptSettingsRow
+        >,
+      ),
+      ReceiptSettingsRow,
+      PrefetchHooks Function()
+    >;
+typedef $$PrintAttemptsTableCreateCompanionBuilder =
+    PrintAttemptsCompanion Function({
+      required String id,
+      required String referenceType,
+      required String referenceId,
+      required String documentNumber,
+      Value<String?> printerId,
+      required int paperWidthMm,
+      required String printType,
+      required String result,
+      Value<String?> errorDetail,
+      required int createdAtMs,
+      Value<int> rowid,
+    });
+typedef $$PrintAttemptsTableUpdateCompanionBuilder =
+    PrintAttemptsCompanion Function({
+      Value<String> id,
+      Value<String> referenceType,
+      Value<String> referenceId,
+      Value<String> documentNumber,
+      Value<String?> printerId,
+      Value<int> paperWidthMm,
+      Value<String> printType,
+      Value<String> result,
+      Value<String?> errorDetail,
+      Value<int> createdAtMs,
+      Value<int> rowid,
+    });
+
+class $$PrintAttemptsTableFilterComposer
+    extends Composer<_$AppDatabase, $PrintAttemptsTable> {
+  $$PrintAttemptsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get referenceType => $composableBuilder(
+    column: $table.referenceType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get referenceId => $composableBuilder(
+    column: $table.referenceId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get documentNumber => $composableBuilder(
+    column: $table.documentNumber,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get printerId => $composableBuilder(
+    column: $table.printerId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get paperWidthMm => $composableBuilder(
+    column: $table.paperWidthMm,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get printType => $composableBuilder(
+    column: $table.printType,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get result => $composableBuilder(
+    column: $table.result,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get errorDetail => $composableBuilder(
+    column: $table.errorDetail,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$PrintAttemptsTableOrderingComposer
+    extends Composer<_$AppDatabase, $PrintAttemptsTable> {
+  $$PrintAttemptsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get referenceType => $composableBuilder(
+    column: $table.referenceType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get referenceId => $composableBuilder(
+    column: $table.referenceId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get documentNumber => $composableBuilder(
+    column: $table.documentNumber,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get printerId => $composableBuilder(
+    column: $table.printerId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get paperWidthMm => $composableBuilder(
+    column: $table.paperWidthMm,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get printType => $composableBuilder(
+    column: $table.printType,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get result => $composableBuilder(
+    column: $table.result,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get errorDetail => $composableBuilder(
+    column: $table.errorDetail,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$PrintAttemptsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PrintAttemptsTable> {
+  $$PrintAttemptsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get referenceType => $composableBuilder(
+    column: $table.referenceType,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get referenceId => $composableBuilder(
+    column: $table.referenceId,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get documentNumber => $composableBuilder(
+    column: $table.documentNumber,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get printerId =>
+      $composableBuilder(column: $table.printerId, builder: (column) => column);
+
+  GeneratedColumn<int> get paperWidthMm => $composableBuilder(
+    column: $table.paperWidthMm,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<String> get printType =>
+      $composableBuilder(column: $table.printType, builder: (column) => column);
+
+  GeneratedColumn<String> get result =>
+      $composableBuilder(column: $table.result, builder: (column) => column);
+
+  GeneratedColumn<String> get errorDetail => $composableBuilder(
+    column: $table.errorDetail,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get createdAtMs => $composableBuilder(
+    column: $table.createdAtMs,
+    builder: (column) => column,
+  );
+}
+
+class $$PrintAttemptsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $PrintAttemptsTable,
+          PrintAttemptRow,
+          $$PrintAttemptsTableFilterComposer,
+          $$PrintAttemptsTableOrderingComposer,
+          $$PrintAttemptsTableAnnotationComposer,
+          $$PrintAttemptsTableCreateCompanionBuilder,
+          $$PrintAttemptsTableUpdateCompanionBuilder,
+          (
+            PrintAttemptRow,
+            BaseReferences<_$AppDatabase, $PrintAttemptsTable, PrintAttemptRow>,
+          ),
+          PrintAttemptRow,
+          PrefetchHooks Function()
+        > {
+  $$PrintAttemptsTableTableManager(_$AppDatabase db, $PrintAttemptsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PrintAttemptsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PrintAttemptsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PrintAttemptsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> id = const Value.absent(),
+                Value<String> referenceType = const Value.absent(),
+                Value<String> referenceId = const Value.absent(),
+                Value<String> documentNumber = const Value.absent(),
+                Value<String?> printerId = const Value.absent(),
+                Value<int> paperWidthMm = const Value.absent(),
+                Value<String> printType = const Value.absent(),
+                Value<String> result = const Value.absent(),
+                Value<String?> errorDetail = const Value.absent(),
+                Value<int> createdAtMs = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => PrintAttemptsCompanion(
+                id: id,
+                referenceType: referenceType,
+                referenceId: referenceId,
+                documentNumber: documentNumber,
+                printerId: printerId,
+                paperWidthMm: paperWidthMm,
+                printType: printType,
+                result: result,
+                errorDetail: errorDetail,
+                createdAtMs: createdAtMs,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String id,
+                required String referenceType,
+                required String referenceId,
+                required String documentNumber,
+                Value<String?> printerId = const Value.absent(),
+                required int paperWidthMm,
+                required String printType,
+                required String result,
+                Value<String?> errorDetail = const Value.absent(),
+                required int createdAtMs,
+                Value<int> rowid = const Value.absent(),
+              }) => PrintAttemptsCompanion.insert(
+                id: id,
+                referenceType: referenceType,
+                referenceId: referenceId,
+                documentNumber: documentNumber,
+                printerId: printerId,
+                paperWidthMm: paperWidthMm,
+                printType: printType,
+                result: result,
+                errorDetail: errorDetail,
+                createdAtMs: createdAtMs,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map(
+                (e) => (
+                  e.readTable<$PrintAttemptsTable, PrintAttemptRow>(table),
+                  BaseReferences<
+                    _$AppDatabase,
+                    $PrintAttemptsTable,
+                    PrintAttemptRow
+                  >(db, table, e),
+                ),
+              )
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$PrintAttemptsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $PrintAttemptsTable,
+      PrintAttemptRow,
+      $$PrintAttemptsTableFilterComposer,
+      $$PrintAttemptsTableOrderingComposer,
+      $$PrintAttemptsTableAnnotationComposer,
+      $$PrintAttemptsTableCreateCompanionBuilder,
+      $$PrintAttemptsTableUpdateCompanionBuilder,
+      (
+        PrintAttemptRow,
+        BaseReferences<_$AppDatabase, $PrintAttemptsTable, PrintAttemptRow>,
+      ),
+      PrintAttemptRow,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -33914,4 +36705,8 @@ class $AppDatabaseManager {
       $$SaleReturnsTableTableManager(_db, _db.saleReturns);
   $$SaleReturnItemsTableTableManager get saleReturnItems =>
       $$SaleReturnItemsTableTableManager(_db, _db.saleReturnItems);
+  $$ReceiptSettingsTableTableManager get receiptSettings =>
+      $$ReceiptSettingsTableTableManager(_db, _db.receiptSettings);
+  $$PrintAttemptsTableTableManager get printAttempts =>
+      $$PrintAttemptsTableTableManager(_db, _db.printAttempts);
 }

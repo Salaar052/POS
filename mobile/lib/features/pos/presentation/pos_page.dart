@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pos_mobile/app/providers/database_providers.dart';
+import 'package:pos_mobile/app/providers/receipt_providers.dart';
 import 'package:pos_mobile/app/providers/sales_providers.dart';
+import 'package:pos_mobile/features/receipts/domain/receipt_enums.dart';
+import 'package:pos_mobile/features/receipts/presentation/receipt_print_actions.dart';
 import 'package:pos_mobile/app/theme/app_spacing.dart';
 import 'package:pos_mobile/data/repositories/inventory_repository.dart';
 import 'package:pos_mobile/data/repositories/sales_repository.dart';
@@ -186,7 +189,7 @@ class _PosBodyState extends ConsumerState<_PosBody>
     final checkoutKey = const Uuid().v4();
     final paymentKey = const Uuid().v4();
     try {
-      await ref
+      final completed = await ref
           .read(salesRepositoryProvider)
           .checkout(
             saleId: draft.id,
@@ -202,9 +205,16 @@ class _PosBodyState extends ConsumerState<_PosBody>
       if (!mounted) {
         return;
       }
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Sale completed')));
       await _bootstrapCart();
+      if (!context.mounted) {
+        return;
+      }
+      await promptPrintAfterCheckout(
+        context,
+        ref,
+        saleId: completed.id,
+        invoiceNumber: completed.invoiceNumber,
+      );
     } on SalesConflictException catch (e) {
       if (!mounted) {
         return;
@@ -523,9 +533,9 @@ class _SalesHistoryTabState extends ConsumerState<_SalesHistoryTab> {
       itemBuilder: (context, index) {
         final sale = _sales[index];
         return ListTile(
-          title: Text(sale.saleNumber),
+          title: Text(sale.invoiceNumber ?? sale.saleNumber),
           subtitle: Text(
-            '${sale.customerNameSnapshot ?? 'Walk-in'} · '
+            '${sale.saleNumber} · ${sale.customerNameSnapshot ?? 'Walk-in'} · '
             '${MoneyAmount.formatPkrFromMinor(sale.totalMinor)} PKR',
           ),
           onTap: () => _openDetail(sale),
@@ -536,20 +546,26 @@ class _SalesHistoryTabState extends ConsumerState<_SalesHistoryTab> {
 
   Future<void> _openDetail(SaleRow sale) async {
     final sales = ref.read(salesRepositoryProvider);
+    final data = ref.read(receiptDataServiceProvider);
     final items = await sales.listSaleItems(sale.id);
     final payments = await sales.listSalePayments(sale.id);
+    final returns = await data.listReturnsForSale(sale.id);
     if (!mounted) {
       return;
     }
     await showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(sale.saleNumber),
+        title: Text(sale.invoiceNumber ?? sale.saleNumber),
         content: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
+              Text('Order ${sale.saleNumber}'),
+              if (sale.invoiceNumber != null)
+                Text('Invoice ${sale.invoiceNumber}'),
+              const SizedBox(height: 8),
               ...items.map(
                 (i) => Text(
                   '${i.productNameSnapshot} × ${i.quantityBase} — '
@@ -562,6 +578,11 @@ class _SalesHistoryTabState extends ConsumerState<_SalesHistoryTab> {
                   'Paid ${MoneyAmount.formatPkrFromMinor(p.amountMinor)} PKR (${p.paymentMethod})',
                 ),
               ),
+              if (returns.isNotEmpty) ...[
+                const Divider(),
+                const Text('Returns'),
+                ...returns.map((r) => Text('${r.returnNumber} — ${r.reason}')),
+              ],
             ],
           ),
         ),
@@ -570,6 +591,26 @@ class _SalesHistoryTabState extends ConsumerState<_SalesHistoryTab> {
             onPressed: () => Navigator.pop(context),
             child: const Text('Close'),
           ),
+          TextButton(
+            onPressed: () async {
+              Navigator.pop(context);
+              await runSalePrint(
+                context,
+                ref,
+                saleId: sale.id,
+                printType: ReceiptPrintType.reprint,
+              );
+            },
+            child: const Text('Reprint receipt'),
+          ),
+          for (final r in returns)
+            TextButton(
+              onPressed: () async {
+                Navigator.pop(context);
+                await runReturnPrint(context, ref, saleReturnId: r.id);
+              },
+              child: Text('Print ${r.returnNumber}'),
+            ),
           if (items.any((i) => i.quantityReturnedBase < i.quantityBase))
             FilledButton(
               onPressed: () async {
